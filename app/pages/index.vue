@@ -1,725 +1,839 @@
 <template>
+  <!-- ===== 頁面主容器：控制整個寵物醫療系統介紹網站 ===== -->
   <div class="home-page">
-    <!-- ======== HERO SECTION ======== -->
-    <section class="hero">
-      <div class="hero-content">
-        <div class="container">
-          <p class="hero-eyebrow">🐾 寵物健康照護專家</p>
-          <h1 class="hero-title">專業寵物醫療服務</h1>
+    <!-- ===== HERO 首頁區塊：控制首頁主視覺與背景圖片 ===== -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <!-- ===== HERO 文字區塊：控制左側主標題、描述、按鈕 ===== -->
+        <article class="hero-content">
+          <p class="hero-eyebrow">寵物醫療院所專用管理系統</p>
+
+          <h1 class="hero-title">守護毛孩健康．建立安心信任</h1>
+
           <p class="hero-desc">
-            提供全方位的寵物醫療照護，從預防保健到疾病治療，我們承諾用心守護您最親密的家人
+            從預約、病歷、看診、收費到庫存與報表分析，<br />
+            PetCare提供完整的數位化管理工具，<br />
+            協助院所降低行政負擔，提升醫療服務品質。
           </p>
+
+          <!-- ===== HERO 按鈕區塊：控制主要行動按鈕與 icon ===== -->
           <div class="hero-actions">
-            <NuxtLink to="#services" class="btn btn-primary">
-              瞭解服務
+            <NuxtLink to="#features" class="btn btn-primary">
+              <span class="btn-icon" aria-hidden="true">▦</span>
+              <span>查看功能</span>
+              <span class="btn-arrow" aria-hidden="true">›</span>
             </NuxtLink>
-            <NuxtLink to="#contact" class="btn btn-outline">
-              預約掛號
+
+            <NuxtLink to="#pricing" class="btn btn-outline">
+              <span class="btn-icon" aria-hidden="true">◇</span>
+              <span>查看方案</span>
+              <span class="btn-arrow" aria-hidden="true">›</span>
             </NuxtLink>
           </div>
-        </div>
-      </div>
-      <div class="hero-image">
-        <img
-          src="https://images.unsplash.com/photo-1587300411107-ec4ea46e7f64?w=800&q=80"
-          alt="寵物醫療中心診間"
-          class="hero-img"
-        />
+        </article>
       </div>
     </section>
 
-    <!-- ======== 服務項目 ======== -->
-    <section class="services-section" id="services">
+    <!-- ===== 功能介紹區塊：控制系統核心功能卡片 ===== -->
+    <section class="features-section" id="features">
       <div class="container">
+        <!-- ===== 區塊標題：控制功能介紹標題與說明 ===== -->
         <header class="section-header">
-          <div class="divider"></div>
-          <h2 class="section-title">我們提供的服務</h2>
+          <p class="section-eyebrow">Features</p>
+          <h2 class="section-title">功能介紹</h2>
           <p class="section-desc">
-            完整的寵物醫療服務，滿足您愛寵在各個生命階段的健康需求
+            從前台掛號到後台營運分析，協助動物醫院完成數位化管理。
           </p>
         </header>
 
-        <ul class="services-grid grid grid-3" role="list">
-          <li class="service-card card">
-            <div class="service-icon">🏥</div>
-            <article class="card-body">
-              <h3>一般診療</h3>
-              <p>
-                提供內科、外科等一般門診服務，針對常見寵物疾病進行診斷與治療
-              </p>
-            </article>
+        <!-- ===== 功能卡片列表：控制所有系統功能 ===== -->
+        <ul class="features-grid" role="list">
+          <li class="feature-card">
+            <div class="feature-icon">📅</div>
+            <h3>預約掛號管理</h3>
+            <p>
+              支援現場掛號、線上預約、醫師班表與看診狀態管理，減少櫃台重複作業。
+            </p>
           </li>
 
-          <li class="service-card card">
-            <div class="service-icon">💉</div>
-            <article class="card-body">
-              <h3>預防保健</h3>
-              <p>
-                疫苗接種、寄生蟲防治、口腔保健等預防性醫療照護
-              </p>
-            </article>
+          <li class="feature-card">
+            <div class="feature-icon">📋</div>
+            <h3>電子病歷系統</h3>
+            <p>完整記錄寵物基本資料、病史、檢查紀錄、用藥紀錄與回診追蹤。</p>
           </li>
 
-          <li class="service-card card">
-            <div class="service-icon">✂️</div>
-            <article class="card-body">
-              <h3>外科手術</h3>
-              <p>
-                包含一般手術、骨科手術、軟組織手術等專業外科服務
-              </p>
-            </article>
+          <li class="feature-card">
+            <div class="feature-icon">💊</div>
+            <h3>藥品與庫存管理</h3>
+            <p>管理藥品、疫苗、耗材庫存，並提供低庫存提醒，降低缺貨風險。</p>
           </li>
 
-          <li class="service-card card">
-            <div class="service-icon">🔬</div>
-            <article class="card-body">
-              <h3>檢驗檢查</h3>
-              <p>
-                完整的血液檢驗、影像診斷（X光、超音波）等診斷工具
-              </p>
-            </article>
+          <li class="feature-card">
+            <div class="feature-icon">💳</div>
+            <h3>收費與結帳管理</h3>
+            <p>支援診療費、藥品費、檢驗費與商品費用整合結帳，帳務更清楚。</p>
           </li>
 
-          <li class="service-card card">
-            <div class="service-icon">🦷</div>
-            <article class="card-body">
-              <h3>牙科治療</h3>
-              <p>
-                專業的寵物牙科治療，包含洗牙、牙科手術等服務
-              </p>
-            </article>
+          <li class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>營運報表分析</h3>
+            <p>提供營收、看診量、熱門服務、庫存消耗等數據，協助經營決策。</p>
           </li>
 
-          <li class="service-card card">
-            <div class="service-icon">🏆</div>
-            <article class="card-body">
-              <h3>健康檢查</h3>
-              <p>
-                定期健康檢查計畫，及早發現潛在健康問題
-              </p>
-            </article>
+          <li class="feature-card">
+            <div class="feature-icon">🔐</div>
+            <h3>權限與帳號管理</h3>
+            <p>可依照院長、獸醫、櫃台、助理設定不同權限，保護重要資料安全。</p>
           </li>
         </ul>
       </div>
     </section>
 
-    <!-- ======== 醫療團隊 ======== -->
-    <section class="doctors-section bg-light" id="doctors">
-      <div class="container">
-        <header class="section-header">
-          <div class="divider"></div>
-          <h2 class="section-title">醫療團隊</h2>
-          <p class="section-desc">
-            由經驗豐富、充滿愛心的獸醫專家組成，致力於提供最優質的寵物醫療
+    <!-- ===== 系統優勢區塊：控制產品賣點說明 ===== -->
+    <section class="benefits-section">
+      <div class="container benefits-grid">
+        <!-- ===== 左側文字區塊：控制系統優勢描述 ===== -->
+        <article class="benefits-content">
+          <p class="section-eyebrow">Why Choose Us</p>
+          <h2 class="section-title">為什麼選擇 PetCare System？</h2>
+
+          <p class="benefits-desc">
+            我們不只是提供一套系統，而是協助動物醫院建立更穩定、更有效率的營運流程。
           </p>
-        </header>
 
-        <ul class="doctors-grid grid grid-3" role="list">
-          <li class="doctor-card card">
-            <img
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80"
-              alt="李獸醫"
-              class="doctor-avatar"
-            />
-            <article class="card-body">
-              <h3>李獸醫</h3>
-              <p class="doctor-title">院長・內科專科</p>
-              <p class="doctor-bio">
-                擁有15年寵物醫療經驗，專長於內科疾病診療與健康管理
-              </p>
-            </article>
-          </li>
+          <ul class="benefits-list" role="list">
+            <li>✓ 降低櫃台行政作業時間</li>
+            <li>✓ 提升獸醫看診與病歷查詢效率</li>
+            <li>✓ 減少紙本紀錄與人工統計錯誤</li>
+            <li>✓ 協助院所掌握營收與庫存狀況</li>
+          </ul>
+        </article>
 
-          <li class="doctor-card card">
-            <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80"
-              alt="王獸醫"
-              class="doctor-avatar"
-            />
-            <article class="card-body">
-              <h3>王獸醫</h3>
-              <p class="doctor-title">外科專科</p>
-              <p class="doctor-bio">
-                具備高度外科技術，擅長複雜手術與骨科疾病治療
-              </p>
-            </article>
-          </li>
+        <!-- ===== 右側數據區塊：控制產品成效資料 ===== -->
+        <aside class="benefits-stats" aria-label="系統成效">
+          <div class="stat-card">
+            <strong>50%</strong>
+            <span>行政時間降低</span>
+          </div>
 
-          <li class="doctor-card card">
-            <img
-              src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80"
-              alt="陳獸醫"
-              class="doctor-avatar"
-            />
-            <article class="card-body">
-              <h3>陳獸醫</h3>
-              <p class="doctor-title">牙科專科</p>
-              <p class="doctor-bio">
-                專攻寵物牙科治療，擁有最新的牙科診療技術
-              </p>
-            </article>
-          </li>
-        </ul>
+          <div class="stat-card">
+            <strong>3 秒</strong>
+            <span>快速查詢病歷</span>
+          </div>
+
+          <div class="stat-card">
+            <strong>24H</strong>
+            <span>雲端資料存取</span>
+          </div>
+        </aside>
       </div>
     </section>
 
-    <!-- ======== 關於我們 ======== -->
-    <section class="about-section" id="about">
+    <!-- ===== 價格方案區塊：控制產品方案與價格 ===== -->
+    <section class="pricing-section" id="pricing">
       <div class="container">
-        <div class="about-content">
-          <article class="about-text">
-            <h2>關於寵物醫療中心</h2>
-            <p>
-              我們於 2015 年創立，致力於為台北市的寵物提供最優質的醫療服務。擁有現代化的醫療設備，配合經驗豐富的獸醫團隊，為您的愛寵提供溫暖而專業的醫療照護。
-            </p>
-            <p>
-              每一個患者在我們心中都是獨特的，我們以同理心與專業知識，為每隻寵物制訂個人化的治療方案，讓您的家人能夠健康快樂地陪伴您每一天。
-            </p>
-            <ul class="about-features" role="list">
-              <li>✓ 24 小時緊急醫療服務</li>
-              <li>✓ 最新醫療設備與技術</li>
-              <li>✓ 經驗豐富的醫療團隊</li>
-              <li>✓ 人性化與同理心的照護</li>
+        <!-- ===== 區塊標題：控制價格方案標題與說明 ===== -->
+        <header class="section-header">
+          <p class="section-eyebrow">Pricing</p>
+          <h2 class="section-title">價格方案</h2>
+          <p class="section-desc">
+            可依照診所規模選擇適合的方案，未來也能彈性升級。
+          </p>
+        </header>
+
+        <!-- ===== 價格卡片列表：控制三種方案 ===== -->
+        <ul class="pricing-grid" role="list">
+          <li class="pricing-card">
+            <h3>基本版</h3>
+            <p class="pricing-subtitle">適合小型動物診所</p>
+
+            <div class="price">
+              NT$ 1,980
+              <span>/ 月</span>
+            </div>
+
+            <ul class="plan-list" role="list">
+              <li>✓ 預約掛號管理</li>
+              <li>✓ 電子病歷管理</li>
+              <li>✓ 基本收費功能</li>
+              <li>✓ 3 個員工帳號</li>
             </ul>
-          </article>
 
-          <aside class="about-stats">
-            <div class="stat-item">
-              <div class="stat-number">10+</div>
-              <div class="stat-label">年醫療經驗</div>
+            <NuxtLink to="#contact-sales" class="btn btn-plan">
+              選擇方案
+            </NuxtLink>
+          </li>
+
+          <li class="pricing-card pricing-card-featured">
+            <div class="popular-badge">最推薦</div>
+
+            <h3>專業版</h3>
+            <p class="pricing-subtitle">適合成長中的動物醫院</p>
+
+            <div class="price">
+              NT$ 3,980
+              <span>/ 月</span>
             </div>
-            <div class="stat-item">
-              <div class="stat-number">5000+</div>
-              <div class="stat-label">患者關懷</div>
+
+            <ul class="plan-list" role="list">
+              <li>✓ 包含基本版所有功能</li>
+              <li>✓ 藥品與庫存管理</li>
+              <li>✓ 營運報表分析</li>
+              <li>✓ 10 個員工帳號</li>
+            </ul>
+
+            <NuxtLink to="#contact-sales" class="btn btn-primary">
+              選擇方案
+            </NuxtLink>
+          </li>
+
+          <li class="pricing-card">
+            <h3>企業版</h3>
+            <p class="pricing-subtitle">適合多分院與大型院所</p>
+
+            <div class="price">
+              客製報價
+              <span></span>
             </div>
-            <div class="stat-item">
-              <div class="stat-number">99%</div>
-              <div class="stat-label">客戶滿意度</div>
-            </div>
-          </aside>
-        </div>
+
+            <ul class="plan-list" role="list">
+              <li>✓ 包含專業版所有功能</li>
+              <li>✓ 多分院管理</li>
+              <li>✓ 客製化報表</li>
+              <li>✓ 專屬技術支援</li>
+            </ul>
+
+            <NuxtLink to="#contact-sales" class="btn btn-plan">
+              聯絡我們
+            </NuxtLink>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <!-- ======== FAQ ======== -->
-    <section class="faq-section bg-light" aria-label="常見問題">
-      <div class="container">
-        <header class="section-header">
-          <div class="divider"></div>
-          <h2 class="section-title">常見問題</h2>
-        </header>
+    <!-- ===== CTA 區塊：控制最後轉換行動 ===== -->
+    <section class="cta-section" id="contact-sales">
+      <div class="container cta-content">
+        <h2>準備讓你的動物醫院升級數位管理了嗎？</h2>
 
-        <div class="faq-list">
-          <details class="faq-item" open>
-            <summary class="faq-question">
-              <span class="faq-icon">+</span>
-              初次就診需要準備什麼？
-            </summary>
-            <article class="faq-answer">
-              <p>
-                請準備寵物的疫苗記錄、過去的醫療紀錄（如有）以及詳細的症狀說明。建議也攜帶寵物的最近照片，方便醫生了解寵物的日常狀況。
-              </p>
-            </article>
-          </details>
+        <p>立即了解 PetCare System，讓掛號、病歷、收費與庫存管理一次到位。</p>
 
-          <details class="faq-item">
-            <summary class="faq-question">
-              <span class="faq-icon">+</span>
-              掛號費用多少？
-            </summary>
-            <article class="faq-answer">
-              <p>
-                一般診療掛號費為 $300 元，檢驗、手術等特殊項目另行計費。建議致電預約時詢問詳細費用說明。
-              </p>
-            </article>
-          </details>
-
-          <details class="faq-item">
-            <summary class="faq-question">
-              <span class="faq-icon">+</span>
-              可以預約掛號嗎？
-            </summary>
-            <article class="faq-answer">
-              <p>
-                可以。我們提供電話與線上預約服務。電話預約：02-1234-5678，我們建議提前預約以避免等待時間過長。
-              </p>
-            </article>
-          </details>
-
-          <details class="faq-item">
-            <summary class="faq-question">
-              <span class="faq-icon">+</span>
-              有提供緊急服務嗎？
-            </summary>
-            <article class="faq-answer">
-              <p>
-                有的，我們提供 24 小時緊急醫療服務。若您的寵物在營業時間外出現緊急情況，請立即撥打 02-1234-5678 與我們聯繫。
-              </p>
-            </article>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======== CTA BANNER ======== -->
-    <section class="cta-banner bg-primary">
-      <div class="container">
-        <h2 class="cta-title">準備好照顧您的愛寵了嗎？</h2>
-        <p class="cta-desc">
-          今天就預約初次諮詢，讓我們幫您的寵物建立健康的未來
-        </p>
-        <NuxtLink to="#contact" class="btn btn-secondary">
-          預約掛號
-        </NuxtLink>
-      </div>
-    </section>
-
-    <!-- ======== 聯絡我們 ======== -->
-    <section class="contact-section" id="contact">
-      <div class="container">
-        <header class="section-header">
-          <div class="divider"></div>
-          <h2 class="section-title">聯絡我們</h2>
-          <p class="section-desc">
-            有任何問題或想預約掛號，歡迎透過以下方式與我們聯繫
-          </p>
-        </header>
-
-        <div class="contact-grid grid grid-2">
-          <article class="contact-card card">
-            <h3 class="contact-card-title">📞 電話</h3>
-            <p>
-              <strong>主線：</strong> (02) 1234-5678<br />
-              <strong>預約：</strong> (02) 1234-5679<br />
-              <strong>急診：</strong> (02) 1234-5680
-            </p>
-          </article>
-
-          <article class="contact-card card">
-            <h3 class="contact-card-title">📍 地址</h3>
-            <p>
-              台北市中山區寵物路 123 號<br />
-              捷運站牌近距離，交通便利
-            </p>
-          </article>
-
-          <article class="contact-card card">
-            <h3 class="contact-card-title">⏰ 營業時間</h3>
-            <p>
-              <strong>週一至五：</strong> 09:00 - 19:00<br />
-              <strong>週六：</strong> 10:00 - 18:00<br />
-              <strong>週日：</strong> 休診
-            </p>
-          </article>
-
-          <article class="contact-card card">
-            <h3 class="contact-card-title">📧 線上聯繫</h3>
-            <p>
-              <strong>Email：</strong> info@petcare.com<br />
-              <strong>Line：</strong> @petcare<br />
-              <strong>Facebook：</strong> 寵物醫療中心
-            </p>
-          </article>
-        </div>
+        <a href="mailto:sales@petcare-system.com" class="btn btn-secondary">
+          聯絡業務
+        </a>
       </div>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-// ===== SEO 設定（必須放最前面）=====
+// ===== SEO 設定區塊：控制首頁標題、描述、搜尋引擎資訊 =====
 useHead({
-  title: '首頁',
+  title: "PetCare System｜寵物醫療管理系統",
   meta: [
     {
-      name: 'description',
+      name: "description",
       content:
-        '寵物醫療中心提供專業的寵物醫療服務，包括一般診療、預防保健、外科手術、檢驗檢查、牙科治療等全方位照護。由經驗豐富的獸醫團隊駐診，致力於守護您愛寵的健康。',
+        "PetCare System 是專為動物醫院打造的寵物醫療管理系統，提供預約掛號、電子病歷、收費結帳、庫存管理與營運報表分析。",
     },
     {
-      name: 'keywords',
-      content: '寵物醫療, 獸醫, 寵物保健, 動物醫院, 寵物診所, 狗, 貓',
-    },
-    {
-      property: 'og:title',
-      content: '寵物醫療中心 | 專業寵物醫療服務',
-    },
-    {
-      property: 'og:description',
+      name: "keywords",
       content:
-        '寵物醫療中心提供專業的寵物醫療服務，包括一般診療、預防保健、外科手術、檢驗檢查等全方位照護',
+        "寵物醫療系統, 動物醫院系統, 獸醫系統, 電子病歷, 預約掛號, 寵物診所管理系統",
     },
     {
-      property: 'og:url',
-      content: 'https://petcare.example.com',
+      property: "og:title",
+      content: "PetCare System｜寵物醫療管理系統",
     },
     {
-      property: 'og:type',
-      content: 'website',
+      property: "og:description",
+      content:
+        "專為動物醫院打造的雲端管理系統，整合掛號、病歷、收費、庫存與報表分析。",
+    },
+    {
+      property: "og:type",
+      content: "website",
     },
   ],
-  link: [
-    {
-      rel: 'canonical',
-      href: 'https://petcare.example.com',
-    },
-  ],
-})
-
-// ===== 動態效果 =====
-const expandedFaq = ref<number | null>(0)
-
-function toggleFaq(index: number) {
-  expandedFaq.value = expandedFaq.value === index ? null : index
-}
-
-import { ref } from 'vue'
+});
 </script>
 
 <style scoped>
-/* ===== HERO SECTION ===== */
+/* ===== 色系設定：控制整個首頁的主題顏色，精品深藍 × 鼠尾草綠 × 金色 ===== */
+.home-page {
+  --color-primary: #2e4a62; /* 主色：深藍色，控制主要區塊、標題、重點按鈕 */
+  --color-primary-dark: #1f3548; /* 深主色：控制 hover、深色狀態 */
+  --color-secondary: #9cbfa7; /* 輔助色：鼠尾草綠，控制自然安心感 */
+  --color-accent: #d9b26f; /* 強調色：精品金，控制 CTA、線條、徽章 */
+  --color-bg: #f8f7f3; /* 背景色：乾淨米白，控制整體背景 */
+  --color-card: #ffffff; /* 卡片色：控制功能卡片、價格卡片背景 */
+  --color-text: #263238; /* 主要文字色：控制標題與正文 */
+  --color-muted: #6f7a80; /* 次要文字色：控制描述文字 */
+  --color-border: #e6d8bd; /* 邊框色：控制卡片與區塊邊線 */
+  --color-soft: #f3efe6; /* 柔和色：控制淡色區塊背景 */
+
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+/* ===== 共用容器：控制內容最大寬度 ===== */
+.container {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+/* ===== HERO 區塊：控制首頁主視覺背景圖片與精品感遮罩 ===== */
 .hero {
-  background: linear-gradient(135deg, #2c5f2d 0%, #1e4620 100%);
-  color: #fff;
-  padding: 3rem 1.25rem;
+  position: relative;
+  min-height: calc(100vh - 4.5rem);
+  padding: 6rem 0;
   display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  align-items: center;
+  overflow: hidden;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(248, 247, 243, 0.98) 0%,
+      rgba(248, 247, 243, 0.92) 32%,
+      rgba(248, 247, 243, 0.48) 58%,
+      rgba(248, 247, 243, 0.08) 100%
+    ),
+    url("/assets/image/Image1.png");
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
 }
 
+/* ===== HERO 底部金色弧線：控制圖片下方精品裝飾線 ===== */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: -8%;
+  right: -8%;
+  bottom: 1.25rem;
+  height: 5rem;
+  border-bottom: 2px solid rgba(217, 178, 111, 0.75);
+  border-radius: 0 0 50% 50%;
+  pointer-events: none;
+}
+
+/* ===== HERO 底部小爪印：控制主視覺中央下方裝飾 ===== */
+.hero::before {
+  content: "🐾";
+  position: absolute;
+  left: 50%;
+  bottom: 0.35rem;
+  transform: translateX(-50%);
+  color: var(--color-accent);
+  font-size: 1.35rem;
+  z-index: 1;
+  filter: sepia(1) saturate(1.2) hue-rotate(350deg);
+  pointer-events: none;
+}
+
+/* ===== HERO 排版：控制左側文字區塊寬度 ===== */
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 42rem);
+  align-items: center;
+}
+
+/* ===== HERO 文字內容：控制左側文字不遮住右側寵物圖片 ===== */
 .hero-content {
-  width: 100%;
+  max-width: 42rem;
+  position: relative;
+  z-index: 2;
 }
 
-.hero-content .container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
+/* ===== HERO 小標：控制主標上方說明文字 ===== */
 .hero-eyebrow {
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  opacity: 0.9;
-  margin: 0;
+  color: var(--color-accent);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  margin-bottom: 1rem;
 }
 
+/* ===== HERO 標題：控制首頁主標題，桌機盡量維持一行 ===== */
 .hero-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  line-height: 1.2;
-  font-family: var(--font-heading);
+  color: var(--color-primary);
+  font-size: clamp(2.4rem, 3vw, 4rem);
+  line-height: 1.18;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 3px 10px rgba(46, 74, 98, 0.12);
 }
 
+/* ===== HERO 描述：控制首頁說明文字，模擬圖中的灰藍副標 ===== */
 .hero-desc {
-  font-size: 1.125rem;
-  line-height: 1.6;
-  opacity: 0.95;
-  max-width: 50rem;
+  color: rgba(38, 50, 56, 0.78);
+  font-size: clamp(1.1rem, 1.8vw, 1rem);
+  line-height: 2;
+  letter-spacing: 0.08em;
+  max-width: 42rem;
+  margin-bottom: 2.25rem;
+  font-weight: 600;
 }
 
+/* ===== HERO 按鈕區：控制首頁按鈕排列 ===== */
 .hero-actions {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
-.hero-image {
-  width: 100%;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
+/* ===== 共用按鈕：控制所有按鈕基礎樣式 ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 4rem;
+  padding: 0 1.75rem;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: 0.2s ease;
 }
 
-.hero-img {
-  width: 100%;
-  height: auto;
-  display: block;
+/* ===== 按鈕 icon：控制按鈕左側圖示樣式 ===== */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  color: var(--color-accent);
+  border: 2px solid var(--color-accent);
+  border-radius: 0.35rem;
+  font-size: 1rem;
+  line-height: 1;
 }
 
-/* ===== 服務區塊 ===== */
-.services-section {
-  background-color: #fff;
+/* ===== 按鈕箭頭：控制按鈕右側箭頭 ===== */
+.btn-arrow {
+  color: var(--color-accent);
+  font-size: 2rem;
+  line-height: 1;
+  margin-left: 0.25rem;
 }
 
-.service-icon {
-  font-size: 3rem;
+/* ===== 主要按鈕：控制深藍金框按鈕 ===== */
+.btn-primary {
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-dark) 100%
+  );
+  border: 2px solid var(--color-accent);
+  box-shadow:
+    0 14px 32px rgba(31, 53, 72, 0.24),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* ===== 主要按鈕滑過：控制深藍金框按鈕互動效果 ===== */
+.btn-primary:hover {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-dark) 0%,
+    #0f2538 100%
+  );
+  transform: translateY(-2px);
+}
+
+/* ===== 外框按鈕：控制白底金框按鈕 ===== */
+.btn-outline {
+  color: var(--color-primary);
+  background-color: rgba(255, 255, 255, 0.78);
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 12px 28px rgba(38, 50, 56, 0.1);
+}
+
+/* ===== 外框按鈕滑過：控制白底金框按鈕互動效果 ===== */
+.btn-outline:hover {
+  color: var(--color-primary-dark);
+  background-color: var(--color-soft);
+  transform: translateY(-2px);
+}
+
+/* ===== 次要按鈕：控制 CTA 白底按鈕 ===== */
+.btn-secondary {
+  color: var(--color-primary);
+  background-color: #ffffff;
+  border: 1px solid rgba(217, 178, 111, 0.65);
+}
+
+/* ===== 次要按鈕滑過：控制 CTA 按鈕互動 ===== */
+.btn-secondary:hover {
+  transform: translateY(-2px);
+}
+
+/* ===== 共用區塊：控制主要內容區塊上下間距 ===== */
+.features-section,
+.benefits-section,
+.pricing-section {
+  padding: 5rem 0;
+}
+
+/* ===== 功能區背景：控制功能介紹背景色 ===== */
+.features-section {
+  background-color: var(--color-bg);
+}
+
+/* ===== 區塊標題：控制標題置中與寬度 ===== */
+.section-header {
+  max-width: 42rem;
+  margin: 0 auto 3rem auto;
   text-align: center;
+}
+
+/* ===== 區塊小標籤：控制英文小標 ===== */
+.section-eyebrow {
+  color: var(--color-accent);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+/* ===== 區塊主標題：控制每區主標題 ===== */
+.section-title {
+  color: var(--color-primary);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
   margin-bottom: 1rem;
-  display: block;
 }
 
-.service-card article h3 {
+/* ===== 區塊描述：控制每區說明文字 ===== */
+.section-desc {
+  color: var(--color-muted);
+  line-height: 1.8;
+}
+
+/* ===== 功能列表：控制功能卡片排列 ===== */
+.features-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+/* ===== 功能卡片：控制每個功能外觀 ===== */
+.feature-card {
+  padding: 2rem;
+  border-radius: 1.5rem;
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 14px 40px rgba(38, 50, 56, 0.06);
+  transition: 0.2s ease;
+}
+
+/* ===== 功能卡片滑過：控制卡片互動效果 ===== */
+.feature-card:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(46, 74, 98, 0.12);
+}
+
+/* ===== 功能圖示：控制 icon 大小 ===== */
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+/* ===== 功能標題：控制功能卡片標題 ===== */
+.feature-card h3 {
   color: var(--color-primary);
+  font-size: 1.25rem;
   margin-bottom: 0.75rem;
 }
 
-.service-card article p {
-  font-size: 0.95rem;
-  color: #666;
-  line-height: 1.6;
+/* ===== 功能文字：控制功能卡片描述 ===== */
+.feature-card p {
+  color: var(--color-muted);
+  line-height: 1.8;
 }
 
-/* ===== 醫療團隊 ===== */
-.doctor-avatar {
-  width: 100%;
-  height: 15rem;
-  object-fit: cover;
-  display: block;
+/* ===== 優勢區塊：控制系統優勢背景 ===== */
+.benefits-section {
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(156, 191, 167, 0.22),
+      transparent 24rem
+    ),
+    var(--color-soft);
 }
 
-.doctor-card article h3 {
-  color: var(--color-primary);
-  margin: 1rem 0 0.5rem 0;
-}
-
-.doctor-title {
-  font-weight: 600;
-  color: var(--color-secondary);
-  font-size: 0.95rem;
-  margin-bottom: 0.75rem;
-}
-
-.doctor-bio {
-  font-size: 0.9rem;
-  color: #666;
-  line-height: 1.6;
-}
-
-/* ===== 關於我們 ===== */
-.about-section {
-  padding: var(--spacing-2xl) var(--spacing-md);
-}
-
-.about-content {
+/* ===== 優勢排版：控制左右欄位 ===== */
+.benefits-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
   align-items: center;
 }
 
-.about-text h2 {
-  margin-bottom: 1rem;
-  color: var(--color-primary);
-}
-
-.about-text p {
-  margin-bottom: 1.25rem;
-  color: #666;
+/* ===== 優勢描述：控制文字內容 ===== */
+.benefits-desc {
+  color: var(--color-muted);
   line-height: 1.8;
+  margin-bottom: 1.5rem;
 }
 
-.about-features {
+/* ===== 優勢清單：控制條列項目 ===== */
+.benefits-list {
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  font-weight: 500;
-  color: var(--color-primary);
-}
-
-.about-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  text-align: center;
-}
-
-.stat-item {
-  padding: 1.5rem;
-  background-color: var(--color-primary-light);
-  border-radius: var(--radius-lg);
-}
-
-.stat-number {
-  font-size: 2.5rem;
+  gap: 0.75rem;
+  padding: 0;
+  margin: 0;
+  color: var(--color-primary);
   font-weight: 700;
-  color: var(--color-primary);
-  font-family: var(--font-heading);
 }
 
-.stat-label {
-  font-size: 0.9rem;
-  color: #666;
-  margin-top: 0.5rem;
-}
-
-/* ===== FAQ ===== */
-.faq-list {
-  display: flex;
-  flex-direction: column;
+/* ===== 優勢統計：控制右側數字卡排列 ===== */
+.benefits-stats {
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 1rem;
-  max-width: 60rem;
-  margin: 0 auto;
 }
 
-.faq-item {
+/* ===== 統計卡片：控制數據卡片外觀 ===== */
+.stat-card {
+  padding: 2rem;
+  border-radius: 1.5rem;
+  background-color: var(--color-card);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  transition: all var(--transition-base);
+  box-shadow: 0 14px 40px rgba(38, 50, 56, 0.08);
 }
 
-.faq-item[open] {
-  border-color: var(--color-primary);
-  box-shadow: var(--shadow-md);
+/* ===== 統計數字：控制數據重點樣式 ===== */
+.stat-card strong {
+  display: block;
+  color: var(--color-accent);
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.faq-question {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.25rem;
-  cursor: pointer;
-  font-weight: 600;
-  color: var(--color-neutral-dark);
-  user-select: none;
+/* ===== 統計說明：控制數字下方文字 ===== */
+.stat-card span {
+  color: var(--color-muted);
+  font-weight: 700;
 }
 
-.faq-question:hover {
-  background-color: var(--color-neutral-light);
+/* ===== 價格區塊：控制價格方案背景 ===== */
+.pricing-section {
+  background-color: var(--color-bg);
 }
 
-.faq-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  background-color: var(--color-primary);
-  color: #fff;
-  border-radius: 50%;
-  font-size: 1rem;
-  line-height: 1;
-  flex-shrink: 0;
-  transition: transform var(--transition-base);
-}
-
-.faq-item[open] .faq-icon {
-  transform: rotate(45deg);
-}
-
-.faq-answer {
-  padding: 0 1.25rem 1.25rem 1.25rem;
-  color: #666;
-  background-color: rgba(44, 95, 45, 0.03);
-  line-height: 1.8;
-}
-
-.faq-answer p {
+/* ===== 價格列表：手機版控制方案卡片上下排列 ===== */
+.pricing-grid {
+  list-style: none;
+  padding: 0;
   margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
 }
 
-/* ===== CTA BANNER ===== */
-.cta-banner {
-  padding: 3rem 1.25rem;
+/* ===== 價格卡片：控制每個方案外觀 ===== */
+.pricing-card {
+  position: relative;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-card);
+  box-shadow: 0 14px 40px rgba(38, 50, 56, 0.06);
+}
+
+/* ===== 推薦價格卡片：控制中間熱門方案外觀 ===== */
+.pricing-card-featured {
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 24px 70px rgba(217, 178, 111, 0.24);
+}
+
+/* ===== 推薦標籤：控制最推薦徽章 ===== */
+.popular-badge {
+  position: absolute;
+  top: -0.875rem;
+  right: 1.5rem;
+  padding: 0.35rem 0.9rem;
+  color: #ffffff;
+  background-color: var(--color-primary);
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 800;
+}
+
+/* ===== 價格標題：控制方案名稱 ===== */
+.pricing-card h3 {
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== 價格副標：控制方案說明 ===== */
+.pricing-subtitle {
+  color: var(--color-muted);
+  margin-bottom: 1.5rem;
+}
+
+/* ===== 價格數字：控制金額顯示 ===== */
+.price {
+  color: var(--color-primary);
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+}
+
+/* ===== 價格單位：控制每月文字 ===== */
+.price span {
+  color: var(--color-muted);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* ===== 方案功能清單：控制方案項目 ===== */
+.plan-list {
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+  padding: 0;
+  margin: 0 0 2rem 0;
+  color: var(--color-text);
+}
+
+/* ===== 方案按鈕：控制一般方案按鈕 ===== */
+.btn-plan {
+  color: var(--color-primary);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+}
+
+/* ===== 方案按鈕滑過：控制一般方案按鈕互動 ===== */
+.btn-plan:hover {
+  background-color: var(--color-soft);
+  transform: translateY(-2px);
+}
+
+/* ===== CTA 區塊：控制底部行動呼籲背景 ===== */
+.cta-section {
+  padding: 5rem 0;
+  color: #ffffff;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(217, 178, 111, 0.24),
+      transparent 24rem
+    ),
+    linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-primary-dark) 100%
+    );
+}
+
+/* ===== CTA 內容：控制底部文字置中 ===== */
+.cta-content {
   text-align: center;
 }
 
-.cta-banner .container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  align-items: center;
-}
-
-.cta-title {
-  font-size: 1.75rem;
-  color: #fff;
-  margin: 0;
-}
-
-.cta-desc {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.9);
-  max-width: 50rem;
-}
-
-/* ===== 聯絡區塊 ===== */
-.contact-section {
-  padding: var(--spacing-2xl) var(--spacing-md);
-}
-
-.contact-card {
-  background-color: var(--color-neutral-light);
-}
-
-.contact-card-title {
-  color: var(--color-primary);
+/* ===== CTA 標題：控制底部主標 ===== */
+.cta-content h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
   margin-bottom: 1rem;
 }
 
-.contact-card article p {
-  font-size: 0.95rem;
-  color: #666;
+/* ===== CTA 描述：控制底部說明文字 ===== */
+.cta-content p {
+  max-width: 42rem;
+  margin: 0 auto 2rem auto;
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.8;
 }
 
-/* ===== 平板（768px 以上）===== */
-@media (min-width: 48em) {
+/* ===== 手機版 HERO：控制手機時背景圖位置與文字可讀性 ===== */
+@media (max-width: 47.99em) {
   .hero {
-    padding: 4rem 2rem;
-    flex-direction: row;
-    gap: 3rem;
+    min-height: auto;
+    padding: 4rem 0 5rem;
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(248, 247, 243, 0.98) 0%,
+        rgba(248, 247, 243, 0.94) 58%,
+        rgba(248, 247, 243, 0.72) 100%
+      ),
+      url("/images/Image1.png");
+    background-position: center right;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
   }
 
   .hero-content {
-    flex: 1;
-  }
-
-  .hero-image {
-    flex: 1;
+    max-width: 100%;
   }
 
   .hero-title {
-    font-size: 3rem;
+    font-size: clamp(2.35rem, 1vw, 3.4rem);
+    letter-spacing: 0.04em;
   }
 
-  .about-content {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .about-section {
-    padding: var(--spacing-3xl) var(--spacing-lg);
-  }
-
-  .contact-section {
-    padding: var(--spacing-3xl) var(--spacing-lg);
+  .hero-desc {
+    font-size: 1rem;
+    letter-spacing: 0.04em;
   }
 
   .hero-actions {
-    flex-direction: row;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .cta-banner {
-    padding: 4rem 2rem;
+  .btn {
+    width: 100%;
+    max-width: 20rem;
   }
 }
 
-/* ===== 桌機（1024px 以上）===== */
+/* ===== 平板以上：控制功能卡片兩欄、價格方案三欄 ===== */
+@media (min-width: 48em) {
+  .features-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pricing-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .benefits-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ===== 桌機以上：控制功能卡片三欄、優勢區左右欄 ===== */
 @media (min-width: 64em) {
-  .hero {
-    padding: 5rem 3rem;
+  .benefits-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .hero-title {
-    font-size: 3.5rem;
+  .features-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .about-section {
-    padding: 5rem 3rem;
+  .pricing-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .contact-section {
-    padding: 5rem 3rem;
-  }
-
-  .cta-banner {
-    padding: 5rem 3rem;
-  }
-
-  .about-stats {
-    grid-template-columns: repeat(3, 1fr);
+  .benefits-stats {
+    grid-template-columns: 1fr;
   }
 }
 </style>
