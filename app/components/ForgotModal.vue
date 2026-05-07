@@ -1,11 +1,10 @@
 <template>
-  <!-- ===== 忘記密碼 Modal 遮罩：控制背景半透明與點擊空白處關閉 ===== -->
+  <!-- ===== 忘記密碼 Modal 遮罩：控制背景半透明（不可點擊背景關閉） ===== -->
   <Teleport to="body">
     <Transition name="modal-fade">
       <div
         v-if="modelValue"
         class="forgot-modal-backdrop"
-        @click.self="closeModal"
       >
         <!-- ===== 忘記密碼 Modal 主體：控制忘記密碼與寄送成功畫面 ===== -->
         <section
@@ -59,8 +58,13 @@
               </div>
 
               <!-- ===== 寄送按鈕：控制送出重置密碼連結 ===== -->
-              <button type="submit" class="forgot-submit">
-                寄送重置連結
+              <button 
+                type="submit" 
+                class="forgot-submit"
+                :disabled="isLoading"
+              >
+                <span v-if="isLoading" class="loading-spinner"></span>
+                <span>{{ isLoading ? '發送中...' : '寄送重置連結' }}</span>
               </button>
             </form>
 
@@ -117,9 +121,11 @@
               <button
                 type="button"
                 class="forgot-submit"
+                :disabled="isLoading"
                 @click="handleResend"
               >
-                重新寄送
+                <span v-if="isLoading" class="loading-spinner"></span>
+                <span>{{ isLoading ? '發送中...' : '重新寄送' }}</span>
               </button>
 
               <button
@@ -139,6 +145,8 @@
 
 <script setup lang="ts">
 import { reactive, ref, watch } from 'vue'
+import { authAPI } from '~/composables/utils/api'
+import { showCustom } from '~/composables/utils/alert'
 
 /* ===== 忘記密碼資料型別：控制父層收到的資料格式 ===== */
 interface ForgotPasswordPayload {
@@ -150,10 +158,9 @@ const props = defineProps<{
   modelValue: boolean
 }>()
 
-/* ===== Emits：通知父層關閉、送出重置密碼、切換登入 ===== */
+/* ===== Emits：通知父層關閉、切換登入 ===== */
 const emit = defineEmits<{
   'update:modelValue': [value: boolean]
-  submit: [payload: ForgotPasswordPayload]
   login: []
 }>()
 
@@ -165,26 +172,71 @@ const form = reactive<ForgotPasswordPayload>({
 /* ===== 寄送狀態：控制是否顯示信件已寄送畫面 ===== */
 const isSent = ref(false)
 
+/* ===== Loading 狀態：控制發送中的 loading 效果 ===== */
+const isLoading = ref(false)
+
 /* ===== 關閉 Modal：通知父層把 v-model 改成 false ===== */
 const closeModal = () => {
   emit('update:modelValue', false)
 }
 
-/* ===== 送出忘記密碼：把電子郵件傳給父層，並切換成功畫面 ===== */
-const handleSubmit = () => {
-  emit('submit', {
-    email: form.email,
-  })
+/* ===== 送出忘記密碼：呼叫 API 寄送重置連結 ===== */
+const handleSubmit = async () => {
+  if (isLoading.value) return
 
-  // ===== 畫面切換：送出後顯示信件已寄送畫面 =====
-  isSent.value = true
+  try {
+    isLoading.value = true
+
+    // ===== 呼叫忘記密碼 API =====
+    await authAPI.forgotPassword(form.email)
+
+    // ===== 畫面切換：送出後顯示信件已寄送畫面 =====
+    isSent.value = true
+
+  } catch (error: any) {
+    const detail = error.response?.data?.detail || ''
+    const message = error.response?.data?.message || '發送失敗，請稍後再試'
+
+    // ===== 顯示錯誤訊息 =====
+    await showCustom(
+      '發送失敗',
+      detail || message,
+      'error'
+    )
+  } finally {
+    isLoading.value = false
+  }
 }
 
 /* ===== 重新寄送：使用同一個 Email 再次送出 ===== */
-const handleResend = () => {
-  emit('submit', {
-    email: form.email,
-  })
+const handleResend = async () => {
+  if (isLoading.value) return
+
+  try {
+    isLoading.value = true
+
+    // ===== 呼叫忘記密碼 API =====
+    await authAPI.forgotPassword(form.email)
+
+    // ===== 顯示成功訊息 =====
+    await showCustom(
+      '重新寄送成功',
+      '重置連結已再次發送至您的信箱',
+      'success'
+    )
+
+  } catch (error: any) {
+    const detail = error.response?.data?.detail || ''
+    const message = error.response?.data?.message || '發送失敗，請稍後再試'
+
+    await showCustom(
+      '發送失敗',
+      detail || message,
+      'error'
+    )
+  } finally {
+    isLoading.value = false
+  }
 }
 
 /* ===== 返回登入：通知父層切換成 LoginModal ===== */
@@ -198,6 +250,7 @@ watch(
   (isOpen) => {
     if (isOpen) {
       isSent.value = false
+      isLoading.value = false
     }
   }
 )
@@ -345,12 +398,39 @@ watch(
   letter-spacing: 0.08em;
   cursor: pointer;
   transition: 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 /* ===== 寄送按鈕 hover：控制按鈕互動效果 ===== */
-.forgot-submit:hover {
+.forgot-submit:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 14px 32px rgba(31, 53, 72, 0.24);
+}
+
+/* ===== 寄送按鈕 disabled：控制 loading 時的禁用狀態 ===== */
+.forgot-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ===== Loading Spinner：控制載入動畫 ===== */
+.loading-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* ===== Spinner 動畫：控制旋轉效果 ===== */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ===== Modal 底部：控制返回登入排列 ===== */

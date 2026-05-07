@@ -107,6 +107,24 @@ export function showCustom(
     text,
     icon,
     confirmButtonText: "確定",
+    didOpen: () => {
+      // ===== 設定 SweetAlert2 所有層級的 z-index，確保在 modal 上方 =====
+      const container = Swal.getContainer();
+      const popup = Swal.getPopup();
+      
+      if (container) {
+        container.style.zIndex = "99999";
+      }
+      if (popup) {
+        popup.style.zIndex = "99999";
+      }
+      
+      // ===== 設定 backdrop（背景遮罩）的 z-index =====
+      const backdrop = document.querySelector('.swal2-container');
+      if (backdrop instanceof HTMLElement) {
+        backdrop.style.zIndex = "99999";
+      }
+    },
   });
 }
 

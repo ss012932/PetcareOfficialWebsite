@@ -5,7 +5,6 @@
       <div
         v-if="modelValue"
         class="login-modal-backdrop"
-        @click.self="closeModal"
       >
         <!-- ===== 登入 Modal 主體：控制登入表單內容 ===== -->
         <section
@@ -37,21 +36,21 @@
             </p>
           </header>
 
-          <!-- ===== 登入表單：控制電子郵件、密碼與登入送出 ===== -->
+          <!-- ===== 登入表單：控制帳號、密碼與登入送出 ===== -->
           <form class="login-form" @submit.prevent="handleSubmit">
-            <!-- ===== 電子郵件欄位：控制使用者輸入 Email ===== -->
+            <!-- ===== 帳號欄位：控制使用者輸入帳號 ===== -->
             <div class="form-group">
-              <label for="login-email" class="form-label">
-                電子郵件
+              <label for="login-account" class="form-label">
+                帳號
               </label>
 
               <input
-                id="login-email"
-                v-model.trim="form.email"
-                type="email"
+                id="login-account"
+                v-model.trim="form.account"
+                type="text"
                 class="form-control"
-                placeholder="請輸入電子郵件"
-                autocomplete="email"
+                placeholder="請輸入帳號"
+                autocomplete="username"
                 required
               />
             </div>
@@ -106,55 +105,210 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, watch } from "vue";
+import Swal from "sweetalert2";
+import api from "~/composables/utils/api";
+import { showCustom } from "~/composables/utils/alert";
 
-/* ===== 登入資料型別：控制父層收到的登入資料格式 ===== */
+/* ===== 登入資料型別：控制後端 API 需要的登入資料格式 ===== */
 interface LoginPayload {
-  email: string
-  password: string
+  account: string;
+  password: string;
+  deviceId: string;
+  browserInfo: string;
+  osInfo: string;
+  screenResolution: string;
 }
 
-/* ===== Props：控制 Modal 是否開啟 ===== */
-defineProps<{
-  modelValue: boolean
-}>()
+/* ===== Props：控制 Modal 是否開啟與預填充帳號 ===== */
+const props = defineProps<{
+  modelValue: boolean;
+  prefillAccount?: string;
+}>();
 
-/* ===== Emits：通知父層關閉、登入、忘記密碼、註冊帳號 ===== */
+/* ===== Emits：通知父層關閉、忘記密碼、註冊帳號、登入成功 ===== */
 const emit = defineEmits<{
-  'update:modelValue': [value: boolean]
-  login: [payload: LoginPayload]
-  forgotPassword: []
-  register: []
-}>()
+  "update:modelValue": [value: boolean];
+  forgotPassword: [];
+  register: [];
+  loginSuccess: [];
+}>();
 
-/* ===== 表單資料：控制電子郵件與密碼輸入內容 ===== */
-const form = reactive<LoginPayload>({
-  email: '',
-  password: '',
-})
+/* ===== 表單資料：控制帳號與密碼輸入內容 ===== */
+const form = reactive<Omit<LoginPayload, "deviceId" | "browserInfo" | "osInfo" | "screenResolution">>({
+  account: "",
+  password: "",
+});
+
+/* ===== 監聽預填充帳號：當父層傳入帳號時自動填入 ===== */
+watch(
+  () => props.prefillAccount,
+  (newAccount) => {
+    if (newAccount) {
+      form.account = newAccount;
+    }
+  },
+  { immediate: true }
+);
 
 /* ===== 關閉 Modal：通知父層把 v-model 改成 false ===== */
 const closeModal = () => {
-  emit('update:modelValue', false)
-}
+  emit("update:modelValue", false);
+};
 
-/* ===== 送出登入：把 Email 與密碼傳給父層處理 ===== */
-const handleSubmit = () => {
-  emit('login', {
-    email: form.email,
-    password: form.password,
-  })
-}
+/* ===== 收集系統資訊：為登入收集裝置、瀏覽器、作業系統、螢幕解析度 ===== */
+const collectSystemInfo = () => {
+  // ===== 取得瀏覽器資訊：優先檢查 Edge，因為 Edge 的 UA 也包含 Chrome =====
+  const userAgent = navigator.userAgent;
+  let browserInfo = "Unknown";
+
+  if (userAgent.includes("Edg/")) {
+    const match = userAgent.match(/Edg\/([\d.]+)/);
+    browserInfo = match ? `Edge ${match[1]}` : "Edge";
+  } else if (userAgent.includes("Chrome/")) {
+    const match = userAgent.match(/Chrome\/([\d.]+)/);
+    browserInfo = match ? `Chrome ${match[1]}` : "Chrome";
+  } else if (userAgent.includes("Firefox/")) {
+    const match = userAgent.match(/Firefox\/([\d.]+)/);
+    browserInfo = match ? `Firefox ${match[1]}` : "Firefox";
+  } else if (userAgent.includes("Safari/") && !userAgent.includes("Chrome")) {
+    const match = userAgent.match(/Version\/([\d.]+)/);
+    browserInfo = match ? `Safari ${match[1]}` : "Safari";
+  }
+
+  // ===== 取得作業系統資訊：根據 userAgent 和 platform 判斷 =====
+  let osInfo = "Unknown";
+
+  if (userAgent.includes("Windows NT 10.0")) {
+    osInfo = "Windows 10";
+  } else if (userAgent.includes("Windows NT 6.3")) {
+    osInfo = "Windows 8.1";
+  } else if (userAgent.includes("Windows NT 6.2")) {
+    osInfo = "Windows 8";
+  } else if (userAgent.includes("Windows NT 6.1")) {
+    osInfo = "Windows 7";
+  } else if (userAgent.includes("Mac OS X")) {
+    const match = userAgent.match(/Mac OS X ([\d_]+)/);
+    if (match?.[1]) {
+      const version = match[1].replace(/_/g, ".");
+      osInfo = `macOS ${version}`;
+    } else {
+      osInfo = "macOS";
+    }
+  } else if (userAgent.includes("Android")) {
+    const match = userAgent.match(/Android ([\d.]+)/);
+    osInfo = match ? `Android ${match[1]}` : "Android";
+  } else if (userAgent.includes("iPhone") || userAgent.includes("iPad")) {
+    const match = userAgent.match(/OS ([\d_]+)/);
+    if (match?.[1]) {
+      const version = match[1].replace(/_/g, ".");
+      osInfo = `iOS ${version}`;
+    } else {
+      osInfo = "iOS";
+    }
+  } else if (userAgent.includes("Linux")) {
+    osInfo = "Linux";
+  }
+
+  // ===== 取得螢幕解析度：使用實際的螢幕尺寸 =====
+  const screenResolution = `${window.screen.width}x${window.screen.height}`;
+
+  // ===== 取得持久化的 deviceId：同一台電腦同一瀏覽器固定使用同一組 =====
+  const deviceId = getOrCreateDeviceId();
+
+  return {
+    deviceId,
+    browserInfo,
+    osInfo,
+    screenResolution,
+  };
+};
+
+/* ===== 取得或建立裝置識別碼：控制同一個瀏覽器固定使用同一組 deviceId ===== */
+const getOrCreateDeviceId = (): string => {
+  const storageKey = "petcare_device_id";
+  const existingDeviceId = localStorage.getItem(storageKey);
+
+  if (existingDeviceId) {
+    return existingDeviceId;
+  }
+
+  let newDeviceId: string;
+  
+  if (crypto.randomUUID) {
+    newDeviceId = crypto.randomUUID();
+  } else {
+    newDeviceId = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+      const array = new Uint8Array(1);
+      crypto.getRandomValues(array);
+      const r = array[0]! % 16;
+      const v = c === "x" ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+  }
+
+  localStorage.setItem(storageKey, newDeviceId);
+  return newDeviceId;
+};
+
+/* ===== 送出登入：檢查欄位後呼叫 API ===== */
+const handleSubmit = async () => {
+  try {
+    const systemInfo = collectSystemInfo();
+
+    const payload: LoginPayload = {
+      account: form.account,
+      password: form.password,
+      deviceId: systemInfo.deviceId,
+      browserInfo: systemInfo.browserInfo,
+      osInfo: systemInfo.osInfo,
+      screenResolution: systemInfo.screenResolution,
+    };
+
+    const response = await api.post("/Login", payload);
+
+    // ===== 登入成功 =====
+    if (response.data.success !== false) {
+      await showCustom(
+        "登入成功",
+        "歡迎回來！",
+        "success",
+      );
+
+      // ===== 清空表單 =====
+      form.account = "";
+      form.password = "";
+
+      // ===== 關閉 Modal =====
+      emit("update:modelValue", false);
+
+      // ===== 通知父層登入成功，重新檢查登入狀態 =====
+      emit("loginSuccess");
+
+      // TODO: 儲存 token 或使用者資訊到 localStorage/store
+    }
+  } catch (error: any) {
+    const detail = error.response?.data?.detail || "";
+    const message = error.response?.data?.message || "登入失敗，請確認帳號密碼";
+
+    // ===== 顯示後端的 detail 訊息（優先），否則顯示 message =====
+    await showCustom(
+      "登入失敗",
+      detail || message,
+      "error",
+    );
+  }
+};
 
 /* ===== 忘記密碼：通知父層切換到忘記密碼流程 ===== */
 const emitForgotPassword = () => {
-  emit('forgotPassword')
-}
+  emit("forgotPassword");
+};
 
 /* ===== 註冊帳號：通知父層切換到註冊流程 ===== */
 const emitRegister = () => {
-  emit('register')
-}
+  emit("register");
+};
 </script>
 
 <style scoped>

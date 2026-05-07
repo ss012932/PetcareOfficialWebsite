@@ -6,10 +6,16 @@
 
     <!-- ===== 重置密碼卡片：控制主要表單內容 ===== -->
     <section class="reset-card" aria-labelledby="reset-title">
-     
+      <!-- ===== Loading 狀態：驗證 Token 時顯示 ===== -->
+      <div v-if="isValidating" class="reset-loading">
+        <div class="loading-spinner-large"></div>
+        <p class="loading-text">正在驗證重置連結...</p>
+      </div>
 
-      <!-- ===== 標題區塊：控制頁面標題與說明文字 ===== -->
-      <header class="reset-header">
+      <!-- ===== 表單內容：Token 有效時顯示 ===== -->
+      <template v-else-if="isTokenValid">
+        <!-- ===== 標題區塊：控制頁面標題與說明文字 ===== -->
+        <header class="reset-header">
         <p class="reset-eyebrow">Reset Password</p>
 
         <h1 id="reset-title" class="reset-title">
@@ -94,8 +100,13 @@
 
         <!-- ===== 操作按鈕區：控制確認重置與返回首頁 ===== -->
         <div class="reset-actions">
-          <button type="submit" class="reset-submit">
-            確認重置密碼
+          <button 
+            type="submit" 
+            class="reset-submit"
+            :disabled="isSubmitting"
+          >
+            <span v-if="isSubmitting" class="loading-spinner"></span>
+            <span>{{ isSubmitting ? '處理中...' : '確認重置密碼' }}</span>
           </button>
 
           <NuxtLink to="/" class="reset-home-link">
@@ -103,6 +114,7 @@
           </NuxtLink>
         </div>
       </form>
+      </template>
     </section>
   </main>
 </template>
@@ -115,15 +127,25 @@ definePageMeta({
 })
 
 
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useRoute, useRouter } from '#imports'
-import Swal from 'sweetalert2'
+import { authAPI } from '~/composables/utils/api'
+import { showCustom } from '~/composables/utils/alert'
 
 /* ===== 路由功能：取得信箱連結帶過來的 query 參數 ===== */
 const route = useRoute()
 
 /* ===== 路由導向：重置成功後可返回首頁 ===== */
 const router = useRouter()
+
+/* ===== Loading 狀態：控制驗證 token 時的載入效果 ===== */
+const isValidating = ref(true)
+
+/* ===== Token 有效性：控制是否顯示表單 ===== */
+const isTokenValid = ref(false)
+
+/* ===== 提交中狀態：控制重設密碼按鈕的 loading ===== */
+const isSubmitting = ref(false)
 
 /* ===== 重置密碼表單資料：控制頁面所有欄位狀態 ===== */
 const form = reactive({
@@ -134,83 +156,106 @@ const form = reactive({
   token: '',
 })
 
-/* ===== 頁面初始化：從網址 query 自動帶入姓名、Email 與 token ===== */
-onMounted(() => {
-  form.name = String(route.query.name ?? '')
-  form.email = String(route.query.email ?? '')
-  form.token = String(route.query.token ?? '')
+/* ===== 頁面初始化：驗證 token 並從 API 回應帶入資料 ===== */
+onMounted(async () => {
+  // ===== 取得網址上的 token =====
+  const token = String(route.query.token ?? '')
+
+  if (!token) {
+    await showCustom(
+      '重置連結無效',
+      '缺少驗證資訊，請重新申請忘記密碼',
+      'error'
+    )
+    await router.push('/')
+    return
+  }
+
+  form.token = token
+
+  try {
+    // ===== 呼叫驗證 Token API =====
+    const result = await authAPI.validateResetToken(token)
+
+    if (result.success && result.valid && !result.expired) {
+      // ===== Token 有效：顯示表單並自動帶入資料 =====
+      isTokenValid.value = true
+      form.email = result.data?.email || ''
+      form.name = result.data?.fullName || ''
+    } else {
+      // ===== Token 無效或過期 =====
+      const message = result.message || '重置連結已失效，請重新申請'
+      await showCustom(
+        '重置連結無效',
+        message,
+        'error'
+      )
+      await router.push('/')
+    }
+  } catch (error: any) {
+    const detail = error.response?.data?.detail || ''
+    const message = error.response?.data?.message || '驗證失敗，請重新申請忘記密碼'
+
+    await showCustom(
+      '驗證失敗',
+      detail || message,
+      'error'
+    )
+    await router.push('/')
+  } finally {
+    isValidating.value = false
+  }
 })
 
 /* ===== 表單送出：檢查密碼後送出重置密碼資料 ===== */
 async function handleSubmit() {
-  // ===== 基本檢查：確認重置連結是否有 token =====
-  if (!form.token) {
-    await Swal.fire({
-      icon: 'error',
-      title: '重置連結無效',
-      text: '缺少重置密碼驗證資訊，請重新申請忘記密碼。',
-      confirmButtonText: '確定',
-      confirmButtonColor: '#2e4a62',
-    })
-
-    return
-  }
-
-  // ===== 基本檢查：確認姓名與電子郵件是否存在 =====
-  if (!form.name || !form.email) {
-    await Swal.fire({
-      icon: 'warning',
-      title: '帳號資訊不完整',
-      text: '請重新從信箱中的重置密碼連結進入。',
-      confirmButtonText: '確定',
-      confirmButtonColor: '#2e4a62',
-    })
-
-    return
-  }
+  if (isSubmitting.value) return
 
   // ===== 密碼長度檢查：避免密碼過短 =====
   if (form.newPassword.length < 8) {
-    await Swal.fire({
-      icon: 'warning',
-      title: '密碼長度不足',
-      text: '新密碼至少需要 8 個字元。',
-      confirmButtonText: '確定',
-      confirmButtonColor: '#2e4a62',
-    })
-
+    await showCustom(
+      '密碼長度不足',
+      '新密碼至少需要 8 個字元',
+      'warning'
+    )
     return
   }
 
   // ===== 密碼一致性檢查：確認兩次密碼相同 =====
   if (form.newPassword !== form.confirmPassword) {
-    await Swal.fire({
-      icon: 'warning',
-      title: '密碼不一致',
-      text: '請確認新密碼與再次輸入密碼是否相同。',
-      confirmButtonText: '確定',
-      confirmButtonColor: '#2e4a62',
-    })
-
+    await showCustom(
+      '密碼不一致',
+      '請確認新密碼與再次輸入密碼是否相同',
+      'warning'
+    )
     return
   }
 
-  // ===== 這裡之後可改成呼叫後端 API =====
-  console.log('重置密碼資料：', {
-    token: form.token,
-    email: form.email,
-    newPassword: form.newPassword,
-  })
+  try {
+    isSubmitting.value = true
 
-  await Swal.fire({
-    icon: 'success',
-    title: '密碼已重置',
-    text: '請使用新密碼重新登入。',
-    confirmButtonText: '返回首頁',
-    confirmButtonColor: '#2e4a62',
-  })
+    // ===== 呼叫重設密碼 API =====
+    await authAPI.resetPassword(form.token, form.newPassword)
 
-  await router.push('/')
+    await showCustom(
+      '密碼已重置',
+      '請使用新密碼重新登入',
+      'success'
+    )
+
+    await router.push('/')
+  } catch (error: any) {
+    const detail = error.response?.data?.detail || ''
+    const message = error.response?.data?.message || '重設密碼失敗，請稍後再試'
+
+    await showCustom(
+      '重設失敗',
+      detail || message,
+      'error'
+    )
+  } finally {
+    isSubmitting.value = false
+  }
 }
 </script>
 
@@ -283,6 +328,51 @@ async function handleSubmit() {
     );
   border: 1px solid rgba(230, 216, 189, 0.9);
   box-shadow: 0 24px 70px rgba(15, 37, 56, 0.16);
+}
+
+/* ===== Loading 容器：控制驗證中的載入狀態 ===== */
+.reset-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 3rem 2rem;
+}
+
+/* ===== 大型 Loading Spinner：控制驗證時的旋轉動畫 ===== */
+.loading-spinner-large {
+  width: 3rem;
+  height: 3rem;
+  border: 4px solid rgba(217, 178, 111, 0.3);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* ===== Loading 文字：控制驗證提示文字 ===== */
+.loading-text {
+  color: var(--color-muted);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* ===== 小型 Loading Spinner：控制按鈕內的載入動畫 ===== */
+.loading-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* ===== Spinner 動畫：控制旋轉效果 ===== */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ===== Logo 區塊：控制品牌連結樣式 ===== */
@@ -420,12 +510,22 @@ async function handleSubmit() {
   letter-spacing: 0.08em;
   cursor: pointer;
   transition: 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 /* ===== 確認按鈕 hover：控制按鈕互動效果 ===== */
-.reset-submit:hover {
+.reset-submit:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 14px 32px rgba(31, 53, 72, 0.24);
+}
+
+/* ===== 確認按鈕 disabled：控制提交中的禁用狀態 ===== */
+.reset-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 /* ===== 返回首頁連結：控制次要操作樣式 ===== */

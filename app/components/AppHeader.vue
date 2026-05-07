@@ -51,8 +51,8 @@
             </NuxtLink>
           </li>
 
-          <!-- ===== 登入按鈕：控制開啟 LoginModal ===== -->
-          <li>
+          <!-- ===== 登入按鈕：未登入時顯示 ===== -->
+          <li v-if="!isLoggedIn">
             <button
               type="button"
               class="nav-link nav-link--login"
@@ -61,6 +61,41 @@
               登入
             </button>
           </li>
+
+          <!-- ===== 會員選單：已登入時顯示 ===== -->
+          <li v-else class="user-menu-wrapper">
+            <button
+              type="button"
+              class="user-menu-toggle"
+              :aria-expanded="isUserMenuOpen"
+              aria-label="會員選單"
+              @click="toggleUserMenu"
+            >
+              <span class="user-icon">👤</span>
+              <span class="user-name">{{ userInfo?.Name || "會員" }}</span>
+              <span class="dropdown-arrow">▼</span>
+            </button>
+
+            <!-- ===== 下拉選單 ===== -->
+            <div v-show="isUserMenuOpen" class="user-dropdown">
+              <NuxtLink
+                to="/member"
+                class="dropdown-item"
+                @click="closeMobileMenu(); isUserMenuOpen = false"
+              >
+                <span class="dropdown-icon">🏠</span>
+                會員中心
+              </NuxtLink>
+              <button
+                type="button"
+                class="dropdown-item"
+                @click="handleLogout"
+              >
+                <span class="dropdown-icon">🚪</span>
+                登出
+              </button>
+            </div>
+          </li>
         </ul>
       </div>
     </nav>
@@ -68,22 +103,21 @@
     <!-- ===== 登入 Modal：控制會員登入視窗 ===== -->
     <LoginModal
       v-model="isLoginModalOpen"
-      @login="handleLogin"
+      :prefill-account="prefillAccount"
       @forgot-password="openForgotModal"
       @register="openRegisterModal"
+      @login-success="handleLoginSuccess"
     />
 
     <!-- ===== 註冊 Modal：控制會員註冊視窗 ===== -->
     <RegisterModal
       v-model="isRegisterModalOpen"
-      @register="handleRegister"
-      @login="openLoginModal"
+      @login="openLoginModalFromRegister"
     />
 
     <!-- ===== 忘記密碼 Modal：控制密碼重置連結寄送視窗 ===== -->
     <ForgotModal
       v-model="isForgotModalOpen"
-      @submit="handleForgotPassword"
       @login="openLoginModal"
     />
   </header>
@@ -91,10 +125,7 @@
 
 <script setup lang="ts">
 // ===== Vue 功能引入：控制響應式狀態 =====
-import { ref } from "vue";
-
-// ===== SweetAlert2 引入：控制登入、忘記密碼、註冊提示訊息 =====
-import Swal from "sweetalert2";
+import { ref, onMounted } from "vue";
 
 // ===== LoginModal 元件引入：控制登入彈窗 =====
 import LoginModal from "~/components/LoginModal.vue";
@@ -104,20 +135,8 @@ import RegisterModal from "~/components/RegisterModal.vue";
 
 import ForgotModal from "~/components/ForgotModal.vue";
 
-// ===== 登入資料型別：控制 LoginModal 回傳的資料格式 =====
-interface LoginPayload {
-  email: string;
-  password: string;
-}
-
-// ===== 註冊資料型別：控制 RegisterModal 回傳的資料格式 =====
-interface RegisterPayload {
-  name: string;
-  phone: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+// ===== API 引入：控制登入狀態檢查與登出 =====
+import { authAPI } from "~/composables/utils/api";
 
 // ===== 手機選單狀態：控制選單是否開啟 =====
 const isMobileMenuOpen = ref(false);
@@ -131,6 +150,40 @@ const isRegisterModalOpen = ref(false);
 // ===== 忘記密碼 Modal 狀態：控制忘記密碼彈窗是否開啟 =====
 const isForgotModalOpen = ref(false);
 
+// ===== 預填充帳號：控制從註冊跳轉到登入時自動填入帳號 =====
+const prefillAccount = ref<string | undefined>(undefined);
+
+// ===== 登入狀態：控制是否已登入 =====
+const isLoggedIn = ref(false);
+
+// ===== 會員資訊：控制已登入會員資料 =====
+const userInfo = ref<{
+  Email: string;
+  Name: string;
+  Phone: string;
+  IsEmailConfirmed: boolean;
+} | null>(null);
+
+// ===== 會員選單狀態：控制下拉選單是否開啟 =====
+const isUserMenuOpen = ref(false);
+
+// ===== 檢查登入狀態：元件載入時執行 =====
+async function checkLoginStatus() {
+  const result = await authAPI.checkLoginStatus();
+  if (result.success && result.isLogin) {
+    isLoggedIn.value = true;
+    userInfo.value = result.user;
+  } else {
+    isLoggedIn.value = false;
+    userInfo.value = null;
+  }
+}
+
+// ===== 元件載入：檢查登入狀態 =====
+onMounted(() => {
+  checkLoginStatus();
+});
+
 // ===== 切換手機選單：控制漢堡選單開關 =====
 function toggleMobileMenu() {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
@@ -141,6 +194,11 @@ function closeMobileMenu() {
   isMobileMenuOpen.value = false;
 }
 
+// ===== 切換會員選單：控制會員下拉選單開關 =====
+function toggleUserMenu() {
+  isUserMenuOpen.value = !isUserMenuOpen.value;
+}
+
 // ===== 開啟登入 Modal：控制點擊登入按鈕或從其他 Modal 切回登入 =====
 function openLoginModal() {
   closeMobileMenu();
@@ -148,6 +206,23 @@ function openLoginModal() {
   // ===== Modal 切換：開啟登入前，先關閉註冊與忘記密碼 =====
   isRegisterModalOpen.value = false;
   isForgotModalOpen.value = false;
+  
+  // ===== 清空預填充帳號：一般登入不需要預填 =====
+  prefillAccount.value = undefined;
+  
+  isLoginModalOpen.value = true;
+}
+
+// ===== 從註冊跳轉到登入：控制註冊成功後自動填入帳號 =====
+function openLoginModalFromRegister(account?: string) {
+  closeMobileMenu();
+
+  // ===== Modal 切換：開啟登入前，先關閉註冊 =====
+  isRegisterModalOpen.value = false;
+  
+  // ===== 設定預填充帳號：讓登入 Modal 自動填入剛註冊的帳號 =====
+  prefillAccount.value = account;
+  
   isLoginModalOpen.value = true;
 }
 
@@ -170,52 +245,22 @@ function openForgotModal() {
   isForgotModalOpen.value = true;
 }
 
-// ===== 登入處理：接收 LoginModal 傳回的電子郵件與密碼 =====
-async function handleLogin(payload: LoginPayload) {
-  // ===== 目前先示範登入資料接收，之後可改成呼叫 Auth API =====
-  console.log("登入資料：", payload);
-
-  await Swal.fire({
-    icon: "success",
-    title: "登入資料已送出",
-    text: "之後可以在這裡串接登入 API。",
-    confirmButtonText: "確定",
-    confirmButtonColor: "#2e4a62",
-  });
-
-  // ===== 登入完成後關閉 Modal =====
-  isLoginModalOpen.value = false;
+// ===== 登出處理：執行登出並刷新狀態 =====
+async function handleLogout() {
+  await authAPI.logout();
+  
+  // 清除前端狀態
+  isLoggedIn.value = false;
+  userInfo.value = null;
+  isUserMenuOpen.value = false;
+  
+  // 刷新頁面回首頁
+  window.location.href = "/";
 }
 
-// ===== 忘記密碼資料型別：控制 ForgotModal 回傳的資料格式 =====
-interface ForgotPasswordPayload {
-  email: string;
-}
-
-// ===== 忘記密碼處理：接收 ForgotModal 傳回的電子郵件 =====
-async function handleForgotPassword(payload: { email: string }) {
-  // ===== 這裡之後可以改成呼叫忘記密碼 API =====
-  console.log("忘記密碼資料：", payload);
-
-  // 範例：
-  // await authService.sendResetPasswordEmail(payload.email)
-}
-
-// ===== 註冊處理：接收 RegisterModal 傳回的註冊資料 =====
-async function handleRegister(payload: RegisterPayload) {
-  // ===== 目前先示範註冊資料接收，之後可改成呼叫 Register API =====
-  console.log("註冊資料：", payload);
-
-  await Swal.fire({
-    icon: "success",
-    title: "註冊資料已送出",
-    text: "之後可以在這裡串接註冊 API。",
-    confirmButtonText: "確定",
-    confirmButtonColor: "#2e4a62",
-  });
-
-  // ===== 註冊完成後關閉 Modal =====
-  isRegisterModalOpen.value = false;
+// ===== 登入成功處理：重新檢查登入狀態 =====
+function handleLoginSuccess() {
+  checkLoginStatus();
 }
 </script>
 
@@ -413,6 +458,116 @@ button.nav-link {
   display: none;
 }
 
+/* ===== 會員選單容器：控制下拉選單定位 ===== */
+.user-menu-wrapper {
+  position: relative;
+}
+
+/* ===== 會員選單按鈕：控制會員名稱顯示 ===== */
+.user-menu-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text);
+  background-color: transparent;
+  padding: 0.6rem 1rem;
+  border: 1px solid rgba(217, 178, 111, 0.5);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* ===== 會員選單按鈕滑過：控制 hover 效果 ===== */
+.user-menu-toggle:hover,
+.user-menu-toggle:focus-visible {
+  background-color: rgba(217, 178, 111, 0.1);
+  transform: translateY(-2px);
+}
+
+/* ===== 會員圖示：控制圖示樣式 ===== */
+.user-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* ===== 會員名稱：控制文字樣式 ===== */
+.user-name {
+  max-width: 6rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ===== 下拉箭頭：控制箭頭樣式 ===== */
+.dropdown-arrow {
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+/* ===== 下拉箭頭旋轉：控制選單開啟時箭頭方向 ===== */
+.user-menu-toggle[aria-expanded="true"] .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* ===== 下拉選單：控制選單外觀 ===== */
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 10rem;
+  background: linear-gradient(135deg, #10283c 0%, #17334a 48%, #0f2538 100%);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  box-shadow: 0 12px 32px rgba(15, 37, 56, 0.35);
+  overflow: hidden;
+  z-index: 1000;
+}
+
+/* ===== 下拉選單項目：控制選單內容樣式 ===== */
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  color: var(--color-muted);
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(217, 178, 111, 0.15);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+/* ===== 下拉選單項目最後一個：移除下邊框 ===== */
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+/* ===== 下拉選單項目滑過：控制 hover 效果 ===== */
+.dropdown-item:hover,
+.dropdown-item:focus-visible {
+  background-color: rgba(217, 178, 111, 0.12);
+  color: var(--color-text);
+}
+
+/* ===== 下拉選單圖示：控制圖示樣式 ===== */
+.dropdown-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
 /* ===== 平板以上：控制左右內距 ===== */
 @media (min-width: 48em) {
   .navbar-inner {
@@ -507,6 +662,31 @@ button.nav-link {
   .nav-link--login:hover,
   .nav-link--login:focus-visible {
     color: var(--color-primary-dark);
+  }
+
+  /* ===== 會員選單容器：手機版調整 ===== */
+  .user-menu-wrapper {
+    width: 100%;
+  }
+
+  /* ===== 會員選單按鈕：手機版全寬 ===== */
+  .user-menu-toggle {
+    width: auto;
+    margin: 1rem 1.25rem;
+    justify-content: center;
+  }
+
+  /* ===== 下拉選單：手機版調整 ===== */
+  .user-dropdown {
+    position: static;
+    width: calc(100% - 2.5rem);
+    margin: 0 1.25rem 1rem;
+    border-radius: 0.75rem;
+  }
+
+  /* ===== 下拉選單項目：手機版調整 ===== */
+  .dropdown-item {
+    padding: 0.75rem 1rem;
   }
 }
 </style>

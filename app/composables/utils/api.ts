@@ -2,7 +2,8 @@ import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 import { showCustom } from "~/composables/utils/alert.js";
 
 const apiClient = axios.create({
-  baseURL: "/api",
+  //baseURL: "http://localhost:7281/api",
+  baseURL: "https://petcare-api.christylove.com.tw/api",
   withCredentials: true,
 });
 
@@ -36,9 +37,11 @@ apiClient.interceptors.response.use(
     const requestUrl = config?.url || "";
 
     const skipAuth401APIs = [
+      "/Login",          // ⭐ 登入失敗不應該調用登出
+      "/Register",       // ⭐ 註冊失敗不應該調用登出
       "/reset-password",
       "/cart",
-      "/AuthMe", // ⭐ 加這個
+      "/AuthMe",
     ];
 
     const shouldSkip401 = skipAuth401APIs.some((api) =>
@@ -120,5 +123,70 @@ export default {
 
   delete(endpoint: string, data = {}, config = {}) {
     return apiClient.delete(endpoint, { data, ...config });
+  },
+};
+
+// ===== 認證相關 API =====
+export const authAPI = {
+  // ===== 檢查登入狀態 =====
+  async checkLoginStatus() {
+    try {
+      const response = await apiClient.get("/AuthMe");
+      return response.data;
+    } catch (error) {
+      return {
+        success: false,
+        isLogin: false,
+        user: null,
+      };
+    }
+  },
+
+  // ===== 登出 =====
+  async logout() {
+    try {
+      await apiClient.post("/Logout");
+    } catch (error) {
+      // 即使 API 失敗也繼續清除本地資料
+      console.error("登出 API 呼叫失敗，但仍會清除本地資料", error);
+    } finally {
+      // 不管 API 是否成功，都清除本地資料
+      if (import.meta.client) {
+        document.cookie =
+          "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        localStorage.removeItem("currentWeddingId");
+      }
+    }
+  },
+
+  // ===== 忘記密碼 =====
+  async forgotPassword(email: string) {
+    const response = await apiClient.post("/auth/forgot-password", { email });
+    return response.data;
+  },
+
+  // ===== 驗證重設密碼 Token =====
+  async validateResetToken(token: string) {
+    const response = await apiClient.get("/auth/validate-reset-token", {
+      params: { token },
+    });
+    return response.data;
+  },
+
+  // ===== 重設密碼 =====
+  async resetPassword(token: string, newPassword: string) {
+    const response = await apiClient.post("/auth/reset-password", {
+      token,
+      newPassword,
+    });
+    return response.data;
+  },
+
+  // ===== 綁定 Email =====
+  async emailBind(token: string) {
+    const response = await apiClient.post("/email-bind", { token });
+    return response.data;
   },
 };

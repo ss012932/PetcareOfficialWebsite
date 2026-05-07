@@ -5,7 +5,6 @@
       <div
         v-if="modelValue"
         class="register-modal-backdrop"
-        @click.self="closeModal"
       >
         <!-- ===== 註冊 Modal 主體：控制註冊表單內容 ===== -->
         <section
@@ -37,8 +36,23 @@
             </p>
           </header>
 
-          <!-- ===== 註冊表單：控制姓名、手機、Email、密碼與確認密碼 ===== -->
+          <!-- ===== 註冊表單：控制帳號、姓名、手機、Email、密碼與確認密碼 ===== -->
           <form class="register-form" @submit.prevent="handleSubmit">
+            <!-- ===== 帳號欄位：控制使用者輸入帳號 ===== -->
+            <div class="form-group">
+              <label for="register-account" class="form-label"> 帳號 </label>
+
+              <input
+                id="register-account"
+                v-model.trim="form.account"
+                type="text"
+                class="form-control"
+                placeholder="請輸入帳號"
+                autocomplete="username"
+                required
+              />
+            </div>
+
             <!-- ===== 第一列欄位：控制姓名與手機號碼同一行 ===== -->
             <div class="form-row">
               <!-- ===== 姓名欄位：控制使用者輸入姓名 ===== -->
@@ -47,7 +61,7 @@
 
                 <input
                   id="register-name"
-                  v-model.trim="form.name"
+                  v-model.trim="form.fullName"
                   type="text"
                   class="form-control"
                   placeholder="請輸入姓名"
@@ -111,7 +125,7 @@
 
               <input
                 id="register-confirm-password"
-                v-model="form.confirmPassword"
+                v-model="confirmPassword"
                 type="password"
                 class="form-control"
                 placeholder="請再次輸入密碼"
@@ -141,14 +155,20 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 import Swal from "sweetalert2";
+import api from "~/composables/utils/api";
+import { showCustom } from "~/composables/utils/alert";
 
 /* ===== 註冊資料型別：控制父層收到的註冊資料格式 ===== */
 interface RegisterPayload {
-  name: string;
-  phone: string;
+  account: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  fullName: string;
+  phone: string;
+  deviceId: string;
+  browserInfo: string;
+  osInfo: string;
+  screenResolution: string;
 }
 
 /* ===== Props：控制 Modal 是否開啟 ===== */
@@ -156,50 +176,282 @@ defineProps<{
   modelValue: boolean;
 }>();
 
-/* ===== Emits：通知父層關閉、註冊、切換登入 ===== */
+/* ===== Emits：通知父層關閉、切換登入 ===== */
 const emit = defineEmits<{
   "update:modelValue": [value: boolean];
-  register: [payload: RegisterPayload];
-  login: [];
+  login: [account?: string];
 }>();
 
 /* ===== 表單資料：控制註冊欄位輸入內容 ===== */
-const form = reactive<RegisterPayload>({
-  name: "",
+const form = reactive<Omit<RegisterPayload, 'deviceId' | 'browserInfo' | 'osInfo' | 'screenResolution' | 'confirmPassword'>>({
+  account: "",
+  fullName: "",
   phone: "",
   email: "",
   password: "",
-  confirmPassword: "",
 });
+
+let confirmPassword = "";
 
 /* ===== 關閉 Modal：通知父層把 v-model 改成 false ===== */
 const closeModal = () => {
   emit("update:modelValue", false);
 };
 
-/* ===== 送出註冊：檢查密碼一致後，把資料傳給父層處理 ===== */
+/* ===== 收集系統資訊：為註冊收集裝置、瀏覽器、作業系統、螢幕解析度 ===== */
+const collectSystemInfo = () => {
+  // ===== 取得瀏覽器資訊：優先檢查 Edge，因為 Edge 的 UA 也包含 Chrome =====
+  const userAgent = navigator.userAgent;
+  let browserInfo = "Unknown";
+
+  if (userAgent.includes("Edg/")) {
+    const match = userAgent.match(/Edg\/([\d.]+)/);
+    browserInfo = match ? `Edge ${match[1]}` : "Edge";
+  } else if (userAgent.includes("Chrome/")) {
+    const match = userAgent.match(/Chrome\/([\d.]+)/);
+    browserInfo = match ? `Chrome ${match[1]}` : "Chrome";
+  } else if (userAgent.includes("Firefox/")) {
+    const match = userAgent.match(/Firefox\/([\d.]+)/);
+    browserInfo = match ? `Firefox ${match[1]}` : "Firefox";
+  } else if (userAgent.includes("Safari/") && !userAgent.includes("Chrome")) {
+    const match = userAgent.match(/Version\/([\d.]+)/);
+    browserInfo = match ? `Safari ${match[1]}` : "Safari";
+  }
+
+  // ===== 取得作業系統資訊：根據 userAgent 和 platform 判斷 =====
+  let osInfo = "Unknown";
+
+  if (userAgent.includes("Windows NT 10.0")) {
+    // Windows 10 和 11 都是 NT 10.0，用 build 判斷
+    osInfo = "Windows 10";
+  } else if (userAgent.includes("Windows NT 6.3")) {
+    osInfo = "Windows 8.1";
+  } else if (userAgent.includes("Windows NT 6.2")) {
+    osInfo = "Windows 8";
+  } else if (userAgent.includes("Windows NT 6.1")) {
+    osInfo = "Windows 7";
+  } else if (userAgent.includes("Mac OS X")) {
+    const match = userAgent.match(/Mac OS X ([\d_]+)/);
+    if (match?.[1]) {
+      const version = match[1].replace(/_/g, ".");
+      osInfo = `macOS ${version}`;
+    } else {
+      osInfo = "macOS";
+    }
+  } else if (userAgent.includes("Android")) {
+    const match = userAgent.match(/Android ([\d.]+)/);
+    osInfo = match ? `Android ${match[1]}` : "Android";
+  } else if (userAgent.includes("iPhone") || userAgent.includes("iPad")) {
+    const match = userAgent.match(/OS ([\d_]+)/);
+    if (match?.[1]) {
+      const version = match[1].replace(/_/g, ".");
+      osInfo = `iOS ${version}`;
+    } else {
+      osInfo = "iOS";
+    }
+  } else if (userAgent.includes("Linux")) {
+    osInfo = "Linux";
+  }
+
+  // ===== 取得螢幕解析度：使用實際的螢幕尺寸 =====
+  const screenResolution = `${window.screen.width}x${window.screen.height}`;
+
+  // ===== 取得持久化的 deviceId：同一台電腦同一瀏覽器固定使用同一組 =====
+  const deviceId = getOrCreateDeviceId();
+
+  return {
+    deviceId,
+    browserInfo,
+    osInfo,
+    screenResolution,
+  };
+};
+
+/* ===== 取得或建立裝置識別碼：控制同一個瀏覽器固定使用同一組 deviceId ===== */
+const getOrCreateDeviceId = (): string => {
+  // ===== localStorage 鍵名：控制 deviceId 存在瀏覽器的位置 =====
+  const storageKey = "petcare_device_id";
+
+  // ===== 從瀏覽器取得已存在的 deviceId =====
+  const existingDeviceId = localStorage.getItem(storageKey);
+
+  // ===== 如果已經有 deviceId，就直接回傳，避免每次重新產生 =====
+  if (existingDeviceId) {
+    return existingDeviceId;
+  }
+
+  // ===== 產生新的 UUID：優先使用瀏覽器 crypto，比 Math.random 更適合產生識別碼 =====
+  let newDeviceId: string;
+  
+  if (crypto.randomUUID) {
+    newDeviceId = crypto.randomUUID();
+  } else {
+    // ===== Fallback：為舊版瀏覽器產生 UUID v4 格式 =====
+    newDeviceId = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+      const array = new Uint8Array(1);
+      crypto.getRandomValues(array);
+      const r = array[0]! % 16;
+      const v = c === "x" ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+  }
+
+  // ===== 儲存 deviceId：讓下次開啟同一個網站時還能使用同一組 =====
+  localStorage.setItem(storageKey, newDeviceId);
+
+  return newDeviceId;
+};
+
+
+/* ===== 送出註冊：檢查密碼一致後，呼叫 API =====  */
 const handleSubmit = async () => {
   // ===== 密碼一致性檢查：避免使用者兩次密碼輸入不同 =====
-  if (form.password !== form.confirmPassword) {
+  if (form.password !== confirmPassword) {
     await Swal.fire({
       icon: "warning",
       title: "密碼不一致",
       text: "請確認密碼與確認密碼是否相同。",
       confirmButtonText: "確定",
       confirmButtonColor: "#2e4a62",
+      didOpen: () => {
+        // ===== 設定 SweetAlert2 所有層級的 z-index，確保在 modal 上方 =====
+        const container = Swal.getContainer();
+        const popup = Swal.getPopup();
+        
+        if (container) {
+          container.style.zIndex = "99999";
+        }
+        if (popup) {
+          popup.style.zIndex = "99999";
+        }
+        
+        // ===== 設定 backdrop（背景遮罩）的 z-index =====
+        const backdrop = document.querySelector('.swal2-container');
+        if (backdrop instanceof HTMLElement) {
+          backdrop.style.zIndex = "99999";
+        }
+      },
     });
 
     return;
   }
 
-  // ===== 註冊資料送出：把表單資料傳給父層處理 API =====
-  emit("register", {
-    name: form.name,
-    phone: form.phone,
-    email: form.email,
-    password: form.password,
-    confirmPassword: form.confirmPassword,
-  });
+  try {
+    // ===== 顯示 Loading 提示：通知使用者正在處理註冊與發送驗證信 =====
+    Swal.fire({
+      title: "處理中...",
+      html: "正在建立帳號並發送驗證信件，請稍候",
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+        
+        // ===== 設定 Loading 的 z-index，確保在 modal 上方 =====
+        const container = Swal.getContainer();
+        const popup = Swal.getPopup();
+        
+        if (container) {
+          container.style.zIndex = "99999";
+        }
+        if (popup) {
+          popup.style.zIndex = "99999";
+        }
+        
+        const backdrop = document.querySelector('.swal2-container');
+        if (backdrop instanceof HTMLElement) {
+          backdrop.style.zIndex = "99999";
+        }
+      },
+    });
+
+    const systemInfo = collectSystemInfo();
+
+    const payload: RegisterPayload = {
+      account: form.account,
+      email: form.email,
+      password: form.password,
+      fullName: form.fullName,
+      phone: form.phone,
+      deviceId: systemInfo.deviceId,
+      browserInfo: systemInfo.browserInfo,
+      osInfo: systemInfo.osInfo,
+      screenResolution: systemInfo.screenResolution,
+    };
+
+    const response = await api.post("/Register", payload);
+
+    // ===== 註冊成功 =====
+    if (response.data.success !== false) {
+      // ===== 儲存帳號，等等要傳給登入 Modal =====
+      const registeredAccount = form.account;
+
+      // ===== 清空表單 =====
+      form.account = "";
+      form.fullName = "";
+      form.phone = "";
+      form.email = "";
+      form.password = "";
+      confirmPassword = "";
+
+      // ===== 倒計時 3 秒後跳轉到登入 =====
+      let timerInterval: number;
+      await Swal.fire({
+        icon: "success",
+        title: "註冊成功",
+        html: "帳號註冊成功，<b>3</b> 秒後自動跳轉到登入頁面",
+        timer: 3000,
+        timerProgressBar: true,
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen: () => {
+          // ===== 設定 SweetAlert2 所有層級的 z-index，確保在 modal 上方 =====
+          const container = Swal.getContainer();
+          const popup = Swal.getPopup();
+          
+          if (container) {
+            container.style.zIndex = "99999";
+          }
+          if (popup) {
+            popup.style.zIndex = "99999";
+          }
+          
+          // ===== 設定 backdrop（背景遮罩）的 z-index =====
+          const backdrop = document.querySelector('.swal2-container');
+          if (backdrop instanceof HTMLElement) {
+            backdrop.style.zIndex = "99999";
+          }
+
+          // ===== 倒計時更新 =====
+          const content = Swal.getHtmlContainer();
+          const b = content?.querySelector("b");
+          if (b) {
+            timerInterval = setInterval(() => {
+              const timeLeft = Math.ceil((Swal.getTimerLeft() || 0) / 1000);
+              b.textContent = timeLeft.toString();
+            }, 100);
+          }
+        },
+        willClose: () => {
+          clearInterval(timerInterval);
+        },
+      });
+
+      // ===== 關閉 Modal 並跳轉到登入，傳遞帳號 =====
+      emit("update:modelValue", false);
+      emit("login", registeredAccount);
+    }
+  } catch (error: any) {
+    const detail = error.response?.data?.detail || "";
+    const message = error.response?.data?.message || "註冊失敗，請稍後重試";
+
+    // ===== 顯示後端的 detail 訊息（優先），否則顯示 message =====
+    await showCustom(
+      "註冊失敗",
+      detail || message,
+      "error",
+    );
+  }
 };
 
 /* ===== 立即登入：通知父層切換成登入 Modal ===== */
