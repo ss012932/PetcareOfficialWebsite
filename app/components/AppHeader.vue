@@ -4,7 +4,6 @@
     <!-- ===== Navbar 區塊：控制導覽列結構 ===== -->
     <nav class="navbar" aria-label="主導覽">
       <div class="navbar-inner">
-
         <!-- ===== Logo 區塊：控制網站品牌名稱 ===== -->
         <NuxtLink to="/#home" class="logo" aria-label="PetCare System 首頁">
           <span class="logo-icon">🐾</span>
@@ -24,28 +23,20 @@
           <span class="hamburger"></span>
         </button>
 
-        <!-- ===== 導覽選單：控制首頁、功能介紹、價格方案 ===== -->
+        <!-- ===== 導覽選單：控制首頁、功能介紹、價格方案、登入 ===== -->
         <ul
           class="nav-menu"
           :class="{ 'is-open': isMobileMenuOpen }"
           role="list"
         >
           <li>
-            <NuxtLink
-              to="/#home"
-              class="nav-link"
-              @click="closeMobileMenu"
-            >
+            <NuxtLink to="/#home" class="nav-link" @click="closeMobileMenu">
               首頁
             </NuxtLink>
           </li>
 
           <li>
-            <NuxtLink
-              to="/#features"
-              class="nav-link"
-              @click="closeMobileMenu"
-            >
+            <NuxtLink to="/#features" class="nav-link" @click="closeMobileMenu">
               功能介紹
             </NuxtLink>
           </li>
@@ -59,48 +50,186 @@
               價格方案
             </NuxtLink>
           </li>
-        </ul>
 
+          <!-- ===== 登入按鈕：控制開啟 LoginModal ===== -->
+          <li>
+            <button
+              type="button"
+              class="nav-link nav-link--login"
+              @click="openLoginModal"
+            >
+              登入
+            </button>
+          </li>
+        </ul>
       </div>
     </nav>
+
+    <!-- ===== 登入 Modal：控制會員登入視窗 ===== -->
+    <LoginModal
+      v-model="isLoginModalOpen"
+      @login="handleLogin"
+      @forgot-password="openForgotModal"
+      @register="openRegisterModal"
+    />
+
+    <!-- ===== 註冊 Modal：控制會員註冊視窗 ===== -->
+    <RegisterModal
+      v-model="isRegisterModalOpen"
+      @register="handleRegister"
+      @login="openLoginModal"
+    />
+
+    <!-- ===== 忘記密碼 Modal：控制密碼重置連結寄送視窗 ===== -->
+    <ForgotModal
+      v-model="isForgotModalOpen"
+      @submit="handleForgotPassword"
+      @login="openLoginModal"
+    />
   </header>
 </template>
 
 <script setup lang="ts">
 // ===== Vue 功能引入：控制響應式狀態 =====
-import { ref } from 'vue'
+import { ref } from "vue";
+
+// ===== SweetAlert2 引入：控制登入、忘記密碼、註冊提示訊息 =====
+import Swal from "sweetalert2";
+
+// ===== LoginModal 元件引入：控制登入彈窗 =====
+import LoginModal from "~/components/LoginModal.vue";
+
+// ===== RegisterModal 元件引入：控制註冊彈窗 =====
+import RegisterModal from "~/components/RegisterModal.vue";
+
+import ForgotModal from "~/components/ForgotModal.vue";
+
+// ===== 登入資料型別：控制 LoginModal 回傳的資料格式 =====
+interface LoginPayload {
+  email: string;
+  password: string;
+}
+
+// ===== 註冊資料型別：控制 RegisterModal 回傳的資料格式 =====
+interface RegisterPayload {
+  name: string;
+  phone: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 // ===== 手機選單狀態：控制選單是否開啟 =====
-const isMobileMenuOpen = ref(false)
+const isMobileMenuOpen = ref(false);
+
+// ===== 登入 Modal 狀態：控制登入彈窗是否開啟 =====
+const isLoginModalOpen = ref(false);
+
+// ===== 註冊 Modal 狀態：控制註冊彈窗是否開啟 =====
+const isRegisterModalOpen = ref(false);
+
+// ===== 忘記密碼 Modal 狀態：控制忘記密碼彈窗是否開啟 =====
+const isForgotModalOpen = ref(false);
 
 // ===== 切換手機選單：控制漢堡選單開關 =====
 function toggleMobileMenu() {
-  isMobileMenuOpen.value = !isMobileMenuOpen.value
+  isMobileMenuOpen.value = !isMobileMenuOpen.value;
 }
 
 // ===== 關閉手機選單：點擊選單後自動收合 =====
 function closeMobileMenu() {
-  isMobileMenuOpen.value = false
+  isMobileMenuOpen.value = false;
+}
+
+// ===== 開啟登入 Modal：控制點擊登入按鈕或從其他 Modal 切回登入 =====
+function openLoginModal() {
+  closeMobileMenu();
+
+  // ===== Modal 切換：開啟登入前，先關閉註冊與忘記密碼 =====
+  isRegisterModalOpen.value = false;
+  isForgotModalOpen.value = false;
+  isLoginModalOpen.value = true;
+}
+
+// ===== 開啟註冊 Modal：控制從登入切到註冊 =====
+function openRegisterModal() {
+  closeMobileMenu();
+
+  // ===== Modal 切換：開啟註冊前，先關閉登入 =====
+  isLoginModalOpen.value = false;
+  isRegisterModalOpen.value = true;
+}
+
+// ===== 開啟忘記密碼 Modal：控制從登入切到忘記密碼 =====
+function openForgotModal() {
+  closeMobileMenu();
+
+  // ===== Modal 切換：開啟忘記密碼前，先關閉登入與註冊 =====
+  isLoginModalOpen.value = false;
+  isRegisterModalOpen.value = false;
+  isForgotModalOpen.value = true;
+}
+
+// ===== 登入處理：接收 LoginModal 傳回的電子郵件與密碼 =====
+async function handleLogin(payload: LoginPayload) {
+  // ===== 目前先示範登入資料接收，之後可改成呼叫 Auth API =====
+  console.log("登入資料：", payload);
+
+  await Swal.fire({
+    icon: "success",
+    title: "登入資料已送出",
+    text: "之後可以在這裡串接登入 API。",
+    confirmButtonText: "確定",
+    confirmButtonColor: "#2e4a62",
+  });
+
+  // ===== 登入完成後關閉 Modal =====
+  isLoginModalOpen.value = false;
+}
+
+// ===== 忘記密碼資料型別：控制 ForgotModal 回傳的資料格式 =====
+interface ForgotPasswordPayload {
+  email: string;
+}
+
+// ===== 忘記密碼處理：接收 ForgotModal 傳回的電子郵件 =====
+async function handleForgotPassword(payload: { email: string }) {
+  // ===== 這裡之後可以改成呼叫忘記密碼 API =====
+  console.log("忘記密碼資料：", payload);
+
+  // 範例：
+  // await authService.sendResetPasswordEmail(payload.email)
+}
+
+// ===== 註冊處理：接收 RegisterModal 傳回的註冊資料 =====
+async function handleRegister(payload: RegisterPayload) {
+  // ===== 目前先示範註冊資料接收，之後可改成呼叫 Register API =====
+  console.log("註冊資料：", payload);
+
+  await Swal.fire({
+    icon: "success",
+    title: "註冊資料已送出",
+    text: "之後可以在這裡串接註冊 API。",
+    confirmButtonText: "確定",
+    confirmButtonColor: "#2e4a62",
+  });
+
+  // ===== 註冊完成後關閉 Modal =====
+  isRegisterModalOpen.value = false;
 }
 </script>
 
 <style scoped>
 /* ===== Header 色系設定：控制 AppHeader 使用深藍精品底色 ===== */
 .app-header {
-  --color-primary: #17334a;        /* 主色：深藍色，控制 Header 背景 */
-  --color-primary-dark: #0f2538;   /* 深主色：控制 hover 與加深狀態 */
-  --color-accent: #d9b26f;         /* 強調色：金色，控制底線與重點 */
-  --color-text: #ffffff;           /* 文字色：控制導覽列文字 */
-  --color-muted: rgba(255, 255, 255, 0.78); /* 次要白色：控制一般文字透明感 */
-  --color-border: rgba(217, 178, 111, 0.28); /* 邊框色：淡金色 */
+  --color-primary: #17334a;
+  --color-primary-dark: #0f2538;
+  --color-accent: #d9b26f;
+  --color-text: #ffffff;
+  --color-muted: rgba(255, 255, 255, 0.78);
+  --color-border: rgba(217, 178, 111, 0.28);
 
-  background:
-    linear-gradient(
-      135deg,
-      #10283c 0%,
-      #17334a 48%,
-      #0f2538 100%
-    );
+  background: linear-gradient(135deg, #10283c 0%, #17334a 48%, #0f2538 100%);
   box-shadow: 0 4px 18px rgba(15, 37, 56, 0.22);
   position: sticky;
   top: 0;
@@ -130,7 +259,9 @@ function closeMobileMenu() {
   gap: 0.5rem;
   color: var(--color-text);
   text-decoration: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 /* ===== Logo 滑過：控制滑鼠移入效果 ===== */
@@ -199,8 +330,18 @@ function closeMobileMenu() {
   font-weight: 800;
   color: var(--color-muted);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
   position: relative;
+}
+
+/* ===== button 導覽連結：清除 button 預設外觀 ===== */
+button.nav-link {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
 }
 
 /* ===== 導覽連結滑過：控制滑鼠移入文字色 ===== */
@@ -210,7 +351,7 @@ function closeMobileMenu() {
 
 /* ===== 導覽底線：控制選單 hover 底線 ===== */
 .nav-link::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -0.45rem;
   left: 0;
@@ -226,7 +367,7 @@ function closeMobileMenu() {
   width: 100%;
 }
 
-/* ===== CTA 連結：控制價格方案按鈕樣式，維持內容不變但改成金色精品感 ===== */
+/* ===== CTA 連結：控制價格方案按鈕樣式 ===== */
 .nav-link--cta {
   color: var(--color-primary-dark);
   background-color: var(--color-accent);
@@ -234,7 +375,6 @@ function closeMobileMenu() {
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.28);
   box-shadow: 0 10px 24px rgba(217, 178, 111, 0.2);
-  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 /* ===== CTA 滑過：控制價格方案按鈕互動 ===== */
@@ -247,6 +387,29 @@ function closeMobileMenu() {
 
 /* ===== CTA 底線移除：避免按鈕出現底線 ===== */
 .nav-link--cta::after {
+  display: none;
+}
+
+/* ===== 登入按鈕：控制價格方案右側的登入按鈕 ===== */
+.nav-link--login {
+  color: var(--color-accent);
+  background-color: transparent;
+  padding: 0.6rem 1rem;
+  border: 1px solid rgba(217, 178, 111, 0.5) !important;
+  border-radius: 999px;
+  box-shadow: none;
+}
+
+/* ===== 登入按鈕滑過：控制登入按鈕互動效果 ===== */
+.nav-link--login:hover,
+.nav-link--login:focus-visible {
+  color: var(--color-primary-dark);
+  background-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+/* ===== 登入按鈕底線移除：避免 button 出現導覽底線 ===== */
+.nav-link--login::after {
   display: none;
 }
 
@@ -284,14 +447,9 @@ function closeMobileMenu() {
     left: 1rem;
     right: 1rem;
     flex-direction: column;
+    align-items: flex-start;
     gap: 0;
-    background:
-      linear-gradient(
-        135deg,
-        #10283c 0%,
-        #17334a 48%,
-        #0f2538 100%
-      );
+    background: linear-gradient(135deg, #10283c 0%, #17334a 48%, #0f2538 100%);
     border: 1px solid var(--color-border);
     border-radius: 1.25rem;
     box-shadow: 0 18px 42px rgba(15, 37, 56, 0.28);
@@ -301,7 +459,7 @@ function closeMobileMenu() {
   }
 
   .nav-menu.is-open {
-    max-height: 18rem;
+    max-height: 24rem;
   }
 
   .nav-menu li {
@@ -315,8 +473,8 @@ function closeMobileMenu() {
 
   .nav-link {
     display: block;
-    padding: 1rem 1.25rem;
     width: 100%;
+    padding: 1rem 1.25rem;
     color: var(--color-muted);
   }
 
@@ -328,11 +486,26 @@ function closeMobileMenu() {
     display: none;
   }
 
-  .nav-link--cta {
+  .nav-link--cta,
+  .nav-link--login {
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: auto;
     margin: 1rem 1.25rem;
     padding: 0.75rem 1.25rem;
+  }
+
+  .nav-link--cta {
+    color: var(--color-primary-dark);
+  }
+
+  .nav-link--login {
+    color: var(--color-accent);
+  }
+
+  .nav-link--login:hover,
+  .nav-link--login:focus-visible {
     color: var(--color-primary-dark);
   }
 }
