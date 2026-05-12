@@ -42,13 +42,15 @@
           </li>
 
           <li>
-            <NuxtLink
-              to="/#pricing"
-              class="nav-link nav-link--cta"
-              @click="closeMobileMenu"
-            >
-              價格方案
-            </NuxtLink>
+           
+            <!-- ===== 價格方案連結：導向獨立 price.vue 頁面 ===== -->
+<NuxtLink
+  to="/price"
+  class="nav-link nav-link--cta"
+  @click="closeMobileMenu"
+>
+  價格方案
+</NuxtLink>
           </li>
 
           <!-- ===== 登入按鈕：未登入時顯示 ===== -->
