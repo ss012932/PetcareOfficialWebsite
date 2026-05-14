@@ -17,13 +17,13 @@
 
             <div class="hero-actions">
               <NuxtLink to="#features" class="btn btn-primary">
-                <span class="btn-icon" aria-hidden="true">▦</span>
+                <Icon name="fa6-solid:table-cells-large" class="btn-icon" aria-hidden="true" />
                 <span>查看功能</span>
                 <span class="btn-arrow" aria-hidden="true">›</span>
               </NuxtLink>
 
               <NuxtLink to="#pricing" class="btn btn-outline">
-                <span class="btn-icon" aria-hidden="true">◇</span>
+                <Icon name="fa6-solid:tag" class="btn-icon" aria-hidden="true" />
                 <span>查看方案</span>
                 <span class="btn-arrow" aria-hidden="true">›</span>
               </NuxtLink>
@@ -51,7 +51,7 @@
 
           <div class="pain-points-divider">
             <span></span>
-            <strong>🐾</strong>
+            <strong><Icon name="fa6-solid:paw" class="divider-paw" aria-hidden="true" /></strong>
             <span></span>
           </div>
 
@@ -71,7 +71,7 @@
           <!-- ===== 痛點卡片 1：控制預約與掛號問題 ===== -->
           <li class="pain-point-item">
             <div class="pain-point-visual">
-              <span class="pain-point-icon" aria-hidden="true">▦</span>
+              <Icon name="fa6-solid:calendar-check" class="pain-point-icon" aria-hidden="true" />
             </div>
 
             <article class="pain-point-content">
@@ -92,7 +92,7 @@
           <!-- ===== 痛點卡片 2：控制病歷與檢查紀錄問題 ===== -->
           <li class="pain-point-item">
             <div class="pain-point-visual">
-              <span class="pain-point-icon" aria-hidden="true">▣</span>
+              <Icon name="fa6-solid:file-medical" class="pain-point-icon" aria-hidden="true" />
             </div>
 
             <article class="pain-point-content">
@@ -113,7 +113,7 @@
           <!-- ===== 痛點卡片 3：控制收費、庫存與報表問題 ===== -->
           <li class="pain-point-item">
             <div class="pain-point-visual">
-              <span class="pain-point-icon" aria-hidden="true">▥</span>
+              <Icon name="fa6-solid:chart-simple" class="pain-point-icon" aria-hidden="true" />
             </div>
 
             <article class="pain-point-content">
@@ -145,7 +145,7 @@
             <span></span>
           </p>
 
-          <div class="workflow-paw" aria-hidden="true">🐾</div>
+          <div class="workflow-paw" aria-hidden="true"><Icon name="fa6-solid:paw" /></div>
 
           <h2 class="workflow-title">一套系統整合看診前、中、後流程</h2>
 
@@ -182,7 +182,7 @@
           </article>
 
           <!-- ===== 流程箭頭 1：控制看診前到看診中的連接 ===== -->
-          <div class="workflow-arrow" aria-hidden="true">→</div>
+          <div class="workflow-arrow" aria-hidden="true"><Icon name="fa6-solid:arrow-right" /></div>
 
           <!-- ===== 流程項目 2：控制看診中內容 ===== -->
           <article class="workflow-step">
@@ -209,7 +209,7 @@
           </article>
 
           <!-- ===== 流程箭頭 2：控制看診中到看診後的連接 ===== -->
-          <div class="workflow-arrow" aria-hidden="true">→</div>
+          <div class="workflow-arrow" aria-hidden="true"><Icon name="fa6-solid:arrow-right" /></div>
 
           <!-- ===== 流程項目 3：控制看診後內容 ===== -->
           <article class="workflow-step">
@@ -253,7 +253,7 @@
         <!-- ===== 功能卡片列表：控制所有系統功能 ===== -->
         <ul class="features-grid" role="list">
           <li class="feature-card">
-            <div class="feature-icon">📅</div>
+            <div class="feature-icon"><Icon name="fa6-solid:calendar-days" /></div>
             <h3>預約掛號管理</h3>
             <p>
               支援現場掛號、線上預約、醫師班表與看診狀態管理，減少櫃台重複作業。
@@ -261,31 +261,31 @@
           </li>
 
           <li class="feature-card">
-            <div class="feature-icon">📋</div>
+            <div class="feature-icon"><Icon name="fa6-solid:clipboard-list" /></div>
             <h3>電子病歷系統</h3>
             <p>完整記錄寵物基本資料、病史、檢查紀錄、用藥紀錄與回診追蹤。</p>
           </li>
 
           <li class="feature-card">
-            <div class="feature-icon">💊</div>
+            <div class="feature-icon"><Icon name="fa6-solid:pills" /></div>
             <h3>藥品與庫存管理</h3>
             <p>管理藥品、疫苗、耗材庫存，並提供低庫存提醒，降低缺貨風險。</p>
           </li>
 
           <li class="feature-card">
-            <div class="feature-icon">💳</div>
+            <div class="feature-icon"><Icon name="fa6-solid:credit-card" /></div>
             <h3>收費與結帳管理</h3>
             <p>支援診療費、藥品費、檢驗費與商品費用整合結帳，帳務更清楚。</p>
           </li>
 
           <li class="feature-card">
-            <div class="feature-icon">📊</div>
+            <div class="feature-icon"><Icon name="fa6-solid:chart-bar" /></div>
             <h3>營運報表分析</h3>
             <p>提供營收、看診量、熱門服務、庫存消耗等數據，協助經營決策。</p>
           </li>
 
           <li class="feature-card">
-            <div class="feature-icon">🔐</div>
+            <div class="feature-icon"><Icon name="fa6-solid:shield-halved" /></div>
             <h3>權限與帳號管理</h3>
             <p>可依照院長、獸醫、櫃台、助理設定不同權限，保護重要資料安全。</p>
           </li>
@@ -625,8 +625,7 @@ useHead({
   color: var(--color-accent);
   border: 1.5px solid var(--color-accent);
   border-radius: 0.35rem;
-  font-size: 0.85rem;
-  line-height: 1;
+  padding: 0.25rem;
 }
 
 /* ===== 按鈕箭頭：控制按鈕右側箭頭 ===== */
@@ -825,8 +824,14 @@ useHead({
 
 /* ===== 痛點分隔線爪印 ===== */
 .pain-points-divider strong {
-  font-size: 1rem;
-  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
+.divider-paw {
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-accent);
 }
 
 /* ===== 痛點描述文字：控制左側說明文字 ===== */
@@ -937,8 +942,7 @@ useHead({
   color: var(--color-primary);
   border: 2px solid var(--color-primary);
   border-radius: 0.65rem;
-  font-size: 1rem;
-  font-weight: 900;
+  padding: 0.45rem;
 }
 
 /* ===== 痛點內容：控制文字放在右側 ===== */
@@ -1126,8 +1130,11 @@ useHead({
 
 /* ===== 方案總覽爪印：控制小標下方裝飾 ===== */
 .workflow-paw {
+  display: inline-flex;
+  align-items: center;
+  width: 1.1rem;
+  height: 1.1rem;
   color: var(--color-accent);
-  font-size: 1rem;
   margin-bottom: 1.25rem;
 }
 
@@ -1305,8 +1312,7 @@ useHead({
   border: 2px solid rgba(217, 178, 111, 0.7);
   border-radius: 999px;
   box-shadow: 0 12px 28px rgba(38, 50, 56, 0.08);
-  font-size: 1.4rem;
-  line-height: 1;
+  padding: 0.5rem;
   transform: rotate(90deg);
 }
 
@@ -1382,7 +1388,9 @@ useHead({
 
 /* ===== 功能圖示：控制 icon 大小 ===== */
 .feature-icon {
-  font-size: 2.25rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: var(--color-accent);
   margin-bottom: 1rem;
 }
 

@@ -6,7 +6,7 @@
       <div class="navbar-inner">
         <!-- ===== Logo 區塊：控制網站品牌名稱 ===== -->
         <NuxtLink to="/#home" class="logo" aria-label="PetCare System 首頁">
-          <span class="logo-icon">🐾</span>
+          <Icon name="fa6-solid:paw" class="logo-icon" aria-hidden="true" />
           <span class="logo-text">PetCare System</span>
         </NuxtLink>
 
@@ -18,9 +18,7 @@
           aria-label="切換導覽選單"
           @click="toggleMobileMenu"
         >
-          <span class="hamburger"></span>
-          <span class="hamburger"></span>
-          <span class="hamburger"></span>
+          <Icon name="fa6-solid:bars" class="hamburger-icon" aria-hidden="true" />
         </button>
 
         <!-- ===== 導覽選單：控制首頁、功能介紹、價格方案、登入 ===== -->
@@ -73,19 +71,19 @@
               aria-label="會員選單"
               @click="toggleUserMenu"
             >
-              <span class="user-icon">👤</span>
+              <Icon name="fa6-solid:user" class="user-icon" aria-hidden="true" />
               <span class="user-name">{{ userInfo?.Name || "會員" }}</span>
-              <span class="dropdown-arrow">▼</span>
+              <Icon name="fa6-solid:chevron-down" class="dropdown-arrow" aria-hidden="true" />
             </button>
 
             <!-- ===== 下拉選單 ===== -->
             <div v-show="isUserMenuOpen" class="user-dropdown">
               <NuxtLink
-                to="/member"
+                to="/member/dashboard"
                 class="dropdown-item"
                 @click="closeMobileMenu(); isUserMenuOpen = false"
               >
-                <span class="dropdown-icon">🏠</span>
+                <Icon name="fa6-solid:house" class="dropdown-icon" aria-hidden="true" />
                 會員中心
               </NuxtLink>
               <button
@@ -93,7 +91,7 @@
                 class="dropdown-item"
                 @click="handleLogout"
               >
-                <span class="dropdown-icon">🚪</span>
+                <Icon name="fa6-solid:arrow-right-from-bracket" class="dropdown-icon" aria-hidden="true" />
                 登出
               </button>
             </div>
@@ -127,7 +125,7 @@
 
 <script setup lang="ts">
 // ===== Vue 功能引入：控制響應式狀態 =====
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 
 // ===== LoginModal 元件引入：控制登入彈窗 =====
 import LoginModal from "~/components/LoginModal.vue";
@@ -143,8 +141,8 @@ import { authAPI } from "~/composables/utils/api";
 // ===== 手機選單狀態：控制選單是否開啟 =====
 const isMobileMenuOpen = ref(false);
 
-// ===== 登入 Modal 狀態：控制登入彈窗是否開啟 =====
-const isLoginModalOpen = ref(false);
+// ===== 登入 Modal 狀態：使用共享 useState，讓任何頁面都能遠端開啟 =====
+const { isOpen: isLoginModalOpen } = useLoginModal();
 
 // ===== 註冊 Modal 狀態：控制註冊彈窗是否開啟 =====
 const isRegisterModalOpen = ref(false);
@@ -181,10 +179,29 @@ async function checkLoginStatus() {
   }
 }
 
-// ===== 元件載入：檢查登入狀態 =====
-onMounted(() => {
-  checkLoginStatus();
+// ===== 路由：用於監聽 query 參數變化 =====
+const route = useRoute();
+const router = useRouter();
+
+// ===== 元件載入：先確認登入狀態，才決定是否自動開啟登入視窗 =====
+onMounted(async () => {
+  await checkLoginStatus();
+
+  // ===== 已確認未登入且帶有 login=1，才自動開啟登入 Modal =====
+  if (route.query.login === '1' && !isLoggedIn.value) {
+    openLoginModal();
+  }
 });
+
+// ===== 監聽路由 query：SPA 切換時也能偵測到 login=1 =====
+watch(
+  () => route.query.login,
+  (val) => {
+    if (val === '1' && !isLoggedIn.value) {
+      openLoginModal();
+    }
+  },
+);
 
 // ===== 切換手機選單：控制漢堡選單開關 =====
 function toggleMobileMenu() {
@@ -260,9 +277,14 @@ async function handleLogout() {
   window.location.href = "/";
 }
 
-// ===== 登入成功處理：重新檢查登入狀態 =====
-function handleLoginSuccess() {
-  checkLoginStatus();
+// ===== 登入成功處理：重新檢查登入狀態並清除 URL 的 login=1 =====
+async function handleLoginSuccess() {
+  await checkLoginStatus();
+
+  // ===== 清掉 ?login=1，避免頁面重整再度彈出登入視窗 =====
+  if (route.query.login) {
+    await router.replace({ query: {} });
+  }
 }
 </script>
 
@@ -336,13 +358,17 @@ function handleLoginSuccess() {
 /* ===== 漢堡選單按鈕：控制手機版按鈕外觀 ===== */
 .menu-toggle {
   display: none;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
   background-color: rgba(255, 255, 255, 0.08);
   border: 1px solid var(--color-border);
   cursor: pointer;
-  gap: 0.35rem;
-  padding: 0.55rem;
+  padding: 0;
   border-radius: 0.85rem;
+  color: var(--color-accent);
+  font-size: 1.15rem;
 }
 
 /* ===== 漢堡選單聚焦：控制鍵盤操作外框 ===== */
@@ -351,14 +377,10 @@ function handleLoginSuccess() {
   outline-offset: 2px;
 }
 
-/* ===== 漢堡線條：控制三條線外觀 ===== */
-.hamburger {
-  width: 1.5rem;
-  height: 0.18rem;
-  background-color: var(--color-accent);
-  display: block;
-  transition: all 0.3s ease;
-  border-radius: 999px;
+/* ===== 漢堡 Icon：控制圖示尺寸 ===== */
+.hamburger-icon {
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 /* ===== 導覽選單：控制桌機版選單排列 ===== */
@@ -493,8 +515,9 @@ button.nav-link {
 
 /* ===== 會員圖示：控制圖示樣式 ===== */
 .user-icon {
-  font-size: 1.2rem;
-  line-height: 1;
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
 }
 
 /* ===== 會員名稱：控制文字樣式 ===== */
@@ -507,7 +530,9 @@ button.nav-link {
 
 /* ===== 下拉箭頭：控制箭頭樣式 ===== */
 .dropdown-arrow {
-  font-size: 0.75rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  flex-shrink: 0;
   transition: transform 0.2s ease;
 }
 
@@ -566,8 +591,9 @@ button.nav-link {
 
 /* ===== 下拉選單圖示：控制圖示樣式 ===== */
 .dropdown-icon {
-  font-size: 1.1rem;
-  line-height: 1;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
 }
 
 /* ===== 平板以上：控制左右內距 ===== */

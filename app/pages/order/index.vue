@@ -6,18 +6,12 @@
       <section class="order-panel" aria-labelledby="order-summary-title">
         <header class="panel-header">
           <div>
-            <p class="panel-eyebrow">
-              ORDER SUMMARY
-            </p>
+            <p class="panel-eyebrow">ORDER SUMMARY</p>
 
-            <h1 id="order-summary-title" class="panel-title">
-              訂單摘要
-            </h1>
+            <h1 id="order-summary-title" class="panel-title">訂單摘要</h1>
           </div>
 
-          <span class="status-badge">
-            待付款
-          </span>
+          <span class="status-badge"> 待付款 </span>
         </header>
 
         <div class="panel-body">
@@ -25,19 +19,16 @@
           <article class="selected-plan-card">
             <div>
               <h2 class="selected-plan-name">
-                {{ selectedPlan.name }}
+                {{ selectedPlan?.PlanName }}
               </h2>
 
               <p class="selected-plan-desc">
-                {{ selectedPlan.description }}
+                {{ selectedPlan?.Description }}
               </p>
             </div>
 
             <div class="selected-plan-tags">
-              <span
-                v-for="tag in selectedPlan.tags"
-                :key="tag"
-              >
+              <span v-for="tag in selectedPlan?.SuitableTags" :key="tag">
                 {{ tag }}
               </span>
             </div>
@@ -47,42 +38,97 @@
           <div class="order-detail">
             <div class="order-item">
               <div>
-                <h3>{{ selectedPlan.name }}</h3>
-                <p>{{ selectedPlan.subtitle }}</p>
+                <h3>{{ selectedPlan?.PlanName }}</h3>
+                <p>{{ selectedPlan?.Tagline }}</p>
               </div>
 
               <div class="order-item-price">
                 <span>x 1</span>
-                <strong>{{ selectedPlan.priceText }}</strong>
+                <strong
+                  >NT$ {{ selectedPlan?.Price.toLocaleString()
+                  }}{{ selectedPlan?.Period }}</strong
+                >
               </div>
             </div>
 
             <dl class="order-total-list">
               <div>
                 <dt>小計</dt>
-                <dd>{{ selectedPlan.priceText }}</dd>
+                <dd>NT$ {{ selectedPlan?.Price.toLocaleString() }}</dd>
               </div>
 
               <div>
-                <dt>專案數量</dt>
-                <dd>1 個</dd>
+                <dt>訂閱期間</dt>
+                <dd>{{ selectedPlan?.SubscriptionMonth }} 個月</dd>
               </div>
 
               <div class="total-row">
                 <dt>應付金額</dt>
-                <dd>{{ selectedPlan.priceText }}</dd>
+                <dd>NT$ {{ selectedPlan?.Price.toLocaleString() }}</dd>
               </div>
             </dl>
           </div>
 
-          <!-- ===== 下單流程說明：控制付款後流程提示 ===== -->
+          <!-- ===== 下單流程說明：控制付款後流程時間軸 ===== -->
           <div class="order-note">
-            <h3>送出訂單後流程</h3>
+            <h3 class="order-note-title">送出訂單後流程</h3>
 
-            <ol>
-              <li>送出訂單後，系統會建立方案申請紀錄。</li>
-              <li>專人將與您聯繫，確認院所資料與導入需求。</li>
-              <li>完成付款與開通後，即可開始使用系統服務。</li>
+
+            <ol class="order-steps" role="list">
+              <li class="order-step">
+                <div class="step-indicator" aria-hidden="true">
+                  <span class="step-num">1</span>
+                  <span class="step-connector"></span>
+                </div>
+                <div class="step-body">
+                  <strong class="step-title">建立申請紀錄</strong>
+                  <p class="step-desc">送出訂單後，系統會先建立方案申請紀錄，尚不代表購買已完成或服務已正式開通。</p>
+                </div>
+              </li>
+
+              <li class="order-step">
+                <div class="step-indicator" aria-hidden="true">
+                  <span class="step-num">2</span>
+                  <span class="step-connector"></span>
+                </div>
+                <div class="step-body">
+                  <strong class="step-title">專人聯繫確認</strong>
+                  <p class="step-desc">專人將與您聯繫，確認院所資料、所選方案、導入需求、加購項目與付款方式。</p>
+                </div>
+              </li>
+
+              <li class="order-step">
+                <div class="step-indicator" aria-hidden="true">
+                  <span class="step-num">3</span>
+                  <span class="step-connector"></span>
+                </div>
+                <div class="step-body">
+                  <strong class="step-title">確認付款資訊</strong>
+                  <p class="step-desc">雙方確認方案內容、金額、使用期間與付款方式後，將提供付款資訊或報價內容。</p>
+                </div>
+              </li>
+
+              <li class="order-step">
+                <div class="step-indicator" aria-hidden="true">
+                  <span class="step-num">4</span>
+                  <span class="step-connector"></span>
+                </div>
+                <div class="step-body">
+                  <strong class="step-title">完成付款與開通</strong>
+                  <p class="step-desc">完成付款並經本平台確認必要資料後，將依所選方案進行帳號建立、權限設定與系統開通。</p>
+                </div>
+              </li>
+
+              <li class="order-step">
+                <div class="step-indicator" aria-hidden="true">
+                  <span class="step-num">5</span>
+                  <span class="step-connector"></span>
+                </div>
+                <div class="step-body">
+                  <strong class="step-title">開始使用服務</strong>
+                  <p class="step-desc">服務開通完成後，即可開始使用系統服務；若涉及資料匯入、客製化設定、分院設定或第三方服務串接，實際啟用時間將依雙方確認內容辦理。</p>
+                </div>
+              </li>
             </ol>
           </div>
         </div>
@@ -92,18 +138,12 @@
       <section class="order-panel" aria-labelledby="buyer-info-title">
         <header class="panel-header">
           <div>
-            <p class="panel-eyebrow">
-              PURCHASER INFO
-            </p>
+            <p class="panel-eyebrow">PURCHASER INFO</p>
 
-            <h2 id="buyer-info-title" class="panel-title">
-              購買人資訊
-            </h2>
+            <h2 id="buyer-info-title" class="panel-title">購買人資訊</h2>
           </div>
 
-          <span class="status-badge status-badge-login">
-            已登入
-          </span>
+
         </header>
 
         <form class="panel-body buyer-form" @submit.prevent="handleSubmitOrder">
@@ -120,17 +160,15 @@
             </div>
 
             <div class="buyer-info-item">
-              <span>身分</span>
-              <strong>{{ buyer.role }}</strong>
+              <span>聯絡電話</span>
+              <strong>{{ buyer.phone || '未設定' }}</strong>
             </div>
           </div>
 
           <!-- ===== 院所資訊欄位：控制購買方案需要的基本資料 ===== -->
           <div class="form-grid">
             <div class="form-group">
-              <label for="clinic-name" class="form-label">
-                院所名稱
-              </label>
+              <label for="clinic-name" class="form-label"> 院所名稱 </label>
 
               <input
                 id="clinic-name"
@@ -143,9 +181,7 @@
             </div>
 
             <div class="form-group">
-              <label for="contact-phone" class="form-label">
-                聯絡電話
-              </label>
+              <label for="contact-phone" class="form-label"> 聯絡電話 </label>
 
               <input
                 id="contact-phone"
@@ -158,9 +194,7 @@
             </div>
 
             <div class="form-group form-group-full">
-              <label for="remark" class="form-label">
-                備註需求
-              </label>
+              <label for="remark" class="form-label"> 備註需求 </label>
 
               <textarea
                 id="remark"
@@ -178,9 +212,7 @@
 
           <!-- ===== 操作按鈕：控制返回與送出訂單 ===== -->
           <div class="order-actions">
-            <NuxtLink to="/price" class="back-link">
-              返回價格方案
-            </NuxtLink>
+            <NuxtLink to="/price" class="back-link"> 返回價格方案 </NuxtLink>
 
             <button type="submit" class="submit-button">
               確認送出訂單
@@ -194,124 +226,110 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive } from 'vue'
-import Swal from 'sweetalert2'
+import { computed, reactive, ref } from "vue";
+import Swal from "sweetalert2";
+import api, { authAPI } from "~/composables/utils/api";
+
+// ===== Middleware：限制此頁面需登入才可進入 =====
+definePageMeta({
+  middleware: "auth",
+});
 
 // ===== 頁面 SEO：控制瀏覽器標題與描述 =====
 useHead({
-  title: '訂單資訊｜PetCare System',
+  title: "訂單資訊｜PetCare System",
   meta: [
     {
-      name: 'description',
-      content: '確認 PetCare System 方案訂單摘要與購買人資訊。',
+      name: "description",
+      content: "確認 PetCare System 方案訂單摘要與購買人資訊。",
     },
   ],
-})
+});
 
 // ===== 路由功能：取得價格頁帶過來的方案代碼 =====
-const route = useRoute()
+const route = useRoute();
 
 // ===== 路由功能：送出訂單後可導回首頁或其他頁面 =====
-const router = useRouter()
+const router = useRouter();
 
-// ===== 方案資料型別：控制方案內容格式 =====
-interface PlanInfo {
-  code: string
-  name: string
-  subtitle: string
-  description: string
-  price: number | null
-  priceText: string
-  tags: string[]
+// ===== 方案資料型別：對應 API 回傳格式 =====
+interface ApiPlan {
+  Id: number;
+  PlanCode: string;
+  PlanName: string;
+  Tagline: string;
+  Description: string;
+  Price: number;
+  OriginalPrice: number;
+  Period: string;
+  SubscriptionMonth: number;
+  Features: string[];
+  SuitableTags: string[];
+  IsFeatured: boolean;
+  IsActive: boolean;
+  Badge: string | null;
+  SaveAmount: number;
+  SaveText: string;
 }
 
-// ===== 方案資料：依照 price.vue 的 plan query 對應顯示內容 =====
-const plans: Record<PlanCode, PlanInfo> = {
-  basic: {
-    code: 'basic',
-    name: '基本版',
-    subtitle: '適合小型動物診所',
-    description: '提供預約排程、電子病歷與基本收費功能，適合剛開始數位化管理的院所。',
-    price: 1980,
-    priceText: 'NT$1,980 / 月',
-    tags: ['預約排程', '電子病歷', '3 個員工帳號'],
-  },
-  pro: {
-    code: 'pro',
-    name: '專業版',
-    subtitle: '適合成長中的動物醫院',
-    description: '包含基本版所有功能，並加入庫存管理、報表分析與進階營運管理。',
-    price: 3980,
-    priceText: 'NT$3,980 / 月',
-    tags: ['庫存管理', '報表分析', '10 個員工帳號'],
-  },
-  enterprise: {
-    code: 'enterprise',
-    name: '企業版',
-    subtitle: '適合多分院與大型院所',
-    description: '提供多分院管理、客製報表、專屬導入協助與技術支援服務。',
-    price: null,
-    priceText: '客製報價',
-    tags: ['多分院管理', '客製報表', '專屬支援'],
-  },
+interface PlansResponse {
+  success: boolean;
+  data: ApiPlan[];
 }
 
-// ===== 方案代碼型別：限制只能使用這三種方案代碼 =====
-type PlanCode = 'basic' | 'pro' | 'enterprise'
+// ===== 方案清單：從 API 取得 =====
+const plansRes = await api.get("/plans");
+const plansData = ref<PlansResponse | null>(plansRes.data ?? null);
 
-// ===== 判斷方案代碼是否有效：避免 query 傳入不存在的方案 =====
-function isPlanCode(value: string): value is PlanCode {
-  return ['basic', 'pro', 'enterprise'].includes(value)
-}
+// ===== 目前選擇方案：從網址 query 的 PlanCode 對應 API 資料 =====
+const selectedPlan = computed<ApiPlan | null>(() => {
+  const queryPlan = String(route.query.plan ?? "").toUpperCase();
+  const list = plansData.value?.data ?? [];
 
-// ===== 目前選擇方案：從網址 query 判斷方案，沒有就預設基本版 =====
-const selectedPlan = computed<PlanInfo>(() => {
-  const queryPlan = String(route.query.plan ?? 'basic')
+  // ===== 依 PlanCode 比對，找不到就取第一筆 =====
+  return list.find((p) => p.PlanCode === queryPlan) ?? list[0] ?? null;
+});
 
-  // ===== 如果網址方案代碼有效，就使用該方案；否則預設基本版 =====
-  const planCode: PlanCode = isPlanCode(queryPlan) ? queryPlan : 'basic'
+// ===== 購買人資料：透過 authAPI.checkLoginStatus() 取得真實會員資訊 =====
+const authResult = await authAPI.checkLoginStatus();
 
-  return plans[planCode]
-})
-
-// ===== 購買人資料：之後可改成從登入會員 API 或 Pinia store 取得 =====
-const buyer = reactive({
-  name: '目前登入會員',
-  email: 'member@example.com',
-  role: '會員',
-})
+const buyer = computed(() => ({
+  name: authResult?.user?.Name ?? "",
+  email: authResult?.user?.Email ?? "",
+  phone: authResult?.user?.Phone ?? "",
+}));
 
 // ===== 訂單表單資料：控制院所資料與備註需求 =====
 const form = reactive({
-  clinicName: '',
-  phone: '',
-  remark: '',
-})
+  clinicName: "",
+  phone: "",
+  remark: "",
+});
 
 // ===== 送出訂單：目前先示範前端流程，之後可改成呼叫訂單 API =====
 async function handleSubmitOrder() {
-  console.log('送出訂單資料：', {
+  console.log("送出訂單資料：", {
     plan: selectedPlan.value,
     buyer,
     form,
-  })
+  });
 
   await Swal.fire({
-    icon: 'success',
-    title: '訂單已送出',
-    text: '我們已收到您的方案申請，後續將由專人與您聯繫。',
-    confirmButtonText: '返回首頁',
-    confirmButtonColor: '#2e4a62',
-  })
+    icon: "success",
+    title: "訂單已送出",
+    text: "我們已收到您的方案申請，後續將由專人與您聯繫。",
+    confirmButtonText: "返回首頁",
+    confirmButtonColor: "#2e4a62",
+  });
 
-  await router.push('/')
+  await router.push("/");
 }
 </script>
 
 <style scoped>
 /* ===== 共用容器：控制頁面最大寬度 ===== */
 .container {
-  width: min(100% - 2rem, 92rem);
+  width: min(100% - 3rem, 160rem);
   margin-inline: auto;
 }
 
@@ -326,11 +344,19 @@ async function handleSubmitOrder() {
   --color-border: #e6d8bd;
 
   min-height: 100vh;
-  padding: 3rem 0;
+  padding: 1.5rem 0;
   color: var(--color-text);
   background:
-    radial-gradient(circle at top left, rgba(217, 178, 111, 0.16), transparent 28rem),
-    radial-gradient(circle at bottom right, rgba(156, 191, 167, 0.12), transparent 26rem),
+    radial-gradient(
+      circle at top left,
+      rgba(217, 178, 111, 0.16),
+      transparent 28rem
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(156, 191, 167, 0.12),
+      transparent 26rem
+    ),
     linear-gradient(
       135deg,
       rgba(255, 255, 255, 0.98) 0%,
@@ -360,7 +386,7 @@ async function handleSubmitOrder() {
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1.5rem;
+  padding: 1rem 1.25rem;
   border-bottom: 1px solid rgba(230, 216, 189, 0.82);
   background-color: rgba(255, 250, 240, 0.65);
 }
@@ -378,7 +404,7 @@ async function handleSubmitOrder() {
 /* ===== 面板標題：控制訂單摘要與購買人資訊文字 ===== */
 .panel-title {
   color: var(--color-primary);
-  font-size: 1.55rem;
+  font-size: clamp(1.2rem, 4vw, 1.55rem);
   font-weight: 900;
   letter-spacing: 0.06em;
 }
@@ -399,16 +425,11 @@ async function handleSubmitOrder() {
   white-space: nowrap;
 }
 
-/* ===== 已登入標籤：控制購買人資訊狀態顏色 ===== */
-.status-badge-login {
-  color: #ffffff;
-  background-color: var(--color-primary);
-  border-color: var(--color-accent);
-}
 
-/* ===== 面板內容：控制卡片內距 ===== */
+
+/* ===== 面板內容：控制卡片內距（手機為緊湊） ===== */
 .panel-body {
-  padding: 1.5rem;
+  padding: 1.25rem;
 }
 
 /* ===== 選擇方案卡片：控制方案摘要視覺 ===== */
@@ -418,12 +439,11 @@ async function handleSubmitOrder() {
   padding: 1.5rem;
   border: 1px solid rgba(230, 216, 189, 0.92);
   border-radius: 1.25rem;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.92) 0%,
-      rgba(255, 250, 240, 0.74) 100%
-    );
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(255, 250, 240, 0.74) 100%
+  );
 }
 
 /* ===== 方案名稱：控制選中方案標題 ===== */
@@ -560,36 +580,103 @@ async function handleSubmitOrder() {
   font-weight: 900;
 }
 
-/* ===== 流程說明：控制送出訂單後流程框 ===== */
+/* ===== 流程說明容器：控制時間軸區塊 ===== */
 .order-note {
   margin-top: 2rem;
-  padding: 1.25rem;
-  border: 1px solid rgba(230, 216, 189, 0.92);
-  border-radius: 1rem;
-  background-color: rgba(255, 250, 240, 0.55);
+  padding: 1.1rem 0.5rem;
 }
 
-/* ===== 流程說明標題：控制小標 ===== */
-.order-note h3 {
+/* ===== 流程說明標題：控制時間軸上方 label ===== */
+.order-note-title {
   color: var(--color-primary);
-  font-size: 1rem;
+  font-size: 0.75rem;
   font-weight: 900;
-  margin-bottom: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1.35rem;
+  padding-left: 0.65rem;
+  border-left: 3px solid var(--color-accent);
 }
 
-/* ===== 流程說明列表：控制數字列表 ===== */
-.order-note ol {
-  display: grid;
-  gap: 0.5rem;
-  padding-left: 1.2rem;
+/* ===== 步驟列表：控制時間軸整體 ===== */
+.order-steps {
+  list-style: none;
+  padding: 0;
   margin: 0;
 }
 
-/* ===== 流程說明項目：控制文字 ===== */
-.order-note li {
-  color: var(--color-muted);
+/* ===== 單一步驟：控制數字圓圈與內容並排 ===== */
+.order-step {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 0 0.85rem;
+}
+
+/* ===== 步驟指示器：控制數字圓圈與連接線 ===== */
+.step-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ===== 步驟數字圓圈：控制數字標記 ===== */
+.step-num {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  color: #ffffff;
+  background-color: var(--color-primary);
+  font-size: 0.8rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== 步驟連接線：控制圓圈之間的垂直線 ===== */
+.step-connector {
+  flex: 1;
+  width: 2px;
+  min-height: 0.75rem;
+  background: linear-gradient(
+    to bottom,
+    rgba(46, 74, 98, 0.25),
+    rgba(217, 178, 111, 0.45)
+  );
+  margin: 0.3rem 0;
+}
+
+/* ===== 最後一步不顯示連接線 ===== */
+.order-step:last-child .step-connector {
+  display: none;
+}
+
+/* ===== 步驟內容：控制標題與說明文字 ===== */
+.step-body {
+  padding-bottom: 1.25rem;
+}
+
+.order-step:last-child .step-body {
+  padding-bottom: 0;
+}
+
+/* ===== 步驟標題：控制步驟名稱，與圓圈垂直對齊 ===== */
+.step-title {
+  display: block;
+  color: var(--color-primary);
   font-size: 0.92rem;
-  line-height: 1.7;
+  font-weight: 900;
+  line-height: 2rem;
+  margin-bottom: 0.2rem;
+}
+
+/* ===== 步驟說明：控制步驟詳細描述 ===== */
+.step-desc {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  line-height: 1.72;
+  margin: 0;
 }
 
 /* ===== 購買人表單：控制右側內容排列 ===== */
@@ -723,12 +810,11 @@ async function handleSubmitOrder() {
   border: 2px solid var(--color-accent);
   border-radius: 999px;
   color: #ffffff;
-  background:
-    linear-gradient(
-      135deg,
-      var(--color-primary) 0%,
-      var(--color-primary-dark) 100%
-    );
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-dark) 100%
+  );
   font-size: 1rem;
   font-weight: 900;
   letter-spacing: 0.06em;
@@ -742,15 +828,15 @@ async function handleSubmitOrder() {
   box-shadow: 0 14px 32px rgba(31, 53, 72, 0.22);
 }
 
-/* ===== 平板以上：控制表單雙欄與按鈕排列 ===== */
+/* ===== 平板以上：表單雙欄、品項橫排、按鈕並排 ===== */
 @media (min-width: 48em) {
   .order-page {
-    padding: 4rem 0;
+    padding: 2.5rem 0;
   }
 
   .panel-header,
   .panel-body {
-    padding-inline: 2rem;
+    padding-inline: 1.75rem;
   }
 
   .form-grid {
@@ -767,23 +853,28 @@ async function handleSubmitOrder() {
   }
 
   .order-item-price {
-    min-width: 11rem;
+    min-width: 10rem;
   }
 
   .order-actions {
-    grid-template-columns: 0.8fr 1.2fr;
+    grid-template-columns: 1fr 1.3fr;
   }
 }
 
-/* ===== 桌機以上：控制左右雙欄排版 ===== */
+/* ===== 桌機以上：左右雙欄，左側 sticky ===== */
 @media (min-width: 64em) {
+  .order-page {
+    padding: 4rem 0;
+  }
+
   .order-container {
     grid-template-columns: 1fr 1fr;
     align-items: start;
   }
 
-  .order-panel {
-    min-height: 35rem;
+  .panel-header,
+  .panel-body {
+    padding-inline: 2rem;
   }
 }
 </style>

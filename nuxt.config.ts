@@ -37,6 +37,7 @@ export default defineNuxtConfig({
   // ===== 模組 =====
   modules: [
     '@pinia/nuxt',
+    '@nuxt/icon',
   ],
 
   // ===== CSS 引入 =====
