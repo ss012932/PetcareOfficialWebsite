@@ -7,8 +7,10 @@
       <div class="bo-profile">
         <span class="bo-avatar" aria-hidden="true">{{ userInitial }}</span>
         <div class="bo-profile-info">
-          <p class="bo-profile-label">Back Office</p>
-          <strong class="bo-profile-name">{{ user.Name || 'PetCare 管理者' }}</strong>
+          <p class="bo-profile-label">管理後台</p>
+          <strong class="bo-profile-name">{{
+            user.Name || "PetCare 管理者"
+          }}</strong>
           <span class="bo-profile-email">{{ user.Email }}</span>
         </div>
       </div>
@@ -43,51 +45,64 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { authAPI } from '~/composables/utils/api'
+import { computed, onMounted } from "vue";
+import { useAuthStore } from "~/composables/auth";
 
 // ===== 整個 /member 路由樹都需要登入 =====
 definePageMeta({
-  middleware: 'backoffice-auth',
+  middleware: "backoffice-auth",
   layout: false,
-})
+});
 
 useHead({
-  titleTemplate: '%s｜PetCare 後台',
-})
+  titleTemplate: "%s｜PetCare 後台",
+});
 
-// ===== 取得登入會員資訊 =====
-const authResult = await authAPI.checkLoginStatus()
-const user = authResult?.user ?? {}
+// ===== 取得共用登入者資料 =====
+const authStore = useAuthStore();
+
+/**
+ * 載入側欄使用者資料
+ * 用途：讓側欄姓名、Email 使用 Pinia 共用狀態
+ */
+onMounted(async () => {
+  await authStore.loadUser();
+});
+
+const user = computed(() => authStore.user);
 
 const userInitial = computed(() =>
-  (user.Name || user.Email || 'P').trim().slice(0, 1).toUpperCase()
-)
+  (user.value.Name || user.value.Email || "P").trim().slice(0, 1).toUpperCase(),
+);
 
 // ===== 後台導覽清單 =====
 const navItems = [
-  { to: '/member/dashboard', label: '主控台',  icon: 'fa6-solid:gauge-high' },
-  { to: '/member/profile',   label: '會員設定', icon: 'fa6-solid:circle-user' },
-  { to: '/member/orders',    label: '訂單資訊', icon: 'fa6-solid:receipt' },
-  { to: '/member/brand',     label: '品牌設定', icon: 'fa6-solid:tag' },
-  { to: '/member/staff',     label: '人事系統', icon: 'fa6-solid:users' },
-  { to: '/member/stores',    label: '分店設定', icon: 'fa6-solid:store' },
-]
+  { to: "/member/dashboard", label: "主控台", icon: "fa6-solid:gauge-high" },
+  { to: "/member/profile", label: "會員設定", icon: "fa6-solid:circle-user" },
+  { to: "/member/orders", label: "訂單資訊", icon: "fa6-solid:receipt" },
+  { to: "/member/brand", label: "品牌設定", icon: "fa6-solid:tag" },
+  { to: "/member/staff", label: "人事系統", icon: "fa6-solid:users" },
+  { to: "/member/stores", label: "分店設定", icon: "fa6-solid:store" },
+];
 </script>
 
 <style>
 /* ===== Reset & 全域基準（scoped=false 讓子頁也繼承） ===== */
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 .bo-shell {
-  --bo-primary:      #17334a;
+  --bo-primary: #17334a;
   --bo-primary-soft: #edf4f8;
-  --bo-accent:       #d9b26f;
-  --bo-border:       #dfe7ec;
-  --bo-text:         #20303c;
-  --bo-muted:        #6b7882;
-  --bo-bg:           #f5f7f8;
-  --bo-sidebar-w:    15rem;
+  --bo-accent: #d9b26f;
+  --bo-border: #dfe7ec;
+  --bo-text: #20303c;
+  --bo-muted: #6b7882;
+  --bo-bg: #f5f7f8;
+  --bo-sidebar-w: 15rem;
 
   display: grid;
   grid-template-columns: var(--bo-sidebar-w) minmax(0, 1fr);
@@ -114,7 +129,7 @@ const navItems = [
   align-items: center;
   gap: 0.75rem;
   padding: 1.25rem 1rem;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .bo-avatar {
@@ -156,7 +171,7 @@ const navItems = [
 
 .bo-profile-email {
   display: block;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.6);
   font-size: 0.78rem;
   white-space: nowrap;
   overflow: hidden;
@@ -178,21 +193,23 @@ const navItems = [
   gap: 0.65rem;
   padding: 0.6rem 0.75rem;
   border-radius: 6px;
-  color: rgba(255,255,255,0.72);
+  color: rgba(255, 255, 255, 0.72);
   font-weight: 800;
   font-size: 0.92rem;
   text-decoration: none;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 
 .bo-nav-item:hover,
 .bo-nav-item.is-active {
   color: #fff;
-  background: rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .bo-nav-item.is-active {
-  background: rgba(217,178,111,0.2);
+  background: rgba(217, 178, 111, 0.2);
   color: var(--bo-accent);
 }
 
@@ -209,7 +226,7 @@ const navItems = [
 /* ===== 底部回官網按鈕 ===== */
 .bo-sidebar-footer {
   padding: 0.75rem 0.6rem 1rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .bo-back-link {
@@ -218,7 +235,7 @@ const navItems = [
   gap: 0.5rem;
   padding: 0.55rem 0.75rem;
   border-radius: 6px;
-  color: rgba(255,255,255,0.55);
+  color: rgba(255, 255, 255, 0.55);
   font-size: 0.88rem;
   font-weight: 800;
   text-decoration: none;
@@ -252,7 +269,7 @@ const navItems = [
     height: auto;
     flex-direction: row;
     border-right: none;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 100;
     overflow-x: auto;
     overflow-y: hidden;

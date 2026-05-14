@@ -56,14 +56,6 @@ apiClient.interceptors.response.use(
     const message = data?.message || "";
 
     // ===============================
-    // 🔐 判斷 token 過期（修正版）
-    // ===============================
-    const isTokenExpired =
-      detail.includes("登入逾時") ||
-      detail.includes("過期") ||
-      detail.toLowerCase().includes("token");
-
-    // ===============================
     // ❗ 核心：401 一律處理
     // ===============================
     if (status === 401 && !isShowing401) {
@@ -119,6 +111,10 @@ export default {
 
   put(endpoint: string, data: any, config = {}) {
     return apiClient.put(endpoint, data, config);
+  },
+
+  patch(endpoint: string, data: any, config = {}) {
+    return apiClient.patch(endpoint, data, config);
   },
 
   delete(endpoint: string, data = {}, config = {}) {

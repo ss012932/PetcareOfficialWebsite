@@ -6,6 +6,18 @@ export default defineNuxtConfig({
   // ===== SSR 配置 =====
   ssr: true,
 
+   // ===== 路由規則 =====
+  // 會員中心依賴登入 Cookie、使用者狀態，不需要 SEO
+  // 所以 /member 底下全部改成 Client Side Rendering，避免 Hydration mismatch
+  routeRules: {
+    '/member': {
+      ssr: false,
+    },
+    '/member/**': {
+      ssr: false,
+    },
+  },
+
   // ===== 應用程式頭設定（全域 SEO）=====
   app: {
     head: {
