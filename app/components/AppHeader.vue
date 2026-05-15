@@ -18,7 +18,11 @@
           aria-label="切換導覽選單"
           @click="toggleMobileMenu"
         >
-          <Icon name="fa6-solid:bars" class="hamburger-icon" aria-hidden="true" />
+          <Icon
+            name="fa6-solid:bars"
+            class="hamburger-icon"
+            aria-hidden="true"
+          />
         </button>
 
         <!-- ===== 導覽選單：控制首頁、功能介紹、價格方案、登入 ===== -->
@@ -34,21 +38,21 @@
           </li>
 
           <li>
-            <NuxtLink to="/#features" class="nav-link" @click="closeMobileMenu">
+            <!-- ===== 功能介紹連結：導向獨立功能介紹頁 ===== -->
+            <NuxtLink to="/function" class="nav-link" @click="closeMobileMenu">
               功能介紹
             </NuxtLink>
           </li>
 
           <li>
-           
             <!-- ===== 價格方案連結：導向獨立 price.vue 頁面 ===== -->
-<NuxtLink
-  to="/price"
-  class="nav-link nav-link--cta"
-  @click="closeMobileMenu"
->
-  價格方案
-</NuxtLink>
+            <NuxtLink
+              to="/price"
+              class="nav-link nav-link--cta"
+              @click="closeMobileMenu"
+            >
+              價格方案
+            </NuxtLink>
           </li>
 
           <!-- ===== 登入按鈕：未登入時顯示 ===== -->
@@ -71,9 +75,17 @@
               aria-label="會員選單"
               @click="toggleUserMenu"
             >
-              <Icon name="fa6-solid:user" class="user-icon" aria-hidden="true" />
+              <Icon
+                name="fa6-solid:user"
+                class="user-icon"
+                aria-hidden="true"
+              />
               <span class="user-name">{{ userInfo?.Name || "會員" }}</span>
-              <Icon name="fa6-solid:chevron-down" class="dropdown-arrow" aria-hidden="true" />
+              <Icon
+                name="fa6-solid:chevron-down"
+                class="dropdown-arrow"
+                aria-hidden="true"
+              />
             </button>
 
             <!-- ===== 下拉選單 ===== -->
@@ -81,17 +93,24 @@
               <NuxtLink
                 to="/member/dashboard"
                 class="dropdown-item"
-                @click="closeMobileMenu(); isUserMenuOpen = false"
+                @click="
+                  closeMobileMenu();
+                  isUserMenuOpen = false;
+                "
               >
-                <Icon name="fa6-solid:house" class="dropdown-icon" aria-hidden="true" />
+                <Icon
+                  name="fa6-solid:house"
+                  class="dropdown-icon"
+                  aria-hidden="true"
+                />
                 會員中心
               </NuxtLink>
-              <button
-                type="button"
-                class="dropdown-item"
-                @click="handleLogout"
-              >
-                <Icon name="fa6-solid:arrow-right-from-bracket" class="dropdown-icon" aria-hidden="true" />
+              <button type="button" class="dropdown-item" @click="handleLogout">
+                <Icon
+                  name="fa6-solid:arrow-right-from-bracket"
+                  class="dropdown-icon"
+                  aria-hidden="true"
+                />
                 登出
               </button>
             </div>
@@ -116,10 +135,7 @@
     />
 
     <!-- ===== 忘記密碼 Modal：控制密碼重置連結寄送視窗 ===== -->
-    <ForgotModal
-      v-model="isForgotModalOpen"
-      @login="openLoginModal"
-    />
+    <ForgotModal v-model="isForgotModalOpen" @login="openLoginModal" />
   </header>
 </template>
 
@@ -188,7 +204,7 @@ onMounted(async () => {
   await checkLoginStatus();
 
   // ===== 已確認未登入且帶有 login=1，才自動開啟登入 Modal =====
-  if (route.query.login === '1' && !isLoggedIn.value) {
+  if (route.query.login === "1" && !isLoggedIn.value) {
     openLoginModal();
   }
 });
@@ -197,7 +213,7 @@ onMounted(async () => {
 watch(
   () => route.query.login,
   (val) => {
-    if (val === '1' && !isLoggedIn.value) {
+    if (val === "1" && !isLoggedIn.value) {
       openLoginModal();
     }
   },
@@ -225,10 +241,10 @@ function openLoginModal() {
   // ===== Modal 切換：開啟登入前，先關閉註冊與忘記密碼 =====
   isRegisterModalOpen.value = false;
   isForgotModalOpen.value = false;
-  
+
   // ===== 清空預填充帳號：一般登入不需要預填 =====
   prefillAccount.value = undefined;
-  
+
   isLoginModalOpen.value = true;
 }
 
@@ -238,10 +254,10 @@ function openLoginModalFromRegister(account?: string) {
 
   // ===== Modal 切換：開啟登入前，先關閉註冊 =====
   isRegisterModalOpen.value = false;
-  
+
   // ===== 設定預填充帳號：讓登入 Modal 自動填入剛註冊的帳號 =====
   prefillAccount.value = account;
-  
+
   isLoginModalOpen.value = true;
 }
 
@@ -267,12 +283,12 @@ function openForgotModal() {
 // ===== 登出處理：執行登出並刷新狀態 =====
 async function handleLogout() {
   await authAPI.logout();
-  
+
   // 清除前端狀態
   isLoggedIn.value = false;
   userInfo.value = null;
   isUserMenuOpen.value = false;
-  
+
   // 刷新頁面回首頁
   window.location.href = "/";
 }
