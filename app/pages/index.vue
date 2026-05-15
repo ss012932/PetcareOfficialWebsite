@@ -238,60 +238,7 @@
       </div>
     </section>
 
-    <!-- ===== 功能介紹區塊：控制系統核心功能卡片 ===== -->
-    <section class="features-section" id="features">
-      <div class="container">
-        <!-- ===== 區塊標題：控制功能介紹標題與說明 ===== -->
-        <header class="section-header">
-          <p class="section-eyebrow">Features</p>
-          <h2 class="section-title">功能介紹</h2>
-          <p class="section-desc">
-            從前台掛號到後台營運分析，協助動物醫院完成數位化管理。
-          </p>
-        </header>
-
-        <!-- ===== 功能卡片列表：控制所有系統功能 ===== -->
-        <ul class="features-grid" role="list">
-          <li class="feature-card">
-            <div class="feature-icon"><Icon name="fa6-solid:calendar-days" /></div>
-            <h3>預約掛號管理</h3>
-            <p>
-              支援現場掛號、線上預約、醫師班表與看診狀態管理，減少櫃台重複作業。
-            </p>
-          </li>
-
-          <li class="feature-card">
-            <div class="feature-icon"><Icon name="fa6-solid:clipboard-list" /></div>
-            <h3>電子病歷系統</h3>
-            <p>完整記錄寵物基本資料、病史、檢查紀錄、用藥紀錄與回診追蹤。</p>
-          </li>
-
-          <li class="feature-card">
-            <div class="feature-icon"><Icon name="fa6-solid:pills" /></div>
-            <h3>藥品與庫存管理</h3>
-            <p>管理藥品、疫苗、耗材庫存，並提供低庫存提醒，降低缺貨風險。</p>
-          </li>
-
-          <li class="feature-card">
-            <div class="feature-icon"><Icon name="fa6-solid:credit-card" /></div>
-            <h3>收費與結帳管理</h3>
-            <p>支援診療費、藥品費、檢驗費與商品費用整合結帳，帳務更清楚。</p>
-          </li>
-
-          <li class="feature-card">
-            <div class="feature-icon"><Icon name="fa6-solid:chart-bar" /></div>
-            <h3>營運報表分析</h3>
-            <p>提供營收、看診量、熱門服務、庫存消耗等數據，協助經營決策。</p>
-          </li>
-
-          <li class="feature-card">
-            <div class="feature-icon"><Icon name="fa6-solid:shield-halved" /></div>
-            <h3>權限與帳號管理</h3>
-            <p>可依照院長、獸醫、櫃台、助理設定不同權限，保護重要資料安全。</p>
-          </li>
-        </ul>
-      </div>
-    </section>
+    
 
     <!-- ===== 系統優勢區塊：控制產品賣點說明 ===== -->
     <section class="benefits-section">
@@ -333,100 +280,9 @@
       </div>
     </section>
 
-    <!-- ===== 價格方案區塊：控制產品方案與價格 ===== -->
-    <section class="pricing-section" id="pricing">
-      <div class="container">
-        <!-- ===== 區塊標題：控制價格方案標題與說明 ===== -->
-        <header class="section-header">
-          <p class="section-eyebrow">Pricing</p>
-          <h2 class="section-title">價格方案</h2>
-          <p class="section-desc">
-            可依照診所規模選擇適合的方案，未來也能彈性升級。
-          </p>
-        </header>
+    
 
-        <!-- ===== 價格卡片列表：控制三種方案 ===== -->
-        <ul class="pricing-grid" role="list">
-          <li class="pricing-card">
-            <h3>基本版</h3>
-            <p class="pricing-subtitle">適合小型動物診所</p>
-
-            <div class="price">
-              NT$ 1,980
-              <span>/ 月</span>
-            </div>
-
-            <ul class="plan-list" role="list">
-              <li>✓ 預約掛號管理</li>
-              <li>✓ 電子病歷管理</li>
-              <li>✓ 基本收費功能</li>
-              <li>✓ 3 個員工帳號</li>
-            </ul>
-
-            <NuxtLink to="#contact-sales" class="btn btn-plan">
-              選擇方案
-            </NuxtLink>
-          </li>
-
-          <li class="pricing-card pricing-card-featured">
-            <div class="popular-badge">最推薦</div>
-
-            <h3>專業版</h3>
-            <p class="pricing-subtitle">適合成長中的動物醫院</p>
-
-            <div class="price">
-              NT$ 3,980
-              <span>/ 月</span>
-            </div>
-
-            <ul class="plan-list" role="list">
-              <li>✓ 包含基本版所有功能</li>
-              <li>✓ 藥品與庫存管理</li>
-              <li>✓ 營運報表分析</li>
-              <li>✓ 10 個員工帳號</li>
-            </ul>
-
-            <NuxtLink to="#contact-sales" class="btn btn-primary">
-              選擇方案
-            </NuxtLink>
-          </li>
-
-          <li class="pricing-card">
-            <h3>企業版</h3>
-            <p class="pricing-subtitle">適合多分院與大型院所</p>
-
-            <div class="price">
-              客製報價
-              <span></span>
-            </div>
-
-            <ul class="plan-list" role="list">
-              <li>✓ 包含專業版所有功能</li>
-              <li>✓ 多分院管理</li>
-              <li>✓ 客製化報表</li>
-              <li>✓ 專屬技術支援</li>
-            </ul>
-
-            <NuxtLink to="#contact-sales" class="btn btn-plan">
-              聯絡我們
-            </NuxtLink>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ===== CTA 區塊：控制最後轉換行動 ===== -->
-    <section class="cta-section" id="contact-sales">
-      <div class="container cta-content">
-        <h2>準備讓你的動物醫院升級數位管理了嗎？</h2>
-
-        <p>立即了解 PetCare System，讓掛號、病歷、收費與庫存管理一次到位。</p>
-
-        <a href="mailto:sales@petcare-system.com" class="btn btn-secondary">
-          聯絡業務
-        </a>
-      </div>
-    </section>
+    
   </div>
 </template>
 
