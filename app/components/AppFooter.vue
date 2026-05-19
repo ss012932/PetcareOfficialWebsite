@@ -1,255 +1,294 @@
 <template>
   <!-- ===== Footer 區塊：控制整個網站頁尾 ===== -->
   <footer class="app-footer">
-    <!-- ===== Footer 主要內容：控制公司資訊、快速連結、聯絡方式 ===== -->
+    <!-- ===== Footer 上方金色線條：控制與內容分隔 ===== -->
+    <div class="footer-top-line" aria-hidden="true"></div>
+
+    <!-- ===== Footer 主要內容：簡潔品牌資訊與行動按鈕 ===== -->
     <div class="footer-content">
       <div class="footer-inner">
-
-        <!-- ===== 左側公司資訊：控制品牌名稱與產品介紹 ===== -->
-        <section class="footer-section">
-          <h3 class="footer-title">PetCare System</h3>
+        <!-- ===== 品牌資訊：控制 Logo 與簡短說明 ===== -->
+        <section class="footer-brand-section">
+          <NuxtLink to="/" class="footer-brand">
+            <span class="footer-brand-icon" aria-hidden="true">🐾</span>
+            <span>PetCare System</span>
+          </NuxtLink>
 
           <p class="footer-desc">
-            專為動物醫院打造的寵物醫療管理系統，整合掛號、病歷、收費、庫存與營運報表，協助院所提升管理效率。
+            專為動物醫院打造的寵物醫療管理系統，協助院所更輕鬆完成預約、病歷、收費與營運管理。
           </p>
-
-          <!-- ===== 聯絡資訊：控制業務聯繫資料 ===== -->
-          <div class="footer-contact">
-            <p><strong>業務信箱：</strong> sales@petcare-system.com</p>
-            <p><strong>客服信箱：</strong> support@petcare-system.com</p>
-            <p><strong>服務時間：</strong> 週一至五 09:00 - 18:00</p>
-          </div>
         </section>
 
-        <!-- ===== 中間快速連結：控制頁面錨點導覽 ===== -->
-        <section class="footer-section">
-          <h3 class="footer-title">快速連結</h3>
-
-          <ul class="footer-links" role="list">
-            <li>
-              <NuxtLink to="/#home">
-                首頁
-              </NuxtLink>
-            </li>
-
-            <li>
-              <NuxtLink to="/#features">
-                功能介紹
-              </NuxtLink>
-            </li>
-
-            <li>
-              <NuxtLink to="/#pricing">
-                價格方案
-              </NuxtLink>
-            </li>
-          </ul>
-        </section>
-
-        <!-- ===== 右側產品資訊：控制系統重點與行動連結 ===== -->
-        <section class="footer-section">
-          <h3 class="footer-title">系統特色</h3>
-
-          <ul class="feature-links" role="list">
-            <li>雲端資料管理</li>
-            <li>電子病歷紀錄</li>
-            <li>預約掛號流程</li>
-            <li>庫存與收費整合</li>
-          </ul>
-
-          <NuxtLink to="/#pricing" class="footer-cta">
+        <!-- ===== Footer 行動按鈕：控制導向價格方案 ===== -->
+        <div class="footer-action">
+          <NuxtLink to="/price" class="footer-cta">
             查看價格方案
+            <span aria-hidden="true">→</span>
           </NuxtLink>
-        </section>
-
+        </div>
       </div>
     </div>
 
-    <!-- ===== 版權資訊：控制最底部版權文字 ===== -->
+    <!-- ===== Footer 底部：控制版權與條款連結 ===== -->
     <div class="footer-bottom">
       <div class="footer-bottom-inner">
         <p class="copyright">
           &copy; 2026 PetCare System. All rights reserved.
         </p>
+
+        <div class="footer-bottom-links">
+          <NuxtLink to="/terms">
+            服務條款
+          </NuxtLink>
+
+          <span aria-hidden="true">・</span>
+
+          <NuxtLink to="/privacy">
+            隱私權政策
+          </NuxtLink>
+        </div>
       </div>
     </div>
   </footer>
 </template>
 
 <style scoped>
-/* ===== 頁尾容器：控制整個 Footer 背景與文字顏色 ===== */
+/* ===== 頁尾容器：控制 Footer 背景與主色系 ===== */
 .app-footer {
-  background: linear-gradient(135deg, #166534 0%, #14532d 100%);
+  --footer-primary: #2e4a62;
+  --footer-primary-dark: #10283a;
+  --footer-primary-deep: #0b2233;
+  --footer-accent: #d9b26f;
+  --footer-cream: #fffaf0;
+  --footer-muted: rgba(255, 255, 255, 0.72);
+  --footer-border: rgba(217, 178, 111, 0.2);
+
+  position: relative;
   color: #ffffff;
-  margin-top: 0;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(217, 178, 111, 0.13), transparent 20rem),
+    linear-gradient(
+      135deg,
+      var(--footer-primary) 0%,
+      var(--footer-primary-dark) 52%,
+      var(--footer-primary-deep) 100%
+    );
+  overflow: hidden;
 }
 
-/* ===== 頁尾內容：控制 Footer 主要內容上下間距 ===== */
+/* ===== Footer 背景裝飾：控制淡金色圓形光影 ===== */
+.app-footer::before {
+  content: '';
+  position: absolute;
+  right: -8rem;
+  bottom: -10rem;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 999px;
+  background-color: rgba(217, 178, 111, 0.08);
+  pointer-events: none;
+}
+
+/* ===== Footer 上方金線：控制與頁面內容分隔 ===== */
+.footer-top-line {
+  position: relative;
+  z-index: 2;
+  height: 0.16rem;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(217, 178, 111, 0.35) 25%,
+      rgba(217, 178, 111, 0.9) 50%,
+      rgba(217, 178, 111, 0.35) 75%,
+      transparent 100%
+    );
+}
+
+/* ===== Footer 主要內容：控制上下留白 ===== */
 .footer-content {
-  padding: 3rem 1.25rem 2rem;
+  position: relative;
+  z-index: 2;
+  padding: 2.5rem 1.25rem;
 }
 
-/* ===== 頁尾主要排版：控制三欄區塊排列 ===== */
+/* ===== Footer 內層排版：手機版上下排列 ===== */
 .footer-inner {
-  max-width: 75rem;
+  width: min(100%, 75rem);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 1.75rem;
+  align-items: center;
 }
 
-/* ===== 頁尾區塊：控制每個欄位內部排列 ===== */
-.footer-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+/* ===== 品牌區塊：控制 Logo 與描述寬度 ===== */
+.footer-brand-section {
+  display: grid;
+  gap: 0.9rem;
 }
 
-/* ===== 頁尾標題：控制每欄標題樣式 ===== */
-.footer-title {
-  font-size: 1.25rem;
-  font-weight: 800;
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.02em;
-}
-
-/* ===== 頁尾描述：控制品牌介紹文字 ===== */
-.footer-desc {
-  max-width: 28rem;
-  font-size: 0.95rem;
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.88);
-}
-
-/* ===== 聯絡資訊：控制業務與客服資訊 ===== */
-.footer-contact {
-  font-size: 0.9rem;
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-/* ===== 聯絡資訊段落：控制每行資料間距 ===== */
-.footer-contact p {
-  margin: 0.35rem 0;
-}
-
-/* ===== 快速連結清單：控制中間連結排列 ===== */
-.footer-links {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
+/* ===== Footer 品牌 Logo：控制品牌名稱與 paw icon ===== */
+.footer-brand {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
   gap: 0.65rem;
-  padding: 0;
-  margin: 0;
-}
-
-/* ===== 快速連結文字：控制連結樣式 ===== */
-.footer-links a {
-  color: rgba(255, 255, 255, 0.9);
+  color: #ffffff;
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
   text-decoration: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* ===== Footer 品牌 icon：控制 paw 圖示樣式 ===== */
+.footer-brand-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(217, 178, 111, 0.48);
+  border-radius: 999px;
+  color: var(--footer-primary);
+  background-color: var(--footer-cream);
+  font-size: 1rem;
+}
+
+/* ===== Footer 描述：控制品牌簡短說明 ===== */
+.footer-desc {
+  max-width: 38rem;
+  color: var(--footer-muted);
   font-size: 0.95rem;
-}
-
-/* ===== 快速連結滑過：控制滑鼠移入效果 ===== */
-.footer-links a:hover {
-  opacity: 0.75;
-  text-decoration: underline;
-}
-
-/* ===== 系統特色清單：控制右側特色文字 ===== */
-.feature-links {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  padding: 0;
+  line-height: 1.8;
   margin: 0;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.95rem;
 }
 
-/* ===== 系統特色項目：控制每個特色前方符號 ===== */
-.feature-links li::before {
-  content: '✓';
-  margin-right: 0.5rem;
-  color: #bbf7d0;
-  font-weight: 800;
+/* ===== Footer 行動區：手機版靠左排列 ===== */
+.footer-action {
+  display: flex;
+  justify-content: flex-start;
 }
 
 /* ===== Footer CTA：控制查看價格方案按鈕 ===== */
 .footer-cta {
+  min-height: 2.85rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: fit-content;
-  min-height: 2.75rem;
-  margin-top: 0.75rem;
-  padding: 0 1.25rem;
+  gap: 0.45rem;
+  padding: 0 1.35rem;
+  border: 1px solid rgba(217, 178, 111, 0.95);
   border-radius: 999px;
-  color: #166534;
-  background-color: #ffffff;
-  font-weight: 800;
+  color: var(--footer-primary-dark);
+  background:
+    linear-gradient(
+      135deg,
+      #f2d18a 0%,
+      var(--footer-accent) 100%
+    );
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
   text-decoration: none;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.2);
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-/* ===== Footer CTA 滑過：控制按鈕互動效果 ===== */
+/* ===== Footer CTA hover：控制按鈕互動 ===== */
 .footer-cta:hover {
   transform: translateY(-2px);
-  opacity: 0.9;
+  filter: brightness(1.04);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.26);
 }
 
-/* ===== 頁尾底部：控制版權區塊背景 ===== */
+/* ===== Footer 底部：控制版權區塊 ===== */
 .footer-bottom {
-  background-color: rgba(20, 83, 45, 0.95);
-  padding: 1rem 1.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  position: relative;
+  z-index: 2;
+  padding: 1.05rem 1.25rem;
+  border-top: 1px solid var(--footer-border);
+  background-color: rgba(5, 20, 31, 0.28);
 }
 
-/* ===== 頁尾底部內容：控制版權文字最大寬度 ===== */
+/* ===== Footer 底部內容：手機版上下排列 ===== */
 .footer-bottom-inner {
-  max-width: 75rem;
+  width: min(100%, 75rem);
   margin: 0 auto;
+  display: grid;
+  gap: 0.65rem;
+  justify-items: center;
 }
 
-/* ===== 版權文字：控制最底部文字樣式 ===== */
+/* ===== 版權文字：控制 copyright 樣式 ===== */
 .copyright {
-  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.82rem;
+  line-height: 1.6;
   text-align: center;
-  color: rgba(255, 255, 255, 0.78);
   margin: 0;
 }
 
-/* ===== 平板以上：控制 Footer 兩欄排列 ===== */
+/* ===== 底部連結：控制服務條款與隱私權政策排列 ===== */
+.footer-bottom-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 0.82rem;
+}
+
+/* ===== 底部連結文字：控制條款連結樣式 ===== */
+.footer-bottom-links a {
+  color: rgba(255, 255, 255, 0.62);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+/* ===== 底部連結 hover：控制滑過效果 ===== */
+.footer-bottom-links a:hover {
+  color: var(--footer-accent);
+}
+
+/* ===== 平板以上：控制 Footer 左右排列 ===== */
 @media (min-width: 48em) {
   .footer-content {
-    padding: 4rem 2rem 2rem;
+    padding: 2.75rem 2rem;
   }
 
   .footer-inner {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2.5rem;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+  }
+
+  .footer-action {
+    justify-content: flex-end;
   }
 
   .footer-bottom {
-    padding: 1.25rem 2rem;
+    padding: 1.1rem 2rem;
+  }
+
+  .footer-bottom-inner {
+    grid-template-columns: 1fr auto;
+    justify-items: stretch;
+    align-items: center;
+  }
+
+  .copyright {
+    text-align: left;
   }
 }
 
-/* ===== 桌機以上：控制 Footer 三欄排列 ===== */
+/* ===== 桌機以上：控制 Footer 留白更精緻 ===== */
 @media (min-width: 64em) {
   .footer-content {
-    padding: 4.5rem 3rem 2rem;
-  }
-
-  .footer-inner {
-    grid-template-columns: 1.4fr 0.8fr 0.8fr;
-    gap: 3rem;
+    padding: 3rem 3rem;
   }
 
   .footer-bottom {
-    padding: 1.25rem 3rem;
+    padding: 1.15rem 3rem;
   }
 }
 </style>

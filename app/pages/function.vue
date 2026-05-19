@@ -26,295 +26,345 @@
     </section>
 
     <!-- ===== 功能快捷導覽：點擊後快速導到對應功能區塊 ===== -->
-<section class="feature-anchor-section" aria-label="功能快捷導覽">
-  <div class="container">
-    <nav class="feature-anchor-panel" aria-label="功能分類導覽">
-      <!-- ===== 快捷按鈕：導到預約排程管理 ===== -->
-      <a href="#appointment" class="feature-anchor-item">
-        <span class="feature-anchor-icon">
-          📅
-        </span>
+    <section class="feature-anchor-section" aria-label="功能快捷導覽">
+      <div class="container">
+        <nav class="feature-anchor-panel" aria-label="功能分類導覽">
+          <!-- ===== 快捷按鈕：導到預約排程管理 ===== -->
+          <a href="#appointment" class="feature-anchor-item">
+            <span class="feature-anchor-icon">
+              <img
+                src="~/assets/image/icon6.png"
+                alt="預約排程"
+                class="feature-anchor-icon-img"
+              />
+            </span>
 
-        <span class="feature-anchor-text">
-          預約排程
-        </span>
-      </a>
+            <span class="feature-anchor-text"> 預約排程 </span>
+          </a>
 
-      <!-- ===== 快捷按鈕：導到電子病歷管理 ===== -->
-      <a href="#medical-record" class="feature-anchor-item">
-        <span class="feature-anchor-icon">
-          🩺
-        </span>
+          <!-- ===== 快捷按鈕：導到電子病歷管理 ===== -->
+          <a href="#medical-record" class="feature-anchor-item">
+            <span class="feature-anchor-icon">
+              <img
+                src="~/assets/image/icon5.png"
+                alt="電子病歷"
+                class="feature-anchor-icon-img"
+              />
+            </span>
 
-        <span class="feature-anchor-text">
-          電子病歷
-        </span>
-      </a>
+            <span class="feature-anchor-text"> 電子病歷 </span>
+          </a>
 
-      <!-- ===== 快捷按鈕：導到飼主與寵物資料 ===== -->
-      <a href="#pet-profile" class="feature-anchor-item">
-        <span class="feature-anchor-icon">
-          🐾
-        </span>
+          <!-- ===== 快捷按鈕：導到飼主與寵物資料 ===== -->
+          <a href="#pet-profile" class="feature-anchor-item">
+            <span class="feature-anchor-icon">
+              <img
+                src="~/assets/image/icon9.png"
+                alt="寵物資料"
+                class="feature-anchor-icon-img"
+              />
+            </span>
 
-        <span class="feature-anchor-text">
-          寵物資料
-        </span>
-      </a>
+            <span class="feature-anchor-text"> 寵物資料 </span>
+          </a>
 
-      <!-- ===== 快捷按鈕：導到收費與帳務管理 ===== -->
-      <a href="#billing" class="feature-anchor-item">
-        <span class="feature-anchor-icon">
-          💳
-        </span>
+          <!-- ===== 快捷按鈕：導到收費與帳務管理 ===== -->
+          <a href="#billing" class="feature-anchor-item">
+            <span class="feature-anchor-icon">
+              <img
+                src="~/assets/image/icon8.png"
+                alt="收費帳務"
+                class="feature-anchor-icon-img"
+              />
+            </span>
 
-        <span class="feature-anchor-text">
-          收費帳務
-        </span>
-      </a>
+            <span class="feature-anchor-text"> 收費帳務 </span>
+          </a>
 
-      <!-- ===== 快捷按鈕：導到藥品與庫存管理 ===== -->
-      <a href="#inventory" class="feature-anchor-item">
-        <span class="feature-anchor-icon">
-          💊
-        </span>
+          <!-- ===== 快捷按鈕：導到藥品與庫存管理 ===== -->
+          <a href="#inventory" class="feature-anchor-item">
+            <span class="feature-anchor-icon">
+              <img
+                src="~/assets/image/icon7.png"
+                alt="藥品庫存"
+                class="feature-anchor-icon-img"
+              />
+            </span>
 
-        <span class="feature-anchor-text">
-          藥品庫存
-        </span>
-      </a>
+            <span class="feature-anchor-text"> 藥品庫存 </span>
+          </a>
 
-      <!-- ===== 快捷按鈕：導到營運報表分析 ===== -->
-      <a href="#analytics" class="feature-anchor-item">
-        <span class="feature-anchor-icon">
-          📊
-        </span>
+          <!-- ===== 快捷按鈕：導到營運報表分析 ===== -->
+          <a href="#analytics" class="feature-anchor-item">
+            <span class="feature-anchor-icon">
+              <img
+                src="~/assets/image/icon4.png"
+                alt="報表分析"
+                class="feature-anchor-icon-img"
+              />
+            </span>
 
-        <span class="feature-anchor-text">
-          報表分析
-        </span>
-      </a>
-    </nav>
-  </div>
-</section>
+            <span class="feature-anchor-text"> 報表分析 </span>
+          </a>
+        </nav>
+      </div>
+    </section>
 
-  <!-- ===== 核心功能介紹區：滿版一區一功能 ===== -->
-<section class="feature-overview-section" aria-label="核心功能介紹">
-  <!-- ===== 功能區塊標題：控制整段功能介紹開場 ===== -->
-  
+    <!-- ===== 核心功能介紹區：滿版一區一功能 ===== -->
+    <section class="feature-overview-section" aria-label="核心功能介紹">
+      <!-- ===== 功能區塊標題：控制整段功能介紹開場 ===== -->
 
-  <div class="feature-showcase-list">
-    <!-- ===== 功能 01：預約排程 ===== -->
-    <article id="appointment" class="feature-showcase-item">
-      <div class="container feature-showcase-inner">
-        <div class="feature-showcase-content">
-          <span class="feature-number">01</span>
+      <div class="feature-showcase-list">
+        <!-- ===== 功能 01：預約排程 ===== -->
+        <article id="appointment" class="feature-showcase-item">
+          <div class="container feature-showcase-inner">
+            <div class="feature-showcase-content">
+              <span class="feature-number">01</span>
 
-          <div class="feature-heading-row">
-            <span class="feature-showcase-icon">📅</span>
+              <div class="feature-heading-row">
+                <span class="feature-showcase-icon">
+                  <img
+                    src="~/assets/image/icon6.png"
+                    alt="預約排程"
+                    class="feature-showcase-icon-img"
+                  />
+                </span>
 
-            <div>
-              <p class="feature-label">APPOINTMENT</p>
-              <h3>預約排程</h3>
+                <div>
+                  <p class="feature-label">APPOINTMENT</p>
+                  <h3>預約排程</h3>
+                </div>
+              </div>
+
+              <p class="feature-showcase-desc">
+                讓櫃台與醫師快速掌握每日看診安排。
+              </p>
+
+              <ul class="feature-point-list">
+                <li>線上預約管理</li>
+                <li>醫師排班管理</li>
+                <li>到診狀態追蹤</li>
+                <li>預約提醒通知</li>
+              </ul>
+            </div>
+
+            <div class="feature-showcase-visual">
+              <img src="~/assets/image/Image4.png" alt="預約排程功能示意圖" />
             </div>
           </div>
+        </article>
 
-          <p class="feature-showcase-desc">
-            直覺式行事曆介面，支援線上預約、醫師排班、到診狀態與提醒通知，讓櫃台與醫師都能快速掌握每日看診安排。
-          </p>
+        <!-- ===== 功能 02：電子病歷 ===== -->
+        <article
+          id="medical-record"
+          class="feature-showcase-item feature-showcase-item-tint"
+        >
+          <div
+            class="container feature-showcase-inner feature-showcase-inner-reverse"
+          >
+            <div class="feature-showcase-content">
+              <span class="feature-number">02</span>
 
-          <ul class="feature-point-list">
-            <li>週／日／月排程切換</li>
-            <li>不同醫師看診時段管理</li>
-            <li>預約、掛號與到診狀態追蹤</li>
-          </ul>
-        </div>
+              <div class="feature-heading-row">
+                <span class="feature-showcase-icon">
+                  <img
+                    src="~/assets/image/icon5.png"
+                    alt="電子病歷"
+                    class="feature-showcase-icon-img"
+                  />
+                </span>
 
-        <div class="feature-showcase-visual">
-          <img
-            src="~/assets/image/Image4.png"
-            alt="預約排程功能示意圖"
-          />
-        </div>
-      </div>
-    </article>
+                <div>
+                  <p class="feature-label">MEDICAL RECORD</p>
+                  <h3>電子病歷</h3>
+                </div>
+              </div>
 
-    <!-- ===== 功能 02：電子病歷 ===== -->
-    <article id="medical-record" class="feature-showcase-item feature-showcase-item-tint">
-      <div class="container feature-showcase-inner feature-showcase-inner-reverse">
-        <div class="feature-showcase-content">
-          <span class="feature-number">02</span>
+              <p class="feature-showcase-desc">
+                將每一次看診紀錄完整保存，查詢更快速。
+              </p>
 
-          <div class="feature-heading-row">
-            <span class="feature-showcase-icon">🩺</span>
+              <ul class="feature-point-list">
+                <li>主訴與診斷紀錄</li>
+                <li>治療計畫管理</li>
+                <li>處方與用藥紀錄</li>
+                <li>歷史就診快速查詢</li>
+              </ul>
+            </div>
 
-            <div>
-              <p class="feature-label">MEDICAL RECORD</p>
-              <h3>電子病歷</h3>
+            <div class="feature-showcase-visual">
+              <img src="~/assets/image/Image5.png" alt="電子病歷功能示意圖" />
             </div>
           </div>
+        </article>
 
-          <p class="feature-showcase-desc">
-            完整記錄寵物主訴、診斷、治療計畫、處方內容與歷史就診紀錄，讓醫療資訊查詢更快速、更完整。
-          </p>
+        <!-- ===== 功能 03：寵物資料 ===== -->
+        <article id="pet-profile" class="feature-showcase-item">
+          <div class="container feature-showcase-inner">
+            <div class="feature-showcase-content">
+              <span class="feature-number">03</span>
 
-          <ul class="feature-point-list">
-            <li>主訴、診斷、治療計畫紀錄</li>
-            <li>近期就診紀錄快速查詢</li>
-            <li>支援處方、檢查與疫苗資料管理</li>
-          </ul>
-        </div>
+              <div class="feature-heading-row">
+                <span class="feature-showcase-icon">
+                  <img
+                    src="~/assets/image/icon9.png"
+                    alt="寵物資料"
+                    class="feature-showcase-icon-img"
+                  />
+                </span>
 
-        <div class="feature-showcase-visual">
-          <img
-            src="~/assets/image/Image5.png"
-            alt="電子病歷功能示意圖"
-          />
-        </div>
-      </div>
-    </article>
+                <div>
+                  <p class="feature-label">PET PROFILE</p>
+                  <h3>寵物資料</h3>
+                </div>
+              </div>
 
-    <!-- ===== 功能 03：寵物資料 ===== -->
-    <article id="pet-profile" class="feature-showcase-item">
-      <div class="container feature-showcase-inner">
-        <div class="feature-showcase-content">
-          <span class="feature-number">03</span>
+              <p class="feature-showcase-desc">
+                集中管理寵物與飼主資料，照護資訊更清楚。
+              </p>
 
-          <div class="feature-heading-row">
-            <span class="feature-showcase-icon">🐾</span>
+              <ul class="feature-point-list">
+                <li>寵物基本資料</li>
+                <li>飼主聯絡資訊</li>
+                <li>晶片號碼管理</li>
+                <li>疫苗與健康紀錄</li>
+              </ul>
+            </div>
 
-            <div>
-              <p class="feature-label">PET PROFILE</p>
-              <h3>寵物資料</h3>
+            <div class="feature-showcase-visual">
+              <img src="~/assets/image/Image6.png" alt="寵物資料功能示意圖" />
             </div>
           </div>
+        </article>
 
-          <p class="feature-showcase-desc">
-            集中管理寵物基本資料、飼主資訊、晶片號碼、健康紀錄、疫苗紀錄與提醒事項，讓照護資訊更有脈絡。
-          </p>
+        <!-- ===== 功能 04：收費帳務 ===== -->
+        <article
+          id="billing"
+          class="feature-showcase-item feature-showcase-item-tint"
+        >
+          <div
+            class="container feature-showcase-inner feature-showcase-inner-reverse"
+          >
+            <div class="feature-showcase-content">
+              <span class="feature-number">04</span>
 
-          <ul class="feature-point-list">
-            <li>寵物基本資料與飼主資訊</li>
-            <li>健康、疫苗與過敏紀錄</li>
-            <li>年度檢查與疫苗提醒</li>
-          </ul>
-        </div>
+              <div class="feature-heading-row">
+                <span class="feature-showcase-icon">
+                  <img
+                    src="~/assets/image/icon8.png"
+                    alt="收費帳務"
+                    class="feature-showcase-icon-img"
+                  />
+                </span>
 
-        <div class="feature-showcase-visual">
-          <img
-            src="~/assets/image/Image6.png"
-            alt="寵物資料功能示意圖"
-          />
-        </div>
-      </div>
-    </article>
+                <div>
+                  <p class="feature-label">BILLING</p>
+                  <h3>收費帳務</h3>
+                </div>
+              </div>
 
-    <!-- ===== 功能 04：收費帳務 ===== -->
-    <article id="billing" class="feature-showcase-item feature-showcase-item-tint">
-      <div class="container feature-showcase-inner feature-showcase-inner-reverse">
-        <div class="feature-showcase-content">
-          <span class="feature-number">04</span>
+              <p class="feature-showcase-desc">
+                讓櫃台快速完成收費、結帳與帳務紀錄。
+              </p>
 
-          <div class="feature-heading-row">
-            <span class="feature-showcase-icon">💳</span>
+              <ul class="feature-point-list">
+                <li>帳單明細管理</li>
+                <li>診察與藥品費用</li>
+                <li>付款狀態紀錄</li>
+                <li>帳務資料查詢</li>
+              </ul>
+            </div>
 
-            <div>
-              <p class="feature-label">BILLING</p>
-              <h3>收費帳務</h3>
+            <div class="feature-showcase-visual">
+              <img src="~/assets/image/Image3.png" alt="收費帳務功能示意圖" />
             </div>
           </div>
+        </article>
 
-          <p class="feature-showcase-desc">
-            快速建立帳單明細，整合診察費、疫苗、檢查與藥品費用，讓櫃台收費、對帳與紀錄保存更清楚。
-          </p>
+        <!-- ===== 功能 05：藥品庫存 ===== -->
+        <article id="inventory" class="feature-showcase-item">
+          <div class="container feature-showcase-inner">
+            <div class="feature-showcase-content">
+              <span class="feature-number">05</span>
 
-          <ul class="feature-point-list">
-            <li>帳單明細與品項管理</li>
-            <li>付款狀態與付款方式紀錄</li>
-            <li>列印、下載與帳務查詢</li>
-          </ul>
-        </div>
+              <div class="feature-heading-row">
+                <span class="feature-showcase-icon">
+                  <img
+                    src="~/assets/image/icon7.png"
+                    alt="藥品庫存"
+                    class="feature-showcase-icon-img"
+                  />
+                </span>
 
-        <div class="feature-showcase-visual">
-          <img
-            src="~/assets/image/Image3.png"
-            alt="收費帳務功能示意圖"
-          />
-        </div>
-      </div>
-    </article>
+                <div>
+                  <p class="feature-label">INVENTORY</p>
+                  <h3>藥品庫存</h3>
+                </div>
+              </div>
 
-    <!-- ===== 功能 05：藥品庫存 ===== -->
-    <article id="inventory" class="feature-showcase-item">
-      <div class="container feature-showcase-inner">
-        <div class="feature-showcase-content">
-          <span class="feature-number">05</span>
+              <p class="feature-showcase-desc">
+                即時掌握藥品庫存狀態，降低缺貨與過期風險。
+              </p>
 
-          <div class="feature-heading-row">
-            <span class="feature-showcase-icon">💊</span>
+              <ul class="feature-point-list">
+                <li>藥品資料管理</li>
+                <li>庫存數量追蹤</li>
+                <li>安全庫存提醒</li>
+                <li>效期狀態管理</li>
+              </ul>
+            </div>
 
-            <div>
-              <p class="feature-label">INVENTORY</p>
-              <h3>藥品庫存</h3>
+            <div class="feature-showcase-visual">
+              <img src="~/assets/image/Image7.png" alt="藥品庫存功能示意圖" />
             </div>
           </div>
+        </article>
 
-          <p class="feature-showcase-desc">
-            即時掌握藥品庫存、安全庫存與效期狀態，降低缺貨、過期與人工盤點的管理負擔。
-          </p>
+        <!-- ===== 功能 06：報表分析 ===== -->
+        <article
+          id="analytics"
+          class="feature-showcase-item feature-showcase-item-tint"
+        >
+          <div
+            class="container feature-showcase-inner feature-showcase-inner-reverse"
+          >
+            <div class="feature-showcase-content">
+              <span class="feature-number">06</span>
 
-          <ul class="feature-point-list">
-            <li>藥品名稱、規格與庫存數量</li>
-            <li>安全庫存與低庫存提醒</li>
-            <li>效期管理與即將到期標示</li>
-          </ul>
-        </div>
+              <div class="feature-heading-row">
+                <span class="feature-showcase-icon">
+                  <img
+                    src="~/assets/image/icon4.png"
+                    alt="報表分析"
+                    class="feature-showcase-icon-img"
+                  />
+                </span>
 
-        <div class="feature-showcase-visual">
-          <img
-            src="~/assets/image/Image7.png"
-            alt="藥品庫存功能示意圖"
-          />
-        </div>
-      </div>
-    </article>
+                <div>
+                  <p class="feature-label">ANALYTICS</p>
+                  <h3>報表分析</h3>
+                </div>
+              </div>
 
-    <!-- ===== 功能 06：報表分析 ===== -->
-    <article id="analytics" class="feature-showcase-item feature-showcase-item-tint">
-      <div class="container feature-showcase-inner feature-showcase-inner-reverse">
-        <div class="feature-showcase-content">
-          <span class="feature-number">06</span>
+              <p class="feature-showcase-desc">
+                將營運數據轉成圖表，協助院所快速掌握狀況。
+              </p>
 
-          <div class="feature-heading-row">
-            <span class="feature-showcase-icon">📊</span>
+              <ul class="feature-point-list">
+                <li>本月營收統計</li>
+                <li>就診次數分析</li>
+                <li>平均客單價</li>
+                <li>收入結構圖表</li>
+              </ul>
+            </div>
 
-            <div>
-              <p class="feature-label">ANALYTICS</p>
-              <h3>報表分析</h3>
+            <div class="feature-showcase-visual">
+              <img src="~/assets/image/Image8.png" alt="報表分析功能示意圖" />
             </div>
           </div>
-
-          <p class="feature-showcase-desc">
-            將營收、就診次數、平均客單價與客戶成長轉換成圖表，協助院所掌握營運狀況與決策方向。
-          </p>
-
-          <ul class="feature-point-list">
-            <li>營收趨勢與收入結構分析</li>
-            <li>就診次數與新客戶數統計</li>
-            <li>月報、區間查詢與趨勢比較</li>
-          </ul>
-        </div>
-
-        <div class="feature-showcase-visual">
-          <img
-            src="~/assets/image/Image8.png"
-            alt="報表分析功能示意圖"
-          />
-        </div>
+        </article>
       </div>
-    </article>
-  </div>
-</section>
+    </section>
 
     <!-- ===== 流程整合區：控制看診前中後流程說明 ===== -->
     <section class="workflow-section" aria-label="看診流程整合">
@@ -428,7 +478,6 @@ useHead({
 </script>
 
 <style scoped>
-
 /* ===== 頁面滾動：控制錨點點擊後平滑移動 ===== */
 html {
   scroll-behavior: smooth;
@@ -497,19 +546,18 @@ html {
   position: absolute;
   inset: 0;
   z-index: -2;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(248, 247, 243, 0.96) 0%,
-      rgba(248, 247, 243, 0.86) 34%,
-      rgba(248, 247, 243, 0.38) 62%,
-      rgba(248, 247, 243, 0.08) 100%
-    );
+  background: linear-gradient(
+    90deg,
+    rgba(248, 247, 243, 0.96) 0%,
+    rgba(248, 247, 243, 0.86) 34%,
+    rgba(248, 247, 243, 0.38) 62%,
+    rgba(248, 247, 243, 0.08) 100%
+  );
 }
 
 /* ===== Hero 底部裝飾：控制深藍金色弧線區塊 ===== */
 .function-hero::after {
-  content: '';
+  content: "";
   position: absolute;
   left: -5%;
   right: -5%;
@@ -518,12 +566,11 @@ html {
   height: 8rem;
   border-top: 0.18rem solid rgba(217, 178, 111, 0.9);
   border-radius: 50% 50% 0 0;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(46, 74, 98, 0.98) 0%,
-      rgba(31, 53, 72, 0.98) 100%
-    );
+  background: linear-gradient(
+    135deg,
+    rgba(46, 74, 98, 0.98) 0%,
+    rgba(31, 53, 72, 0.98) 100%
+  );
   pointer-events: none;
 }
 
@@ -582,14 +629,13 @@ html {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   overflow: hidden;
-  
+
   border-radius: 2rem;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.94) 0%,
-      rgba(248, 247, 243, 0.92) 100%
-    );
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.94) 0%,
+    rgba(248, 247, 243, 0.92) 100%
+  );
   box-shadow:
     0 18px 48px rgba(15, 37, 56, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.85);
@@ -602,7 +648,6 @@ html {
   min-height: 7rem;
   display: grid;
   place-items: center;
-  gap: 0.65rem;
   padding: 1.05rem 0.7rem;
   color: var(--color-primary);
   text-align: center;
@@ -617,7 +662,7 @@ html {
 
 /* ===== 快捷按鈕底部金線：控制 hover 時精品感 ===== */
 .feature-anchor-item::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 22%;
   right: 22%;
@@ -640,30 +685,38 @@ html {
   border-bottom: none;
 }
 
-/* ===== 功能快捷 icon：控制柔和圓形圖示外觀 ===== */
+/* ===== 功能快捷 icon：控制圖片顯示，移除圓形外框 ===== */
 .feature-anchor-icon {
-  width: 3.8rem;
-  height: 3.8rem;
+  width: 4.8rem;
+  height: 4.8rem;
   display: grid;
   place-items: center;
-  border-radius: 999px;
-  color: var(--color-primary);
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 250, 240, 0.98) 0%,
-      rgba(248, 247, 243, 0.98) 100%
-    );
-  border: 1px solid rgba(217, 178, 111, 0.72);
-  font-size: 1.45rem;
-  box-shadow:
-    0 10px 24px rgba(15, 37, 56, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+
+  /* ===== 移除圓形外框與底色 ===== */
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+
   transition:
-    color 0.25s ease,
-    background 0.25s ease,
     transform 0.25s ease,
-    box-shadow 0.25s ease;
+    opacity 0.25s ease;
+}
+
+/* ===== 快捷導覽圖片 icon：控制按鈕內圖片大小 ===== */
+.feature-anchor-icon-img {
+  width: 4.4rem;
+  height: 4.4rem;
+  display: block;
+  object-fit: contain;
+}
+
+/* ===== 功能標題圖片 icon：控制每區標題旁邊的圖片 icon ===== */
+.feature-showcase-icon-img {
+  width: 2.8rem;
+  height: 2.8rem;
+  display: block;
+  object-fit: contain;
 }
 
 /* ===== 功能快捷文字：控制按鈕文字樣式 ===== */
@@ -678,28 +731,19 @@ html {
 
 /* ===== 功能快捷 hover：控制滑過整個按鈕效果，使用淺色系 ===== */
 .feature-anchor-item:hover {
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 250, 240, 0.96) 0%,
-      rgba(248, 247, 243, 0.98) 100%
-    );
+  background: linear-gradient(
+    135deg,
+    rgba(255, 250, 240, 0.96) 0%,
+    rgba(248, 247, 243, 0.98) 100%
+  );
 }
 
-/* ===== 功能快捷 hover icon：控制滑過 icon 淺色效果 ===== */
+/* ===== 功能快捷 hover icon：控制圖片輕微上浮，不顯示外框 ===== */
 .feature-anchor-item:hover .feature-anchor-icon {
-  color: var(--color-primary);
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 245, 224, 0.98) 0%,
-      rgba(255, 250, 240, 0.98) 100%
-    );
-  border-color: rgba(217, 178, 111, 0.95);
   transform: translateY(-0.25rem);
-  box-shadow:
-    0 14px 30px rgba(217, 178, 111, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
 }
 
 /* ===== 功能快捷 hover 文字：控制文字維持深藍但不變太重 ===== */
@@ -720,7 +764,6 @@ html {
   padding: 0;
   overflow: hidden;
 }
-
 
 /* ===== 功能區塊主標題：控制核心功能介紹文字 ===== */
 .feature-section-title {
@@ -755,17 +798,16 @@ html {
 
 /* ===== 單一功能滿版區塊：控制交錯淡色背景 ===== */
 .feature-showcase-item-tint {
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 250, 240, 0.62) 0%,
-      rgba(248, 247, 243, 0.86) 100%
-    );
+  background: linear-gradient(
+    135deg,
+    rgba(255, 250, 240, 0.62) 0%,
+    rgba(248, 247, 243, 0.86) 100%
+  );
 }
 
 /* ===== 單一功能背景裝飾：控制右上角柔和光圈 ===== */
 .feature-showcase-item::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 4rem;
   right: -8rem;
@@ -778,7 +820,7 @@ html {
 
 /* ===== 單一功能背景裝飾：控制左下角柔和光圈 ===== */
 .feature-showcase-item::after {
-  content: '';
+  content: "";
   position: absolute;
   left: -10rem;
   bottom: 2rem;
@@ -830,12 +872,11 @@ html {
   border: 1px solid rgba(217, 178, 111, 0.72);
   border-radius: 999px;
   color: var(--color-primary);
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 250, 240, 0.98) 0%,
-      rgba(248, 247, 243, 0.98) 100%
-    );
+  background: linear-gradient(
+    135deg,
+    rgba(255, 250, 240, 0.98) 0%,
+    rgba(248, 247, 243, 0.98) 100%
+  );
   font-size: 1.55rem;
   box-shadow:
     0 12px 28px rgba(15, 37, 56, 0.08),
@@ -889,7 +930,7 @@ html {
 
 /* ===== 功能重點勾勾：控制項目前方符號 ===== */
 .feature-point-list li::before {
-  content: '✓';
+  content: "✓";
   position: absolute;
   left: 0;
   color: var(--color-primary);
@@ -903,17 +944,16 @@ html {
 
 /* ===== 功能圖片外層裝飾：控制淡金色大底框 ===== */
 .feature-showcase-visual::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 1.2rem -1rem -1rem 1rem;
   z-index: -1;
   border-radius: 2rem;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(217, 178, 111, 0.12) 0%,
-      rgba(255, 250, 240, 0.72) 100%
-    );
+  background: linear-gradient(
+    135deg,
+    rgba(217, 178, 111, 0.12) 0%,
+    rgba(255, 250, 240, 0.72) 100%
+  );
 }
 
 /* ===== 功能圖片：控制示意圖顯示 ===== */
@@ -951,12 +991,11 @@ html {
   border: 1px solid rgba(217, 178, 111, 0.72);
   border-radius: 999px;
   color: var(--color-primary);
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 250, 240, 0.98) 0%,
-      rgba(248, 247, 243, 0.98) 100%
-    );
+  background: linear-gradient(
+    135deg,
+    rgba(255, 250, 240, 0.98) 0%,
+    rgba(248, 247, 243, 0.98) 100%
+  );
   font-size: 1.55rem;
   box-shadow:
     0 12px 28px rgba(15, 37, 56, 0.08),
@@ -1009,7 +1048,7 @@ html {
 
 /* ===== 功能重點勾勾：控制項目前方符號 ===== */
 .feature-point-list li::before {
-  content: '✓';
+  content: "✓";
   position: absolute;
   left: 0;
   color: var(--color-primary);
@@ -1021,7 +1060,7 @@ html {
   position: relative;
   z-index: 2;
   padding: 0.6rem;
-  
+
   border-radius: 1.35rem;
   background-color: rgba(255, 255, 255, 0.72);
   box-shadow: 0 16px 40px rgba(15, 37, 56, 0.08);
@@ -1037,7 +1076,7 @@ html {
 
 /* ===== 平板以上：控制功能區塊留白 ===== */
 @media (min-width: 48em) {
-   .feature-overview-section {
+  .feature-overview-section {
     padding-top: 0rem;
   }
 
@@ -1048,24 +1087,22 @@ html {
 
 /* ===== 桌機以上：控制一區一功能左右交錯排版 ===== */
 @media (min-width: 64em) {
-  
+  .feature-showcase-item {
+    min-height: 31rem;
+    display: flex;
+    align-items: center;
+    padding: 2rem 0;
+  }
 
-.feature-showcase-item {
-  min-height: 31rem;
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
-}
-
-/* ===== 桌機版第一個功能區塊：讓按鈕下方更緊湊 ===== */
-.feature-showcase-item:first-child {
-  padding-top: 1.25rem;
-}
- .feature-showcase-inner {
-  grid-template-columns: 0.72fr 1.28fr;
-  align-items: center;
-  gap: 2.5rem;
-}
+  /* ===== 桌機版第一個功能區塊：讓按鈕下方更緊湊 ===== */
+  .feature-showcase-item:first-child {
+    padding-top: 1.25rem;
+  }
+  .feature-showcase-inner {
+    grid-template-columns: 0.72fr 1.28fr;
+    align-items: center;
+    gap: 2.5rem;
+  }
 
   /* ===== 反向區塊：控制偶數功能圖片在左、文字在右 ===== */
   .feature-showcase-inner-reverse {
@@ -1087,12 +1124,12 @@ html {
 
 /* ===== 大螢幕：控制圖片更大、更接近參考圖比例 ===== */
 @media (min-width: 80em) {
-   .feature-showcase-item {
+  .feature-showcase-item {
     min-height: 46rem;
     padding: 7rem 0;
   }
 
-   .feature-showcase-inner {
+  .feature-showcase-inner {
     width: min(100% - 2rem, 92rem);
     gap: 3rem;
   }
@@ -1299,14 +1336,35 @@ html {
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
 }
 
+/* ===== 功能標題 icon：改成只顯示圖片，移除圓形外框 ===== */
+.feature-showcase-icon {
+  width: 5.2rem;
+  height: 5.2rem;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+
+  /* ===== 移除圓圈外框、背景與陰影 ===== */
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* ===== 功能標題圖片 icon：控制每區標題旁圖片大小 ===== */
+.feature-showcase-icon-img {
+  width: 5rem;
+  height: 5rem;
+  display: block;
+  object-fit: contain;
+}
+
 /* ===== 平板以上：控制卡片雙欄與留白 ===== */
 @media (min-width: 48em) {
   .function-hero {
     min-height: 38rem;
     padding: 8rem 0 6rem;
   }
-
- 
 
   .workflow-panel {
     padding: 2.5rem;
@@ -1328,8 +1386,6 @@ html {
     object-position: center;
   }
 
-
-
   .feature-card {
     min-height: 25rem;
   }
@@ -1348,8 +1404,7 @@ html {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-   .feature-anchor-section {
-    
+  .feature-anchor-section {
     padding-bottom: 0rem;
   }
 
@@ -1372,10 +1427,15 @@ html {
     border-right: none;
   }
 
+  /* ===== 桌機版快捷 icon：控制圖片 icon 大小 ===== */
   .feature-anchor-icon {
-    width: 3.6rem;
-    height: 3.6rem;
-    font-size: 1.35rem;
+    width: 5.2rem;
+    height: 5.2rem;
+  }
+
+  .feature-anchor-icon-img {
+    width: 4.9rem;
+    height: 4.9rem;
   }
 
   .feature-anchor-text {

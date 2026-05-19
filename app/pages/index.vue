@@ -16,14 +16,24 @@
             </p>
 
             <div class="hero-actions">
-              <NuxtLink to="#features" class="btn btn-primary">
-                <Icon name="fa6-solid:table-cells-large" class="btn-icon" aria-hidden="true" />
+              <!-- ===== 查看功能按鈕：導向功能介紹頁 function.vue ===== -->
+              <NuxtLink to="/function" class="btn btn-primary">
+                <Icon
+                  name="fa6-solid:table-cells-large"
+                  class="btn-icon"
+                  aria-hidden="true"
+                />
                 <span>查看功能</span>
                 <span class="btn-arrow" aria-hidden="true">›</span>
               </NuxtLink>
 
-              <NuxtLink to="#pricing" class="btn btn-outline">
-                <Icon name="fa6-solid:tag" class="btn-icon" aria-hidden="true" />
+              <!-- ===== 查看方案按鈕：導向價格方案頁 price.vue ===== -->
+              <NuxtLink to="/price" class="btn btn-outline">
+                <Icon
+                  name="fa6-solid:tag"
+                  class="btn-icon"
+                  aria-hidden="true"
+                />
                 <span>查看方案</span>
                 <span class="btn-arrow" aria-hidden="true">›</span>
               </NuxtLink>
@@ -51,7 +61,12 @@
 
           <div class="pain-points-divider">
             <span></span>
-            <strong><Icon name="fa6-solid:paw" class="divider-paw" aria-hidden="true" /></strong>
+            <strong
+              ><Icon
+                name="fa6-solid:paw"
+                class="divider-paw"
+                aria-hidden="true"
+            /></strong>
             <span></span>
           </div>
 
@@ -60,7 +75,7 @@
             或不同工具中， 容易造成重複作業、資料查詢不便與行政負擔增加。
           </p>
 
-          <NuxtLink to="#features" class="pain-points-link">
+          <NuxtLink to="/function" class="pain-points-link">
             <span>了解完整解決方案</span>
             <strong aria-hidden="true">›</strong>
           </NuxtLink>
@@ -71,7 +86,11 @@
           <!-- ===== 痛點卡片 1：控制預約與掛號問題 ===== -->
           <li class="pain-point-item">
             <div class="pain-point-visual">
-              <Icon name="fa6-solid:calendar-check" class="pain-point-icon" aria-hidden="true" />
+              <Icon
+                name="fa6-solid:calendar-check"
+                class="pain-point-icon"
+                aria-hidden="true"
+              />
             </div>
 
             <article class="pain-point-content">
@@ -92,7 +111,11 @@
           <!-- ===== 痛點卡片 2：控制病歷與檢查紀錄問題 ===== -->
           <li class="pain-point-item">
             <div class="pain-point-visual">
-              <Icon name="fa6-solid:file-medical" class="pain-point-icon" aria-hidden="true" />
+              <Icon
+                name="fa6-solid:file-medical"
+                class="pain-point-icon"
+                aria-hidden="true"
+              />
             </div>
 
             <article class="pain-point-content">
@@ -113,7 +136,11 @@
           <!-- ===== 痛點卡片 3：控制收費、庫存與報表問題 ===== -->
           <li class="pain-point-item">
             <div class="pain-point-visual">
-              <Icon name="fa6-solid:chart-simple" class="pain-point-icon" aria-hidden="true" />
+              <Icon
+                name="fa6-solid:chart-simple"
+                class="pain-point-icon"
+                aria-hidden="true"
+              />
             </div>
 
             <article class="pain-point-content">
@@ -145,7 +172,9 @@
             <span></span>
           </p>
 
-          <div class="workflow-paw" aria-hidden="true"><Icon name="fa6-solid:paw" /></div>
+          <div class="workflow-paw" aria-hidden="true">
+            <Icon name="fa6-solid:paw" />
+          </div>
 
           <h2 class="workflow-title">一套系統整合看診前、中、後流程</h2>
 
@@ -182,7 +211,9 @@
           </article>
 
           <!-- ===== 流程箭頭 1：控制看診前到看診中的連接 ===== -->
-          <div class="workflow-arrow" aria-hidden="true"><Icon name="fa6-solid:arrow-right" /></div>
+          <div class="workflow-arrow" aria-hidden="true">
+            <Icon name="fa6-solid:arrow-right" />
+          </div>
 
           <!-- ===== 流程項目 2：控制看診中內容 ===== -->
           <article class="workflow-step">
@@ -209,7 +240,9 @@
           </article>
 
           <!-- ===== 流程箭頭 2：控制看診中到看診後的連接 ===== -->
-          <div class="workflow-arrow" aria-hidden="true"><Icon name="fa6-solid:arrow-right" /></div>
+          <div class="workflow-arrow" aria-hidden="true">
+            <Icon name="fa6-solid:arrow-right" />
+          </div>
 
           <!-- ===== 流程項目 3：控制看診後內容 ===== -->
           <article class="workflow-step">
@@ -237,8 +270,6 @@
         </div>
       </div>
     </section>
-
-    
 
     <!-- ===== 系統優勢區塊：控制產品賣點說明 ===== -->
     <section class="benefits-section">
@@ -279,10 +310,6 @@
         </aside>
       </div>
     </section>
-
-    
-
-    
   </div>
 </template>
 
@@ -404,7 +431,9 @@ useHead({
   align-items: center;
   width: 100%;
   min-height: auto;
-  padding: 3.5rem 0 4.5rem;
+
+  /* ===== 手機版加左右內距，避免文字太貼邊 ===== */
+  padding: 3.5rem 1.25rem 4.5rem;
 }
 
 /* ===== HERO 文字內容：控制左側文字區塊 ===== */
@@ -412,6 +441,9 @@ useHead({
   max-width: 100%;
   position: relative;
   z-index: 2;
+
+  /* ===== 手機版限制文字寬度，讓排版更舒服 ===== */
+  width: min(100%, 23rem);
 }
 
 /* ===== HERO 小標：控制主標上方說明文字 ===== */
@@ -1732,8 +1764,6 @@ useHead({
     align-items: center;
     gap: 1.25rem;
   }
-
-  
 
   /* ===== 桌機版流程項目：取消手機卡片感，改成開放式排列 ===== */
   .workflow-step {
