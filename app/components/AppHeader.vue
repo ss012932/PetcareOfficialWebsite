@@ -5,7 +5,7 @@
     <nav class="navbar" aria-label="主導覽">
       <div class="navbar-inner">
         <!-- ===== Logo 區塊：控制網站品牌名稱 ===== -->
-        <NuxtLink to="/#home" class="logo" aria-label="PetCare System 首頁">
+        <NuxtLink to="/" class="logo" aria-label="PetCare System 首頁">
           <Icon name="fa6-solid:paw" class="logo-icon" aria-hidden="true" />
           <span class="logo-text">PetCare System</span>
         </NuxtLink>
@@ -32,7 +32,7 @@
           role="list"
         >
           <li>
-            <NuxtLink to="/#home" class="nav-link" @click="closeMobileMenu">
+            <NuxtLink to="/" class="nav-link" @click="closeMobileMenu">
               首頁
             </NuxtLink>
           </li>
@@ -183,6 +183,9 @@ const userInfo = ref<{
 // ===== 會員選單狀態：控制下拉選單是否開啟 =====
 const isUserMenuOpen = ref(false);
 
+// ===== 受保護路由前綴：登入失效時需強制離開的路徑 =====
+const PROTECTED_PREFIXES = ["/member", "/order"];
+
 // ===== 檢查登入狀態：元件載入時執行 =====
 async function checkLoginStatus() {
   const result = await authAPI.checkLoginStatus();
@@ -192,6 +195,14 @@ async function checkLoginStatus() {
   } else {
     isLoggedIn.value = false;
     userInfo.value = null;
+
+    // ===== 若目前在受保護頁面，強制導回首頁並帶出登入視窗 =====
+    const isProtected = PROTECTED_PREFIXES.some((prefix) =>
+      route.path.startsWith(prefix),
+    );
+    if (isProtected) {
+      await router.replace("/?login=1");
+    }
   }
 }
 

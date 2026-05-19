@@ -62,9 +62,19 @@
                 <dd>{{ selectedPlan?.SubscriptionMonth }} 個月</dd>
               </div>
 
+              <div v-if="coupon" class="discount-row">
+                <dt>
+                  優惠券折抵
+                  <span class="coupon-code-tag">{{ coupon.Code }}</span>
+                </dt>
+                <dd class="discount-amount">
+                  -NT$ {{ couponDiscount.toLocaleString() }}
+                </dd>
+              </div>
+
               <div class="total-row">
                 <dt>應付金額</dt>
-                <dd>NT$ {{ selectedPlan?.Price.toLocaleString() }}</dd>
+                <dd>NT$ {{ discountedPrice.toLocaleString() }}</dd>
               </div>
             </dl>
           </div>
@@ -165,34 +175,34 @@
             </div>
           </div>
 
-          <!-- ===== 院所資訊欄位：控制購買方案需要的基本資料 ===== -->
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="clinic-name" class="form-label"> 院所名稱 </label>
+          <!-- ===== 品牌選擇：若無品牌則提示新增 ===== -->
+          <div v-if="!hasBrand" class="no-brand-notice">
+            <p class="no-brand-text">您目前尚未建立任何品牌，請先前往會員中心新增品牌後再進行訂購。</p>
+            <NuxtLink to="/member/brand" class="go-brand-link">前往新增品牌 →</NuxtLink>
+          </div>
 
-              <input
-                id="clinic-name"
-                v-model.trim="form.clinicName"
-                type="text"
-                class="form-control"
-                placeholder="請輸入院所名稱"
+          <div v-else class="form-grid">
+            <div class="form-group form-group-full">
+              <label for="brand-select" class="form-label"> 選擇購買品牌 </label>
+
+              <select
+                id="brand-select"
+                v-model="form.brandId"
+                class="form-control form-select"
                 required
-              />
+              >
+                <option value="" disabled>請選擇品牌</option>
+                <option
+                  v-for="brand in brands"
+                  :key="brand.Id"
+                  :value="brand.Id"
+                >
+                  {{ brand.BrandName }}（{{ brand.CompanyName }}）
+                </option>
+              </select>
             </div>
 
-            <div class="form-group">
-              <label for="contact-phone" class="form-label"> 聯絡電話 </label>
-
-              <input
-                id="contact-phone"
-                v-model.trim="form.phone"
-                type="tel"
-                class="form-control"
-                placeholder="請輸入聯絡電話"
-                required
-              />
-            </div>
-
+            <!-- ===== 備註需求（暫時關閉，未開放給用戶）=====
             <div class="form-group form-group-full">
               <label for="remark" class="form-label"> 備註需求 </label>
 
@@ -203,7 +213,69 @@
                 placeholder="可填寫導入需求、分院數、預計使用人數或希望聯繫時間"
               ></textarea>
             </div>
+            ===== -->
           </div>
+
+          <!-- ===== 優惠券輸入：控制優惠券驗證與顯示 ===== -->
+          <div class="coupon-section">
+            <p class="coupon-label">優惠券</p>
+
+            <div v-if="!coupon" class="coupon-input-row">
+              <input
+                v-model.trim="couponCode"
+                type="text"
+                class="form-control coupon-input"
+                placeholder="請輸入優惠券代碼"
+                :disabled="couponLoading"
+                @keydown.enter.prevent="applyCoupon"
+              />
+              <button
+                type="button"
+                class="coupon-apply-btn"
+                :disabled="!couponCode || couponLoading"
+                @click="applyCoupon"
+              >
+                {{ couponLoading ? '驗證中…' : '套用' }}
+              </button>
+            </div>
+
+            <p v-if="couponError" class="coupon-error">{{ couponError }}</p>
+
+            <div v-if="coupon" class="coupon-result">
+              <div class="coupon-result-header">
+                <span class="coupon-result-code">{{ coupon.Code }}</span>
+                <button type="button" class="coupon-remove-btn" @click="removeCoupon">移除</button>
+              </div>
+
+              <p class="coupon-result-discount">
+                折抵
+                <strong>
+                  <template v-if="coupon.DiscountType === 'Amount'">NT$ {{ coupon.DiscountValue.toLocaleString() }}</template>
+                  <template v-else>{{ coupon.DiscountValue }}%</template>
+                </strong>
+              </p>
+
+              <p class="coupon-result-expire">
+                有效期限：{{ new Date(coupon.ExpireDate).toLocaleDateString('zh-TW') }}
+              </p>
+
+              <ul v-if="coupon.GiftItems?.length" class="coupon-gifts">
+                <li v-for="gift in coupon.GiftItems" :key="gift">{{ gift }}</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- ===== 訂閱選項：控制是否開啟自動續訂 ===== -->
+          <label class="subscription-check">
+            <input
+              v-model="form.isSubscription"
+              type="checkbox"
+              class="subscription-checkbox"
+            />
+            <span class="subscription-check-text">
+              開啟自動續訂（到期前自動依原方案續費）
+            </span>
+          </label>
 
           <!-- ===== 訂單提醒：控制送出前提醒文字 ===== -->
           <div class="buyer-notice">
@@ -214,7 +286,7 @@
           <div class="order-actions">
             <NuxtLink to="/price" class="back-link"> 返回價格方案 </NuxtLink>
 
-            <button type="submit" class="submit-button">
+            <button type="submit" class="submit-button" :disabled="!hasBrand">
               確認送出訂單
               <span aria-hidden="true">→</span>
             </button>
@@ -299,30 +371,166 @@ const buyer = computed(() => ({
   phone: authResult?.user?.Phone ?? "",
 }));
 
-// ===== 訂單表單資料：控制院所資料與備註需求 =====
-const form = reactive({
-  clinicName: "",
-  phone: "",
-  remark: "",
+// ===== 品牌型別：對應 API 回傳格式 =====
+interface Brand {
+  Id: number;
+  BrandName: string;
+  CompanyName: string;
+  TaxId: string;
+  LogoUrl: string;
+  Phone: string;
+  Email: string;
+  Address: string;
+  City: string | null;
+  IsMultiStore: boolean;
+  CreateDate: string;
+  UpdateDate: string;
+}
+
+interface HasBrandResponse {
+  Success: boolean;
+  Message: string;
+  HasBrand: boolean;
+}
+
+interface BrandsResponse {
+  Success: boolean;
+  Message: string;
+  Brands: Brand[];
+}
+
+// ===== 品牌資料：僅在客戶端執行，避免 SSR 無 Cookie 導致 401 =====
+const { data: hasBrandData } = await useAsyncData(
+  "order-has-brand",
+  async () => {
+    const res = await api.get("/brands/has-brand");
+    return res.data as HasBrandResponse;
+  },
+  { server: false },
+);
+
+const hasBrand = computed(() => hasBrandData.value?.HasBrand ?? false);
+
+const { data: brandsData } = await useAsyncData(
+  "order-my-brands",
+  async () => {
+    const res = await api.get("/brands/my");
+    return res.data as BrandsResponse;
+  },
+  { server: false },
+);
+
+const brands = computed(() => brandsData.value?.Brands ?? []);
+
+// ===== 優惠券型別：對應 API 回傳格式 =====
+interface CouponData {
+  CouponId: number;
+  PlanId: number;
+  Code: string;
+  DiscountType: "Amount" | "Percentage";
+  DiscountValue: number;
+  GiftItems: string[];
+  ExpireDate: string;
+}
+
+// ===== 優惠券狀態 =====
+const couponCode = ref("");
+const coupon = ref<CouponData | null>(null);
+const couponError = ref("");
+const couponLoading = ref(false);
+
+// ===== 折扣金額與最終價格 =====
+const couponDiscount = computed(() => {
+  if (!coupon.value || !selectedPlan.value) return 0;
+  if (coupon.value.DiscountType === "Amount") return coupon.value.DiscountValue;
+  return Math.round(selectedPlan.value.Price * (coupon.value.DiscountValue / 100));
 });
 
-// ===== 送出訂單：目前先示範前端流程，之後可改成呼叫訂單 API =====
+const discountedPrice = computed(() => {
+  if (!selectedPlan.value) return 0;
+  return Math.max(0, selectedPlan.value.Price - couponDiscount.value);
+});
+
+// ===== 套用優惠券：呼叫 API 驗證 =====
+async function applyCoupon() {
+  if (!couponCode.value) return;
+  couponError.value = "";
+  couponLoading.value = true;
+  try {
+    const res = await api.get(`/coupons/${couponCode.value}`, { planId: selectedPlan.value?.Id });
+    const data = res.data;
+    if (data?.success && data?.data) {
+      coupon.value = data.data as CouponData;
+    } else {
+      couponError.value = data?.message || "優惠券無效";
+    }
+  } catch (e: any) {
+    couponError.value = e?.response?.data?.message || "優惠券代碼錯誤或不適用此方案。";
+  } finally {
+    couponLoading.value = false;
+  }
+}
+
+// ===== 移除優惠券 =====
+function removeCoupon() {
+  coupon.value = null;
+  couponCode.value = "";
+  couponError.value = "";
+}
+
+// ===== 訂單表單資料：控制品牌選擇與備註需求 =====
+const form = reactive({
+  brandId: "" as number | "",
+  remark: "",
+  isSubscription: true,
+});
+
+// ===== 送出訂單：呼叫 /api/orders/create =====
 async function handleSubmitOrder() {
-  console.log("送出訂單資料：", {
-    plan: selectedPlan.value,
-    buyer,
-    form,
-  });
+  try {
+    const payload: Record<string, any> = {
+      planId: selectedPlan.value?.Id,
+      brandid: form.brandId,
+      isSubscription: form.isSubscription,
+      customField2: form.remark || "",
+      customField3: "",
+      customField4: "",
+    };
 
-  await Swal.fire({
-    icon: "success",
-    title: "訂單已送出",
-    text: "我們已收到您的方案申請，後續將由專人與您聯繫。",
-    confirmButtonText: "返回首頁",
-    confirmButtonColor: "#2e4a62",
-  });
+    if (coupon.value?.Code) {
+      payload.couponCode = coupon.value.Code;
+    }
 
-  await router.push("/");
+    const res = await api.post("/orders/create", payload);
+    const data = res.data;
+
+    // ===== 若 API 回傳 ECPay 付款表單，直接注入頁面讓瀏覽器自動跳轉 =====
+    if (data?.Success && data?.PaymentFormHtml) {
+      document.open();
+      document.write(data.PaymentFormHtml);
+      document.close();
+      return;
+    }
+
+    await Swal.fire({
+      icon: "success",
+      title: "訂單已送出",
+      text: "我們已收到您的方案申請，後續將由專人與您聯繫。",
+      confirmButtonText: "返回首頁",
+      confirmButtonColor: "#2e4a62",
+    });
+
+    await router.push("/");
+  } catch (e: any) {
+    const msg = e?.response?.data?.message || "訂單送出失敗，請稍後再試。";
+    await Swal.fire({
+      icon: "error",
+      title: "送出失敗",
+      text: msg,
+      confirmButtonText: "確認",
+      confirmButtonColor: "#2e4a62",
+    });
+  }
 }
 </script>
 
@@ -823,9 +1031,293 @@ async function handleSubmitOrder() {
 }
 
 /* ===== 送出按鈕 hover：控制互動效果 ===== */
-.submit-button:hover {
+.submit-button:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 14px 32px rgba(31, 53, 72, 0.22);
+}
+
+/* ===== 送出按鈕 disabled：無品牌時不可點擊 ===== */
+.submit-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ===== 無品牌提示框：引導用戶前往新增品牌 ===== */
+.no-brand-notice {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(217, 178, 111, 0.65);
+  border-radius: 1.25rem;
+  background-color: rgba(255, 250, 240, 0.6);
+  text-align: center;
+}
+
+/* ===== 無品牌提示文字 ===== */
+.no-brand-text {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ===== 前往新增品牌連結 ===== */
+.go-brand-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.8rem;
+  padding: 0 1.5rem;
+  border: 2px solid var(--color-accent);
+  border-radius: 999px;
+  color: var(--color-primary);
+  background-color: #fffaf0;
+  font-size: 0.95rem;
+  font-weight: 900;
+  text-decoration: none;
+  transition: 0.2s ease;
+  justify-self: center;
+}
+
+/* ===== 前往新增品牌連結 hover ===== */
+.go-brand-link:hover {
+  background-color: var(--color-accent);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* ===== 品牌下拉選單：繼承 form-control 並加 appearance ===== */
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232e4a62' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.75rem;
+  cursor: pointer;
+}
+
+/* ===== 折扣列：控制優惠券折抵顯示 ===== */
+.discount-row dt {
+  color: #22863a;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.discount-row dd {
+  margin: 0;
+}
+
+/* ===== 優惠券代碼標籤：折扣列旁的小膠囊 ===== */
+.coupon-code-tag {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background-color: rgba(34, 134, 58, 0.1);
+  color: #22863a;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  vertical-align: middle;
+}
+
+/* ===== 折扣金額：控制綠色文字 ===== */
+.discount-amount {
+  color: #22863a !important;
+  font-weight: 900 !important;
+}
+
+/* ===== 優惠券區塊：控制輸入與結果整體 ===== */
+.coupon-section {
+  display: grid;
+  gap: 0.65rem;
+}
+
+/* ===== 優惠券小標 ===== */
+.coupon-label {
+  color: var(--color-primary);
+  font-size: 0.95rem;
+  font-weight: 900;
+  margin: 0;
+}
+
+/* ===== 優惠券輸入列：input + 套用按鈕並排 ===== */
+.coupon-input-row {
+  display: flex;
+  gap: 0.6rem;
+}
+
+/* ===== 優惠券輸入框 ===== */
+.coupon-input {
+  flex: 1;
+  min-height: 2.8rem;
+  letter-spacing: 0.08em;
+}
+
+/* ===== 套用按鈕 ===== */
+.coupon-apply-btn {
+  flex-shrink: 0;
+  min-height: 2.8rem;
+  padding: 0 1.25rem;
+  border: 2px solid var(--color-accent);
+  border-radius: 999px;
+  color: var(--color-primary);
+  background-color: #fffaf0;
+  font-size: 0.92rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.2s ease;
+  white-space: nowrap;
+}
+
+/* ===== 套用按鈕 hover ===== */
+.coupon-apply-btn:hover:not(:disabled) {
+  background-color: var(--color-accent);
+  color: #ffffff;
+}
+
+/* ===== 套用按鈕 disabled ===== */
+.coupon-apply-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ===== 優惠券錯誤訊息 ===== */
+.coupon-error {
+  color: #c0392b;
+  font-size: 0.88rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+/* ===== 優惠券結果卡片 ===== */
+.coupon-result {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(34, 134, 58, 0.35);
+  border-radius: 1rem;
+  background-color: rgba(34, 134, 58, 0.05);
+}
+
+/* ===== 優惠券結果標頭：代碼 + 移除按鈕 ===== */
+.coupon-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* ===== 優惠券代碼顯示 ===== */
+.coupon-result-code {
+  color: #22863a;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+/* ===== 移除優惠券按鈕 ===== */
+.coupon-remove-btn {
+  border: none;
+  background: none;
+  color: var(--color-muted);
+  font-size: 0.82rem;
+  font-weight: 900;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  transition: color 0.15s;
+}
+
+.coupon-remove-btn:hover {
+  color: #c0392b;
+}
+
+/* ===== 優惠券折扣說明 ===== */
+.coupon-result-discount {
+  color: var(--color-text);
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.coupon-result-discount strong {
+  color: #22863a;
+  font-size: 1rem;
+}
+
+/* ===== 優惠券到期日 ===== */
+.coupon-result-expire {
+  color: var(--color-muted);
+  font-size: 0.82rem;
+  margin: 0;
+}
+
+/* ===== 優惠贈品清單 ===== */
+.coupon-gifts {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.coupon-gifts li {
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background-color: rgba(34, 134, 58, 0.12);
+  color: #22863a;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+/* ===== 訂閱 Checkbox 列：控制整列點擊區域 ===== */
+.subscription-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ===== 訂閱 Checkbox：隱藏原生樣式、用自訂外觀 ===== */
+.subscription-checkbox {
+  appearance: none;
+  flex-shrink: 0;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-top: 0.12rem;
+  border: 2px solid rgba(217, 178, 111, 0.8);
+  border-radius: 0.3rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: 0.15s ease;
+  position: relative;
+}
+
+/* ===== Checkbox 勾選狀態 ===== */
+.subscription-checkbox:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* ===== Checkbox 勾號（::after 偽元素） ===== */
+.subscription-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='2.5 8 6.5 12 13.5 4'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 0.8rem;
+}
+
+/* ===== 訂閱說明文字 ===== */
+.subscription-check-text {
+  color: var(--color-text);
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.5;
 }
 
 /* ===== 平板以上：表單雙欄、品項橫排、按鈕並排 ===== */
