@@ -145,7 +145,7 @@
 import { ref } from "vue";
 import Swal from "sweetalert2";
 import TermsModal from "~/components/TermsModal.vue";
-import { authAPI } from "~/composables/utils/api";
+import api, { authAPI } from "~/composables/utils/api";
 
 /* ===== 登入 Modal：共享狀態，可直接開啟 Header 的登入視窗 ===== */
 const { openLoginModal } = useLoginModal()
@@ -187,8 +187,9 @@ interface PlansResponse {
 }
 
 /* ===== API 呼叫：取得所有方案 ===== */
-const { data, pending, error } = await useFetch<PlansResponse>(
-  'http://localhost:7281/api/plans',
+const { data, pending, error } = await useAsyncData<PlansResponse>(
+  "price-plans",
+  () => api.get("/plans").then((res) => res.data),
   { server: false },
 )
 
