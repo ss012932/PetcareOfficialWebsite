@@ -153,7 +153,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import Swal from "sweetalert2";
 import api from "~/composables/utils/api";
 import { showCustom } from "~/composables/utils/alert";
@@ -191,7 +191,7 @@ const form = reactive<Omit<RegisterPayload, 'deviceId' | 'browserInfo' | 'osInfo
   password: "",
 });
 
-let confirmPassword = "";
+const confirmPassword = ref("");
 
 /* ===== 關閉 Modal：通知父層把 v-model 改成 false ===== */
 const closeModal = () => {
@@ -306,7 +306,7 @@ const getOrCreateDeviceId = (): string => {
 /* ===== 送出註冊：檢查密碼一致後，呼叫 API =====  */
 const handleSubmit = async () => {
   // ===== 密碼一致性檢查：避免使用者兩次密碼輸入不同 =====
-  if (form.password !== confirmPassword) {
+  if (form.password !== confirmPassword.value) {
     await Swal.fire({
       icon: "warning",
       title: "密碼不一致",
@@ -392,7 +392,7 @@ const handleSubmit = async () => {
       form.phone = "";
       form.email = "";
       form.password = "";
-      confirmPassword = "";
+      confirmPassword.value = "";
 
       // ===== 倒計時 3 秒後跳轉到登入 =====
       let timerInterval: number;
@@ -468,193 +468,228 @@ const emitLogin = () => {
   z-index: 9999;
   display: grid;
   place-items: center;
-  padding: 1.25rem;
-  background-color: rgba(15, 37, 56, 0.55);
-  backdrop-filter: blur(0.35rem);
+  padding: 1rem;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(217, 178, 111, 0.16), transparent 22rem),
+    rgba(15, 37, 56, 0.58);
+  backdrop-filter: blur(0.45rem);
 }
 
-/* ===== Modal 主體：控制註冊視窗外觀與寬度 ===== */
+/* ===== Modal 主體：控制註冊視窗大小與外觀 ===== */
 .register-modal {
   position: relative;
-
-  /* ===== 寬度設定：讓註冊表單比原本更寬 ===== */
-  width: min(100%, 34rem);
-
-  max-height: calc(100vh - 2.5rem);
+  width: min(100%, 30rem);
+  max-height: calc(100vh - 2rem);
   overflow-y: auto;
-  padding: 2rem;
-  border-radius: 1.5rem;
+  padding: 2.1rem 1.15rem 1.5rem;
+  border: 1px solid rgba(230, 216, 189, 0.92);
+  border-radius: 1.45rem;
   background:
+    radial-gradient(circle at 92% 0%, rgba(217, 178, 111, 0.08), transparent 14rem),
     linear-gradient(
       135deg,
       rgba(255, 255, 255, 0.98) 0%,
       rgba(248, 247, 243, 0.98) 100%
     );
-  border: 1px solid rgba(230, 216, 189, 0.9);
-  box-shadow: 0 24px 70px rgba(15, 37, 56, 0.24);
+  box-shadow:
+    0 20px 56px rgba(15, 37, 56, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* ===== 自訂滾輪：手機高度不足時保持乾淨 ===== */
+.register-modal::-webkit-scrollbar {
+  width: 0;
 }
 
 /* ===== 關閉按鈕：控制右上角 X 按鈕 ===== */
 .register-modal-close {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 2.25rem;
-  height: 2.25rem;
-  border: 1px solid rgba(217, 178, 111, 0.55);
+  top: 0.9rem;
+  right: 0.9rem;
+  z-index: 3;
+  width: 2.35rem;
+  height: 2.35rem;
+  border: none;
   border-radius: 999px;
-  color: #2e4a62;
-  background-color: #fffaf0;
-  font-size: 1.5rem;
+  color: #b98b42;
+  background-color: rgba(255, 250, 240, 0.92);
+  font-size: 1.35rem;
   line-height: 1;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 /* ===== 關閉按鈕 hover：控制互動效果 ===== */
 .register-modal-close:hover {
-  color: #ffffff;
-  background-color: #2e4a62;
+  color: #10283a;
+  background-color: rgba(217, 178, 111, 0.18);
+  transform: rotate(90deg);
 }
 
-/* ===== Modal 標題區：控制標題與說明間距 ===== */
+/* ===== Modal 標題區：壓縮標題與表單距離 ===== */
 .register-modal-header {
   text-align: center;
-  margin-bottom: 1.75rem;
+  margin-bottom: 0.85rem;
 }
 
-/* ===== Modal 小標：控制英文小標樣式 ===== */
+/* ===== Modal 小標：壓縮 CREATE ACCOUNT 高度 ===== */
 .register-modal-eyebrow {
   color: #d9b26f;
-  font-size: 0.85rem;
-  font-weight: 900;
-  letter-spacing: 0.14em;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.45rem;
 }
 
-/* ===== Modal 主標題：控制註冊帳號文字 ===== */
+/* ===== Modal 主標題：縮小註冊帳號字體與下方距離 ===== */
 .register-modal-title {
-  color: #2e4a62;
-  font-size: 2rem;
-  font-weight: 900;
-  line-height: 1.25;
-  margin-bottom: 0.75rem;
+  color: #10283a;
+  font-size: clamp(1.7rem, 6vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.35rem;
 }
 
-/* ===== Modal 描述文字：控制註冊說明 ===== */
+/* ===== Modal 描述文字：縮小說明文字高度 ===== */
 .register-modal-desc {
   color: #6f7a80;
-  font-size: 0.95rem;
-  line-height: 1.7;
+  font-size: 0.82rem;
+  font-weight: 400;
+  line-height: 1.45;
   margin: 0;
 }
 
-/* ===== 表單區塊：控制欄位垂直排列 ===== */
+/* ===== 表單區塊：縮小每個欄位之間的距離 ===== */
 .register-form {
   display: grid;
-  gap: 1rem;
+  gap: 0.55rem;
 }
 
-/* ===== 表單列：控制姓名與手機號碼在同一行 ===== */
+/* ===== 表單列：縮小姓名與手機欄位間距 ===== */
 .form-row {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 0.55rem;
 }
 
-/* ===== 表單群組：控制 label 與 input 間距 ===== */
+/* ===== 表單群組：縮小 label 與輸入框距離 ===== */
 .form-group {
   display: grid;
-  gap: 0.45rem;
+  gap: 0.25rem;
 }
 
-/* ===== 表單標籤：控制欄位名稱樣式 ===== */
+/* ===== 表單標籤：縮小欄位名稱高度 ===== */
 .form-label {
-  color: #2e4a62;
-  font-size: 0.95rem;
-  font-weight: 800;
+  color: #263238;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
-/* ===== 表單輸入框：控制註冊輸入欄位 ===== */
+/* ===== 表單輸入框：縮小輸入框高度，讓電腦版不需要滾動 ===== */
 .form-control {
   width: 100%;
-  min-height: 3.1rem;
-  padding: 0 1rem;
-  border: 1px solid rgba(230, 216, 189, 0.95);
-  border-radius: 0.9rem;
+  min-height: 2.45rem;
+  padding: 0 0.8rem;
+  border: 1.5px solid rgba(217, 178, 111, 0.62);
+  border-radius: 0.48rem;
   color: #263238;
-  background-color: rgba(255, 255, 255, 0.92);
-  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  font-size: 0.86rem;
   outline: none;
-  transition: 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+/* ===== 表單 placeholder：控制提示字顏色 ===== */
+.form-control::placeholder {
+  color: rgba(38, 50, 56, 0.42);
 }
 
 /* ===== 表單輸入框 focus：控制聚焦時的外框效果 ===== */
 .form-control:focus {
   border-color: #d9b26f;
-  box-shadow: 0 0 0 4px rgba(217, 178, 111, 0.16);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(217, 178, 111, 0.14);
 }
 
-/* ===== 註冊按鈕：控制立即註冊送出按鈕 ===== */
+/* ===== 註冊按鈕：縮小按鈕高度與上方距離 ===== */
 .register-submit {
-  min-height: 3.25rem;
-  margin-top: 0.5rem;
-  border: 2px solid #d9b26f;
-  border-radius: 999px;
+  min-height: 2.75rem;
+  margin-top: 0.1rem;
+  border: none;
+  border-radius: 0.58rem;
   color: #ffffff;
-  background: linear-gradient(135deg, #2e4a62 0%, #1f3548 100%);
-  font-size: 1rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
+  background:
+    linear-gradient(
+      135deg,
+      #10283a 0%,
+      #0b2233 100%
+    );
+  box-shadow: 0 12px 24px rgba(15, 37, 56, 0.18);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
 }
 
 /* ===== 註冊按鈕 hover：控制按鈕互動效果 ===== */
 .register-submit:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 32px rgba(31, 53, 72, 0.24);
+  filter: brightness(1.04);
+  box-shadow: 0 18px 38px rgba(15, 37, 56, 0.26);
 }
 
-/* ===== Modal 底部：控制立即登入文字排列 ===== */
+/* ===== Modal 底部：縮小立即登入區塊高度 ===== */
 .register-modal-footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
-  margin-top: 1.5rem;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
   flex-wrap: wrap;
 }
 
 /* ===== 底部提示文字：控制已經有帳號文字 ===== */
 .footer-text {
-  color: #6f7a80;
-  font-size: 0.95rem;
-  font-weight: 700;
+  color: #263238;
+  font-size: 0.86rem;
+  font-weight: 500;
 }
 
-/* ===== 底部文字連結：控制立即登入按鈕 ===== */
 .text-link {
   border: none;
-  color: #b98b42;
+  color: #10283a;
   background: transparent;
-  font-size: 0.95rem;
-  font-weight: 900;
+  font-size: 0.88rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 /* ===== 底部文字連結 hover：控制互動效果 ===== */
 .text-link:hover {
-  color: #2e4a62;
-  text-decoration: underline;
+  color: #b98b42;
+  transform: translateX(0.15rem);
 }
 
 /* ===== Modal 動畫：控制淡入淡出 ===== */
 .modal-fade-enter-active,
 .modal-fade-leave-active {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.22s ease;
 }
 
 /* ===== Modal 動畫狀態：控制透明度 ===== */
@@ -663,26 +698,53 @@ const emitLogin = () => {
   opacity: 0;
 }
 
-/* ===== 平板以上：控制 Modal 尺寸、內距與表單欄位排列 ===== */
-@media (min-width: 48em) {
+/* ===== 小手機：控制視窗更緊湊 ===== */
+@media (max-width: 30em) {
   .register-modal {
-    width: min(100%, 38rem);
-    padding: 2.5rem 3rem;
+    width: min(100%, 25rem);
+    padding: 2rem 1rem 1.4rem;
+    border-radius: 1.35rem;
   }
 
-  /* ===== 平板以上表單列：控制姓名與手機號碼左右排列 ===== */
-  .form-row {
-    grid-template-columns: 1fr 1fr;
+  .register-modal-title {
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .register-modal-desc {
+    font-size: 0.88rem;
+  }
+
+  .register-form {
+    gap: 0.78rem;
+  }
+
+  .form-control {
+    min-height: 2.85rem;
   }
 }
 
-/* ===== 電腦版 Modal：移除滾輪並控制表單高度 ===== */
+/* ===== 平板以上：控制姓名與手機同一行，並縮小電腦版視窗 ===== */
+@media (min-width: 48em) {
+   .register-modal {
+    width: min(100%, 31rem);
+    padding: 1.75rem 2rem 1.35rem;
+    border-radius: 1.55rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+  }
+}
+
+/* ===== 電腦版：避免視窗過大，但保留可滾動防止小高度被切掉 ===== */
 @media (min-width: 64em) {
-  .register-modal {
-    max-height: none;
+    .register-modal {
+    width: min(100%, 31rem);
+    max-height: calc(100vh - 1.5rem);
     overflow-y: visible;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding: 1.55rem 2rem 1.35rem;
   }
 }
 </style>
