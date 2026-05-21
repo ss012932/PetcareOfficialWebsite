@@ -1085,26 +1085,25 @@ html {
   }
 }
 
-/* ===== 桌機以上：控制一區一功能左右交錯排版 ===== */
+/* ===== 桌機以上：縮短一區一功能的上下高度 ===== */
 @media (min-width: 64em) {
   .feature-showcase-item {
-    min-height: 31rem;
+    min-height: 28rem;
     display: flex;
     align-items: center;
-    padding: 2rem 0;
+    padding: 1.5rem 0;
   }
 
-  /* ===== 桌機版第一個功能區塊：讓按鈕下方更緊湊 ===== */
   .feature-showcase-item:first-child {
-    padding-top: 1.25rem;
+    padding-top: 0.75rem;
   }
+
   .feature-showcase-inner {
     grid-template-columns: 0.72fr 1.28fr;
     align-items: center;
-    gap: 2.5rem;
+    gap: 2rem;
   }
 
-  /* ===== 反向區塊：控制偶數功能圖片在左、文字在右 ===== */
   .feature-showcase-inner-reverse {
     grid-template-columns: 1.28fr 0.72fr;
   }
@@ -1122,20 +1121,20 @@ html {
   }
 }
 
-/* ===== 大螢幕：控制圖片更大、更接近參考圖比例 ===== */
+/* ===== 大螢幕：縮短每個功能區塊的上下間距 ===== */
 @media (min-width: 80em) {
   .feature-showcase-item {
-    min-height: 46rem;
-    padding: 7rem 0;
+    min-height: 32rem;
+    padding: 2.75rem 0;
   }
 
   .feature-showcase-inner {
-    width: min(100% - 2rem, 92rem);
-    gap: 3rem;
+    width: min(100% - 2rem, 88rem);
+    gap: 2.2rem;
   }
 
   .feature-showcase-desc {
-    font-size: 1.05rem;
+    font-size: 1rem;
   }
 }
 

@@ -331,245 +331,241 @@ const retryUrl = computed(() => {
 </script>
 
 <style scoped>
-/* ===== 付款頁主容器：控制整頁背景與主色 ===== */
+/* ===== 付款頁面：控制整頁背景與主色系 ===== */
 .payment-page {
-  --color-primary: #2e4a62;
-  --color-primary-dark: #1f3548;
+  --color-primary: #10283a;
+  --color-primary-soft: #2e4a62;
   --color-accent: #d9b26f;
   --color-bg: #f8f7f3;
-  --color-card: #ffffff;
   --color-text: #263238;
   --color-muted: #6f7a80;
   --color-border: #e6d8bd;
-  --color-success: #3aa875;
-  --color-danger: #d85c5c;
+  --color-success: #4bb67a;
+  --color-error: #d86c6c;
 
   min-height: 100vh;
-  padding: 5rem 1rem 4rem;
   color: var(--color-text);
   background:
-    radial-gradient(circle at 18% 0%, rgba(217, 178, 111, 0.14), transparent 24rem),
-    radial-gradient(circle at 85% 20%, rgba(46, 74, 98, 0.07), transparent 26rem),
-    linear-gradient(135deg, #ffffff 0%, var(--color-bg) 100%);
+    radial-gradient(circle at 16% 8%, rgba(217, 178, 111, 0.14), transparent 24rem),
+    radial-gradient(circle at 88% 18%, rgba(46, 74, 98, 0.08), transparent 26rem),
+    linear-gradient(135deg, #ffffff 0%, #f8f7f3 100%);
 }
 
-/* ===== 頂部結果區：控制付款成功 / 失敗標題 ===== */
+/* ===== 付款結果主視覺：控制上方成功 / 失敗區塊 ===== */
 .payment-hero {
-  max-width: 44rem;
-  margin: 0 auto 3rem;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 4.6rem 1.25rem 2.4rem;
   text-align: center;
 }
 
-/* ===== 狀態 icon 外圈：控制成功或失敗圓形圖示 ===== */
+/* ===== 狀態圓形 icon：控制成功 / 失敗圖示大小 ===== */
 .payment-status-icon {
-  width: 4.6rem;
-  height: 4.6rem;
+  width: 4.25rem;
+  height: 4.25rem;
   display: grid;
   place-items: center;
-  margin: 0 auto 1.25rem;
+  margin: 0 auto 1.35rem;
   border-radius: 999px;
   color: #ffffff;
-  font-size: 1.55rem;
-  box-shadow: 0 18px 42px rgba(15, 37, 56, 0.16);
+  background-color: var(--color-success);
+  box-shadow: 0 16px 36px rgba(75, 182, 122, 0.22);
 }
 
-/* ===== 成功 icon：控制綠色狀態 ===== */
-.payment-status-icon-success {
-  background:
-    linear-gradient(
-      135deg,
-      #6bcda0 0%,
-      var(--color-success) 100%
-    );
+/* ===== 狀態 icon 尺寸 ===== */
+.payment-status-icon svg {
+  width: 1.45rem;
+  height: 1.45rem;
 }
 
-/* ===== 失敗 icon：控制紅色狀態 ===== */
-.payment-status-icon-failed {
-  background:
-    linear-gradient(
-      135deg,
-      #ee8989 0%,
-      var(--color-danger) 100%
-    );
+/* ===== 付款失敗 icon 狀態 ===== */
+.payment-status-icon-failed,
+.payment-status-icon-error {
+  background-color: var(--color-error);
+  box-shadow: 0 16px 36px rgba(216, 108, 108, 0.22);
 }
 
-/* ===== 付款頁小標：控制 PAYMENT SUCCESSFUL ===== */
+/* ===== 英文小標：控制 PAYMENT SUCCESSFUL 字體 ===== */
 .payment-eyebrow {
+  margin: 0 0 0.55rem;
   color: var(--color-accent);
-  font-size: 0.78rem;
-  font-weight: 900;
-  letter-spacing: 0.28em;
-  margin-bottom: 0.65rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
 }
 
-/* ===== 付款頁主標題：控制付款成功文字 ===== */
+/* ===== 主標題：控制付款成功文字，不要太大 ===== */
 .payment-title {
+  margin: 0 0 0.8rem;
   color: var(--color-primary);
-  font-size: clamp(2.3rem, 8vw, 4rem);
-  font-weight: 900;
-  line-height: 1.15;
-  margin-bottom: 0.8rem;
+  font-size: clamp(2.15rem, 5vw, 3.35rem);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: 0.05em;
 }
 
-/* ===== 付款頁描述：控制標題下方說明 ===== */
+/* ===== 描述文字：控制標題下方說明 ===== */
 .payment-desc {
-  color: var(--color-muted);
-  font-size: 1rem;
-  line-height: 1.8;
-  margin: 0;
-}
-
-/* ===== 付款資訊區：控制卡片容器 ===== */
-.payment-section {
-  width: min(100%, 88rem);
+  max-width: 34rem;
   margin: 0 auto;
+  color: var(--color-muted);
+  font-size: 0.94rem;
+  line-height: 1.75;
 }
 
-/* ===== 付款資訊排版：手機版單欄 ===== */
+/* ===== 付款資訊區：控制卡片區上下距離 ===== */
+.payment-section {
+  padding: 0 1.25rem 4rem;
+}
+
+/* ===== 付款卡片容器：控制左右兩欄寬度 ===== */
 .payment-container {
+  width: min(100%, 74rem);
+  margin: 0 auto;
   display: grid;
+  grid-template-columns: 1fr;
   gap: 1.25rem;
 }
 
-/* ===== 付款卡片：控制訂單資訊與購買人資訊外觀 ===== */
+/* ===== 付款資訊卡片：控制訂單資訊與購買人資訊外觀 ===== */
 .payment-card {
   overflow: hidden;
-  border: 1px solid rgba(230, 216, 189, 0.95);
-  border-radius: 1.35rem;
-  background-color: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 20px 54px rgba(15, 37, 56, 0.08);
+  border: 1px solid rgba(230, 216, 189, 0.9);
+  border-radius: 1.15rem;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.86) 0%,
+      rgba(255, 250, 240, 0.62) 100%
+    );
+  box-shadow: 0 18px 44px rgba(15, 37, 56, 0.08);
 }
 
-/* ===== 卡片標題列：控制粉米色 header ===== */
+/* ===== 卡片標題區：控制標題與 badge 排列 ===== */
 .payment-card-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1.45rem 1.55rem;
+  padding: 1.35rem 1.55rem 1.1rem;
   border-bottom: 1px solid rgba(230, 216, 189, 0.9);
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 250, 240, 0.78) 0%,
-      rgba(248, 247, 243, 0.92) 100%
-    );
 }
 
-/* ===== 卡片英文小標：控制 ORDER INFORMATION ===== */
+/* ===== 卡片英文小標 ===== */
 .payment-card-eyebrow {
+  margin: 0 0 0.35rem;
   color: var(--color-accent);
-  font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0.2em;
-  margin-bottom: 0.3rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
 }
 
-/* ===== 卡片標題：控制訂單資訊文字 ===== */
+/* ===== 卡片標題：控制訂單資訊 / 購買人資訊 ===== */
 .payment-card-header h2 {
-  color: var(--color-primary);
-  font-size: 1.35rem;
-  font-weight: 900;
   margin: 0;
+  color: var(--color-primary);
+  font-size: 1.28rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
 }
 
-/* ===== 狀態徽章：控制付款狀態小膠囊 ===== */
+/* ===== 狀態 badge 共用 ===== */
 .payment-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 4.5rem;
-  padding: 0.35rem 0.7rem;
+  min-height: 2rem;
+  padding: 0 1rem;
   border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 900;
+  color: #1f6f45;
+  background-color: rgba(75, 182, 122, 0.14);
+  border: 1px solid rgba(75, 182, 122, 0.28);
+  font-size: 0.8rem;
+  font-weight: 700;
   white-space: nowrap;
 }
 
-/* ===== 成功徽章 ===== */
-.payment-badge-success {
-  color: #277254;
-  background-color: rgba(58, 168, 117, 0.12);
-  border: 1px solid rgba(58, 168, 117, 0.25);
+/* ===== 付款失敗 badge ===== */
+.payment-badge-failed,
+.payment-badge-error {
+  color: #a23e3e;
+  background-color: rgba(216, 108, 108, 0.12);
+  border-color: rgba(216, 108, 108, 0.28);
 }
 
-/* ===== 失敗徽章 ===== */
-.payment-badge-failed {
-  color: #a53737;
-  background-color: rgba(216, 92, 92, 0.12);
-  border: 1px solid rgba(216, 92, 92, 0.25);
-}
-
-/* ===== 會員徽章 ===== */
+/* ===== 會員 badge ===== */
 .payment-badge-member {
   color: var(--color-primary);
-  background-color: rgba(217, 178, 111, 0.16);
-  border: 1px solid rgba(217, 178, 111, 0.34);
+  background-color: rgba(217, 178, 111, 0.13);
+  border-color: rgba(217, 178, 111, 0.32);
 }
 
-/* ===== 訂單資料列表 ===== */
+/* ===== 訂單資訊列表 ===== */
 .payment-info-list {
-  display: grid;
-  padding: 1.35rem 1.55rem 0;
+  padding: 1.25rem 1.55rem 0.75rem;
 }
 
-/* ===== 單行訂單資料 ===== */
+/* ===== 訂單資訊單列 ===== */
 .payment-info-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 7rem 1fr;
   gap: 1rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid rgba(230, 216, 189, 0.7);
+  align-items: center;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(230, 216, 189, 0.75);
 }
 
-/* ===== 訂單資料 label ===== */
+/* ===== 訂單資訊 label ===== */
 .payment-info-row span {
   color: var(--color-muted);
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: 0.88rem;
+  font-weight: 500;
 }
 
-/* ===== 訂單資料 value ===== */
+/* ===== 訂單資訊內容 ===== */
 .payment-info-row strong {
   color: var(--color-primary);
-  font-size: 0.95rem;
-  font-weight: 900;
+  font-size: 0.92rem;
+  font-weight: 650;
   text-align: right;
+  word-break: break-word;
 }
 
-/* ===== 方案資訊盒：控制購買方案區塊 ===== */
+/* ===== 購買方案區塊 ===== */
 .payment-plan-box {
-  margin: 1.35rem 1.55rem;
-  padding: 1.2rem;
-  border: 1px solid rgba(230, 216, 189, 0.9);
-  border-radius: 1rem;
-  background-color: rgba(255, 250, 240, 0.45);
+  margin: 0.85rem 1.55rem 1rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid rgba(230, 216, 189, 0.78);
+  border-radius: 0.95rem;
+  background-color: rgba(255, 255, 255, 0.55);
 }
 
-/* ===== 方案小標 ===== */
+/* ===== 購買方案 label ===== */
 .payment-plan-label {
+  margin: 0 0 0.4rem;
   color: var(--color-accent);
-  font-size: 0.75rem;
-  font-weight: 900;
-  letter-spacing: 0.16em;
-  margin-bottom: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
 }
 
 /* ===== 方案名稱 ===== */
 .payment-plan-box h3 {
+  margin: 0 0 0.45rem;
   color: var(--color-primary);
-  font-size: 1.2rem;
-  font-weight: 900;
-  margin-bottom: 0.4rem;
+  font-size: 1.15rem;
+  font-weight: 700;
 }
 
 /* ===== 方案描述 ===== */
-.payment-plan-box p:last-child {
-  color: var(--color-muted);
-  font-size: 0.95rem;
-  line-height: 1.7;
+.payment-plan-box p {
   margin: 0;
+  color: var(--color-muted);
+  font-size: 0.88rem;
+  line-height: 1.65;
 }
 
 /* ===== 實付金額列 ===== */
@@ -578,202 +574,272 @@ const retryUrl = computed(() => {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1.25rem 1.55rem 1.55rem;
+  margin: 0 1.55rem 1.45rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(230, 216, 189, 0.85);
 }
 
 /* ===== 實付金額 label ===== */
 .payment-total-row span {
-  color: var(--color-primary);
-  font-size: 1rem;
-  font-weight: 900;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 /* ===== 實付金額數字 ===== */
 .payment-total-row strong {
-  color: var(--color-accent);
-  font-size: 1.7rem;
-  font-weight: 900;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+  font-weight: 700;
 }
 
-/* ===== 購買人資料盒 ===== */
+/* ===== 購買人資訊框 ===== */
 .buyer-box {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 1rem;
-  margin: 1.35rem 1.55rem;
+  margin: 1.45rem 1.55rem 1rem;
   padding: 1.2rem;
-  border: 1px solid rgba(230, 216, 189, 0.9);
+  border: 1px solid rgba(230, 216, 189, 0.78);
   border-radius: 1rem;
-  background-color: rgba(255, 250, 240, 0.48);
+  background-color: rgba(255, 255, 255, 0.55);
 }
 
 /* ===== 購買人頭像 ===== */
 .buyer-avatar {
-  width: 3.4rem;
-  height: 3.4rem;
+  width: 3.3rem;
+  height: 3.3rem;
   display: grid;
   place-items: center;
   border-radius: 999px;
   color: #ffffff;
-  background:
-    linear-gradient(
-      135deg,
-      var(--color-primary) 0%,
-      var(--color-primary-dark) 100%
-    );
+  background-color: var(--color-primary);
   font-size: 1.15rem;
-  font-weight: 900;
+  font-weight: 700;
 }
 
-/* ===== 購買人資訊排列 ===== */
+/* ===== 購買人文字區 ===== */
 .buyer-info {
   display: grid;
-  gap: 0.65rem;
+  gap: 0.7rem;
 }
 
-/* ===== 購買人資訊單行 ===== */
+/* ===== 購買人單項資料 ===== */
 .buyer-info p {
-  display: grid;
-  gap: 0.15rem;
   margin: 0;
+  display: grid;
+  gap: 0.25rem;
 }
 
-/* ===== 購買人資訊 label ===== */
+/* ===== 購買人 label ===== */
 .buyer-info span {
   color: var(--color-accent);
   font-size: 0.72rem;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 0.12em;
 }
 
-/* ===== 購買人資訊 value ===== */
+/* ===== 購買人內容 ===== */
 .buyer-info strong {
   color: var(--color-primary);
   font-size: 0.95rem;
-  font-weight: 900;
-  word-break: break-all;
+  font-weight: 650;
+  word-break: break-word;
 }
 
-/* ===== 提示訊息：控制成功 / 失敗提示盒 ===== */
+/* ===== 提醒訊息 ===== */
 .payment-notice {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.75rem;
-  align-items: start;
-  margin: 0 1.55rem 1.35rem;
-  padding: 1rem;
-  border-radius: 0.95rem;
-  font-size: 0.92rem;
-  line-height: 1.7;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin: 0 1.55rem 1.2rem;
+  padding: 0.9rem 1rem;
+  border-radius: 0.9rem;
+  color: #1f6f45;
+  background-color: rgba(75, 182, 122, 0.1);
+  border: 1px solid rgba(75, 182, 122, 0.2);
 }
 
-/* ===== 提示訊息文字 ===== */
+/* ===== 提醒 icon ===== */
+.payment-notice svg {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+/* ===== 提醒文字 ===== */
 .payment-notice p {
   margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
 }
 
-/* ===== 成功提示盒 ===== */
-.payment-notice-success {
-  color: #277254;
-  background-color: rgba(58, 168, 117, 0.08);
-  border: 1px solid rgba(58, 168, 117, 0.18);
-}
-
-/* ===== 失敗提示盒 ===== */
-.payment-notice-failed {
-  color: #a53737;
-  background-color: rgba(216, 92, 92, 0.08);
-  border: 1px solid rgba(216, 92, 92, 0.18);
+/* ===== 失敗提醒 ===== */
+.payment-notice-failed,
+.payment-notice-error {
+  color: #a23e3e;
+  background-color: rgba(216, 108, 108, 0.1);
+  border-color: rgba(216, 108, 108, 0.2);
 }
 
 /* ===== 按鈕區 ===== */
 .payment-actions {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.75rem;
-  padding: 0 1.55rem 1.55rem;
+  margin: 0 1.55rem 1.55rem;
 }
 
-/* ===== 共用操作按鈕 ===== */
+/* ===== 按鈕共用 ===== */
 .payment-button {
-  min-height: 3.2rem;
+  min-height: 2.75rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
+  gap: 0.45rem;
+  padding: 0 1.1rem;
   border-radius: 999px;
-  font-size: 0.95rem;
-  font-weight: 900;
-  letter-spacing: 0.04em;
+  font-size: 0.9rem;
+  font-weight: 650;
   text-decoration: none;
-  transition: 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
 
-/* ===== 主要操作按鈕 ===== */
+/* ===== 主要按鈕 ===== */
 .payment-button-primary {
   color: #ffffff;
-  background:
-    linear-gradient(
-      135deg,
-      var(--color-primary) 0%,
-      var(--color-primary-dark) 100%
-    );
-  box-shadow: 0 16px 36px rgba(31, 53, 72, 0.18);
+  background: linear-gradient(135deg, var(--color-primary) 0%, #0b2233 100%);
+  box-shadow: 0 12px 24px rgba(15, 37, 56, 0.18);
 }
 
-/* ===== 主要操作按鈕 hover ===== */
-.payment-button-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 44px rgba(31, 53, 72, 0.24);
-}
-
-/* ===== 外框操作按鈕 ===== */
+/* ===== 外框按鈕 ===== */
 .payment-button-outline {
   color: var(--color-primary);
-  border: 1px solid rgba(217, 178, 111, 0.85);
-  background-color: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(217, 178, 111, 0.58);
+  background-color: rgba(255, 255, 255, 0.58);
 }
 
-/* ===== 外框操作按鈕 hover ===== */
-.payment-button-outline:hover {
+/* ===== 按鈕 hover ===== */
+.payment-button:hover {
   transform: translateY(-2px);
-  background-color: #fffaf0;
+  box-shadow: 0 14px 28px rgba(15, 37, 56, 0.16);
 }
 
-/* ===== 平板以上：調整卡片留白 ===== */
+/* ===== 平板以上：左右兩欄排列 ===== */
 @media (min-width: 48em) {
-  .payment-page {
-    padding: 6rem 2rem 5rem;
+  .payment-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ===== 電腦版：整體縮小，避免字體太大 ===== */
+@media (min-width: 64em) {
+  .payment-hero {
+    padding: 4.2rem 1.25rem 2.1rem;
+  }
+
+  .payment-container {
+    width: min(100%, 72rem);
+    gap: 1.15rem;
   }
 
   .payment-card-header {
-    padding: 1.65rem 1.8rem;
+    padding: 1.25rem 1.45rem 1rem;
   }
 
   .payment-info-list {
-    padding-inline: 1.8rem;
+    padding-inline: 1.45rem;
   }
 
   .payment-plan-box,
-  .buyer-box {
-    margin-inline: 1.8rem;
-  }
-
   .payment-total-row,
+  .buyer-box,
+  .payment-notice,
   .payment-actions {
-    padding-inline: 1.8rem;
-  }
-
-  .payment-notice {
-    margin-inline: 1.8rem;
+    margin-left: 1.45rem;
+    margin-right: 1.45rem;
   }
 }
 
-/* ===== 桌機以上：左右兩欄排版 ===== */
-@media (min-width: 64em) {
+/* ===== 大螢幕：避免卡片被拉太寬 ===== */
+@media (min-width: 88em) {
   .payment-container {
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 1.5rem;
-    align-items: start;
+    width: min(100%, 68rem);
+  }
+
+  .payment-title {
+    font-size: 3rem;
+  }
+}
+
+/* ===== 手機版：單欄與文字縮小 ===== */
+@media (max-width: 36em) {
+  .payment-hero {
+    padding: 3.4rem 1rem 1.8rem;
+  }
+
+  .payment-status-icon {
+    width: 3.7rem;
+    height: 3.7rem;
+    margin-bottom: 1rem;
+  }
+
+  .payment-title {
+    font-size: 2rem;
+  }
+
+  .payment-desc {
+    font-size: 0.9rem;
+  }
+
+  .payment-section {
+    padding: 0 1rem 3rem;
+  }
+
+  .payment-card-header {
+    padding: 1.15rem 1.1rem 0.95rem;
+  }
+
+  .payment-card-header h2 {
+    font-size: 1.15rem;
+  }
+
+  .payment-info-list {
+    padding: 1rem 1.1rem 0.65rem;
+  }
+
+  .payment-info-row {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .payment-info-row strong {
+    text-align: left;
+  }
+
+  .payment-plan-box,
+  .payment-total-row,
+  .buyer-box,
+  .payment-notice,
+  .payment-actions {
+    margin-left: 1.1rem;
+    margin-right: 1.1rem;
+  }
+
+  .buyer-box {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-actions {
+    display: grid;
+  }
+
+  .payment-button {
+    width: 100%;
   }
 }
 </style>

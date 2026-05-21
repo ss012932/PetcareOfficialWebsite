@@ -10,6 +10,8 @@
           aria-modal="true"
           aria-labelledby="terms-title"
         >
+          <!-- ===== Modal 背景裝飾：只負責淡淡的爪印與金色曲線 ===== -->
+          <div class="terms-decoration" aria-hidden="true"></div>
           <!-- ===== Modal 標題列：控制標題與關閉按鈕 ===== -->
           <header class="terms-header">
             <h2 id="terms-title" class="terms-title">購買與服務條款</h2>
@@ -557,27 +559,28 @@
 
           <!-- ===== 條款底部操作區：控制勾選同意與按鈕 ===== -->
           <footer class="terms-footer">
-            <label class="terms-check">
-              <input v-model="isAgreed" type="checkbox" />
-
-              <span>
-                我已詳細閱讀、理解並同意本購買與服務條款，
+  <label class="terms-agree">
+    <input v-model="isAgreed" type="checkbox" />
+    <span>我已詳細閱讀、理解並同意本購買與服務條款，
                 並確認已充分了解所選方案之服務內容、功能範圍、價格、
                 使用期間、開通方式、加購服務及退款限制。
                 我同意於完成購買、付款、開通或使用本服務後，
-                依本條款約定辦理相關權利義務。
-              </span>
-            </label>
+                依本條款約定辦理相關權利義務。</span>
+  </label>
 
-            <button
-              type="button"
-              class="terms-submit"
-              :disabled="!isAgreed"
-              @click="confirmTerms"
-            >
-              同意條款並繼續購買
-            </button>
-          </footer>
+  <div class="terms-actions">
+    
+
+    <button
+      type="button"
+      class="terms-confirm"
+      :disabled="!isAgreed"
+      @click="confirmTerms"
+    >
+      同意條款並繼續購買
+    </button>
+  </div>
+</footer>
         </section>
       </div>
     </Transition>
@@ -628,241 +631,463 @@ watch(
 </script>
 
 <style scoped>
-/* ===== Modal 背景遮罩：控制整個畫面半透明背景 ===== */
+/* ===== 服務條款背景遮罩：控制整個畫面的半透明背景 ===== */
 .terms-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 10000;
+  z-index: 9999;
   display: grid;
   place-items: center;
   padding: 1rem;
-  background-color: rgba(15, 37, 56, 0.58);
-  backdrop-filter: blur(0.4rem);
+  background:
+    radial-gradient(circle at 18% 12%, rgba(217, 178, 111, 0.16), transparent 24rem),
+    rgba(15, 37, 56, 0.58);
+  backdrop-filter: blur(0.45rem);
 }
 
-/* ===== Modal 主體：控制服務條款視窗外觀 ===== */
+/* ===== 服務條款 Modal 主體：控制整體尺寸、圓角與陰影 ===== */
 .terms-modal {
-  width: min(100%, 45rem);
+  position: relative;
+  width: min(100%, 42rem);
   max-height: calc(100vh - 2rem);
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
+  border: 1px solid rgba(230, 216, 189, 0.92);
+  border-radius: 1.65rem;
+  background:
+    radial-gradient(circle at 92% 0%, rgba(217, 178, 111, 0.08), transparent 15rem),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(248, 247, 243, 0.98) 100%
+    );
+  box-shadow:
+    0 24px 70px rgba(15, 37, 56, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
   overflow: hidden;
-  border-radius: 1.35rem;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.99) 0%,
-    rgba(248, 247, 243, 0.99) 100%
-  );
-  border: 1px solid rgba(230, 216, 189, 0.9);
-  box-shadow: 0 24px 70px rgba(15, 37, 56, 0.28);
+}
+
+/* ===== 背景裝飾層：控制淡淡爪印與曲線，不影響操作 ===== */
+.terms-decoration {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ===== 右上角淡淡爪印 ===== */
+.terms-decoration::before {
+  content: "🐾";
+  position: absolute;
+  top: -1.8rem;
+  right: -0.9rem;
+  color: rgba(217, 178, 111, 0.1);
+  font-size: 7rem;
+  transform: rotate(-12deg);
+}
+
+/* ===== 底部淡金色曲線 ===== */
+.terms-decoration::after {
+  content: "";
+  position: absolute;
+  left: -12%;
+  right: -12%;
+  bottom: -2.5rem;
+  height: 5rem;
+  border-top: 1px solid rgba(217, 178, 111, 0.3);
+  border-radius: 50% 50% 0 0;
 }
 
 /* ===== Modal 標題列：控制標題與關閉按鈕排列 ===== */
 .terms-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid rgba(230, 216, 189, 0.75);
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 0.45rem;
+  padding: 1.55rem 1.65rem 1.15rem;
+  border-bottom: 1px solid rgba(230, 216, 189, 0.86);
 }
 
-/* ===== Modal 標題：控制購買與服務條款文字 ===== */
+/* ===== Modal 標題上方英文小標 ===== */
+.terms-header::before {
+  content: "TERMS OF SERVICE";
+  color: #d9b26f;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+}
+
+/* ===== Modal 主標題：控制購買與服務條款 ===== */
 .terms-title {
-  color: #2e4a62;
-  font-size: 1.2rem;
-  font-weight: 900;
+  margin: 0;
+  padding-right: 3rem;
+  color: #10283a;
+  font-size: clamp(1.45rem, 4vw, 2rem);
+  font-weight: 700;
+  line-height: 1.3;
   letter-spacing: 0.05em;
 }
 
 /* ===== 關閉按鈕：控制右上角 X ===== */
 .terms-close {
-  width: 2.25rem;
-  height: 2.25rem;
-  border: 1px solid rgba(217, 178, 111, 0.55);
+  position: absolute;
+  top: 1.2rem;
+  right: 1.25rem;
+  width: 2.35rem;
+  height: 2.35rem;
+  display: grid;
+  place-items: center;
+  border: none;
   border-radius: 999px;
-  color: #2e4a62;
-  background-color: #fffaf0;
-  font-size: 1.45rem;
+  color: #b98b42;
+  background-color: rgba(255, 250, 240, 0.92);
+  font-size: 1.35rem;
   line-height: 1;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease,
+    background-color 0.2s ease;
 }
 
-/* ===== 關閉按鈕 hover：控制滑過效果 ===== */
+/* ===== 關閉按鈕 hover ===== */
 .terms-close:hover {
-  color: #ffffff;
-  background-color: #2e4a62;
+  color: #10283a;
+  background-color: rgba(217, 178, 111, 0.18);
+  transform: rotate(90deg);
 }
 
-/* ===== 條款內容：控制文字可滾動區域 ===== */
+/* ===== 條款內容區：控制可滾動文字區塊 ===== */
 .terms-body {
+  position: relative;
+  z-index: 2;
+  min-height: 0;
+  padding: 1.25rem 1.65rem;
   overflow-y: auto;
-  padding: 1.5rem;
   color: #263238;
-  font-size: 0.95rem;
-  line-height: 1.85;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* ===== 條款版本日期：控制條款版本顯示樣式 ===== */
+/* ===== 條款內容滾輪：讓滾動條更細緻 ===== */
+.terms-body::-webkit-scrollbar {
+  width: 0.45rem;
+}
+
+/* ===== 條款內容滾輪軌道 ===== */
+.terms-body::-webkit-scrollbar-track {
+  background-color: rgba(230, 216, 189, 0.25);
+  border-radius: 999px;
+}
+
+/* ===== 條款內容滾輪滑塊 ===== */
+.terms-body::-webkit-scrollbar-thumb {
+  background-color: rgba(217, 178, 111, 0.6);
+  border-radius: 999px;
+}
+
+/* ===== 條款版本文字 ===== */
 .terms-version {
-  color: #6b7280;
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-align: right;
-  margin-bottom: 1rem;
-}
-
-/* ===== 條款段落：控制段落間距 ===== */
-.terms-body p {
+  display: inline-flex;
+  align-items: center;
   margin: 0 0 1rem;
+  padding: 0.38rem 0.75rem;
+  border: 1px solid rgba(217, 178, 111, 0.34);
+  border-radius: 999px;
+  color: #9f742d;
+  background-color: rgba(217, 178, 111, 0.1);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
-/* ===== 條款章節：控制每一段服務條款距離 ===== */
+/* ===== 條款一般段落：控制閱讀舒適度 ===== */
+.terms-body p {
+  margin: 0 0 0.85rem;
+  color: #4f5b61;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+/* ===== 條款區塊：每一章節的卡片感 ===== */
 .terms-section {
-  padding-top: 1.2rem;
-  margin-top: 1.2rem;
-  border-top: 1px dashed rgba(217, 178, 111, 0.42);
+  margin-top: 1.15rem;
+  padding: 1rem 1rem 0.95rem;
+  border: 1px solid rgba(230, 216, 189, 0.76);
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.56);
 }
 
-/* ===== 條款章節標題：控制一、二、三標題 ===== */
+/* ===== 條款章節標題：控制一、二、三... ===== */
 .terms-section h3 {
   position: relative;
-  color: #2e4a62;
-  font-size: 1.05rem;
-  font-weight: 900;
-  margin-bottom: 0.85rem;
-  padding-left: 0.8rem;
+  margin: 0 0 0.8rem;
+  padding-left: 0.85rem;
+  color: #10283a;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0.03em;
 }
 
-/* ===== 條款章節標題裝飾：控制左側金色線條 ===== */
+/* ===== 條款章節標題左側金色線 ===== */
 .terms-section h3::before {
   content: "";
   position: absolute;
   left: 0;
   top: 0.25rem;
-  width: 0.2rem;
-  height: 1rem;
+  bottom: 0.25rem;
+  width: 3px;
   border-radius: 999px;
   background-color: #d9b26f;
 }
 
-/* ===== 條款小標：控制基本版、專業版等標題 ===== */
+/* ===== 條款小標題：控制 Starter / Team / Business 等小節 ===== */
 .terms-section h4 {
+  margin: 1rem 0 0.45rem;
   color: #2e4a62;
-  font-size: 0.98rem;
-  font-weight: 900;
-  margin: 1rem 0 0.5rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.45;
 }
 
-/* ===== 條款列表：控制項目符號間距 ===== */
+/* ===== 條款列表：控制條列項目排列 ===== */
 .terms-section ul {
   display: grid;
-  gap: 0.35rem;
-  padding-left: 1.25rem;
-  margin: 0 0 1rem;
+  gap: 0.45rem;
+  margin: 0.65rem 0 0.95rem;
+  padding: 0;
+  list-style: none;
 }
 
-/* ===== 條款重點：控制退款重要提示 ===== */
+/* ===== 條款列表項目 ===== */
+.terms-section li {
+  position: relative;
+  padding-left: 1.25rem;
+  color: #4f5b61;
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+/* ===== 條款列表前方勾勾 ===== */
+.terms-section li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #d9b26f;
+  font-weight: 700;
+}
+
+/* ===== 條款重點提示：控制 highlight 段落 ===== */
 .terms-highlight {
   padding: 0.9rem 1rem;
-  border: 1px solid rgba(217, 178, 111, 0.55);
-  border-radius: 0.9rem;
-  color: #2e4a62;
-  background-color: #fffaf0;
-  font-weight: 800;
+  border: 1px solid rgba(217, 178, 111, 0.36);
+  border-radius: 0.85rem;
+  color: #2e4a62 !important;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(217, 178, 111, 0.12) 0%,
+      rgba(255, 250, 240, 0.72) 100%
+    );
+  font-weight: 500 !important;
 }
 
-/* ===== 底部操作區：控制同意勾選與按鈕 ===== */
+/* ===== Modal 底部：控制同意條款與按鈕區 ===== */
 .terms-footer {
+  position: relative;
+  z-index: 2;
   display: grid;
-  gap: 1rem;
-  padding: 1rem 1.5rem 1.25rem;
-  border-top: 1px solid rgba(230, 216, 189, 0.75);
-  background-color: rgba(255, 250, 240, 0.52);
+  gap: 0.9rem;
+  padding: 1rem 1.65rem 1.25rem;
+  border-top: 1px solid rgba(230, 216, 189, 0.86);
+  background-color: rgba(255, 250, 240, 0.82);
 }
 
-/* ===== 同意條款勾選區：控制 checkbox 與文字排列 ===== */
-.terms-check {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.7rem;
+/* ===== 同意條款列：控制 checkbox 與文字 ===== */
+.terms-agree,
+.terms-checkbox-row {
+  display: flex;
   align-items: flex-start;
+  gap: 0.7rem;
   color: #263238;
-  font-size: 0.92rem;
-  font-weight: 800;
-  line-height: 1.6;
+  font-size: 0.88rem;
+  font-weight: 500;
+  line-height: 1.55;
   cursor: pointer;
 }
 
-/* ===== checkbox：控制勾選大小 ===== */
-.terms-check input {
-  width: 1.05rem;
-  height: 1.05rem;
-  margin-top: 0.22rem;
-  accent-color: #2e4a62;
+/* ===== 原生 checkbox：控制尺寸與顏色 ===== */
+.terms-agree input,
+.terms-checkbox-row input {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.15rem;
+  accent-color: #10283a;
+  flex-shrink: 0;
 }
 
-/* ===== 確認按鈕：控制同意條款並選擇方案按鈕 ===== */
-.terms-submit {
-  min-height: 3.25rem;
-  border: 2px solid #d9b26f;
+/* ===== 按鈕區：控制按鈕滿版排列 ===== */
+.terms-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+/* ===== 按鈕共用樣式 ===== */
+.terms-button,
+.terms-cancel,
+.terms-confirm {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.25rem;
   border-radius: 999px;
-  color: #ffffff;
-  background: linear-gradient(135deg, #2e4a62 0%, #1f3548 100%);
-  font-size: 1rem;
-  font-weight: 900;
-  letter-spacing: 0.06em;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
   cursor: pointer;
-  transition: 0.2s ease;
+  font-family: inherit;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    opacity 0.2s ease;
 }
 
-/* ===== 確認按鈕 hover：控制可點擊時的互動效果 ===== */
-.terms-submit:not(:disabled):hover {
+/* ===== 取消按鈕 / 次要按鈕 ===== */
+.terms-button-secondary,
+.terms-cancel {
+  color: #10283a;
+  border: 1px solid rgba(217, 178, 111, 0.58);
+  background-color: rgba(255, 255, 255, 0.68);
+}
+
+/* ===== 確認按鈕 / 主要按鈕 ===== */
+.terms-button-primary,
+.terms-confirm {
+  color: #ffffff;
+  border: none;
+  background:
+    linear-gradient(
+      135deg,
+      #10283a 0%,
+      #0b2233 100%
+    );
+  box-shadow: 0 12px 24px rgba(15, 37, 56, 0.18);
+}
+
+/* ===== 按鈕 hover ===== */
+.terms-button:hover,
+.terms-cancel:hover,
+.terms-confirm:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 32px rgba(31, 53, 72, 0.22);
+  box-shadow: 0 14px 28px rgba(15, 37, 56, 0.14);
 }
 
-/* ===== 確認按鈕 disabled：控制未勾選時不可點擊狀態 ===== */
-.terms-submit:disabled {
-  color: rgba(46, 74, 98, 0.45);
-  background: rgba(255, 255, 255, 0.6);
-  border-color: rgba(217, 178, 111, 0.35);
+/* ===== disabled 狀態：控制未勾選條款時的按鈕 ===== */
+.terms-button:disabled,
+.terms-confirm:disabled {
+  opacity: 0.45;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
-/* ===== Modal 動畫：控制淡入淡出 ===== */
+/* ===== 淡入淡出動畫 ===== */
 .terms-fade-enter-active,
 .terms-fade-leave-active {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.22s ease;
 }
 
-/* ===== Modal 動畫狀態：控制透明度 ===== */
+/* ===== 淡入淡出狀態 ===== */
 .terms-fade-enter-from,
 .terms-fade-leave-to {
   opacity: 0;
 }
 
-/* ===== 平板以上：控制 Modal 尺寸與文字留白 ===== */
-@media (min-width: 48em) {
+/* ===== 手機版：讓條款視窗更適合閱讀 ===== */
+@media (max-width: 36em) {
   .terms-backdrop {
-    padding: 2rem;
+    padding: 0.75rem;
   }
 
   .terms-modal {
-    width: min(100%, 52rem);
+    width: 100%;
+    max-height: calc(100vh - 1.5rem);
+    border-radius: 1.35rem;
   }
 
   .terms-header {
-    padding: 1.35rem 1.75rem;
+    padding: 1.35rem 1.15rem 1rem;
+  }
+
+  .terms-title {
+    font-size: 1.45rem;
+    padding-right: 2.7rem;
+  }
+
+  .terms-close {
+    top: 0.95rem;
+    right: 0.95rem;
+    width: 2.2rem;
+    height: 2.2rem;
   }
 
   .terms-body {
-    padding: 1.75rem;
+    padding: 1rem 1.15rem;
+  }
+
+  .terms-body p {
+    font-size: 0.86rem;
+    line-height: 1.7;
+  }
+
+  .terms-section {
+    padding: 0.9rem 0.85rem;
+  }
+
+  .terms-section h3 {
+    font-size: 0.96rem;
+  }
+
+  .terms-section li {
+    font-size: 0.84rem;
   }
 
   .terms-footer {
-    padding: 1.15rem 1.75rem 1.35rem;
+    padding: 0.95rem 1.15rem 1.15rem;
+  }
+
+  .terms-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .terms-button,
+  .terms-cancel,
+  .terms-confirm {
+    width: 100%;
+  }
+}
+
+/* ===== 電腦版：控制條款視窗不要太大 ===== */
+@media (min-width: 64em) {
+  .terms-modal {
+    width: min(100%, 44rem);
+    max-height: calc(100vh - 3rem);
+  }
+
+  .terms-body {
+    padding: 1.3rem 1.85rem;
+  }
+
+  .terms-header,
+  .terms-footer {
+    padding-left: 1.85rem;
+    padding-right: 1.85rem;
   }
 }
 </style>
