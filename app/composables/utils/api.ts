@@ -2,8 +2,8 @@ import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 import { showCustom } from "~/composables/utils/alert.js";
 
 const apiClient = axios.create({
-  baseURL: "http://localhost:7281/api",
-  //baseURL: "https://petcare-api.christylove.com.tw/api",
+  //baseURL: "http://localhost:7281/api",
+  baseURL: "https://petcare-api.christylove.com.tw/api",
   withCredentials: true,
 });
 
