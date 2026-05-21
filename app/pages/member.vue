@@ -1,41 +1,7 @@
 <template>
   <!-- ===== 後台 Shell：側欄 + 子頁面渲染區 ===== -->
   <div class="bo-shell">
-    <!-- ===== 側欄：固定在左側 ===== -->
-    <aside class="bo-sidebar">
-      <!-- ===== 使用者資訊區 ===== -->
-      <div class="bo-profile">
-        <span class="bo-avatar" aria-hidden="true">{{ userInitial }}</span>
-        <div class="bo-profile-info">
-          <p class="bo-profile-label">管理後台</p>
-          <strong class="bo-profile-name">{{
-            user.Name || "PetCare 管理者"
-          }}</strong>
-          <span class="bo-profile-email">{{ user.Email }}</span>
-        </div>
-      </div>
-
-      <!-- ===== 導覽選單 ===== -->
-      <nav class="bo-nav" aria-label="後台導覽">
-        <NuxtLink
-          v-for="item in navItems"
-          :key="item.to"
-          :to="item.to"
-          class="bo-nav-item"
-          active-class="is-active"
-        >
-          <Icon :name="item.icon" class="bo-nav-icon" aria-hidden="true" />
-          <span class="bo-nav-label">{{ item.label }}</span>
-        </NuxtLink>
-      </nav>
-
-      <!-- ===== 底部操作 ===== -->
-      <div class="bo-sidebar-footer">
-        <NuxtLink to="/" class="bo-back-link">
-          <Icon name="fa6-solid:arrow-left" aria-hidden="true" /> 回官網
-        </NuxtLink>
-      </div>
-    </aside>
+    <MemberSidebar />
 
     <!-- ===== 主內容區 ===== -->
     <div class="bo-content">
@@ -45,9 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
-import { useAuthStore } from "~/composables/auth";
-
 // ===== 整個 /member 路由樹都需要登入 =====
 definePageMeta({
   middleware: "backoffice-auth",
@@ -57,33 +20,6 @@ definePageMeta({
 useHead({
   titleTemplate: "%s｜PetCare 後台",
 });
-
-// ===== 取得共用登入者資料 =====
-const authStore = useAuthStore();
-
-/**
- * 載入側欄使用者資料
- * 用途：讓側欄姓名、Email 使用 Pinia 共用狀態
- */
-onMounted(async () => {
-  await authStore.loadUser();
-});
-
-const user = computed(() => authStore.user);
-
-const userInitial = computed(() =>
-  (user.value.Name || user.value.Email || "P").trim().slice(0, 1).toUpperCase(),
-);
-
-// ===== 後台導覽清單 =====
-const navItems = [
-  { to: "/member/dashboard", label: "主控台", icon: "fa6-solid:gauge-high" },
-  { to: "/member/profile", label: "會員設定", icon: "fa6-solid:circle-user" },
-  { to: "/member/orders", label: "訂單資訊", icon: "fa6-solid:receipt" },
-  { to: "/member/brand", label: "品牌設定", icon: "fa6-solid:tag" },
-  { to: "/member/staff", label: "人事系統", icon: "fa6-solid:users" },
-  { to: "/member/stores", label: "分店設定", icon: "fa6-solid:store" },
-];
 </script>
 
 <style>

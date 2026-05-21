@@ -45,6 +45,11 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 
+definePageMeta({
+  middleware: ['backoffice-auth', 'brand-feature'],
+  brandFeature: 'MultiStoreManagement',
+})
+
 useHead({ title: '分店設定' })
 
 const stores = reactive([

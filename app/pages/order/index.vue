@@ -522,7 +522,7 @@ async function handleSubmitOrder() {
 
     await router.push("/");
   } catch (e: any) {
-    const msg = e?.response?.data?.message || "訂單送出失敗，請稍後再試。";
+    const msg = e?.response?.data?.Message || "訂單送出失敗，請稍後再試。";
     await Swal.fire({
       icon: "error",
       title: "送出失敗",
