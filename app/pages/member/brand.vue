@@ -112,11 +112,11 @@
               <div class="form-grid">
                 <label class="bo-field">
                   <span>品牌名稱 <em class="req">*</em></span>
-                  <input v-model="form.brandName" type="text" placeholder="幸福的動物醫院" required />
+                  <input v-model="form.brandName" type="text" placeholder="請輸入品牌名稱" required />
                 </label>
                 <label class="bo-field">
                   <span>公司名稱 <em class="req">*</em></span>
-                  <input v-model="form.companyName" type="text" placeholder="彩虹小馬工作室" required />
+                  <input v-model="form.companyName" type="text" placeholder="請輸入公司名稱" required />
                 </label>
                 <label class="bo-field">
                   <span>統一編號</span>
