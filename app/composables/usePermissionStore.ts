@@ -145,5 +145,24 @@ export const usePermissionStore = defineStore("permission", {
       this.hasActiveSubscription = false;
       this.features = {};
     },
+
+    /** 強制重新拉取品牌列表（不重置權限），供品牌 CRUD 後同步 Sidebar 下拉選單 */
+    async reloadBrands() {
+      try {
+        const brandsRes = await api.get("/brands/my");
+        const rawBrands: BrandItem[] =
+          brandsRes.data?.Brands ??
+          brandsRes.data?.brands ??
+          brandsRes.data?.data?.Brands ??
+          brandsRes.data?.data?.brands ??
+          [];
+        this.brands = rawBrands.map((b) => ({
+          id: (b.Id ?? b.id) as number,
+          name: b.BrandName ?? b.brandName ?? String(b.Id ?? b.id),
+        }));
+      } catch {
+        // 失敗時保留舊清單，不中斷頁面
+      }
+    },
   },
 });
