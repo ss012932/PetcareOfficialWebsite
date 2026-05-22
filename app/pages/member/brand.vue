@@ -68,7 +68,7 @@
     <!-- ===== 新增 / 編輯 Modal ===== -->
     <Teleport to="body">
       <Transition name="modal-fade">
-        <div v-if="showModal" class="modal-overlay" role="dialog" aria-modal="true" @click.self="closeModal">
+        <div v-if="showModal" class="modal-overlay" role="dialog" aria-modal="true">
           <div class="modal-box">
             <header class="modal-header">
               <h2>{{ editingId ? '編輯品牌' : '新增品牌' }}</h2>
@@ -196,6 +196,9 @@
 import { ref, reactive, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import api from '~/composables/utils/api'
 import { showCustom, showConfirm } from '~/composables/utils/alert'
+import { usePermissionStore } from '~/composables/usePermissionStore'
+
+const permStore = usePermissionStore()
 
 useHead({ title: '品牌管理' })
 
@@ -586,10 +589,12 @@ async function handleSave() {
     if (editingId.value !== null) {
       await api.put(`/brands/${editingId.value}`, fd)
       await loadBrands()
+      await permStore.reloadBrands()
       await showCustom('更新成功', '品牌資料已更新。', 'success')
     } else {
       await api.post('/brands/create', fd)
       await loadBrands()
+      await permStore.reloadBrands()
       await showCustom('建立成功', '品牌已成功建立。', 'success')
     }
     closeModal()
@@ -607,6 +612,7 @@ async function confirmDelete(brand: Brand) {
       // TODO: 確認後端刪除品牌的端點
       await api.delete(`/brands/${brand.id}`)
       brands.value = brands.value.filter(b => b.id !== brand.id)
+      await permStore.reloadBrands()
       await showCustom('刪除成功', '品牌已移除。', 'success')
     } catch {
       await showCustom('刪除失敗', '請稍後再試。', 'error')

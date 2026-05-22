@@ -108,17 +108,17 @@
             <div class="buyer-info">
               <p>
                 <span>姓名</span>
-                <strong>{{ buyer.name }}</strong>
+                <strong>{{ buyer.Name || '—' }}</strong>
               </p>
 
               <p>
                 <span>電子郵件</span>
-                <strong>{{ buyer.email }}</strong>
+                <strong>{{ buyer.Email || '—' }}</strong>
               </p>
 
               <p>
                 <span>手機號碼</span>
-                <strong>{{ buyer.phone }}</strong>
+                <strong>{{ buyer.Phone || '—' }}</strong>
               </p>
             </div>
           </div>
@@ -161,10 +161,13 @@
 </template>
 
 <script setup lang="ts">
-// ===== 路由資料：取得付款狀態與方案代碼 =====
+import api from '~/composables/utils/api'
+import { useAuthStore } from '~/composables/auth'
+
+// ===== 路由資料：取得金流回傳的 merchantTradeNo =====
 const route = useRoute()
 
-// ===== 頁面 SEO：控制付款結果頁標題 =====
+// ===== 頁面 SEO =====
 useHead({
   title: '付款結果｜PetCare System',
   meta: [
@@ -175,83 +178,66 @@ useHead({
   ],
 })
 
-// ===== 方案型別：限制方案資料格式 =====
-interface PlanInfo {
-  code: string
-  name: string
-  description: string
-  priceText: string
+// ===== API 回傳型別 =====
+interface PaymentResultData {
+  OrderId: number
+  BrandId: number
+  BrandName: string
+  PlanId: number
+  PlanName: string
+  Period: string
+  SubscriptionMonth: number
+  Amount: number
+  DiscountCode: string | null
+  MerchantTradeNo: string
+  TradeNo: string
+  Status: string
+  PaymentType: string
+  PaymentName: string
+  PayTime: string | null
+  ExpireDate: string
+  CreateDate: string
+  UpdateDate: string
+  IsRecurring: boolean
 }
 
-// ===== 方案代碼型別：限制可用方案 =====
-type PlanCode = 'basic' | 'pro' | 'enterprise'
+// ===== 查詢訂單結果：使用 merchantTradeNo =====
+const merchantTradeNo = computed(() => String(route.query.merchantTradeNo ?? ''))
 
-// ===== 付款狀態型別：限制成功或失敗 =====
-type PaymentStatus = 'success' | 'failed'
-
-// ===== 方案資料：依照 order.vue 傳來的 plan query 顯示 =====
-const plans: Record<PlanCode, PlanInfo> = {
-  basic: {
-    code: 'basic',
-    name: '基本版',
-    description: '適合小型動物診所，提供預約排程、電子病歷與基本收費功能。',
-    priceText: 'NT$1,980 / 月',
+const { data: resultData } = await useAsyncData(
+  'payment-result',
+  async () => {
+    if (!merchantTradeNo.value) return null
+    try {
+      const res = await api.get('/orders/payment-result', { merchantTradeNo: merchantTradeNo.value })
+      return (res.data?.data as PaymentResultData) ?? null
+    } catch {
+      return null
+    }
   },
-  pro: {
-    code: 'pro',
-    name: '專業版',
-    description: '適合成長中的動物醫院，包含庫存管理、報表分析與進階營運功能。',
-    priceText: 'NT$3,980 / 月',
-  },
-  enterprise: {
-    code: 'enterprise',
-    name: '企業版',
-    description: '適合多分院與大型院所，提供客製管理、專屬支援與進階報表。',
-    priceText: '客製報價',
-  },
+  { server: false },
+)
+
+// ===== 購買人資料：來自 Auth Store =====
+const authStore = useAuthStore()
+if (!authStore.isLogin) {
+  await authStore.loadUser()
 }
+const buyer = computed(() => authStore.user)
+const buyerInitial = computed(() => buyer.value.Name?.slice(0, 1) || '?')
 
-// ===== 判斷方案代碼是否有效 =====
-function isPlanCode(value: string): value is PlanCode {
-  return ['basic', 'pro', 'enterprise'].includes(value)
-}
+// ===== 付款是否成功：Status === '已付款' =====
+const isSuccess = computed(() => resultData.value?.Status === '已付款')
 
-// ===== 判斷付款狀態是否有效 =====
-function isPaymentStatus(value: string): value is PaymentStatus {
-  return ['success', 'failed'].includes(value)
-}
+// ===== 訂單資訊 =====
+const orderNumber = computed(() => resultData.value?.MerchantTradeNo ?? merchantTradeNo.value)
 
-// ===== 目前付款狀態：從網址 query 判斷，預設成功 =====
-const paymentStatus = computed<PaymentStatus>(() => {
-  const status = String(route.query.status ?? 'success')
+const paymentMethod = computed(() => resultData.value?.PaymentName ?? '—')
 
-  return isPaymentStatus(status) ? status : 'success'
-})
-
-// ===== 是否付款成功：控制畫面文字與按鈕 =====
-const isSuccess = computed(() => paymentStatus.value === 'success')
-
-// ===== 目前選擇方案：從網址 query 判斷方案，預設專業版 =====
-const selectedPlan = computed<PlanInfo>(() => {
-  const queryPlan = String(route.query.plan ?? 'pro')
-  const planCode: PlanCode = isPlanCode(queryPlan) ? queryPlan : 'pro'
-
-  return plans[planCode]
-})
-
-// ===== 訂單編號：正式串接金流後可由 API 回傳 =====
-const orderNumber = computed(() => {
-  return String(route.query.orderNo ?? 'ORDER20260520001')
-})
-
-// ===== 付款方式：正式串接金流後可由 API 回傳 =====
-const paymentMethod = computed(() => {
-  return String(route.query.method ?? '信用卡')
-})
-
-// ===== 付款時間：目前先顯示本機時間 =====
 const paymentTime = computed(() => {
-  return new Date().toLocaleString('zh-TW', {
+  const raw = resultData.value?.PayTime
+  if (!raw) return '—'
+  return new Date(raw).toLocaleString('zh-TW', {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
@@ -260,74 +246,37 @@ const paymentTime = computed(() => {
   })
 })
 
-// ===== 購買人資料：正式串接登入會員後可由會員資料帶入 =====
-const buyer = {
-  name: '王小明',
-  email: 'customer@example.com',
-  phone: '0912-345-678',
-}
+// ===== 方案資訊 =====
+const selectedPlan = computed(() => ({
+  name: resultData.value?.PlanName ?? '—',
+  description: `訂閱週期：${resultData.value?.SubscriptionMonth ?? '—'} 個月${resultData.value?.Period ?? ''}`,
+  priceText: resultData.value?.Amount != null
+    ? `NT$ ${resultData.value.Amount.toLocaleString()}`
+    : '—',
+}))
 
-// ===== 購買人頭像文字：取姓名第一個字 =====
-const buyerInitial = computed(() => buyer.name.slice(0, 1))
-
-// ===== 狀態小標：控制 PAYMENT SUCCESSFUL / PAYMENT FAILED =====
-const statusEyebrow = computed(() => {
-  return isSuccess.value ? 'PAYMENT SUCCESSFUL' : 'PAYMENT FAILED'
-})
-
-// ===== 狀態標題：控制付款成功 / 付款失敗 =====
-const statusTitle = computed(() => {
-  return isSuccess.value ? '付款成功！' : '付款失敗'
-})
-
-// ===== 狀態描述：控制標題下方說明文字 =====
-const statusDescription = computed(() => {
-  return isSuccess.value
+// ===== 狀態文字 / 樣式 =====
+const statusEyebrow = computed(() => isSuccess.value ? 'PAYMENT SUCCESSFUL' : 'PAYMENT FAILED')
+const statusTitle = computed(() => isSuccess.value ? '付款成功！' : '付款失敗')
+const statusDescription = computed(() =>
+  isSuccess.value
     ? '感謝您的購買，您的方案已成立，系統將協助您完成後續開通流程。'
     : '很抱歉，本次付款未完成，您可以重新付款或返回訂單頁確認資料。'
-})
-
-// ===== 狀態 icon 名稱：控制成功 / 失敗 icon =====
-const statusIconName = computed(() => {
-  return isSuccess.value ? 'fa6-solid:check' : 'fa6-solid:xmark'
-})
-
-// ===== 狀態 icon class：控制成功 / 失敗顏色 =====
-const statusIconClass = computed(() => {
-  return isSuccess.value ? 'payment-status-icon-success' : 'payment-status-icon-failed'
-})
-
-// ===== 狀態 badge 文字 =====
-const statusBadgeText = computed(() => {
-  return isSuccess.value ? '付款成功' : '付款失敗'
-})
-
-// ===== 狀態 badge class =====
-const statusBadgeClass = computed(() => {
-  return isSuccess.value ? 'payment-badge-success' : 'payment-badge-failed'
-})
-
-// ===== 提示訊息 icon =====
-const noticeIcon = computed(() => {
-  return isSuccess.value ? 'fa6-solid:circle-info' : 'fa6-solid:triangle-exclamation'
-})
-
-// ===== 提示訊息 class =====
-const noticeClass = computed(() => {
-  return isSuccess.value ? 'payment-notice-success' : 'payment-notice-failed'
-})
-
-// ===== 提示訊息文字 =====
-const noticeText = computed(() => {
-  return isSuccess.value
+)
+const statusIconName = computed(() => isSuccess.value ? 'fa6-solid:check' : 'fa6-solid:xmark')
+const statusIconClass = computed(() => isSuccess.value ? 'payment-status-icon-success' : 'payment-status-icon-failed')
+const statusBadgeText = computed(() => resultData.value?.Status ?? (isSuccess.value ? '付款成功' : '付款失敗'))
+const statusBadgeClass = computed(() => isSuccess.value ? 'payment-badge-success' : 'payment-badge-failed')
+const noticeIcon = computed(() => isSuccess.value ? 'fa6-solid:circle-info' : 'fa6-solid:triangle-exclamation')
+const noticeClass = computed(() => isSuccess.value ? 'payment-notice-success' : 'payment-notice-failed')
+const noticeText = computed(() =>
+  isSuccess.value
     ? '訂單確認信已寄送至您的電子郵件，後續將由客服協助完成系統開通。'
     : '付款未完成，請重新確認付款資訊，或稍後再次嘗試。'
-})
+)
 
-// ===== 重新付款網址：保留目前方案回到訂單頁 =====
-const retryUrl = computed(() => {
-  return `/order?plan=${selectedPlan.value.code}`
-})
+// ===== 重新付款網址 =====
+const retryUrl = computed(() => '/order')
 </script>
 
 <style scoped>
