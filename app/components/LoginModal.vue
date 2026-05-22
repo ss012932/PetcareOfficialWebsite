@@ -2,10 +2,7 @@
   <!-- ===== 登入 Modal 遮罩：控制背景半透明與點擊關閉 ===== -->
   <Teleport to="body">
     <Transition name="modal-fade">
-      <div
-        v-if="modelValue"
-        class="login-modal-backdrop"
-      >
+      <div v-if="modelValue" class="login-modal-backdrop">
         <!-- ===== 登入 Modal 主體：控制登入表單內容 ===== -->
         <section
           class="login-modal"
@@ -34,9 +31,7 @@
               <span></span>
             </div>
 
-            <h2 id="login-modal-title" class="login-modal-title">
-              會員登入
-            </h2>
+            <h2 id="login-modal-title" class="login-modal-title">會員登入</h2>
 
             <p class="login-modal-desc">
               登入您的帳號，開始管理預約、病歷與院所營運。
@@ -45,15 +40,13 @@
 
           <!-- ===== 登入表單：控制帳號、密碼與登入送出 ===== -->
           <form class="login-form" @submit.prevent="handleSubmit">
-            <!-- ===== 電子郵件欄位：控制使用者輸入帳號 ===== -->
+            <!-- ===== 帳號欄位：控制使用者輸入帳號 ===== -->
             <div class="form-group">
-              <label for="login-account" class="form-label">
-                電子郵件
-              </label>
+              <label for="login-account" class="form-label"> 帳號 </label>
 
               <div class="input-wrap">
                 <Icon
-                  name="fa6-regular:envelope"
+                  name="fa6-regular:user"
                   class="input-icon"
                   aria-hidden="true"
                 />
@@ -63,7 +56,7 @@
                   v-model.trim="form.account"
                   type="text"
                   class="form-control"
-                  placeholder="請輸入電子郵件"
+                  placeholder="請輸入帳號"
                   autocomplete="username"
                   required
                 />
@@ -72,9 +65,7 @@
 
             <!-- ===== 密碼欄位：控制使用者輸入密碼 ===== -->
             <div class="form-group">
-              <label for="login-password" class="form-label">
-                密碼
-              </label>
+              <label for="login-password" class="form-label"> 密碼 </label>
 
               <div class="input-wrap">
                 <Icon
@@ -100,7 +91,9 @@
                   @click="togglePasswordVisibility"
                 >
                   <Icon
-                    :name="showPassword ? 'fa6-regular:eye-slash' : 'fa6-regular:eye'"
+                    :name="
+                      showPassword ? 'fa6-regular:eye-slash' : 'fa6-regular:eye'
+                    "
                     aria-hidden="true"
                   />
                 </button>
@@ -110,10 +103,7 @@
             <!-- ===== 登入選項列：控制記住我與忘記密碼 ===== -->
             <div class="login-options">
               <label class="remember-check">
-                <input
-                  v-model="rememberMe"
-                  type="checkbox"
-                />
+                <input v-model="rememberMe" type="checkbox" />
 
                 <span class="custom-checkbox">
                   <Icon
@@ -158,11 +148,7 @@
           <footer class="login-modal-footer">
             <span>還沒有帳號？</span>
 
-            <button
-              type="button"
-              class="register-link"
-              @click="emitRegister"
-            >
+            <button type="button" class="register-link" @click="emitRegister">
               立即註冊
             </button>
           </footer>
@@ -203,7 +189,9 @@ const emit = defineEmits<{
 }>();
 
 /* ===== 表單資料：控制帳號與密碼輸入內容 ===== */
-const form = reactive<Omit<LoginPayload, "deviceId" | "browserInfo" | "osInfo" | "screenResolution">>({
+const form = reactive<
+  Omit<LoginPayload, "deviceId" | "browserInfo" | "osInfo" | "screenResolution">
+>({
   account: "",
   password: "",
 });
@@ -227,7 +215,7 @@ watch(
       form.account = newAccount;
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 /* ===== 關閉 Modal：通知父層把 v-model 改成 false ===== */
@@ -313,17 +301,20 @@ const getOrCreateDeviceId = (): string => {
   }
 
   let newDeviceId: string;
-  
+
   if (crypto.randomUUID) {
     newDeviceId = crypto.randomUUID();
   } else {
-    newDeviceId = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-      const array = new Uint8Array(1);
-      crypto.getRandomValues(array);
-      const r = array[0]! % 16;
-      const v = c === "x" ? r : (r & 0x3) | 0x8;
-      return v.toString(16);
-    });
+    newDeviceId = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+      /[xy]/g,
+      (c) => {
+        const array = new Uint8Array(1);
+        crypto.getRandomValues(array);
+        const r = array[0]! % 16;
+        const v = c === "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      },
+    );
   }
 
   localStorage.setItem(storageKey, newDeviceId);
@@ -348,11 +339,21 @@ const handleSubmit = async () => {
 
     // ===== 登入成功 =====
     if (response.data.success !== false) {
-      await showCustom(
-        "登入成功",
-        "歡迎回來！",
-        "success",
-      );
+      /* ===== 登入成功提示：只在 LoginModal 使用的 SweetAlert2 樣式 ===== */
+      await Swal.fire({
+        icon: "success",
+        title: "登入成功",
+        text: "歡迎回來！",
+        confirmButtonText: "開始使用",
+        buttonsStyling: false,
+        customClass: {
+          popup: "login-alert-popup",
+          icon: "login-alert-icon",
+          title: "login-alert-title",
+          htmlContainer: "login-alert-text",
+          confirmButton: "login-alert-confirm",
+        },
+      });
 
       // ===== 清空表單 =====
       form.account = "";
@@ -371,11 +372,21 @@ const handleSubmit = async () => {
     const message = error.response?.data?.message || "登入失敗，請確認帳號密碼";
 
     // ===== 顯示後端的 detail 訊息（優先），否則顯示 message =====
-    await showCustom(
-      "登入失敗",
-      detail || message,
-      "error",
-    );
+    /* ===== 登入失敗提示：只在 LoginModal 使用的 SweetAlert2 樣式 ===== */
+    await Swal.fire({
+      icon: "error",
+      title: "登入失敗",
+      text: detail || message,
+      confirmButtonText: "重新輸入",
+      buttonsStyling: false,
+      customClass: {
+        popup: "login-alert-popup",
+        icon: "login-alert-icon",
+        title: "login-alert-title",
+        htmlContainer: "login-alert-text",
+        confirmButton: "login-alert-confirm",
+      },
+    });
   }
 };
 
@@ -400,7 +411,11 @@ const emitRegister = () => {
   place-items: center;
   padding: 1.25rem;
   background:
-    radial-gradient(circle at 20% 10%, rgba(217, 178, 111, 0.16), transparent 22rem),
+    radial-gradient(
+      circle at 20% 10%,
+      rgba(217, 178, 111, 0.16),
+      transparent 22rem
+    ),
     rgba(15, 37, 56, 0.58);
   backdrop-filter: blur(0.45rem);
 }
@@ -413,7 +428,11 @@ const emitRegister = () => {
   border: 1px solid rgba(230, 216, 189, 0.92);
   border-radius: 1.5rem;
   background:
-    radial-gradient(circle at 92% 0%, rgba(217, 178, 111, 0.08), transparent 14rem),
+    radial-gradient(
+      circle at 92% 0%,
+      rgba(217, 178, 111, 0.08),
+      transparent 14rem
+    ),
     linear-gradient(
       135deg,
       rgba(255, 255, 255, 0.98) 0%,
@@ -782,6 +801,124 @@ const emitRegister = () => {
   opacity: 0;
 }
 
+/* ===== LoginModal 專用 SweetAlert2：控制登入成功 / 失敗提示視窗 ===== */
+:global(.login-alert-popup) {
+  width: min(100%, 21.5rem);
+  padding: 1.65rem 1.35rem 1.25rem;
+  border: 1px solid rgba(230, 216, 189, 0.92);
+  border-radius: 1.15rem;
+  background:
+    radial-gradient(circle at 90% 0%, rgba(217, 178, 111, 0.09), transparent 10rem),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(248, 247, 243, 0.98) 100%
+    );
+  box-shadow: 0 22px 58px rgba(15, 37, 56, 0.22);
+}
+
+
+
+/* ===== LoginModal 專用 SweetAlert2 icon：保留 SweetAlert2 原生比例，避免圖形跑版 ===== */
+:global(.login-alert-icon) {
+  margin: 0 auto 0.95rem;
+  transform: scale(0.72);
+  transform-origin: center;
+}
+
+/* ===== 成功 icon：控制成功圖示顏色，不改內部尺寸 ===== */
+:global(.swal2-icon.swal2-success.login-alert-icon) {
+  border-color: #8ccf7f;
+  color: #8ccf7f;
+}
+
+/* ===== 成功 icon 線條：只改顏色，不改位置 ===== */
+:global(.swal2-icon.swal2-success.login-alert-icon [class^="swal2-success-line"]) {
+  background-color: #8ccf7f;
+}
+
+/* ===== 成功 icon 圓圈：只改顏色，不改尺寸 ===== */
+:global(.swal2-icon.swal2-success.login-alert-icon .swal2-success-ring) {
+  border-color: rgba(140, 207, 127, 0.38);
+}
+
+/* ===== 失敗 icon：控制失敗圖示顏色，不改內部尺寸 ===== */
+:global(.swal2-icon.swal2-error.login-alert-icon) {
+  border-color: #d86c6c;
+  color: #d86c6c;
+}
+
+/* ===== 失敗 icon 線條：只改顏色，不改位置 ===== */
+:global(.swal2-icon.swal2-error.login-alert-icon [class^="swal2-x-mark-line"]) {
+  background-color: #d86c6c;
+}
+
+/* ===== SweetAlert2 標題：控制登入成功 / 登入失敗文字 ===== */
+:global(.login-alert-title) {
+  padding: 0;
+  margin: 0 0 0.35rem;
+  color: #10283a;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+}
+
+/* ===== SweetAlert2 內容文字：控制歡迎回來等說明文字 ===== */
+:global(.login-alert-text) {
+  padding: 0;
+  margin: 0;
+  color: #6f7a80;
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* ===== SweetAlert2 按鈕容器：控制按鈕區距離 ===== */
+:global(.swal2-actions) {
+  width: 100%;
+  margin: 1.15rem 0 0;
+}
+
+/* ===== SweetAlert2 確認按鈕：控制主要按鈕 ===== */
+:global(.login-alert-confirm) {
+  width: 100%;
+  min-height: 2.75rem;
+  margin: 0;
+  border: none;
+  border-radius: 0.65rem;
+  color: #ffffff;
+  background:
+    linear-gradient(
+      135deg,
+      #10283a 0%,
+      #0b2233 100%
+    );
+  box-shadow: 0 12px 24px rgba(15, 37, 56, 0.18);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+/* ===== SweetAlert2 確認按鈕 hover：控制互動效果 ===== */
+:global(.login-alert-confirm:hover) {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+  box-shadow: 0 16px 32px rgba(15, 37, 56, 0.24);
+}
+
+/* ===== SweetAlert2 遮罩：確保蓋在登入 Modal 上方 ===== */
+:global(.swal2-container) {
+  z-index: 99999;
+  backdrop-filter: blur(0.28rem);
+}
+
+
 /* ===== 手機版：控制 Modal 不要太擠 ===== */
 @media (max-width: 30em) {
   .login-modal {
@@ -829,11 +966,33 @@ const emitRegister = () => {
   .login-modal-footer {
     font-size: 0.92rem;
   }
+
+   :global(.login-alert-popup) {
+    width: min(100%, 19.5rem);
+    padding: 1.55rem 1.15rem 1.15rem;
+    border-radius: 1rem;
+  }
+
+  :global(.login-alert-icon) {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 0.8rem;
+  }
+
+  :global(.login-alert-title) {
+    font-size: 1.22rem;
+  }
+
+  :global(.login-alert-text) {
+    font-size: 0.85rem;
+  }
 }
+
+
 
 /* ===== 平板以上：控制 Modal 尺寸與內距 ===== */
 @media (min-width: 48em) {
-   .login-modal {
+  .login-modal {
     width: min(100%, 33rem);
     padding: 3rem 2.4rem 2.2rem;
     border-radius: 1.75rem;
