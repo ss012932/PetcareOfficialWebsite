@@ -46,11 +46,7 @@
 
           <li>
             <!-- ===== 價格方案連結：導向獨立 price.vue 頁面 ===== -->
-            <NuxtLink
-              to="/price"
-              class="nav-link nav-link--cta"
-              @click="closeMobileMenu"
-            >
+            <NuxtLink to="/price" class="nav-link" @click="closeMobileMenu">
               價格方案
             </NuxtLink>
           </li>
@@ -316,197 +312,194 @@ async function handleLoginSuccess() {
 </script>
 
 <style scoped>
-/* ===== Header 色系設定：控制 AppHeader 使用深藍精品底色 ===== */
+/* ===== Header 色系設定：控制整個導覽列主題 ===== */
 .app-header {
-  --color-primary: #17334a;
-  --color-primary-dark: #0f2538;
+  --color-primary: #10283a;
+  --color-primary-light: #17334a;
   --color-accent: #d9b26f;
   --color-text: #ffffff;
   --color-muted: rgba(255, 255, 255, 0.78);
-  --color-border: rgba(217, 178, 111, 0.28);
+  --color-border: rgba(217, 178, 111, 0.2);
 
-  background: linear-gradient(135deg, #10283c 0%, #17334a 48%, #0f2538 100%);
-  box-shadow: 0 4px 18px rgba(15, 37, 56, 0.22);
   position: sticky;
   top: 0;
   z-index: 100;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(16, 40, 58, 0.98) 0%,
+      rgba(23, 51, 74, 0.98) 55%,
+      rgba(15, 37, 56, 0.98) 100%
+    );
   border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 0.75rem 2rem rgba(15, 37, 56, 0.14);
+  backdrop-filter: blur(0.75rem);
 }
 
-/* ===== Navbar 外層：控制導覽列上下間距 ===== */
+/* ===== Navbar 外層：控制導覽列高度 ===== */
 .navbar {
-  padding: 1rem 0;
+  padding: 0;
 }
 
-/* ===== Navbar 內容：控制 Logo 與選單左右排列 ===== */
+/* ===== Navbar 內容：控制 Logo、選單左右排列 ===== */
 .navbar-inner {
-  max-width: 75rem;
-  margin: 0 auto;
-  padding: 0 1.25rem;
+  width: min(100% - 2rem, 78rem);
+  min-height: 4.5rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-inline: auto;
 }
 
 /* ===== Logo：控制品牌連結排列 ===== */
 .logo {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.55rem;
   color: var(--color-text);
   text-decoration: none;
   transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
+    opacity 0.22s ease,
+    transform 0.22s ease;
 }
 
-/* ===== Logo 滑過：控制滑鼠移入效果 ===== */
+/* ===== Logo hover：控制品牌滑過效果 ===== */
 .logo:hover {
   opacity: 0.9;
   transform: translateY(-1px);
 }
 
-/* ===== Logo 圖示：控制左側寵物圖示大小與金色質感 ===== */
+/* ===== Logo 圖示：控制 paw icon ===== */
 .logo-icon {
-  font-size: 1.35rem;
-  line-height: 1;
-  filter: sepia(1) saturate(1.4) hue-rotate(350deg) brightness(1.1)
-    drop-shadow(0 4px 8px rgba(217, 178, 111, 0.28));
-}
-
-/* ===== Logo 文字：控制品牌名稱樣式 ===== */
-.logo-text {
-  font-size: 1.25rem;
-  font-weight: 900;
-  letter-spacing: 0.04em;
+  width: 1.1rem;
+  height: 1.1rem;
   color: var(--color-text);
 }
 
-/* ===== 漢堡選單按鈕：控制手機版按鈕外觀 ===== */
-.menu-toggle {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 2.4rem;
-  height: 2.4rem;
-  background-color: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--color-border);
-  cursor: pointer;
-  padding: 0;
-  border-radius: 0.85rem;
-  color: var(--color-accent);
-  font-size: 1.15rem;
+/* ===== Logo 文字：控制品牌名稱 ===== */
+.logo-text {
+  color: var(--color-text);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
 }
 
-/* ===== 漢堡選單聚焦：控制鍵盤操作外框 ===== */
+/* ===== 手機選單按鈕：控制漢堡按鈕外觀 ===== */
+.menu-toggle {
+  display: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 1px solid rgba(217, 178, 111, 0.28);
+  border-radius: 999px;
+  color: var(--color-text);
+  background-color: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  transition:
+    color 0.22s ease,
+    background-color 0.22s ease,
+    border-color 0.22s ease;
+}
+
+/* ===== 手機選單按鈕 hover：控制互動效果 ===== */
+.menu-toggle:hover {
+  color: var(--color-accent);
+  border-color: rgba(217, 178, 111, 0.5);
+  background-color: rgba(255, 255, 255, 0.09);
+}
+
+/* ===== 手機選單按鈕聚焦：控制鍵盤操作外框 ===== */
 .menu-toggle:focus-visible {
   outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 /* ===== 漢堡 Icon：控制圖示尺寸 ===== */
 .hamburger-icon {
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 1rem;
+  height: 1rem;
 }
 
 /* ===== 導覽選單：控制桌機版選單排列 ===== */
 .nav-menu {
   display: flex;
-  list-style: none;
-  gap: 2rem;
   align-items: center;
+  gap: 0.55rem;
   padding: 0;
   margin: 0;
+  list-style: none;
 }
 
-/* ===== 導覽連結：控制一般選單文字 ===== */
+/* ===== 導覽連結：控制首頁、功能介紹、價格方案樣式 ===== */
 .nav-link {
-  font-size: 1rem;
-  font-weight: 800;
-  color: var(--color-muted);
-  text-decoration: none;
-  transition:
-    color 0.2s ease,
-    background-color 0.2s ease,
-    transform 0.2s ease;
   position: relative;
+  min-height: 2.45rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.95rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--color-muted);
+  background-color: transparent;
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color 0.22s ease,
+    background-color 0.22s ease,
+    border-color 0.22s ease,
+    transform 0.22s ease;
 }
 
 /* ===== button 導覽連結：清除 button 預設外觀 ===== */
 button.nav-link {
   font-family: inherit;
-  border: none;
-  cursor: pointer;
 }
 
-/* ===== 導覽連結滑過：控制滑鼠移入文字色 ===== */
-.nav-link:hover {
-  color: var(--color-text);
+/* ===== 導覽連結 hover：控制滑鼠移入效果 ===== */
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--color-accent);
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(217, 178, 111, 0.22);
+  transform: translateY(-1px);
 }
 
-/* ===== 導覽底線：控制選單 hover 底線 ===== */
+/* ===== 目前所在頁面：控制 active 樣式 ===== */
+.nav-link.router-link-active,
+.nav-link.router-link-exact-active {
+  color: var(--color-primary);
+  background-color: var(--color-accent);
+  border-color: rgba(217, 178, 111, 0.75);
+  font-weight: 600;
+}
+
+/* ===== 移除舊版底線：避免 hover 出現底線 ===== */
 .nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: -0.45rem;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--color-accent);
-  transition: width 0.2s ease;
-}
-
-/* ===== 導覽底線顯示：控制 hover 與 focus 效果 ===== */
-.nav-link:hover::after,
-.nav-link:focus-visible::after {
-  width: 100%;
-}
-
-/* ===== CTA 連結：控制價格方案按鈕樣式 ===== */
-.nav-link--cta {
-  color: var(--color-primary-dark);
-  background-color: var(--color-accent);
-  padding: 0.6rem 1rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 10px 24px rgba(217, 178, 111, 0.2);
-}
-
-/* ===== CTA 滑過：控制價格方案按鈕互動 ===== */
-.nav-link--cta:hover,
-.nav-link--cta:focus-visible {
-  color: var(--color-primary-dark);
-  background-color: #e7c98d;
-  transform: translateY(-2px);
-}
-
-/* ===== CTA 底線移除：避免按鈕出現底線 ===== */
-.nav-link--cta::after {
   display: none;
 }
 
-/* ===== 登入按鈕：控制價格方案右側的登入按鈕 ===== */
+/* ===== 登入按鈕：控制未登入時右側按鈕 ===== */
 .nav-link--login {
   color: var(--color-accent);
+  border-color: rgba(217, 178, 111, 0.42);
   background-color: transparent;
-  padding: 0.6rem 1rem;
-  border: 1px solid rgba(217, 178, 111, 0.5) !important;
-  border-radius: 999px;
-  box-shadow: none;
+  font-weight: 600;
 }
 
-/* ===== 登入按鈕滑過：控制登入按鈕互動效果 ===== */
+/* ===== 登入按鈕 hover：控制登入互動效果 ===== */
 .nav-link--login:hover,
 .nav-link--login:focus-visible {
-  color: var(--color-primary-dark);
+  color: var(--color-primary);
   background-color: var(--color-accent);
-  transform: translateY(-2px);
-}
-
-/* ===== 登入按鈕底線移除：避免 button 出現導覽底線 ===== */
-.nav-link--login::after {
-  display: none;
+  border-color: var(--color-accent);
 }
 
 /* ===== 會員選單容器：控制下拉選單定位 ===== */
@@ -514,40 +507,47 @@ button.nav-link {
   position: relative;
 }
 
-/* ===== 會員選單按鈕：控制會員名稱顯示 ===== */
+/* ===== 會員選單按鈕：控制會員名稱按鈕 ===== */
 .user-menu-toggle {
-  display: flex;
+  min-height: 2.45rem;
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  color: var(--color-text);
-  background-color: transparent;
-  padding: 0.6rem 1rem;
-  border: 1px solid rgba(217, 178, 111, 0.5);
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0 0.95rem;
+  border: 1px solid rgba(217, 178, 111, 0.42);
   border-radius: 999px;
+  color: var(--color-accent);
+  background-color: transparent;
   font-family: inherit;
-  font-size: 1rem;
-  font-weight: 800;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   cursor: pointer;
   transition:
-    background-color 0.2s ease,
-    transform 0.2s ease;
+    color 0.22s ease,
+    background-color 0.22s ease,
+    border-color 0.22s ease,
+    transform 0.22s ease;
 }
 
-/* ===== 會員選單按鈕滑過：控制 hover 效果 ===== */
+/* ===== 會員選單按鈕 hover：控制互動效果 ===== */
 .user-menu-toggle:hover,
 .user-menu-toggle:focus-visible {
-  background-color: rgba(217, 178, 111, 0.1);
-  transform: translateY(-2px);
+  color: var(--color-primary);
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  transform: translateY(-1px);
 }
 
-/* ===== 會員圖示：控制圖示樣式 ===== */
+/* ===== 會員圖示：控制 user icon ===== */
 .user-icon {
-  width: 1.1rem;
-  height: 1.1rem;
+  width: 0.95rem;
+  height: 0.95rem;
   flex-shrink: 0;
 }
 
-/* ===== 會員名稱：控制文字樣式 ===== */
+/* ===== 會員名稱：控制文字過長時省略 ===== */
 .user-name {
   max-width: 6rem;
   overflow: hidden;
@@ -555,193 +555,162 @@ button.nav-link {
   white-space: nowrap;
 }
 
-/* ===== 下拉箭頭：控制箭頭樣式 ===== */
+/* ===== 下拉箭頭：控制箭頭尺寸 ===== */
 .dropdown-arrow {
-  width: 0.7rem;
-  height: 0.7rem;
+  width: 0.65rem;
+  height: 0.65rem;
   flex-shrink: 0;
   transition: transform 0.2s ease;
 }
 
-/* ===== 下拉箭頭旋轉：控制選單開啟時箭頭方向 ===== */
+/* ===== 下拉箭頭旋轉：控制選單開啟狀態 ===== */
 .user-menu-toggle[aria-expanded="true"] .dropdown-arrow {
   transform: rotate(180deg);
 }
 
-/* ===== 下拉選單：控制選單外觀 ===== */
+/* ===== 下拉選單：控制會員下拉外觀 ===== */
 .user-dropdown {
   position: absolute;
-  top: calc(100% + 0.5rem);
+  top: calc(100% + 0.7rem);
   right: 0;
-  min-width: 10rem;
-  background: linear-gradient(135deg, #10283c 0%, #17334a 48%, #0f2538 100%);
-  border: 1px solid var(--color-border);
+  min-width: 10.5rem;
+  padding: 0.45rem;
+  border: 1px solid rgba(217, 178, 111, 0.2);
   border-radius: 1rem;
-  box-shadow: 0 12px 32px rgba(15, 37, 56, 0.35);
-  overflow: hidden;
+  background-color: rgba(16, 40, 58, 0.98);
+  box-shadow: 0 1.25rem 3rem rgba(15, 37, 56, 0.28);
   z-index: 1000;
 }
 
-/* ===== 下拉選單項目：控制選單內容樣式 ===== */
+/* ===== 下拉選單項目：控制會員中心與登出 ===== */
 .dropdown-item {
+  width: 100%;
+  min-height: 2.55rem;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-  padding: 0.85rem 1.25rem;
+  gap: 0.65rem;
+  padding: 0 0.85rem;
+  border: none;
+  border-radius: 0.75rem;
   color: var(--color-muted);
   background-color: transparent;
-  border: none;
-  border-bottom: 1px solid rgba(217, 178, 111, 0.15);
   font-family: inherit;
-  font-size: 0.95rem;
-  font-weight: 700;
-  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
   text-align: left;
+  text-decoration: none;
   cursor: pointer;
   transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+    color 0.22s ease,
+    background-color 0.22s ease;
 }
 
-/* ===== 下拉選單項目最後一個：移除下邊框 ===== */
-.dropdown-item:last-child {
-  border-bottom: none;
-}
-
-/* ===== 下拉選單項目滑過：控制 hover 效果 ===== */
+/* ===== 下拉選單 hover：控制滑過效果 ===== */
 .dropdown-item:hover,
 .dropdown-item:focus-visible {
-  background-color: rgba(217, 178, 111, 0.12);
-  color: var(--color-text);
+  color: var(--color-accent);
+  background-color: rgba(255, 255, 255, 0.06);
 }
 
-/* ===== 下拉選單圖示：控制圖示樣式 ===== */
+/* ===== 下拉選單圖示：控制 icon 尺寸 ===== */
 .dropdown-icon {
-  width: 1rem;
-  height: 1rem;
+  width: 0.95rem;
+  height: 0.95rem;
   flex-shrink: 0;
 }
 
-/* ===== 平板以上：控制左右內距 ===== */
-@media (min-width: 48em) {
-  .navbar-inner {
-    padding: 0 2rem;
-  }
-
-  .nav-menu {
-    gap: 2.5rem;
-  }
-}
-
-/* ===== 桌機以上：控制桌機左右內距 ===== */
+/* ===== 桌機版：控制導覽列更穩定 ===== */
 @media (min-width: 64em) {
   .navbar-inner {
-    padding: 0 3rem;
+    min-height: 4.65rem;
   }
 
   .nav-menu {
-    gap: 3rem;
+    gap: 0.75rem;
   }
 }
 
-/* ===== 手機版：控制小螢幕導覽列 ===== */
+/* ===== 手機版：控制導覽列收合樣式 ===== */
 @media (max-width: 47.9em) {
+  .navbar-inner {
+    width: min(100% - 1.5rem, 78rem);
+    min-height: 4.15rem;
+    gap: 1rem;
+  }
+
+  .logo-text {
+    font-size: 0.98rem;
+  }
+
   .menu-toggle {
-    display: flex;
+    display: grid;
   }
 
   .nav-menu {
     position: absolute;
-    top: 100%;
-    left: 1rem;
-    right: 1rem;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0;
-    background: linear-gradient(135deg, #10283c 0%, #17334a 48%, #0f2538 100%);
-    border: 1px solid var(--color-border);
-    border-radius: 1.25rem;
-    box-shadow: 0 18px 42px rgba(15, 37, 56, 0.28);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
+    top: calc(100% + 0.7rem);
+    left: 0.75rem;
+    right: 0.75rem;
+    display: grid;
+    gap: 0.35rem;
+    padding: 0.75rem;
+    border: 1px solid rgba(217, 178, 111, 0.2);
+    border-radius: 1.1rem;
+    background-color: rgba(16, 40, 58, 0.98);
+    box-shadow: 0 1.25rem 3rem rgba(15, 37, 56, 0.26);
+    opacity: 0;
+    transform: translateY(-0.4rem);
+    pointer-events: none;
+    transition:
+      opacity 0.22s ease,
+      transform 0.22s ease;
   }
 
   .nav-menu.is-open {
-    max-height: 24rem;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
   .nav-menu li {
     width: 100%;
-    border-bottom: 1px solid rgba(217, 178, 111, 0.22);
   }
 
-  .nav-menu li:last-child {
-    border-bottom: none;
-  }
-
-  .nav-link {
-    display: block;
+  .nav-link,
+  .user-menu-toggle {
     width: 100%;
-    padding: 1rem 1.25rem;
-    color: var(--color-muted);
+    min-height: 2.75rem;
+    justify-content: flex-start;
+    padding: 0 1rem;
+    border-radius: 0.8rem;
+    font-size: 0.94rem;
   }
 
-  .nav-link:hover {
-    color: var(--color-text);
+  .nav-link.router-link-active,
+  .nav-link.router-link-exact-active {
+    color: var(--color-primary);
+    background-color: var(--color-accent);
   }
 
-  .nav-link::after {
-    display: none;
-  }
-
-  .nav-link--cta,
-  .nav-link--login {
-    display: inline-flex;
-    align-items: center;
+  .nav-link--login,
+  .user-menu-toggle {
     justify-content: center;
-    width: auto;
-    margin: 1rem 1.25rem;
-    padding: 0.75rem 1.25rem;
   }
 
-  .nav-link--cta {
-    color: var(--color-primary-dark);
-  }
-
-  .nav-link--login {
-    color: var(--color-accent);
-  }
-
-  .nav-link--login:hover,
-  .nav-link--login:focus-visible {
-    color: var(--color-primary-dark);
-  }
-
-  /* ===== 會員選單容器：手機版調整 ===== */
   .user-menu-wrapper {
     width: 100%;
   }
 
-  /* ===== 會員選單按鈕：手機版全寬 ===== */
-  .user-menu-toggle {
-    width: auto;
-    margin: 1rem 1.25rem;
-    justify-content: center;
-  }
-
-  /* ===== 下拉選單：手機版調整 ===== */
   .user-dropdown {
     position: static;
-    width: calc(100% - 2.5rem);
-    margin: 0 1.25rem 1rem;
-    border-radius: 0.75rem;
+    width: 100%;
+    min-width: 0;
+    margin-top: 0.45rem;
+    box-shadow: none;
   }
 
-  /* ===== 下拉選單項目：手機版調整 ===== */
   .dropdown-item {
-    padding: 0.75rem 1rem;
+    min-height: 2.45rem;
   }
 }
 </style>
