@@ -180,14 +180,16 @@ interface Clinic {
   IsActive: boolean;
 }
 
-// ===== 資料載入 =====
+// ===== 資料載入：依目前選擇的品牌篩選 =====
 const { data: clinicData, pending, refresh } = await useAsyncData(
   "member-clinics",
   async () => {
-    const res = await api.get("/stores/my");
+    const brandId = permStore.brandId;
+    if (!brandId) return [];
+    const res = await api.get(`/stores/my/brand/${brandId}`);
     return (res.data?.stores as Clinic[]) ?? [];
   },
-  { server: false },
+  { server: false, watch: [() => permStore.brandId] },
 );
 
 const clinics = computed<Clinic[]>(() => clinicData.value ?? []);
