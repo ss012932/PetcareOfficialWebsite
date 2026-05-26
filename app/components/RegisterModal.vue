@@ -698,6 +698,172 @@ const emitLogin = () => {
   opacity: 0;
 }
 
+/* ===== RegisterModal 專用 SweetAlert2：控制註冊成功 / 失敗提示視窗 ===== */
+:global(.swal2-popup) {
+  width: min(100%, 21.5rem);
+  padding: 1.65rem 1.35rem 1.25rem;
+  border: 1px solid rgba(230, 216, 189, 0.92);
+  border-radius: 1.15rem;
+  background:
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(217, 178, 111, 0.09),
+      transparent 10rem
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(248, 247, 243, 0.98) 100%
+    );
+  box-shadow: 0 22px 58px rgba(15, 37, 56, 0.22);
+}
+
+/* ===== SweetAlert2 icon：保留原生比例，避免成功 / 失敗圖形跑版 ===== */
+:global(.swal2-icon) {
+  margin: 0 auto 0.95rem;
+  transform: scale(0.72);
+  transform-origin: center;
+}
+
+/* ===== 成功 icon：控制成功圖示顏色 ===== */
+:global(.swal2-icon.swal2-success) {
+  border-color: #8ccf7f;
+  color: #8ccf7f;
+}
+
+/* ===== 成功 icon 線條：只改顏色，不改尺寸 ===== */
+:global(.swal2-icon.swal2-success [class^="swal2-success-line"]) {
+  background-color: #8ccf7f;
+}
+
+/* ===== 成功 icon 圓圈：只改顏色，不改尺寸 ===== */
+:global(.swal2-icon.swal2-success .swal2-success-ring) {
+  border-color: rgba(140, 207, 127, 0.38);
+}
+
+/* ===== 失敗 icon：控制失敗圖示顏色 ===== */
+:global(.swal2-icon.swal2-error) {
+  border-color: #d86c6c;
+  color: #d86c6c;
+}
+
+/* ===== 失敗 icon 線條：只改顏色，不改尺寸 ===== */
+:global(.swal2-icon.swal2-error [class^="swal2-x-mark-line"]) {
+  background-color: #d86c6c;
+}
+
+/* ===== 警告 icon：控制密碼不一致提示顏色 ===== */
+:global(.swal2-icon.swal2-warning) {
+  border-color: #d9b26f;
+  color: #d9b26f;
+}
+
+/* ===== SweetAlert2 標題：控制註冊成功 / 註冊失敗文字 ===== */
+:global(.swal2-title) {
+  padding: 0;
+  margin: 0 0 0.35rem;
+  color: #10283a;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+}
+
+/* ===== SweetAlert2 內容文字：控制說明文字 ===== */
+:global(.swal2-html-container) {
+  padding: 0;
+  margin: 0;
+  color: #6f7a80;
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* ===== SweetAlert2 按鈕容器：控制按鈕區距離 ===== */
+:global(.swal2-actions) {
+  width: 100%;
+  margin: 1.15rem 0 0;
+}
+
+/* ===== SweetAlert2 確認按鈕：控制主要按鈕 ===== */
+:global(.swal2-confirm) {
+  width: 100%;
+  min-height: 2.75rem;
+  margin: 0;
+  border: none;
+  border-radius: 0.65rem;
+  color: #ffffff;
+  background:
+    linear-gradient(
+      135deg,
+      #10283a 0%,
+      #0b2233 100%
+    ) !important;
+  box-shadow: 0 12px 24px rgba(15, 37, 56, 0.18);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+/* ===== SweetAlert2 確認按鈕 hover ===== */
+:global(.swal2-confirm:hover) {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+  box-shadow: 0 16px 32px rgba(15, 37, 56, 0.24);
+}
+
+/* ===== SweetAlert2 取消按鈕：如果有取消按鈕，也統一風格 ===== */
+:global(.swal2-cancel) {
+  width: 100%;
+  min-height: 2.75rem;
+  margin: 0.65rem 0 0;
+  border: 1px solid rgba(217, 178, 111, 0.55);
+  border-radius: 0.65rem;
+  color: #10283a;
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ===== SweetAlert2 Loading：控制處理中圖示顏色 ===== */
+:global(.swal2-loader) {
+  border-color: #d9b26f transparent #d9b26f transparent;
+}
+
+/* ===== SweetAlert2 遮罩：確保蓋在註冊 Modal 上方 ===== */
+:global(.swal2-container) {
+  z-index: 99999;
+  backdrop-filter: blur(0.28rem);
+}
+
+/* ===== SweetAlert2 手機版：控制小螢幕尺寸 ===== */
+@media (max-width: 30em) {
+  :global(.swal2-popup) {
+    width: min(100%, 19.5rem);
+    padding: 1.55rem 1.15rem 1.15rem;
+    border-radius: 1rem;
+  }
+
+  :global(.swal2-icon) {
+    transform: scale(0.68);
+    margin-bottom: 0.8rem;
+  }
+
+  :global(.swal2-title) {
+    font-size: 1.22rem;
+  }
+
+  :global(.swal2-html-container) {
+    font-size: 0.85rem;
+  }
+}
+
 /* ===== 小手機：控制視窗更緊湊 ===== */
 @media (max-width: 30em) {
   .register-modal {

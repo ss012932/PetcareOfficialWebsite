@@ -20,7 +20,7 @@
         <h1 class="function-title">功能介紹</h1>
 
         <p class="function-desc">
-          從預約、看診、病歷、收費到營運分析，協助動物醫院建立更有效率的數位化管理流程。
+           從預約門診、病歷照護、批價收費、庫存藥品到人事權限與多分店營運，協助動物醫院建立完整的數位化管理流程。
         </p>
       </div>
     </section>
@@ -39,7 +39,7 @@
               />
             </span>
 
-            <span class="feature-anchor-text"> 預約排程 </span>
+            <span class="feature-anchor-text"> 預約門診 </span>
           </a>
 
           <!-- ===== 快捷按鈕：導到電子病歷管理 ===== -->
@@ -52,7 +52,7 @@
               />
             </span>
 
-            <span class="feature-anchor-text"> 電子病歷 </span>
+            <span class="feature-anchor-text"> 病歷住院 </span>
           </a>
 
           <!-- ===== 快捷按鈕：導到飼主與寵物資料 ===== -->
@@ -65,7 +65,7 @@
               />
             </span>
 
-            <span class="feature-anchor-text"> 寵物資料 </span>
+            <span class="feature-anchor-text"> 飼主寵物 </span>
           </a>
 
           <!-- ===== 快捷按鈕：導到收費與帳務管理 ===== -->
@@ -78,7 +78,7 @@
               />
             </span>
 
-            <span class="feature-anchor-text"> 收費帳務 </span>
+            <span class="feature-anchor-text"> 批價收費 </span>
           </a>
 
           <!-- ===== 快捷按鈕：導到藥品與庫存管理 ===== -->
@@ -104,7 +104,32 @@
               />
             </span>
 
-            <span class="feature-anchor-text"> 報表分析 </span>
+            <span class="feature-anchor-text"> 營運分析 </span>
+          </a>
+          <!-- ===== 快捷按鈕：導到人事、角色與權限管理 ===== -->
+          <a href="#staff-permission" class="feature-anchor-item">
+            <span class="feature-anchor-icon">
+              <img
+                src="~/assets/image/icon11.png"
+                alt="人事、角色與權限管理"
+                class="feature-anchor-icon-img"
+              />
+            </span>
+
+            <span class="feature-anchor-text"> 人事權限 </span>
+          </a>
+
+          <!-- ===== 快捷按鈕：導到多分店與品牌管理 ===== -->
+          <a href="#branch-brand" class="feature-anchor-item">
+            <span class="feature-anchor-icon">
+              <img
+                src="~/assets/image/icon10.png"
+                alt="多分店與品牌管理"
+                class="feature-anchor-icon-img"
+              />
+            </span>
+
+            <span class="feature-anchor-text"> 多分店品牌 </span>
           </a>
         </nav>
       </div>
@@ -115,7 +140,7 @@
       <!-- ===== 功能區塊標題：控制整段功能介紹開場 ===== -->
 
       <div class="feature-showcase-list">
-        <!-- ===== 功能 01：預約排程 ===== -->
+        <!-- ===== 功能 01：預約與門診管理 ===== -->
         <article id="appointment" class="feature-showcase-item">
           <div class="container feature-showcase-inner">
             <div class="feature-showcase-content">
@@ -125,36 +150,39 @@
                 <span class="feature-showcase-icon">
                   <img
                     src="~/assets/image/icon6.png"
-                    alt="預約排程"
+                    alt="預約與門診管理"
                     class="feature-showcase-icon-img"
                   />
                 </span>
 
                 <div>
-                  <p class="feature-label">APPOINTMENT</p>
-                  <h3>預約排程</h3>
+                  <p class="feature-label">APPOINTMENT & CLINIC</p>
+                  <h3>預約與門診管理</h3>
                 </div>
               </div>
 
               <p class="feature-showcase-desc">
-                讓櫃台與醫師快速掌握每日看診安排。
+                整合預約、排班與門診流程，讓櫃台與醫師作業更順暢。
               </p>
 
               <ul class="feature-point-list">
-                <li>線上預約管理</li>
-                <li>醫師排班管理</li>
+                <li>預約管理</li>
+                <li>門診管理</li>
+                <li>醫師排班</li>
                 <li>到診狀態追蹤</li>
-                <li>預約提醒通知</li>
               </ul>
             </div>
 
             <div class="feature-showcase-visual">
-              <img src="~/assets/image/Image4.png" alt="預約排程功能示意圖" />
+              <img
+                src="~/assets/image/Image4.png"
+                alt="預約與門診管理功能示意圖"
+              />
             </div>
           </div>
         </article>
 
-        <!-- ===== 功能 02：電子病歷 ===== -->
+        <!-- ===== 功能 02：電子病歷與住院照護 ===== -->
         <article
           id="medical-record"
           class="feature-showcase-item feature-showcase-item-tint"
@@ -169,36 +197,39 @@
                 <span class="feature-showcase-icon">
                   <img
                     src="~/assets/image/icon5.png"
-                    alt="電子病歷"
+                    alt="電子病歷與住院照護"
                     class="feature-showcase-icon-img"
                   />
                 </span>
 
                 <div>
-                  <p class="feature-label">MEDICAL RECORD</p>
-                  <h3>電子病歷</h3>
+                  <p class="feature-label">MEDICAL RECORD & CARE</p>
+                  <h3>電子病歷與住院照護</h3>
                 </div>
               </div>
 
               <p class="feature-showcase-desc">
-                將每一次看診紀錄完整保存，查詢更快速。
+                完整保存看診與住院紀錄，協助醫療團隊掌握照護狀況。
               </p>
 
               <ul class="feature-point-list">
-                <li>主訴與診斷紀錄</li>
-                <li>治療計畫管理</li>
-                <li>處方與用藥紀錄</li>
-                <li>歷史就診快速查詢</li>
+                <li>病歷管理</li>
+                <li>診療紀錄</li>
+                <li>住院管理</li>
+                <li>住院照護紀錄</li>
               </ul>
             </div>
 
             <div class="feature-showcase-visual">
-              <img src="~/assets/image/Image5.png" alt="電子病歷功能示意圖" />
+              <img
+                src="~/assets/image/Image5.png"
+                alt="電子病歷與住院照護功能示意圖"
+              />
             </div>
           </div>
         </article>
 
-        <!-- ===== 功能 03：寵物資料 ===== -->
+        <!-- ===== 功能 03：飼主與寵物資料 ===== -->
         <article id="pet-profile" class="feature-showcase-item">
           <div class="container feature-showcase-inner">
             <div class="feature-showcase-content">
@@ -208,36 +239,39 @@
                 <span class="feature-showcase-icon">
                   <img
                     src="~/assets/image/icon9.png"
-                    alt="寵物資料"
+                    alt="飼主與寵物資料"
                     class="feature-showcase-icon-img"
                   />
                 </span>
 
                 <div>
-                  <p class="feature-label">PET PROFILE</p>
-                  <h3>寵物資料</h3>
+                  <p class="feature-label">OWNER & PET PROFILE</p>
+                  <h3>飼主與寵物資料</h3>
                 </div>
               </div>
 
               <p class="feature-showcase-desc">
-                集中管理寵物與飼主資料，照護資訊更清楚。
+                集中管理飼主與毛孩資料，讓照護資訊更完整。
               </p>
 
               <ul class="feature-point-list">
-                <li>寵物基本資料</li>
                 <li>飼主聯絡資訊</li>
-                <li>晶片號碼管理</li>
-                <li>疫苗與健康紀錄</li>
+                <li>寵物基本資料</li>
+                <li>晶片與品種資料</li>
+                <li>健康與疫苗紀錄</li>
               </ul>
             </div>
 
             <div class="feature-showcase-visual">
-              <img src="~/assets/image/Image6.png" alt="寵物資料功能示意圖" />
+              <img
+                src="~/assets/image/Image6.png"
+                alt="飼主與寵物資料功能示意圖"
+              />
             </div>
           </div>
         </article>
 
-        <!-- ===== 功能 04：收費帳務 ===== -->
+        <!-- ===== 功能 04：批價收費管理 ===== -->
         <article
           id="billing"
           class="feature-showcase-item feature-showcase-item-tint"
@@ -252,36 +286,39 @@
                 <span class="feature-showcase-icon">
                   <img
                     src="~/assets/image/icon8.png"
-                    alt="收費帳務"
+                    alt="批價收費管理"
                     class="feature-showcase-icon-img"
                   />
                 </span>
 
                 <div>
-                  <p class="feature-label">BILLING</p>
-                  <h3>收費帳務</h3>
+                  <p class="feature-label">BILLING & PAYMENT</p>
+                  <h3>批價收費管理</h3>
                 </div>
               </div>
 
               <p class="feature-showcase-desc">
-                讓櫃台快速完成收費、結帳與帳務紀錄。
+                快速完成批價、收費與付款紀錄，降低櫃台作業負擔。
               </p>
 
               <ul class="feature-point-list">
-                <li>帳單明細管理</li>
-                <li>診察與藥品費用</li>
-                <li>付款狀態紀錄</li>
-                <li>帳務資料查詢</li>
+                <li>批價收費</li>
+                <li>帳單明細</li>
+                <li>付款狀態</li>
+                <li>收費紀錄查詢</li>
               </ul>
             </div>
 
             <div class="feature-showcase-visual">
-              <img src="~/assets/image/Image3.png" alt="收費帳務功能示意圖" />
+              <img
+                src="~/assets/image/Image3.png"
+                alt="批價收費管理功能示意圖"
+              />
             </div>
           </div>
         </article>
 
-        <!-- ===== 功能 05：藥品庫存 ===== -->
+        <!-- ===== 功能 05：庫存與藥品管理 ===== -->
         <article id="inventory" class="feature-showcase-item">
           <div class="container feature-showcase-inner">
             <div class="feature-showcase-content">
@@ -291,36 +328,39 @@
                 <span class="feature-showcase-icon">
                   <img
                     src="~/assets/image/icon7.png"
-                    alt="藥品庫存"
+                    alt="庫存與藥品管理"
                     class="feature-showcase-icon-img"
                   />
                 </span>
 
                 <div>
-                  <p class="feature-label">INVENTORY</p>
-                  <h3>藥品庫存</h3>
+                  <p class="feature-label">INVENTORY & MEDICINE</p>
+                  <h3>庫存與藥品管理</h3>
                 </div>
               </div>
 
               <p class="feature-showcase-desc">
-                即時掌握藥品庫存狀態，降低缺貨與過期風險。
+                掌握藥品與一般耗材庫存，降低缺貨與過期風險。
               </p>
 
               <ul class="feature-point-list">
-                <li>藥品資料管理</li>
-                <li>庫存數量追蹤</li>
-                <li>安全庫存提醒</li>
-                <li>效期狀態管理</li>
+                <li>採購管理</li>
+                <li>一般庫存</li>
+                <li>藥品庫存</li>
+                <li>批號與效期管理</li>
               </ul>
             </div>
 
             <div class="feature-showcase-visual">
-              <img src="~/assets/image/Image7.png" alt="藥品庫存功能示意圖" />
+              <img
+                src="~/assets/image/Image7.png"
+                alt="庫存與藥品管理功能示意圖"
+              />
             </div>
           </div>
         </article>
 
-        <!-- ===== 功能 06：報表分析 ===== -->
+        <!-- ===== 功能 06：主控台與營運分析 ===== -->
         <article
           id="analytics"
           class="feature-showcase-item feature-showcase-item-tint"
@@ -335,31 +375,123 @@
                 <span class="feature-showcase-icon">
                   <img
                     src="~/assets/image/icon4.png"
-                    alt="報表分析"
+                    alt="主控台與營運分析"
                     class="feature-showcase-icon-img"
                   />
                 </span>
 
                 <div>
-                  <p class="feature-label">ANALYTICS</p>
-                  <h3>報表分析</h3>
+                  <p class="feature-label">DASHBOARD & ANALYTICS</p>
+                  <h3>主控台與營運分析</h3>
                 </div>
               </div>
 
               <p class="feature-showcase-desc">
-                將營運數據轉成圖表，協助院所快速掌握狀況。
+                快速掌握院所營運狀況，讓每日管理更清楚。
               </p>
 
               <ul class="feature-point-list">
-                <li>本月營收統計</li>
-                <li>就診次數分析</li>
-                <li>平均客單價</li>
-                <li>收入結構圖表</li>
+                <li>主控台總覽</li>
+                <li>基本報表</li>
+                <li>進階報表</li>
+                <li>營收與看診數據</li>
               </ul>
             </div>
 
             <div class="feature-showcase-visual">
-              <img src="~/assets/image/Image8.png" alt="報表分析功能示意圖" />
+              <img
+                src="~/assets/image/Image8.png"
+                alt="主控台與營運分析功能示意圖"
+              />
+            </div>
+          </div>
+        </article>
+
+        <!-- ===== 功能 07：人事與權限管理 ===== -->
+        <article id="staff-permission" class="feature-showcase-item">
+          <div class="container feature-showcase-inner">
+            <div class="feature-showcase-content">
+              <span class="feature-number">07</span>
+
+              <div class="feature-heading-row">
+                <span class="feature-showcase-icon">
+                  <img
+                    src="~/assets/image/icon11.png"
+                    alt="人事與權限管理"
+                    class="feature-showcase-icon-img"
+                  />
+                </span>
+
+                <div>
+                  <p class="feature-label">STAFF & PERMISSION</p>
+                  <h3>人事與權限管理</h3>
+                </div>
+              </div>
+
+              <p class="feature-showcase-desc">
+                依照職務分配系統權限，讓院所管理更安全。
+              </p>
+
+              <ul class="feature-point-list">
+                <li>人事資料管理</li>
+                <li>角色權限設定</li>
+                <li>不同職務權限</li>
+                <li>操作安全控管</li>
+              </ul>
+            </div>
+
+            <div class="feature-showcase-visual">
+              <img
+                src="~/assets/image/Image9.png"
+                alt="人事與權限管理功能示意圖"
+              />
+            </div>
+          </div>
+        </article>
+
+        <!-- ===== 功能 08：多分店與品牌管理 ===== -->
+        <article
+          id="branch-brand"
+          class="feature-showcase-item feature-showcase-item-tint"
+        >
+          <div
+            class="container feature-showcase-inner feature-showcase-inner-reverse"
+          >
+            <div class="feature-showcase-content">
+              <span class="feature-number">08</span>
+
+              <div class="feature-heading-row">
+                <span class="feature-showcase-icon">
+                  <img
+                    src="~/assets/image/icon10.png"
+                    alt="多分店與品牌管理"
+                    class="feature-showcase-icon-img"
+                  />
+                </span>
+
+                <div>
+                  <p class="feature-label">BRANCH & BRAND</p>
+                  <h3>多分店與品牌管理</h3>
+                </div>
+              </div>
+
+              <p class="feature-showcase-desc">
+                支援多院所與品牌化管理，協助連鎖院所統一營運。
+              </p>
+
+              <ul class="feature-point-list">
+                <li>品牌管理</li>
+                <li>院所管理</li>
+                <li>多分店管理</li>
+                <li>跨店庫存管理</li>
+              </ul>
+            </div>
+
+            <div class="feature-showcase-visual">
+              <img
+                src="~/assets/image/Image10.png"
+                alt="多分店與品牌管理功能示意圖"
+              />
             </div>
           </div>
         </article>
@@ -471,7 +603,7 @@ useHead({
     {
       name: "description",
       content:
-        "PetCare System 功能介紹，包含預約排程、電子病歷、飼主與寵物資料、收費管理、庫存管理與營運報表分析。",
+        "PetCare System 功能介紹，包含預約排程、電子病歷、飼主與寵物資料、收費管理、庫存管理、營運報表、人事權限與多分店品牌管理。",
     },
   ],
 });
@@ -627,7 +759,7 @@ html {
 /* ===== 功能快捷導覽外框：控制圓角白色膠囊卡片 ===== */
 .feature-anchor-panel {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   overflow: hidden;
 
   border-radius: 2rem;
@@ -675,13 +807,13 @@ html {
   transition: transform 0.25s ease;
 }
 
-/* ===== 手機版分隔線修正：每排第三個不要右線 ===== */
-.feature-anchor-item:nth-child(3n) {
+/* ===== 快捷導覽分隔線：手機版兩欄排列 ===== */
+.feature-anchor-item:nth-child(2n) {
   border-right: none;
 }
 
-/* ===== 手機版分隔線修正：第二排不要底線 ===== */
-.feature-anchor-item:nth-last-child(-n + 3) {
+/* ===== 快捷導覽分隔線：手機版最後一排不要底線 ===== */
+.feature-anchor-item:nth-last-child(-n + 2) {
   border-bottom: none;
 }
 
@@ -1083,6 +1215,21 @@ html {
   .feature-showcase-item {
     padding: 5rem 0;
   }
+  .feature-anchor-panel {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .feature-anchor-item:nth-child(2n) {
+    border-right: 1px solid rgba(230, 216, 189, 0.78);
+  }
+
+  .feature-anchor-item:nth-child(4n) {
+    border-right: none;
+  }
+
+  .feature-anchor-item:nth-last-child(-n + 4) {
+    border-bottom: none;
+  }
 }
 
 /* ===== 桌機以上：縮短一區一功能的上下高度 ===== */
@@ -1408,8 +1555,7 @@ html {
   }
 
   .feature-anchor-panel {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    border-radius: 999px;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
   }
 
   .feature-anchor-item {
@@ -1418,7 +1564,7 @@ html {
     border-right: 1px solid rgba(230, 216, 189, 0.78);
   }
 
-  .feature-anchor-item:nth-child(3n) {
+  .feature-anchor-item:nth-child(4n) {
     border-right: 1px solid rgba(230, 216, 189, 0.78);
   }
 
