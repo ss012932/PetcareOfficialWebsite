@@ -6,13 +6,12 @@
       <div class="hero-shell">
         <div class="container hero-grid">
           <article class="hero-content">
-            <p class="hero-eyebrow">寵物醫療院所專用管理系統</p>
+            <p class="hero-eyebrow">{{ t('home.heroEyebrow') }}</p>
 
-            <h1 class="hero-title">守護毛孩健康・建立安心信任</h1>
+            <h1 class="hero-title">{{ t('home.heroTitle') }}</h1>
 
             <p class="hero-desc">
-              整合線上預約、看診紀錄、貼心提醒與健康知識，
-              讓毛孩的每一次就診都更安心，照護更有依據。
+              {{ t('home.heroDesc') }}
             </p>
 
             <div class="hero-actions">
@@ -23,7 +22,7 @@
                   class="btn-icon"
                   aria-hidden="true"
                 />
-                <span>查看功能</span>
+                <span>{{ t('home.viewFeatures') }}</span>
                 <span class="btn-arrow" aria-hidden="true">›</span>
               </NuxtLink>
 
@@ -34,7 +33,7 @@
                   class="btn-icon"
                   aria-hidden="true"
                 />
-                <span>查看方案</span>
+                <span>{{ t('home.viewPlans') }}</span>
                 <span class="btn-arrow" aria-hidden="true">›</span>
               </NuxtLink>
             </div>
@@ -51,12 +50,12 @@
         <article class="pain-points-intro">
           <p class="pain-points-eyebrow">
             <span></span>
-            Common Challenges
+            {{ t('home.commonChallenges') }}
           </p>
 
           <h2 class="pain-points-title">
-            院所日常管理，<br />
-            是否也遇到這些狀況？
+            {{ t('home.painTitleLine1') }}<br />
+            {{ t('home.painTitleLine2') }}
           </h2>
 
           <div class="pain-points-divider">
@@ -71,12 +70,11 @@
           </div>
 
           <p class="pain-points-desc">
-            從預約掛號、病歷紀錄到收費與庫存管理，若流程分散在紙本、Excel
-            或不同工具中， 容易造成重複作業、資料查詢不便與行政負擔增加。
+            {{ t('home.painDesc') }}
           </p>
 
           <NuxtLink to="/function" class="pain-points-link">
-            <span>了解完整解決方案</span>
+            <span>{{ t('home.learnSolution') }}</span>
             <strong aria-hidden="true">›</strong>
           </NuxtLink>
         </article>
@@ -96,12 +94,12 @@
             <article class="pain-point-content">
               <div class="pain-point-heading">
                 <span class="pain-point-number">01</span>
-                <h3>預約與掛號常常卡住？</h3>
+                <h3>{{ t('home.pain1Title') }}</h3>
               </div>
 
               <ul class="pain-point-checks" role="list">
-                <li>預約資料分散，櫃台需要反覆確認</li>
-                <li>回診與疫苗提醒容易遺漏</li>
+                <li>{{ t('home.pain1Item1') }}</li>
+                <li>{{ t('home.pain1Item2') }}</li>
               </ul>
             </article>
 
@@ -121,12 +119,12 @@
             <article class="pain-point-content">
               <div class="pain-point-heading">
                 <span class="pain-point-number">02</span>
-                <h3>病歷與檢查紀錄找不到？</h3>
+                <h3>{{ t('home.pain2Title') }}</h3>
               </div>
 
               <ul class="pain-point-checks" role="list">
-                <li>歷史病歷查詢不方便</li>
-                <li>檢驗、照片與用藥紀錄難整合</li>
+                <li>{{ t('home.pain2Item1') }}</li>
+                <li>{{ t('home.pain2Item2') }}</li>
               </ul>
             </article>
 
@@ -146,12 +144,12 @@
             <article class="pain-point-content">
               <div class="pain-point-heading">
                 <span class="pain-point-number">03</span>
-                <h3>收費、庫存、報表整理很花時間？</h3>
+                <h3>{{ t('home.pain3Title') }}</h3>
               </div>
 
               <ul class="pain-point-checks" role="list">
-                <li>月底營收與服務項目需要人工統計</li>
-                <li>藥品與耗材庫存不容易即時掌握</li>
+                <li>{{ t('home.pain3Item1') }}</li>
+                <li>{{ t('home.pain3Item2') }}</li>
               </ul>
             </article>
 
@@ -168,7 +166,7 @@
         <header class="workflow-header">
           <p class="workflow-eyebrow">
             <span></span>
-            核心功能
+            {{ t('home.coreFeatures') }}
             <span></span>
           </p>
 
@@ -176,11 +174,10 @@
             <Icon name="fa6-solid:paw" />
           </div>
 
-          <h2 class="workflow-title">一套系統整合看診前、中、後流程</h2>
+          <h2 class="workflow-title">{{ t('home.workflowTitle') }}</h2>
 
           <p class="workflow-desc">
-            整合預約掛號、診療管理與追蹤關懷，串聯每一次就診旅程，
-            提升醫療品質與營運效率。
+            {{ t('home.workflowDesc') }}
           </p>
         </header>
 
@@ -200,12 +197,12 @@
             <div class="workflow-step-content">
               <p class="workflow-number">01</p>
 
-              <h3>看診前</h3>
+              <h3>{{ t('home.preVisit') }}</h3>
 
               <ul class="workflow-list" role="list">
-                <li>線上預約</li>
-                <li>掛號排程</li>
-                <li>到診提醒</li>
+                <li>{{ t('home.preVisit1') }}</li>
+                <li>{{ t('home.preVisit2') }}</li>
+                <li>{{ t('home.preVisit3') }}</li>
               </ul>
             </div>
           </article>
@@ -229,12 +226,12 @@
             <div class="workflow-step-content">
               <p class="workflow-number">02</p>
 
-              <h3>看診中</h3>
+              <h3>{{ t('home.duringVisit') }}</h3>
 
               <ul class="workflow-list" role="list">
-                <li>電子病歷</li>
-                <li>看診紀錄</li>
-                <li>收費結帳</li>
+                <li>{{ t('home.duringVisit1') }}</li>
+                <li>{{ t('home.duringVisit2') }}</li>
+                <li>{{ t('home.duringVisit3') }}</li>
               </ul>
             </div>
           </article>
@@ -258,12 +255,12 @@
             <div class="workflow-step-content">
               <p class="workflow-number">03</p>
 
-              <h3>看診後</h3>
+              <h3>{{ t('home.afterVisit') }}</h3>
 
               <ul class="workflow-list" role="list">
-                <li>回診追蹤</li>
-                <li>健康提醒</li>
-                <li>營運報表</li>
+                <li>{{ t('home.afterVisit1') }}</li>
+                <li>{{ t('home.afterVisit2') }}</li>
+                <li>{{ t('home.afterVisit3') }}</li>
               </ul>
             </div>
           </article>
@@ -276,36 +273,36 @@
       <div class="container benefits-grid">
         <!-- ===== 左側文字區塊：控制系統優勢描述 ===== -->
         <article class="benefits-content">
-          <p class="section-eyebrow">Why Choose Us</p>
-          <h2 class="section-title">為什麼選擇 PetCare System？</h2>
+          <p class="section-eyebrow">{{ t('home.whyChooseUs') }}</p>
+          <h2 class="section-title">{{ t('home.whyChooseTitle') }}</h2>
 
           <p class="benefits-desc">
-            我們不只是提供一套系統，而是協助動物醫院建立更穩定、更有效率的營運流程。
+            {{ t('home.whyChooseDesc') }}
           </p>
 
           <ul class="benefits-list" role="list">
-            <li>✓ 降低櫃台行政作業時間</li>
-            <li>✓ 提升獸醫看診與病歷查詢效率</li>
-            <li>✓ 減少紙本紀錄與人工統計錯誤</li>
-            <li>✓ 協助院所掌握營收與庫存狀況</li>
+            <li>✓ {{ t('home.why1') }}</li>
+            <li>✓ {{ t('home.why2') }}</li>
+            <li>✓ {{ t('home.why3') }}</li>
+            <li>✓ {{ t('home.why4') }}</li>
           </ul>
         </article>
 
         <!-- ===== 右側數據區塊：控制產品成效資料 ===== -->
-        <aside class="benefits-stats" aria-label="系統成效">
+        <aside class="benefits-stats" :aria-label="t('home.statsAria')">
           <div class="stat-card">
-            <strong>50%</strong>
-            <span>行政時間降低</span>
+            <strong>{{ t('home.stat1Value') }}</strong>
+            <span>{{ t('home.stat1Label') }}</span>
           </div>
 
           <div class="stat-card">
-            <strong>3 秒</strong>
-            <span>快速查詢病歷</span>
+            <strong>{{ t('home.stat2Value') }}</strong>
+            <span>{{ t('home.stat2Label') }}</span>
           </div>
 
           <div class="stat-card">
-            <strong>24H</strong>
-            <span>雲端資料存取</span>
+            <strong>{{ t('home.stat3Value') }}</strong>
+            <span>{{ t('home.stat3Label') }}</span>
           </div>
         </aside>
       </div>
@@ -314,14 +311,15 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
+
 // ===== SEO 設定區塊：控制首頁標題、描述、搜尋引擎資訊 =====
-useHead({
-  title: "PetCare System｜寵物醫療管理系統",
+useHead(() => ({
+  title: t("seo.index.title"),
   meta: [
     {
       name: "description",
-      content:
-        "PetCare System 是專為動物醫院打造的寵物醫療管理系統，提供預約掛號、電子病歷、收費結帳、庫存管理與營運報表分析。",
+      content: t("seo.index.description"),
     },
     {
       name: "keywords",
@@ -330,19 +328,18 @@ useHead({
     },
     {
       property: "og:title",
-      content: "PetCare System｜寵物醫療管理系統",
+      content: t("seo.index.title"),
     },
     {
       property: "og:description",
-      content:
-        "專為動物醫院打造的雲端管理系統，整合掛號、病歷、收費、庫存與報表分析。",
+      content: t("seo.index.description"),
     },
     {
       property: "og:type",
       content: "website",
     },
   ],
-});
+}));
 </script>
 
 <style scoped>

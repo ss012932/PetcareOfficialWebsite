@@ -3,7 +3,7 @@
     <header class="bo-page-header">
       <div>
         <p class="bo-kicker">Clinic Management</p>
-        <h1 class="bo-page-title">院所管理</h1>
+        <h1 class="bo-page-title">{{ t('page.member.clinics') }}</h1>
       </div>
       <div class="bo-header-actions">
         <span class="bo-pill">{{ clinics.length }} 間院所</span>
@@ -151,12 +151,14 @@ import { showCustom } from "~/composables/utils/alert";
 import api from "~/composables/utils/api";
 import { usePermissionStore } from "~/composables/usePermissionStore";
 
+const { t } = useI18n();
+
 definePageMeta({
   middleware: ["backoffice-auth", "brand-feature"],
   brandFeature: "StoreManagement",
 });
 
-useHead({ title: "院所管理" });
+useHead(() => ({ title: t("page.member.clinics") }));
 
 const permStore = usePermissionStore();
 

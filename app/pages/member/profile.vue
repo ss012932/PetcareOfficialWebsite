@@ -3,7 +3,7 @@
     <header class="bo-page-header">
       <div>
         <p class="bo-kicker">Account</p>
-        <h1 class="bo-page-title">會員設定</h1>
+        <h1 class="bo-page-title">{{ t('page.member.profile') }}</h1>
       </div>
     </header>
 
@@ -124,7 +124,9 @@ import api from "~/composables/utils/api";
 import { showCustom } from "~/composables/utils/alert";
 import { useAuthStore } from "~/composables/auth";
 
-useHead({ title: "會員設定" });
+const { t } = useI18n();
+
+useHead(() => ({ title: t("page.member.profile") }));
 const authStore = useAuthStore();
 
 /**

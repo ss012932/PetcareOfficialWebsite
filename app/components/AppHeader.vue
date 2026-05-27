@@ -2,12 +2,18 @@
   <!-- ===== Header 區塊：控制整個網站上方導覽列 ===== -->
   <header class="app-header">
     <!-- ===== Navbar 區塊：控制導覽列結構 ===== -->
-    <nav class="navbar" aria-label="主導覽">
+    <nav class="navbar" :aria-label="t('header.aria.mainNav')">
       <div class="navbar-inner">
         <!-- ===== Logo 區塊：控制網站品牌名稱 ===== -->
-        <NuxtLink to="/" class="logo" aria-label="PetCare System 首頁">
-          <Icon name="fa6-solid:paw" class="logo-icon" aria-hidden="true" />
-          <span class="logo-text">PetCare System</span>
+        <NuxtLink to="/" class="logo" :aria-label="t('header.aria.home')">
+          <span class="logo-mark" aria-hidden="true">
+            <Icon name="fa6-solid:paw" class="logo-icon" />
+          </span>
+
+          <span class="logo-text-group">
+            <span class="logo-text logo-text--zh">{{ t("header.brand.zh") }}</span>
+            <span class="logo-text logo-text--en">{{ t("header.brand.en") }}</span>
+          </span>
         </NuxtLink>
 
         <!-- ===== 手機選單按鈕：控制手機版導覽列開關 ===== -->
@@ -15,7 +21,7 @@
           type="button"
           class="menu-toggle"
           :aria-expanded="isMobileMenuOpen"
-          aria-label="切換導覽選單"
+          :aria-label="t('header.aria.toggleMenu')"
           @click="toggleMobileMenu"
         >
           <Icon
@@ -33,22 +39,40 @@
         >
           <li>
             <NuxtLink to="/" class="nav-link" @click="closeMobileMenu">
-              首頁
+              {{ t("header.nav.home") }}
             </NuxtLink>
           </li>
 
           <li>
             <!-- ===== 功能介紹連結：導向獨立功能介紹頁 ===== -->
             <NuxtLink to="/function" class="nav-link" @click="closeMobileMenu">
-              功能介紹
+              {{ t("header.nav.features") }}
             </NuxtLink>
           </li>
 
           <li>
             <!-- ===== 價格方案連結：導向獨立 price.vue 頁面 ===== -->
             <NuxtLink to="/price" class="nav-link" @click="closeMobileMenu">
-              價格方案
+              {{ t("header.nav.pricing") }}
             </NuxtLink>
+          </li>
+
+          <li class="locale-switcher">
+            <label for="header-locale" class="sr-only">{{ t("header.locale.label") }}</label>
+            <select
+              id="header-locale"
+              class="locale-select"
+              :value="locale"
+              @change="handleLocaleChange"
+            >
+              <option
+                v-for="item in localeOptions"
+                :key="item.code"
+                :value="item.code"
+              >
+                {{ item.name }}
+              </option>
+            </select>
           </li>
 
           <!-- ===== 登入按鈕：未登入時顯示 ===== -->
@@ -58,7 +82,7 @@
               class="nav-link nav-link--login"
               @click="openLoginModal"
             >
-              登入
+              {{ t("header.nav.login") }}
             </button>
           </li>
 
@@ -68,7 +92,7 @@
               type="button"
               class="user-menu-toggle"
               :aria-expanded="isUserMenuOpen"
-              aria-label="會員選單"
+              :aria-label="t('header.aria.userMenu')"
               @click="toggleUserMenu"
             >
               <Icon
@@ -76,7 +100,7 @@
                 class="user-icon"
                 aria-hidden="true"
               />
-              <span class="user-name">{{ userInfo?.Name || "會員" }}</span>
+              <span class="user-name">{{ userInfo?.Name || t("header.user.member") }}</span>
               <Icon
                 name="fa6-solid:chevron-down"
                 class="dropdown-arrow"
@@ -99,7 +123,7 @@
                   class="dropdown-icon"
                   aria-hidden="true"
                 />
-                會員中心
+                {{ t("header.user.center") }}
               </NuxtLink>
               <button type="button" class="dropdown-item" @click="handleLogout">
                 <Icon
@@ -107,7 +131,7 @@
                   class="dropdown-icon"
                   aria-hidden="true"
                 />
-                登出
+                {{ t("header.user.logout") }}
               </button>
             </div>
           </li>
@@ -137,7 +161,7 @@
 
 <script setup lang="ts">
 // ===== Vue 功能引入：控制響應式狀態 =====
-import { ref, onMounted, watch } from "vue";
+import { computed, ref, onMounted, watch } from "vue";
 
 // ===== LoginModal 元件引入：控制登入彈窗 =====
 import LoginModal from "~/components/LoginModal.vue";
@@ -149,6 +173,8 @@ import ForgotModal from "~/components/ForgotModal.vue";
 
 // ===== API 引入：控制登入狀態檢查與登出 =====
 import { authAPI } from "~/composables/utils/api";
+
+const { t, locale, setLocale } = useI18n();
 
 // ===== 手機選單狀態：控制選單是否開啟 =====
 const isMobileMenuOpen = ref(false);
@@ -181,6 +207,24 @@ const isUserMenuOpen = ref(false);
 
 // ===== 受保護路由前綴：登入失效時需強制離開的路徑 =====
 const PROTECTED_PREFIXES = ["/member", "/order"];
+const SUPPORTED_LOCALES = ["zh-TW", "zh-CN", "ja-JP", "ko-KR", "en-US", "th-TH", "vi-VN"] as const;
+const SUPPORTED_LOCALE_OPTIONS = [
+  { code: "zh-TW", name: "繁體中文" },
+  { code: "zh-CN", name: "简体中文" },
+  { code: "ja-JP", name: "日本語" },
+  { code: "ko-KR", name: "한국어" },
+  { code: "en-US", name: "English" },
+  { code: "th-TH", name: "ไทย" },
+  { code: "vi-VN", name: "Tiếng Việt" },
+] as const;
+
+type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
+
+function isSupportedLocale(value: string): value is SupportedLocale {
+  return (SUPPORTED_LOCALES as readonly string[]).includes(value);
+}
+
+const localeOptions = computed(() => SUPPORTED_LOCALE_OPTIONS);
 
 // ===== 檢查登入狀態：元件載入時執行 =====
 async function checkLoginStatus() {
@@ -234,6 +278,13 @@ function toggleMobileMenu() {
 // ===== 關閉手機選單：點擊選單後自動收合 =====
 function closeMobileMenu() {
   isMobileMenuOpen.value = false;
+}
+
+function handleLocaleChange(event: Event) {
+  const nextLocale = (event.target as HTMLSelectElement).value;
+  if (isSupportedLocale(nextLocale) && nextLocale !== locale.value) {
+    setLocale(nextLocale as Parameters<typeof setLocale>[0]);
+  }
 }
 
 // ===== 切換會員選單：控制會員下拉選單開關 =====
@@ -356,7 +407,7 @@ async function handleLoginSuccess() {
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.65rem;
   color: var(--color-text);
   text-decoration: none;
   transition:
@@ -370,20 +421,54 @@ async function handleLoginSuccess() {
   transform: translateY(-1px);
 }
 
-/* ===== Logo 圖示：控制 paw icon ===== */
+/* ===== Logo 外框：預留品牌 Logo 放置區 ===== */
+.logo-mark {
+  width: 2.15rem;
+  height: 2.15rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(217, 178, 111, 0.45);
+  border-radius: 0.72rem;
+  background: linear-gradient(
+    135deg,
+    rgba(217, 178, 111, 0.24) 0%,
+    rgba(217, 178, 111, 0.08) 100%
+  );
+}
+
+/* ===== Logo 圖示：控制 logo 區內 icon ===== */
 .logo-icon {
-  width: 1.1rem;
-  height: 1.1rem;
+  width: 1rem;
+  height: 1rem;
   color: var(--color-text);
 }
 
-/* ===== Logo 文字：控制品牌名稱 ===== */
+/* ===== Logo 文字群：控制中英文上下排列 ===== */
+.logo-text-group {
+  display: grid;
+  gap: 0.1rem;
+  line-height: 1.1;
+}
+
+/* ===== Logo 文字：控制品牌字體 ===== */
 .logo-text {
   color: var(--color-text);
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  display: block;
   white-space: nowrap;
+}
+
+.logo-text--zh {
+  font-size: 0.94rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.logo-text--en {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.78);
 }
 
 /* ===== 手機選單按鈕：控制漢堡按鈕外觀 ===== */
@@ -430,6 +515,46 @@ async function handleLoginSuccess() {
   padding: 0;
   margin: 0;
   list-style: none;
+}
+
+.locale-switcher {
+  display: inline-flex;
+  align-items: center;
+}
+
+.locale-select {
+  min-height: 2.45rem;
+  padding: 0 0.75rem;
+  border: 1px solid rgba(217, 178, 111, 0.35);
+  border-radius: 999px;
+  color: var(--color-muted);
+  background-color: rgba(255, 255, 255, 0.03);
+  font-size: 0.86rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    color 0.22s ease,
+    border-color 0.22s ease,
+    background-color 0.22s ease;
+}
+
+.locale-select:hover,
+.locale-select:focus-visible {
+  color: var(--color-accent);
+  border-color: rgba(217, 178, 111, 0.62);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ===== 導覽連結：控制首頁、功能介紹、價格方案樣式 ===== */
@@ -639,7 +764,22 @@ button.nav-link {
   }
 
   .logo-text {
-    font-size: 0.98rem;
+    font-size: 0.92rem;
+  }
+
+  .logo-mark {
+    width: 1.95rem;
+    height: 1.95rem;
+  }
+
+  .logo-text--zh {
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+  }
+
+  .logo-text--en {
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
   }
 
   .menu-toggle {
@@ -677,13 +817,18 @@ button.nav-link {
   }
 
   .nav-link,
-  .user-menu-toggle {
+  .user-menu-toggle,
+  .locale-select {
     width: 100%;
     min-height: 2.75rem;
     justify-content: flex-start;
     padding: 0 1rem;
     border-radius: 0.8rem;
     font-size: 0.94rem;
+  }
+
+  .locale-switcher {
+    width: 100%;
   }
 
   .nav-link.router-link-active,

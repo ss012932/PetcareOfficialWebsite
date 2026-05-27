@@ -1,0 +1,474 @@
+{
+  "site": {
+    "brandFull": "PetCare｜宠你｜반려동물 케어 시스템"
+  },
+  "header": {
+    "brand": {
+      "zh": "宠你｜반려동물 케어 시스템",
+      "en": "PetCare"
+    },
+    "aria": {
+      "home": "PetCare 홈",
+      "toggleMenu": "내비게이션 메뉴 전환",
+      "userMenu": "회원 메뉴",
+      "mainNav": "메인 내비게이션"
+    },
+    "nav": {
+      "home": "홈",
+      "features": "기능 소개",
+      "pricing": "요금제",
+      "login": "로그인"
+    },
+    "user": {
+      "member": "회원",
+      "center": "회원 센터",
+      "logout": "로그아웃"
+    },
+    "locale": {
+      "label": "언어"
+    }
+  },
+  "footer": {
+    "description": "동물병원을 위한 반려동물 의료 관리 시스템으로 예약, 차트, 결제, 운영 관리를 효율화합니다.",
+    "cta": "요금제 보기",
+    "copyright": "All rights reserved.",
+    "terms": "서비스 약관",
+    "privacy": "개인정보 처리방침"
+  },
+  "seo": {
+    "index": {
+      "title": "PetCare｜宠你｜반려동물 의료 관리 시스템",
+      "description": "PetCare는 동물병원을 위한 클라우드 관리 시스템입니다. 예약, 전자차트, 결제, 재고, 리포트를 통합 제공합니다."
+    },
+    "function": {
+      "title": "기능 소개｜PetCare",
+      "description": "PetCare 기능 소개: 예약 스케줄, 전자차트, 보호자 및 반려동물 정보, 결제 관리, 재고 관리, 운영 리포트."
+    },
+    "price": {
+      "title": "요금제｜PetCare",
+      "description": "PetCare는 병원 규모에 맞는 다양한 요금제를 제공합니다."
+    },
+    "order": {
+      "title": "주문 정보｜PetCare",
+      "description": "PetCare 요금제 주문 요약과 구매자 정보를 확인합니다."
+    },
+    "payment": {
+      "title": "결제 결과｜PetCare",
+      "description": "PetCare 결제 결과 페이지에서 주문 결제 성공/실패 상태를 확인합니다."
+    },
+    "member": {
+      "titleTemplate": "%s｜PetCare 관리자"
+    }
+  },
+  "page": {
+    "emailBind": {
+      "title": "이메일 연동",
+      "loadingTitle": "인증 중...",
+      "loadingDesc": "이메일 연동을 확인하고 있습니다",
+      "successEyebrow": "Email Verified",
+      "successTitle": "연동 성공",
+      "errorEyebrow": "Verification Failed",
+      "errorTitle": "연동 실패",
+      "backHome": "홈으로 돌아가기",
+      "successDefault": "이메일 연동이 완료되었습니다.",
+      "errorDefault": "링크가 만료되었거나 이미 사용되었습니다.",
+      "errorMissingToken": "인증 정보가 없습니다."
+    },
+    "reset": {
+      "title": "비밀번호 재설정",
+      "loading": "재설정 링크 확인 중...",
+      "eyebrow": "Reset Password",
+      "desc": "계정 정보를 확인하고 새 비밀번호를 설정하세요.",
+      "name": "이름",
+      "email": "이메일",
+      "newPassword": "새 비밀번호",
+      "confirmPassword": "새 비밀번호 확인",
+      "submit": "비밀번호 재설정",
+      "submitting": "처리 중...",
+      "backHome": "홈으로 돌아가기"
+    },
+    "member": {
+      "dashboard": "대시보드",
+      "brand": "브랜드 관리",
+      "clinics": "클리닉 관리",
+      "orders": "주문 정보",
+      "profile": "회원 설정",
+      "staff": "직원 관리",
+      "stores": "지점 설정"
+    }
+  },
+  "home": {
+    "heroEyebrow": "동물병원 전용 관리 시스템",
+    "heroTitle": "반려동물의 건강을 지키고, 안심과 신뢰를 만듭니다",
+    "heroDesc": "온라인 예약, 진료 기록, 알림, 건강 정보를 통합해 매 방문을 더 안전하고 체계적으로 관리합니다.",
+    "viewFeatures": "기능 보기",
+    "viewPlans": "요금제 보기",
+    "commonChallenges": "Common Challenges",
+    "painTitleLine1": "일상 운영에서,",
+    "painTitleLine2": "이런 어려움이 있으신가요?",
+    "painDesc": "예약, 차트, 결제, 재고 관리가 종이와 Excel, 서로 다른 도구에 흩어져 있으면 중복 작업과 누락, 행정 부담이 커집니다.",
+    "learnSolution": "해결책 보기",
+    "pain1Title": "예약과 접수에서 막히나요?",
+    "pain1Item1": "예약 정보가 흩어져 있어 접수 시 반복 확인이 필요",
+    "pain1Item2": "재진과 예방접종 알림을 놓치기 쉬움",
+    "pain2Title": "차트와 검사 기록을 찾기 어렵나요?",
+    "pain2Item1": "과거 차트 검색이 불편함",
+    "pain2Item2": "검사, 사진, 투약 기록을 한 번에 보기 어려움",
+    "pain3Title": "결제, 재고, 리포트 정리가 오래 걸리나요?",
+    "pain3Item1": "월말 매출과 서비스 항목 집계에 수작업이 필요",
+    "pain3Item2": "약품과 소모품 재고를 즉시 파악하기 어려움",
+    "coreFeatures": "핵심 기능",
+    "workflowTitle": "진료 전·중·후를 하나의 시스템으로 연결",
+    "workflowDesc": "예약, 진료, 추적 관리를 연동해 환자 경험과 운영 효율을 높입니다.",
+    "preVisit": "진료 전",
+    "preVisit1": "온라인 예약",
+    "preVisit2": "접수 스케줄",
+    "preVisit3": "내원 알림",
+    "duringVisit": "진료 중",
+    "duringVisit1": "전자 차트",
+    "duringVisit2": "진료 기록",
+    "duringVisit3": "결제",
+    "afterVisit": "진료 후",
+    "afterVisit1": "재진 추적",
+    "afterVisit2": "건강 알림",
+    "afterVisit3": "운영 리포트",
+    "whyChooseUs": "Why Choose Us",
+    "whyChooseTitle": "왜 PetCare｜宠你｜반려동물 의료 관리 시스템인가요?",
+    "whyChooseDesc": "단순한 시스템이 아니라 동물병원의 안정적이고 효율적인 운영을 돕습니다.",
+    "why1": "접수 행정 시간을 줄임",
+    "why2": "진료와 차트 조회 효율 향상",
+    "why3": "종이 기록과 수기 집계 오류 감소",
+    "why4": "매출과 재고를 더 쉽게 파악",
+    "statsAria": "시스템 성과",
+    "stat1Value": "50%",
+    "stat1Label": "행정 시간 감소",
+    "stat2Value": "3초",
+    "stat2Label": "차트 빠른 조회",
+    "stat3Value": "24H",
+    "stat3Label": "클라우드 데이터 접근"
+  },
+  "functionPage": {
+    "hero": {
+      "imageAlt": "반려동물 의료 관리 시스템 기능 소개",
+      "eyebrow": "FEATURES",
+      "title": "기능 소개",
+      "desc": "예약, 진료, 차트, 수납, 운영 분석까지 한 흐름으로 연결해 병원 운영 효율을 높입니다."
+    },
+    "anchorSectionAria": "기능 바로가기",
+    "anchorNavAria": "기능 분류 내비게이션",
+    "anchorAppointment": "예약 스케줄",
+    "anchorMedicalRecord": "전자 차트",
+    "anchorPetProfile": "반려동물 정보",
+    "anchorBilling": "수납·정산",
+    "anchorInventory": "의약품 재고",
+    "anchorAnalytics": "리포트 분석",
+    "anchorAltAppointment": "예약 스케줄",
+    "anchorAltMedicalRecord": "전자 차트",
+    "anchorAltPetProfile": "반려동물 정보",
+    "anchorAltBilling": "수납·정산",
+    "anchorAltInventory": "의약품 재고",
+    "anchorAltAnalytics": "리포트 분석",
+    "overviewAria": "핵심 기능 소개",
+    "f1": {
+      "label": "APPOINTMENT",
+      "title": "예약 스케줄",
+      "desc": "접수팀과 수의사가 당일 진료 일정을 빠르게 파악할 수 있습니다.",
+      "point1": "온라인 예약 관리",
+      "point2": "수의사 근무표 관리",
+      "point3": "내원 상태 추적",
+      "point4": "예약 알림 발송",
+      "iconAlt": "예약 스케줄",
+      "imageAlt": "예약 스케줄 기능 예시"
+    },
+    "f2": {
+      "label": "MEDICAL RECORD",
+      "title": "전자 차트",
+      "desc": "모든 진료 기록을 체계적으로 보관해 조회 속도를 높입니다.",
+      "point1": "주호소·진단 기록",
+      "point2": "치료 계획 관리",
+      "point3": "처방·투약 기록",
+      "point4": "과거 진료 빠른 조회",
+      "iconAlt": "전자 차트",
+      "imageAlt": "전자 차트 기능 예시"
+    },
+    "f3": {
+      "label": "PET PROFILE",
+      "title": "반려동물 정보",
+      "desc": "반려동물과 보호자 정보를 통합 관리해 케어 품질을 높입니다.",
+      "point1": "반려동물 기본 정보",
+      "point2": "보호자 연락처",
+      "point3": "마이크로칩 번호 관리",
+      "point4": "백신·건강 이력",
+      "iconAlt": "반려동물 정보",
+      "imageAlt": "반려동물 정보 기능 예시"
+    },
+    "f4": {
+      "label": "BILLING",
+      "title": "수납·정산",
+      "desc": "수납과 결제를 신속히 처리하고 회계 기록을 정확히 남길 수 있습니다.",
+      "point1": "청구 상세 관리",
+      "point2": "진료·약품 비용 관리",
+      "point3": "결제 상태 기록",
+      "point4": "정산 데이터 조회",
+      "iconAlt": "수납·정산",
+      "imageAlt": "수납·정산 기능 예시"
+    },
+    "f5": {
+      "label": "INVENTORY",
+      "title": "의약품 재고",
+      "desc": "재고 현황을 실시간으로 확인해 품절과 유효기간 리스크를 줄입니다.",
+      "point1": "의약품 정보 관리",
+      "point2": "재고 수량 추적",
+      "point3": "안전 재고 알림",
+      "point4": "유효기간 상태 관리",
+      "iconAlt": "의약품 재고",
+      "imageAlt": "의약품 재고 기능 예시"
+    },
+    "f6": {
+      "label": "ANALYTICS",
+      "title": "리포트 분석",
+      "desc": "운영 데이터를 시각화해 병원 현황을 빠르게 파악할 수 있습니다.",
+      "point1": "월 매출 통계",
+      "point2": "내원 건수 분석",
+      "point3": "평균 객단가",
+      "point4": "수익 구조 차트",
+      "iconAlt": "리포트 분석",
+      "imageAlt": "리포트 분석 기능 예시"
+    },
+    "workflowAria": "진료 프로세스 통합",
+    "workflowEyebrow": "WORKFLOW",
+    "workflowTitleLine1": "진료 전·중·후를 연결해",
+    "workflowTitleLine2": "프로세스를 완성합니다",
+    "workflowDesc": "단일 기능 도구를 넘어 병원의 일상 업무를 연결해 행정 부담은 줄이고 서비스 품질은 높입니다.",
+    "workflow1Title": "진료 전",
+    "workflow1Desc": "예약 스케줄, 내원 알림, 보호자·반려동물 정보 등록.",
+    "workflow2Title": "진료 중",
+    "workflow2Desc": "차트 기록, 진료 처치, 투약 기록, 수납 항목 등록.",
+    "workflow3Title": "진료 후",
+    "workflow3Desc": "추적 알림, 재진 일정, 데이터 조회, 운영 리포트 분석.",
+    "securityAria": "권한 및 데이터 보안",
+    "securityEyebrow": "SECURITY",
+    "securityTitle": "권한은 명확하게, 데이터는 안전하게",
+    "securityDesc": "직무별 권한을 설정해 수의사, 접수팀, 관리자 모두에게 맞는 기능만 제공됩니다.",
+    "securityCard1Title": "직원 계정 관리",
+    "securityCard1Desc": "요금제별 계정 수로 병원 내부 역할 분담을 효율화합니다.",
+    "securityCard2Title": "역할 기반 권한 제어",
+    "securityCard2Desc": "직무별 권한 설계로 오조작과 정보 유출 위험을 줄입니다.",
+    "securityCard3Title": "클라우드 데이터 보관",
+    "securityCard3Desc": "데이터를 중앙 저장해 종이 문서 분실과 조회 어려움을 줄입니다.",
+    "ctaEyebrow": "START NOW",
+    "ctaTitle": "우리 병원에 맞는 플랜 선택",
+    "ctaDesc": "기본 운영부터 고급 분석까지 병원 규모에 맞춰 유연하게 선택할 수 있습니다.",
+    "ctaButton": "요금제 보기"
+  },
+  "pricePage": {
+    "hero": {
+      "eyebrow": "PRICING",
+      "title": "요금 플랜",
+      "desc": "병원 규모에 맞는 플랜을 선택하고, 운영 단계에 맞춰 유연하게 업그레이드할 수 있습니다."
+    },
+    "listAria": "요금 플랜 목록",
+    "loading": "플랜 정보를 불러오는 중...",
+    "error": "플랜 정보를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.",
+    "currency": "NT$",
+    "saveAmount": "NT$ {amount} 절약",
+    "period": "/{months}개월",
+    "convertedNow": "실시간 환율 기준 약 {amount}",
+    "fxRateNote": "실시간 환율: 1 TWD ≈ {rate} {currency} (업데이트: {updatedAt})",
+    "suitableAria": "추천 대상",
+    "selectPlan": "플랜 선택",
+    "loginHint": "플랜 선택은 로그인 후 이용할 수 있습니다",
+    "comingSoonAria": "출시 예정",
+    "comingSoon": "출시 예정",
+    "note": "모든 플랜은 6개월 구독 기준이며, 병원 운영 상황에 맞춰 유연하게 조정할 수 있습니다. 정식 도입 전에는 전담 담당자가 사전 진단을 도와드립니다.",
+    "planCatalogByCode": {
+      "BASIC": {
+        "PlanName": "Starter 개원형",
+        "Tagline": "소형 동물병원을 위한 입문형 운영 플랜",
+        "Description": "단일 지점의 소형 동물병원에 적합하며, 병원 기본 정보, 보호자 정보, 반려동물 정보, 예약 관리, 기본 진료 기록을 제공해 빠른 디지털 전환을 돕습니다.",
+        "Period": "/6개월",
+        "Features": [
+          "브랜드 및 병원 기본 정보 관리",
+          "보호자 관리",
+          "반려동물 정보 관리",
+          "기본 예약 관리",
+          "기본 진료 기록",
+          "기본 대시보드 통계"
+        ],
+        "SuitableTags": [
+          "소형 병원",
+          "단일 지점",
+          "기초 진료 운영"
+        ],
+        "Badge": null,
+        "SaveText": "NT$ 10,000 절약"
+      },
+      "STANDARD": {
+        "PlanName": "Team 팀형",
+        "Tagline": "인사·권한 기능을 더한 일반 동물병원용 플랜",
+        "Description": "여러 직원이 근무하는 일반 동물병원에 적합합니다. Basic 기능에 더해 인사 시스템, 직원 계정, 역할 권한, 근무 스케줄, 기본 수납 기록을 제공해 운영 완성도를 높입니다.",
+        "Period": "/6개월",
+        "Features": [
+          "Basic의 모든 기능",
+          "수납 기록 관리",
+          "인사 시스템",
+          "직원 계정 관리",
+          "역할·권한 관리",
+          "직원 스케줄 관리",
+          "기본 운영 리포트"
+        ],
+        "SuitableTags": [
+          "일반 동물병원",
+          "다인 사용자",
+          "인사 관리 필요"
+        ],
+        "Badge": "추천",
+        "SaveText": "NT$ 20,000 절약"
+      },
+      "PROFESSIONAL": {
+        "PlanName": "Business 운영형",
+        "Tagline": "입원·구매·일반 재고까지 지원하는 통합 운영 플랜",
+        "Description": "중대형 동물병원에 적합하며 Standard 기능 전체에 더해 입원 케어, 구매 관리, 일반 재고 관리, 고급 리포트를 제공해 진료와 운영 전 과정을 폭넓게 지원합니다.",
+        "Period": "/6개월",
+        "Features": [
+          "Standard의 모든 기능",
+          "입원 케어 관리",
+          "입원 기록 관리",
+          "구매 관리",
+          "일반 재고 관리",
+          "검사 기록 관리",
+          "고객 리마인드 알림",
+          "고급 리포트"
+        ],
+        "SuitableTags": [
+          "중대형 동물병원",
+          "입원 관리 필요",
+          "구매·재고 관리 필요"
+        ],
+        "Badge": null,
+        "SaveText": "NT$ 38,200 절약"
+      },
+      "ENTERPRISE": {
+        "PlanName": "Scale 체인형",
+        "Tagline": "체인 동물병원을 위한 고급 운영 관리 플랜",
+        "Description": "체인 동물병원, 그룹형 병원, 고급 관리 기능이 필요한 브랜드에 적합합니다. Professional 전체 기능에 더해 다지점 관리, 지점 간 데이터 관리, 의약품 재고, 약국 관리, 로트·유효기간 관리, 지점 간 재고 조회를 제공합니다.",
+        "Period": "/6개월",
+        "Features": [
+          "Professional의 모든 기능",
+          "다지점 관리",
+          "지점 간 데이터 관리",
+          "의약품 재고 관리",
+          "약국 관리",
+          "로트·유효기간 관리",
+          "지점 간 재고 조회",
+          "고급 권한 제어",
+          "운영 관리 리포트"
+        ],
+        "SuitableTags": [
+          "체인 동물병원",
+          "다지점 운영",
+          "의약품 재고 관리",
+          "고급 운영 관리"
+        ],
+        "Badge": "프리미엄",
+        "SaveText": "NT$ 70,000 절약"
+      }
+    },
+    "badges": {
+      "recommended": "추천",
+      "popular": "인기",
+      "premium": "프리미엄"
+    },
+    "alert": {
+      "loginRequiredTitle": "먼저 로그인해 주세요",
+      "loginRequiredText": "플랜을 선택하려면 회원 로그인이 필요합니다.",
+      "goLogin": "로그인하러 가기",
+      "cancel": "취소"
+    }
+  },
+  "sidebar": {
+    "backend": "관리자 페이지",
+    "managerFallback": "펫케어｜반려동물 돌봄 시스템 관리자",
+    "currentBrand": "현재 브랜드",
+    "backHome": "공식 사이트로 이동"
+  },
+  "modal": {
+    "login": {
+      "close": "로그인 창 닫기",
+      "eyebrow": "WELCOME BACK",
+      "title": "회원 로그인",
+      "desc": "계정에 로그인하여 예약, 진료 기록, 병원 운영을 관리하세요.",
+      "account": "아이디",
+      "accountPlaceholder": "아이디를 입력하세요",
+      "password": "비밀번호",
+      "passwordPlaceholder": "비밀번호를 입력하세요",
+      "togglePassword": "비밀번호 표시 전환",
+      "rememberMe": "로그인 유지",
+      "forgotPassword": "비밀번호를 잊으셨나요",
+      "submit": "로그인",
+      "noAccount": "아직 계정이 없으신가요?",
+      "registerNow": "지금 회원가입"
+    },
+    "register": {
+      "close": "회원가입 창 닫기",
+      "eyebrow": "CREATE ACCOUNT",
+      "title": "회원가입",
+      "desc": "계정 생성 후 예약, 기록 조회, 회원 서비스를 이용할 수 있습니다.",
+      "account": "아이디",
+      "accountPlaceholder": "아이디를 입력하세요",
+      "name": "이름",
+      "namePlaceholder": "이름을 입력하세요",
+      "phone": "휴대폰 번호",
+      "phonePlaceholder": "휴대폰 번호를 입력하세요",
+      "email": "이메일",
+      "emailPlaceholder": "이메일을 입력하세요",
+      "password": "비밀번호",
+      "passwordPlaceholder": "비밀번호를 입력하세요",
+      "confirmPassword": "비밀번호 확인",
+      "confirmPasswordPlaceholder": "비밀번호를 다시 입력하세요",
+      "submit": "지금 가입하기",
+      "hasAccount": "이미 계정이 있으신가요?",
+      "loginNow": "지금 로그인"
+    },
+    "forgot": {
+      "close": "비밀번호 재설정 창 닫기",
+      "eyebrow": "Reset Password",
+      "title": "비밀번호를 잊으셨나요",
+      "desc": "가입할 때 사용한 이메일을 입력하면 비밀번호 재설정 링크를 보내드립니다.",
+      "email": "이메일",
+      "emailPlaceholder": "이메일을 입력하세요",
+      "sending": "전송 중...",
+      "submit": "재설정 링크 보내기",
+      "backLogin": "로그인으로 돌아가기",
+      "sentEyebrow": "Email Sent",
+      "sentTitle": "메일이 전송되었습니다",
+      "sentDesc": "재설정 링크가 전송된 이메일: ",
+      "sentHintPrefix": "메일함을 확인한 뒤,",
+      "sentHintTime": "30분 이내",
+      "sentHintSuffix": "에 링크를 눌러 비밀번호를 재설정하세요.",
+      "sentSpamHint": "받지 못했다면 스팸 메일함도 확인하세요.",
+      "resend": "다시 보내기"
+    },
+    "terms": {
+      "title": "구매 및 서비스 약관",
+      "close": "약관 창 닫기",
+      "version": "약관 버전: 2026년 5월 14일",
+      "section1": "1. 서비스 내용 안내",
+      "planStarter": "(1) Starter 개원판",
+      "planTeam": "(2) Team 팀판",
+      "planBusiness": "(3) Business 운영판",
+      "planScale": "(4) Scale 체인판",
+      "section2": "2. 계정 및 사용 권한",
+      "section3": "3. 데이터 내용 및 사용 제한",
+      "section4": "4. 데이터 보관, 백업 및 보안",
+      "section5": "5. 추가 구매 서비스 안내",
+      "section6": "6. 구매 및 결제 조건",
+      "section7": "7. 환불 및 종료 조건",
+      "section8": "8. 이용자의 책임과 의무",
+      "section9": "9. 의료 데이터 및 전문 책임 고지",
+      "section10": "10. 서비스 중단 및 시스템 유지보수",
+      "consent": "본 구매 및 서비스 약관을 충분히 읽고 이해했으며 이에 동의합니다.",
+      "confirm": "약관에 동의하고 구매 계속"
+    }
+  }
+}

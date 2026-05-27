@@ -17,7 +17,7 @@
           <button
             type="button"
             class="login-modal-close"
-            aria-label="關閉登入視窗"
+            :aria-label="t('modal.login.close')"
             @click="closeModal"
           >
             ×
@@ -27,14 +27,14 @@
           <header class="login-modal-header">
             <div class="login-modal-eyebrow">
               <span></span>
-              <strong>WELCOME BACK</strong>
+              <strong>{{ t('modal.login.eyebrow') }}</strong>
               <span></span>
             </div>
 
-            <h2 id="login-modal-title" class="login-modal-title">會員登入</h2>
+            <h2 id="login-modal-title" class="login-modal-title">{{ t('modal.login.title') }}</h2>
 
             <p class="login-modal-desc">
-              登入您的帳號，開始管理預約、病歷與院所營運。
+              {{ t('modal.login.desc') }}
             </p>
           </header>
 
@@ -42,7 +42,7 @@
           <form class="login-form" @submit.prevent="handleSubmit">
             <!-- ===== 帳號欄位：控制使用者輸入帳號 ===== -->
             <div class="form-group">
-              <label for="login-account" class="form-label"> 帳號 </label>
+              <label for="login-account" class="form-label"> {{ t('modal.login.account') }} </label>
 
               <div class="input-wrap">
                 <Icon
@@ -56,7 +56,7 @@
                   v-model.trim="form.account"
                   type="text"
                   class="form-control"
-                  placeholder="請輸入帳號"
+                  :placeholder="t('modal.login.accountPlaceholder')"
                   autocomplete="username"
                   required
                 />
@@ -65,7 +65,7 @@
 
             <!-- ===== 密碼欄位：控制使用者輸入密碼 ===== -->
             <div class="form-group">
-              <label for="login-password" class="form-label"> 密碼 </label>
+              <label for="login-password" class="form-label"> {{ t('modal.login.password') }} </label>
 
               <div class="input-wrap">
                 <Icon
@@ -79,7 +79,7 @@
                   v-model="form.password"
                   :type="showPassword ? 'text' : 'password'"
                   class="form-control"
-                  placeholder="請輸入密碼"
+                  :placeholder="t('modal.login.passwordPlaceholder')"
                   autocomplete="current-password"
                   required
                 />
@@ -87,7 +87,7 @@
                 <button
                   type="button"
                   class="password-toggle"
-                  aria-label="切換密碼顯示"
+                  :aria-label="t('modal.login.togglePassword')"
                   @click="togglePasswordVisibility"
                 >
                   <Icon
@@ -113,7 +113,7 @@
                   />
                 </span>
 
-                <span>記住我</span>
+                <span>{{ t('modal.login.rememberMe') }}</span>
               </label>
 
               <button
@@ -121,7 +121,7 @@
                 class="forgot-link"
                 @click="emitForgotPassword"
               >
-                忘記密碼
+                {{ t('modal.login.forgotPassword') }}
               </button>
             </div>
 
@@ -133,7 +133,7 @@
                 aria-hidden="true"
               />
 
-              <span>登入</span>
+              <span>{{ t('modal.login.submit') }}</span>
             </button>
           </form>
 
@@ -146,10 +146,10 @@
 
           <!-- ===== Modal 底部註冊入口：控制註冊帳號入口 ===== -->
           <footer class="login-modal-footer">
-            <span>還沒有帳號？</span>
+            <span>{{ t('modal.login.noAccount') }}</span>
 
             <button type="button" class="register-link" @click="emitRegister">
-              立即註冊
+              {{ t('modal.login.registerNow') }}
             </button>
           </footer>
         </section>
@@ -163,6 +163,8 @@ import { reactive, ref, watch } from "vue";
 import Swal from "sweetalert2";
 import api from "~/composables/utils/api";
 import { showCustom } from "~/composables/utils/alert";
+
+const { t } = useI18n();
 
 /* ===== 登入資料型別：控制後端 API 需要的登入資料格式 ===== */
 interface LoginPayload {

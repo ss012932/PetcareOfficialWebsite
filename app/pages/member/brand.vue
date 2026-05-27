@@ -4,7 +4,7 @@
     <header class="bo-page-header">
       <div>
         <p class="bo-kicker">Organization</p>
-        <h1 class="bo-page-title">品牌管理</h1>
+        <h1 class="bo-page-title">{{ t('page.member.brand') }}</h1>
       </div>
       <button class="bo-btn is-primary" @click="openCreate">＋ 新增品牌</button>
     </header>
@@ -198,9 +198,11 @@ import api from '~/composables/utils/api'
 import { showCustom, showConfirm } from '~/composables/utils/alert'
 import { usePermissionStore } from '~/composables/usePermissionStore'
 
+const { t } = useI18n()
+
 const permStore = usePermissionStore()
 
-useHead({ title: '品牌管理' })
+useHead(() => ({ title: t('page.member.brand') }))
 
 // ── Types ──────────────────────────────────────────────────────────────
 interface Brand {

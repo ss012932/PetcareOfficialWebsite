@@ -17,9 +17,11 @@ definePageMeta({
   layout: false,
 });
 
-useHead({
-  titleTemplate: "%s｜PetCare 後台",
-});
+const { t } = useI18n();
+
+useHead(() => ({
+  titleTemplate: t("seo.member.titleTemplate"),
+}));
 </script>
 
 <style>

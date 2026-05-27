@@ -1,0 +1,474 @@
+{
+  "site": {
+    "brandFull": "PetCare｜寵你｜毛孩照護系統"
+  },
+  "header": {
+    "brand": {
+      "zh": "寵你｜毛孩照護系統",
+      "en": "PetCare"
+    },
+    "aria": {
+      "home": "寵你｜毛孩照護系統 PetCare 首頁",
+      "toggleMenu": "切換導覽選單",
+      "userMenu": "會員選單",
+      "mainNav": "主導覽"
+    },
+    "nav": {
+      "home": "首頁",
+      "features": "功能介紹",
+      "pricing": "價格方案",
+      "login": "登入"
+    },
+    "user": {
+      "member": "會員",
+      "center": "會員中心",
+      "logout": "登出"
+    },
+    "locale": {
+      "label": "語言"
+    }
+  },
+  "footer": {
+    "description": "專為動物醫院打造的寵物醫療管理系統，協助院所更輕鬆完成預約、病歷、收費與營運管理。",
+    "cta": "查看價格方案",
+    "copyright": "All rights reserved.",
+    "terms": "服務條款",
+    "privacy": "隱私權政策"
+  },
+  "seo": {
+    "index": {
+      "title": "PetCare｜寵你｜毛孩照護系統｜寵物醫療管理系統",
+      "description": "PetCare（寵你｜毛孩照護系統）是專為動物醫院打造的寵物醫療管理系統，提供預約掛號、電子病歷、收費結帳、庫存管理與營運報表分析。"
+    },
+    "function": {
+      "title": "功能介紹｜PetCare｜寵你｜毛孩照護系統",
+      "description": "PetCare（寵你｜毛孩照護系統）功能介紹，包含預約排程、電子病歷、飼主與寵物資料、收費管理、庫存管理與營運報表分析。"
+    },
+    "price": {
+      "title": "價格方案｜PetCare｜寵你｜毛孩照護系統",
+      "description": "PetCare（寵你｜毛孩照護系統）提供多種獸醫診所管理方案，依診所規模選擇最適合的訂閱方案。"
+    },
+    "order": {
+      "title": "訂單資訊｜PetCare｜寵你｜毛孩照護系統",
+      "description": "確認 PetCare（寵你｜毛孩照護系統）方案訂單摘要與購買人資訊。"
+    },
+    "payment": {
+      "title": "付款結果｜PetCare｜寵你｜毛孩照護系統",
+      "description": "PetCare（寵你｜毛孩照護系統）付款結果頁面，顯示訂單付款成功或失敗狀態。"
+    },
+    "member": {
+      "titleTemplate": "%s｜PetCare｜寵你｜毛孩照護系統 後台"
+    }
+  },
+  "page": {
+    "emailBind": {
+      "title": "Email 綁定",
+      "loadingTitle": "正在驗證...",
+      "loadingDesc": "請稍候，正在為您完成 Email 綁定",
+      "successEyebrow": "Email Verified",
+      "successTitle": "綁定成功！",
+      "errorEyebrow": "Verification Failed",
+      "errorTitle": "綁定失敗",
+      "backHome": "返回首頁",
+      "successDefault": "您的 Email 已成功完成綁定，現在可以使用完整的會員功能。",
+      "errorDefault": "連結已失效或已被使用，請重新申請 Email 綁定。",
+      "errorMissingToken": "缺少驗證資訊，請重新申請 Email 綁定。"
+    },
+    "reset": {
+      "title": "重置密碼",
+      "loading": "正在驗證重置連結...",
+      "eyebrow": "Reset Password",
+      "desc": "請確認帳號資訊，並設定新的登入密碼。",
+      "name": "姓名",
+      "email": "電子郵件",
+      "newPassword": "新密碼",
+      "confirmPassword": "再次輸入密碼",
+      "submit": "確認重置密碼",
+      "submitting": "處理中...",
+      "backHome": "返回首頁"
+    },
+    "member": {
+      "dashboard": "主控台",
+      "brand": "品牌管理",
+      "clinics": "院所管理",
+      "orders": "訂單資訊",
+      "profile": "會員設定",
+      "staff": "員工管理",
+      "stores": "分店設定"
+    }
+  },
+  "home": {
+    "heroEyebrow": "寵物醫療院所專用管理系統",
+    "heroTitle": "守護毛孩健康・建立安心信任",
+    "heroDesc": "整合線上預約、看診紀錄、貼心提醒與健康知識，讓毛孩的每一次就診都更安心，照護更有依據。",
+    "viewFeatures": "查看功能",
+    "viewPlans": "查看方案",
+    "commonChallenges": "Common Challenges",
+    "painTitleLine1": "院所日常管理，",
+    "painTitleLine2": "是否也遇到這些狀況？",
+    "painDesc": "從預約掛號、病歷紀錄到收費與庫存管理，若流程分散在紙本、Excel 或不同工具中，容易造成重複作業、資料查詢不便與行政負擔增加。",
+    "learnSolution": "了解完整解決方案",
+    "pain1Title": "預約與掛號常常卡住？",
+    "pain1Item1": "預約資料分散，櫃台需要反覆確認",
+    "pain1Item2": "回診與疫苗提醒容易遺漏",
+    "pain2Title": "病歷與檢查紀錄找不到？",
+    "pain2Item1": "歷史病歷查詢不方便",
+    "pain2Item2": "檢驗、照片與用藥紀錄難整合",
+    "pain3Title": "收費、庫存、報表整理很花時間？",
+    "pain3Item1": "月底營收與服務項目需要人工統計",
+    "pain3Item2": "藥品與耗材庫存不容易即時掌握",
+    "coreFeatures": "核心功能",
+    "workflowTitle": "一套系統整合看診前、中、後流程",
+    "workflowDesc": "整合預約掛號、診療管理與追蹤關懷，串聯每一次就診旅程，提升醫療品質與營運效率。",
+    "preVisit": "看診前",
+    "preVisit1": "線上預約",
+    "preVisit2": "掛號排程",
+    "preVisit3": "到診提醒",
+    "duringVisit": "看診中",
+    "duringVisit1": "電子病歷",
+    "duringVisit2": "看診紀錄",
+    "duringVisit3": "收費結帳",
+    "afterVisit": "看診後",
+    "afterVisit1": "回診追蹤",
+    "afterVisit2": "健康提醒",
+    "afterVisit3": "營運報表",
+    "whyChooseUs": "Why Choose Us",
+    "whyChooseTitle": "為什麼選擇 PetCare｜寵你｜毛孩照護系統？",
+    "whyChooseDesc": "我們不只是提供一套系統，而是協助動物醫院建立更穩定、更有效率的營運流程。",
+    "why1": "降低櫃台行政作業時間",
+    "why2": "提升獸醫看診與病歷查詢效率",
+    "why3": "減少紙本紀錄與人工統計錯誤",
+    "why4": "協助院所掌握營收與庫存狀況",
+    "statsAria": "系統成效",
+    "stat1Value": "50%",
+    "stat1Label": "行政時間降低",
+    "stat2Value": "3 秒",
+    "stat2Label": "快速查詢病歷",
+    "stat3Value": "24H",
+    "stat3Label": "雲端資料存取"
+  },
+  "functionPage": {
+    "hero": {
+      "imageAlt": "寵物醫療管理系統功能介紹",
+      "eyebrow": "FEATURES",
+      "title": "功能介紹",
+      "desc": "從預約、看診、病歷、收費到營運分析，協助動物醫院建立更有效率的數位化管理流程。"
+    },
+    "anchorSectionAria": "功能快捷導覽",
+    "anchorNavAria": "功能分類導覽",
+    "anchorAppointment": "預約排程",
+    "anchorMedicalRecord": "電子病歷",
+    "anchorPetProfile": "寵物資料",
+    "anchorBilling": "收費帳務",
+    "anchorInventory": "藥品庫存",
+    "anchorAnalytics": "報表分析",
+    "anchorAltAppointment": "預約排程",
+    "anchorAltMedicalRecord": "電子病歷",
+    "anchorAltPetProfile": "寵物資料",
+    "anchorAltBilling": "收費帳務",
+    "anchorAltInventory": "藥品庫存",
+    "anchorAltAnalytics": "報表分析",
+    "overviewAria": "核心功能介紹",
+    "f1": {
+      "label": "APPOINTMENT",
+      "title": "預約排程",
+      "desc": "讓櫃台與醫師快速掌握每日看診安排。",
+      "point1": "線上預約管理",
+      "point2": "醫師排班管理",
+      "point3": "到診狀態追蹤",
+      "point4": "預約提醒通知",
+      "iconAlt": "預約排程",
+      "imageAlt": "預約排程功能示意圖"
+    },
+    "f2": {
+      "label": "MEDICAL RECORD",
+      "title": "電子病歷",
+      "desc": "將每一次看診紀錄完整保存，查詢更快速。",
+      "point1": "主訴與診斷紀錄",
+      "point2": "治療計畫管理",
+      "point3": "處方與用藥紀錄",
+      "point4": "歷史就診快速查詢",
+      "iconAlt": "電子病歷",
+      "imageAlt": "電子病歷功能示意圖"
+    },
+    "f3": {
+      "label": "PET PROFILE",
+      "title": "寵物資料",
+      "desc": "集中管理寵物與飼主資料，照護資訊更清楚。",
+      "point1": "寵物基本資料",
+      "point2": "飼主聯絡資訊",
+      "point3": "晶片號碼管理",
+      "point4": "疫苗與健康紀錄",
+      "iconAlt": "寵物資料",
+      "imageAlt": "寵物資料功能示意圖"
+    },
+    "f4": {
+      "label": "BILLING",
+      "title": "收費帳務",
+      "desc": "讓櫃台快速完成收費、結帳與帳務紀錄。",
+      "point1": "帳單明細管理",
+      "point2": "診察與藥品費用",
+      "point3": "付款狀態紀錄",
+      "point4": "帳務資料查詢",
+      "iconAlt": "收費帳務",
+      "imageAlt": "收費帳務功能示意圖"
+    },
+    "f5": {
+      "label": "INVENTORY",
+      "title": "藥品庫存",
+      "desc": "即時掌握藥品庫存狀態，降低缺貨與過期風險。",
+      "point1": "藥品資料管理",
+      "point2": "庫存數量追蹤",
+      "point3": "安全庫存提醒",
+      "point4": "效期狀態管理",
+      "iconAlt": "藥品庫存",
+      "imageAlt": "藥品庫存功能示意圖"
+    },
+    "f6": {
+      "label": "ANALYTICS",
+      "title": "報表分析",
+      "desc": "將營運數據轉成圖表，協助院所快速掌握狀況。",
+      "point1": "本月營收統計",
+      "point2": "就診次數分析",
+      "point3": "平均客單價",
+      "point4": "收入結構圖表",
+      "iconAlt": "報表分析",
+      "imageAlt": "報表分析功能示意圖"
+    },
+    "workflowAria": "看診流程整合",
+    "workflowEyebrow": "WORKFLOW",
+    "workflowTitleLine1": "串聯看診前、中、後，",
+    "workflowTitleLine2": "讓流程更完整",
+    "workflowDesc": "系統不只是單一功能工具，而是協助院所把日常流程串接起來，降低行政負擔並提升服務品質。",
+    "workflow1Title": "看診前",
+    "workflow1Desc": "預約排程、到診提醒、飼主與寵物資料建立。",
+    "workflow2Title": "看診中",
+    "workflow2Desc": "病歷紀錄、診療處置、用藥紀錄與收費項目建立。",
+    "workflow3Title": "看診後",
+    "workflow3Desc": "追蹤提醒、回診安排、資料查詢與營運報表分析。",
+    "securityAria": "權限與資料安全",
+    "securityEyebrow": "SECURITY",
+    "securityTitle": "權限清楚，資料更安心",
+    "securityDesc": "依照不同職務角色設定操作權限，讓醫師、櫃台、管理者都能使用適合自己的功能範圍。",
+    "securityCard1Title": "員工帳號管理",
+    "securityCard1Desc": "依方案提供不同帳號數量，方便院所內部人員分工使用。",
+    "securityCard2Title": "角色權限控管",
+    "securityCard2Desc": "可依職務規劃不同權限，降低誤操作與資料外洩風險。",
+    "securityCard3Title": "雲端資料保存",
+    "securityCard3Desc": "資料集中保存，降低紙本遺失與查找困難的問題。",
+    "ctaEyebrow": "START NOW",
+    "ctaTitle": "選擇適合院所的方案",
+    "ctaDesc": "從基本管理到進階營運分析，依照院所規模彈性選擇合適版本。",
+    "ctaButton": "查看價格方案"
+  },
+  "pricePage": {
+    "hero": {
+      "eyebrow": "PRICING",
+      "title": "價格方案",
+      "desc": "可依照診所規模選擇適合的方案，未來也能彈性升級。"
+    },
+    "listAria": "價格方案列表",
+    "loading": "載入方案中...",
+    "error": "方案資料載入失敗，請稍後再試。",
+    "currency": "NT$",
+    "saveAmount": "現省 NT$ {amount}",
+    "period": "/{months} 個月",
+    "convertedNow": "即時匯率約 {amount}",
+    "fxRateNote": "即時匯率：1 TWD ≈ {rate} {currency}（更新：{updatedAt}）",
+    "suitableAria": "適合對象",
+    "selectPlan": "選擇方案",
+    "loginHint": "需登入後才能選擇方案",
+    "comingSoonAria": "即將推出",
+    "comingSoon": "敬請期待",
+    "note": "所有方案皆為六個月訂閱制，可依院所需求彈性調整，正式導入前由專人協助評估。",
+    "planCatalogByCode": {
+      "BASIC": {
+        "PlanName": "Starter開診版",
+        "Tagline": "小型動物診所的入門管理方案",
+        "Description": "適合單店、小型動物診所使用，提供基本院所資料、飼主資料、寵物資料、預約管理與基本看診紀錄，協助診所快速建立數位化管理流程。",
+        "Period": "/六個月",
+        "Features": [
+          "品牌與院所基本資料管理",
+          "飼主管理",
+          "寵物資料管理",
+          "基本預約管理",
+          "基本看診紀錄",
+          "基本 Dashboard 統計"
+        ],
+        "SuitableTags": [
+          "小型診所",
+          "單店使用",
+          "基礎看診管理"
+        ],
+        "Badge": null,
+        "SaveText": "現省 NT$ 10,000"
+      },
+      "STANDARD": {
+        "PlanName": "Team團隊版",
+        "Tagline": "加入人事與權限，適合一般動物醫院",
+        "Description": "適合已有多位員工的一般動物醫院使用，除了基礎看診管理外，加入人事系統、員工帳號、角色權限、排班與基本收費紀錄，讓院所管理更完整。",
+        "Period": "/六個月",
+        "Features": [
+          "基礎版所有功能",
+          "收費紀錄管理",
+          "人事系統",
+          "員工帳號管理",
+          "角色權限管理",
+          "員工排班管理",
+          "基本營運報表"
+        ],
+        "SuitableTags": [
+          "一般動物醫院",
+          "多人使用",
+          "需要人事管理"
+        ],
+        "Badge": "推薦",
+        "SaveText": "現省 NT$ 20,000"
+      },
+      "PROFESSIONAL": {
+        "PlanName": "Business營運版",
+        "Tagline": "完整營運管理，支援住院、採購與一般庫存",
+        "Description": "適合中大型動物醫院使用，提供標準版所有功能，並加入住院照護、採購管理、一般庫存管理與進階報表，協助院所處理更完整的醫療與營運流程。",
+        "Period": "/六個月",
+        "Features": [
+          "標準版所有功能",
+          "住院照護管理",
+          "住院紀錄管理",
+          "採購管理",
+          "一般庫存管理",
+          "檢查紀錄管理",
+          "客戶回訪提醒",
+          "進階報表"
+        ],
+        "SuitableTags": [
+          "中大型動物醫院",
+          "需要住院管理",
+          "需要採購與庫存"
+        ],
+        "Badge": null,
+        "SaveText": "現省 NT$ 38,200"
+      },
+      "ENTERPRISE": {
+        "PlanName": "Scale連鎖版",
+        "Tagline": "連鎖動物醫院與高階營運管理方案",
+        "Description": "適合連鎖動物醫院、集團型院所或需要高階管理功能的品牌使用，提供專業版所有功能，並加入多分店管理、跨店資料管理、藥品庫存、藥局管理、批號效期管理與跨店庫存查詢。",
+        "Period": "/六個月",
+        "Features": [
+          "專業版所有功能",
+          "多分店管理",
+          "跨店資料管理",
+          "藥品庫存管理",
+          "藥局管理",
+          "批號與效期管理",
+          "跨店庫存查詢",
+          "進階權限控管",
+          "營運管理報表"
+        ],
+        "SuitableTags": [
+          "連鎖動物醫院",
+          "多分店管理",
+          "藥品庫存管理",
+          "高階營運管理"
+        ],
+        "Badge": "最高階",
+        "SaveText": "現省 NT$ 70,000"
+      }
+    },
+    "badges": {
+      "recommended": "推薦",
+      "popular": "熱門",
+      "premium": "旗艦"
+    },
+    "alert": {
+      "loginRequiredTitle": "請先登入",
+      "loginRequiredText": "選擇方案需要先登入會員，請登入後再繼續。",
+      "goLogin": "前往登入",
+      "cancel": "取消"
+    }
+  },
+  "sidebar": {
+    "backend": "管理後台",
+    "managerFallback": "寵你｜毛孩照護系統 管理者",
+    "currentBrand": "目前品牌",
+    "backHome": "回官網"
+  },
+  "modal": {
+    "login": {
+      "close": "關閉登入視窗",
+      "eyebrow": "WELCOME BACK",
+      "title": "會員登入",
+      "desc": "登入您的帳號，開始管理預約、病歷與院所營運。",
+      "account": "帳號",
+      "accountPlaceholder": "請輸入帳號",
+      "password": "密碼",
+      "passwordPlaceholder": "請輸入密碼",
+      "togglePassword": "切換密碼顯示",
+      "rememberMe": "記住我",
+      "forgotPassword": "忘記密碼",
+      "submit": "登入",
+      "noAccount": "還沒有帳號？",
+      "registerNow": "立即註冊"
+    },
+    "register": {
+      "close": "關閉註冊視窗",
+      "eyebrow": "CREATE ACCOUNT",
+      "title": "註冊帳號",
+      "desc": "建立帳號後即可使用預約、紀錄查詢與會員服務。",
+      "account": "帳號",
+      "accountPlaceholder": "請輸入帳號",
+      "name": "姓名",
+      "namePlaceholder": "請輸入姓名",
+      "phone": "手機號碼",
+      "phonePlaceholder": "請輸入手機號碼",
+      "email": "電子郵件",
+      "emailPlaceholder": "請輸入電子郵件",
+      "password": "密碼",
+      "passwordPlaceholder": "請輸入密碼",
+      "confirmPassword": "確認密碼",
+      "confirmPasswordPlaceholder": "請再次輸入密碼",
+      "submit": "立即註冊",
+      "hasAccount": "已經有帳號了嗎？",
+      "loginNow": "立即登入"
+    },
+    "forgot": {
+      "close": "關閉忘記密碼視窗",
+      "eyebrow": "Reset Password",
+      "title": "忘記密碼",
+      "desc": "請輸入註冊時使用的電子郵件，我們會寄送密碼重置連結給你。",
+      "email": "電子郵件",
+      "emailPlaceholder": "請輸入電子郵件",
+      "sending": "發送中...",
+      "submit": "寄送重置連結",
+      "backLogin": "返回登入",
+      "sentEyebrow": "Email Sent",
+      "sentTitle": "信件已寄送",
+      "sentDesc": "重置連結已發送至：",
+      "sentHintPrefix": "請至信箱查收，並於",
+      "sentHintTime": "30 分鐘內",
+      "sentHintSuffix": "點擊連結完成密碼重置。",
+      "sentSpamHint": "若未收到信件，請檢查垃圾郵件資料夾。",
+      "resend": "重新寄送"
+    },
+    "terms": {
+      "title": "購買與服務條款",
+      "close": "關閉服務條款視窗",
+      "version": "條款版本：2026 年 5 月 14 日",
+      "section1": "一、服務內容說明",
+      "planStarter": "（一）Starter 開診版",
+      "planTeam": "（二）Team 團隊版",
+      "planBusiness": "（三）Business 營運版",
+      "planScale": "（四）Scale 連鎖版",
+      "section2": "二、帳號與使用權限",
+      "section3": "三、資料內容與使用限制",
+      "section4": "四、資料保存、備份與安全",
+      "section5": "五、加購服務說明",
+      "section6": "六、購買與付款條款",
+      "section7": "七、退款與終止條款",
+      "section8": "八、使用者責任與義務",
+      "section9": "九、醫療資料與專業責任聲明",
+      "section10": "十、服務中斷與系統維護",
+      "consent": "我已詳細閱讀、理解並同意本購買與服務條款，",
+      "confirm": "同意條款並繼續購買"
+    }
+  }
+}

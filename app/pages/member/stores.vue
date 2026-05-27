@@ -3,7 +3,7 @@
     <header class="bo-page-header">
       <div>
         <p class="bo-kicker">Locations</p>
-        <h1 class="bo-page-title">分店設定</h1>
+        <h1 class="bo-page-title">{{ t('page.member.stores') }}</h1>
       </div>
       <span class="bo-pill">{{ stores.length }} 間分店</span>
     </header>
@@ -45,12 +45,14 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 
+const { t } = useI18n()
+
 definePageMeta({
   middleware: ['backoffice-auth', 'brand-feature'],
   brandFeature: 'MultiStoreManagement',
 })
 
-useHead({ title: '分店設定' })
+useHead(() => ({ title: t('page.member.stores') }))
 
 const stores = reactive([
   { id: 1, name: '信義總院',  city: '台北市', address: '信義區松仁路 100 號', phone: '02-2345-6789', taxId: '12345678', isActive: true  },

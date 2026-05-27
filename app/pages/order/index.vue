@@ -302,21 +302,23 @@ import { computed, reactive, ref } from "vue";
 import Swal from "sweetalert2";
 import api, { authAPI } from "~/composables/utils/api";
 
+const { t } = useI18n();
+
 // ===== Middleware：限制此頁面需登入才可進入 =====
 definePageMeta({
   middleware: "auth",
 });
 
 // ===== 頁面 SEO：控制瀏覽器標題與描述 =====
-useHead({
-  title: "訂單資訊｜PetCare System",
+useHead(() => ({
+  title: t("seo.order.title"),
   meta: [
     {
       name: "description",
-      content: "確認 PetCare System 方案訂單摘要與購買人資訊。",
+      content: t("seo.order.description"),
     },
   ],
-});
+}));
 
 // ===== 路由功能：取得價格頁帶過來的方案代碼 =====
 const route = useRoute();

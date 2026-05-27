@@ -9,21 +9,21 @@
       <!-- ===== Loading 狀態：驗證 Token 時顯示 ===== -->
       <div v-if="isValidating" class="reset-loading">
         <div class="loading-spinner-large"></div>
-        <p class="loading-text">正在驗證重置連結...</p>
+        <p class="loading-text">{{ t('page.reset.loading') }}</p>
       </div>
 
       <!-- ===== 表單內容：Token 有效時顯示 ===== -->
       <template v-else-if="isTokenValid">
         <!-- ===== 標題區塊：控制頁面標題與說明文字 ===== -->
         <header class="reset-header">
-        <p class="reset-eyebrow">Reset Password</p>
+        <p class="reset-eyebrow">{{ t('page.reset.eyebrow') }}</p>
 
         <h1 id="reset-title" class="reset-title">
-          重置密碼
+          {{ t('page.reset.title') }}
         </h1>
 
         <p class="reset-desc">
-          請確認帳號資訊，並設定新的登入密碼。
+          {{ t('page.reset.desc') }}
         </p>
       </header>
 
@@ -34,7 +34,7 @@
           <!-- ===== 姓名欄位：從重置連結自動帶入且不可修改 ===== -->
           <div class="form-group">
             <label for="reset-name" class="form-label">
-              姓名
+              {{ t('page.reset.name') }}
             </label>
 
             <input
@@ -50,7 +50,7 @@
           <!-- ===== 電子郵件欄位：從重置連結自動帶入且不可修改 ===== -->
           <div class="form-group">
             <label for="reset-email" class="form-label">
-              電子郵件
+              {{ t('page.reset.email') }}
             </label>
 
             <input
@@ -67,7 +67,7 @@
         <!-- ===== 新密碼欄位：控制使用者輸入新密碼 ===== -->
         <div class="form-group">
           <label for="reset-password" class="form-label">
-            新密碼
+            {{ t('page.reset.newPassword') }}
           </label>
 
           <input
@@ -84,7 +84,7 @@
         <!-- ===== 再次輸入密碼欄位：控制使用者確認新密碼 ===== -->
         <div class="form-group">
           <label for="reset-confirm-password" class="form-label">
-            再次輸入密碼
+            {{ t('page.reset.confirmPassword') }}
           </label>
 
           <input
@@ -106,11 +106,11 @@
             :disabled="isSubmitting"
           >
             <span v-if="isSubmitting" class="loading-spinner"></span>
-            <span>{{ isSubmitting ? '處理中...' : '確認重置密碼' }}</span>
+            <span>{{ isSubmitting ? t('page.reset.submitting') : t('page.reset.submit') }}</span>
           </button>
 
           <NuxtLink to="/" class="reset-home-link">
-            返回首頁
+            {{ t('page.reset.backHome') }}
           </NuxtLink>
         </div>
       </form>
@@ -131,6 +131,12 @@ import { onMounted, reactive, ref } from 'vue'
 import { useRoute, useRouter } from '#imports'
 import { authAPI } from '~/composables/utils/api'
 import { showCustom } from '~/composables/utils/alert'
+
+const { t } = useI18n()
+
+useHead(() => ({
+  title: t('page.reset.title'),
+}))
 
 /* ===== 路由功能：取得信箱連結帶過來的 query 參數 ===== */
 const route = useRoute()

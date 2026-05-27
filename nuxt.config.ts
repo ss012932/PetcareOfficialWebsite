@@ -21,19 +21,18 @@ export default defineNuxtConfig({
   // ===== 應用程式頭設定（全域 SEO）=====
   app: {
     head: {
-      htmlAttrs: { lang: 'zh-TW' },
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
 
-      title: '寵物醫療中心',
-      titleTemplate: '%s | 寵物醫療中心',
+      title: 'PetCare｜寵你｜毛孩照護系統',
+      titleTemplate: '%s | PetCare｜寵你｜毛孩照護系統',
 
       meta: [
         { name: 'description', content: '專業寵物醫療服務，提供全方位的寵物健康照護方案' },
         { name: 'keywords', content: '寵物醫療, 獸醫, 寵物保健, 動物醫院' },
         { property: 'og:type', content: 'website' },
-        { property: 'og:site_name', content: '寵物醫療中心' },
-        { property: 'og:title', content: '寵物醫療中心' },
+        { property: 'og:site_name', content: 'PetCare｜寵你｜毛孩照護系統' },
+        { property: 'og:title', content: 'PetCare｜寵你｜毛孩照護系統' },
         { property: 'og:description', content: '專業寵物醫療服務，提供全方位的寵物健康照護方案' },
         { property: 'og:url', content: 'https://petcare.example.com' },
         { name: 'twitter:card', content: 'summary_large_image' },
@@ -50,7 +49,29 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
     '@nuxt/icon',
+    '@nuxtjs/i18n',
   ],
+
+  i18n: {
+    strategy: 'no_prefix',
+    defaultLocale: 'zh-TW',
+    langDir: '../app/i18n',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'petcare_locale',
+      redirectOn: 'root',
+      fallbackLocale: 'zh-TW',
+    },
+    locales: [
+      { code: 'zh-TW', iso: 'zh-TW', name: '繁體中文', file: 'zh-TW.json' },
+      { code: 'zh-CN', iso: 'zh-CN', name: '简体中文', file: 'zh-CN.json' },
+      { code: 'ja-JP', iso: 'ja-JP', name: '日本語', file: 'ja-JP.json' },
+      { code: 'ko-KR', iso: 'ko-KR', name: '한국어', file: 'ko-KR.json' },
+      { code: 'en-US', iso: 'en-US', name: 'English', file: 'en-US.json' },
+      { code: 'th-TH', iso: 'th-TH', name: 'ไทย', file: 'th-TH.json' },
+      { code: 'vi-VN', iso: 'vi-VN', name: 'Tiếng Việt', file: 'vi-VN.json' },
+    ],
+  },
 
   // ===== CSS 引入 =====
   css: [

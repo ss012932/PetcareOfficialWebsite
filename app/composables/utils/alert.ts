@@ -9,11 +9,11 @@ import type { SweetAlertIcon } from "sweetalert2";
 export function showSuccess(message: string = "操作成功") {
   return Swal.fire({
     icon: "success",
-    title: "成功",
+    title: "Success",
     text: message,
     timer: 1500,
     timerProgressBar: true,
-    confirmButtonText: "確定",
+    confirmButtonText: "OK",
   });
 }
 
@@ -23,9 +23,9 @@ export function showSuccess(message: string = "操作成功") {
 export function showError(message: string = "發生錯誤") {
   return Swal.fire({
     icon: "error",
-    title: "錯誤",
+    title: "Error",
     text: message,
-    confirmButtonText: "了解",
+    confirmButtonText: "OK",
   });
 }
 
@@ -35,27 +35,27 @@ export function showError(message: string = "發生錯誤") {
 export function showConfirm(message: string = "你確定要執行此操作嗎？") {
   return Swal.fire({
     icon: "warning",
-    title: "請確認",
+    title: "Please confirm",
     text: message,
     showCancelButton: true,
     confirmButtonColor: "#d33",
     cancelButtonColor: "#3085d6",
-    confirmButtonText: "確定",
-    cancelButtonText: "取消",
+    confirmButtonText: "Confirm",
+    cancelButtonText: "Cancel",
   });
 }
 
 // =======================
 // Prompt
 // =======================
-export function showPrompt(title = "請輸入資料", inputType: any = "text") {
+export function showPrompt(title = "Enter information", inputType: any = "text") {
   return Swal.fire({
     title,
     input: inputType,
-    inputPlaceholder: "請輸入內容",
+    inputPlaceholder: "Enter text",
     showCancelButton: true,
-    confirmButtonText: "送出",
-    cancelButtonText: "取消",
+    confirmButtonText: "Submit",
+    cancelButtonText: "Cancel",
   });
 }
 
@@ -63,7 +63,7 @@ export function showPrompt(title = "請輸入資料", inputType: any = "text") {
 // Toast
 // =======================
 export function showToast(
-  message = "操作成功",
+  message = "Operation completed",
   icon: SweetAlertIcon = "success",
 ) {
   return Swal.fire({
@@ -80,7 +80,7 @@ export function showToast(
 // =======================
 // Loading
 // =======================
-export function showLoading(title = "處理中，請稍候...") {
+export function showLoading(title = "Processing, please wait...") {
   return Swal.fire({
     title,
     allowOutsideClick: false,
@@ -106,7 +106,7 @@ export function showCustom(
     title,
     text,
     icon,
-    confirmButtonText: "確定",
+    confirmButtonText: "OK",
     didOpen: () => {
       // ===== 設定 SweetAlert2 所有層級的 z-index，確保在 modal 上方 =====
       const container = Swal.getContainer();
@@ -159,19 +159,19 @@ export async function showQuantitySelector(
 
     html: `
       <div style="text-align:center">
-        <p>${currentQty > 0 ? "調整購買數量：" : "選擇購買數量："}</p>
+        <p>${currentQty > 0 ? "Adjust quantity:" : "Select quantity:"}</p>
         <div style="display:flex;justify-content:center">
           <button id="decrease">-</button>
           <span id="qty">${quantity}</span>
           <button id="increase">+</button>
         </div>
-        <p>庫存：${stockText}</p>
+        <p>Stock: ${stockText}</p>
       </div>
     `,
 
     showCancelButton: true,
-    confirmButtonText: currentQty > 0 ? "更新數量" : "加入購物車",
-    cancelButtonText: "取消",
+    confirmButtonText: currentQty > 0 ? "Update quantity" : "Add to cart",
+    cancelButtonText: "Cancel",
 
     didOpen: () => {
       const popup = Swal.getPopup()!;

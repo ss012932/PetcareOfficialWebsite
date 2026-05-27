@@ -1,0 +1,474 @@
+{
+  "site": {
+    "brandFull": "PetCare | Pet Companion Care System"
+  },
+  "header": {
+    "brand": {
+      "zh": "Pet Companion Care System",
+      "en": "PetCare"
+    },
+    "aria": {
+      "home": "PetCare home",
+      "toggleMenu": "Toggle navigation menu",
+      "userMenu": "Member menu",
+      "mainNav": "Main navigation"
+    },
+    "nav": {
+      "home": "Home",
+      "features": "Features",
+      "pricing": "Pricing",
+      "login": "Log in"
+    },
+    "user": {
+      "member": "Member",
+      "center": "Member Center",
+      "logout": "Log out"
+    },
+    "locale": {
+      "label": "Language"
+    }
+  },
+  "footer": {
+    "description": "A pet healthcare management system built for veterinary clinics to simplify appointments, records, billing, and operations.",
+    "cta": "View pricing plans",
+    "copyright": "All rights reserved.",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy"
+  },
+  "seo": {
+    "index": {
+      "title": "PetCare | Pet Companion Care System | Pet Healthcare Management",
+      "description": "PetCare is a veterinary-focused pet healthcare management platform with appointments, EMR, billing, inventory, and business analytics."
+    },
+    "function": {
+      "title": "Features | PetCare",
+      "description": "Explore PetCare features including scheduling, electronic records, client and pet profiles, billing, inventory, and operational reports."
+    },
+    "price": {
+      "title": "Pricing | PetCare",
+      "description": "Choose the right PetCare subscription plan for your clinic size and operational needs."
+    },
+    "order": {
+      "title": "Order Details | PetCare",
+      "description": "Review your PetCare plan order summary and purchaser information."
+    },
+    "payment": {
+      "title": "Payment Result | PetCare",
+      "description": "Payment status page for PetCare orders, including success and failure results."
+    },
+    "member": {
+      "titleTemplate": "%s | PetCare Admin"
+    }
+  },
+  "page": {
+    "emailBind": {
+      "title": "Email Verification",
+      "loadingTitle": "Verifying...",
+      "loadingDesc": "Please wait while we verify your email.",
+      "successEyebrow": "Email Verified",
+      "successTitle": "Verification Successful",
+      "errorEyebrow": "Verification Failed",
+      "errorTitle": "Verification Failed",
+      "backHome": "Back to home",
+      "successDefault": "Your email has been verified. Full member features are now available.",
+      "errorDefault": "This link is invalid or already used. Please request a new verification email.",
+      "errorMissingToken": "Missing verification info. Please request a new verification email."
+    },
+    "reset": {
+      "title": "Reset Password",
+      "loading": "Verifying reset link...",
+      "eyebrow": "Reset Password",
+      "desc": "Please confirm your account details and set a new password.",
+      "name": "Name",
+      "email": "Email",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm password",
+      "submit": "Reset password",
+      "submitting": "Processing...",
+      "backHome": "Back to home"
+    },
+    "member": {
+      "dashboard": "Dashboard",
+      "brand": "Brand Settings",
+      "clinics": "Clinic Management",
+      "orders": "Order Details",
+      "profile": "Profile Settings",
+      "staff": "Staff Management",
+      "stores": "Branch Settings"
+    }
+  },
+  "home": {
+    "heroEyebrow": "Management system built for veterinary clinics",
+    "heroTitle": "Protect every pet's health with confidence",
+    "heroDesc": "Unify appointments, medical records, reminders, and health insights for a smoother care journey every visit.",
+    "viewFeatures": "View Features",
+    "viewPlans": "View Plans",
+    "commonChallenges": "Common Challenges",
+    "painTitleLine1": "In your daily clinic operations,",
+    "painTitleLine2": "do you face these issues?",
+    "painDesc": "When scheduling, records, billing, and inventory are split across paper, spreadsheets, or multiple tools, teams spend more time reconciling and less time caring.",
+    "learnSolution": "See the full solution",
+    "pain1Title": "Scheduling and check-in bottlenecks?",
+    "pain1Item1": "Appointment data is scattered, requiring repeated front-desk confirmation",
+    "pain1Item2": "Follow-up and vaccine reminders are easy to miss",
+    "pain2Title": "Can't find records and test results quickly?",
+    "pain2Item1": "Historical record lookup is inconvenient",
+    "pain2Item2": "Lab results, photos, and medication logs are hard to consolidate",
+    "pain3Title": "Too much time on billing, stock, and reports?",
+    "pain3Item1": "Month-end revenue and service reports need manual aggregation",
+    "pain3Item2": "Drug and consumable stock is difficult to track in real time",
+    "coreFeatures": "Core Features",
+    "workflowTitle": "One platform across pre-visit, in-visit, and post-visit workflows",
+    "workflowDesc": "Connect scheduling, care delivery, and follow-up to improve clinical quality and operational efficiency.",
+    "preVisit": "Before Visit",
+    "preVisit1": "Online booking",
+    "preVisit2": "Check-in scheduling",
+    "preVisit3": "Visit reminders",
+    "duringVisit": "During Visit",
+    "duringVisit1": "Electronic records",
+    "duringVisit2": "Clinical notes",
+    "duringVisit3": "Billing",
+    "afterVisit": "After Visit",
+    "afterVisit1": "Follow-up tracking",
+    "afterVisit2": "Health reminders",
+    "afterVisit3": "Business reports",
+    "whyChooseUs": "Why Choose Us",
+    "whyChooseTitle": "Why choose PetCare?",
+    "whyChooseDesc": "More than software, PetCare helps clinics build a more stable and efficient operation model.",
+    "why1": "Reduce front-desk admin time",
+    "why2": "Improve diagnosis and record retrieval efficiency",
+    "why3": "Cut paper-based and manual reporting errors",
+    "why4": "Gain clear visibility into revenue and inventory",
+    "statsAria": "System impact",
+    "stat1Value": "50%",
+    "stat1Label": "Less admin time",
+    "stat2Value": "3 sec",
+    "stat2Label": "Fast medical record lookup",
+    "stat3Value": "24H",
+    "stat3Label": "Cloud data access"
+  },
+  "functionPage": {
+    "hero": {
+      "imageAlt": "Pet healthcare management feature overview",
+      "eyebrow": "FEATURES",
+      "title": "Feature Overview",
+      "desc": "From scheduling and treatment records to billing and analytics, streamline day-to-day clinic operations in one workflow."
+    },
+    "anchorSectionAria": "Feature quick navigation",
+    "anchorNavAria": "Feature category navigation",
+    "anchorAppointment": "Scheduling",
+    "anchorMedicalRecord": "Medical Records",
+    "anchorPetProfile": "Pet Profiles",
+    "anchorBilling": "Billing",
+    "anchorInventory": "Inventory",
+    "anchorAnalytics": "Analytics",
+    "anchorAltAppointment": "Scheduling",
+    "anchorAltMedicalRecord": "Medical Records",
+    "anchorAltPetProfile": "Pet Profiles",
+    "anchorAltBilling": "Billing",
+    "anchorAltInventory": "Inventory",
+    "anchorAltAnalytics": "Analytics",
+    "overviewAria": "Core feature overview",
+    "f1": {
+      "label": "APPOINTMENT",
+      "title": "Scheduling",
+      "desc": "Give front desk teams and veterinarians a clear view of each day's appointments.",
+      "point1": "Online booking management",
+      "point2": "Veterinarian roster management",
+      "point3": "Visit status tracking",
+      "point4": "Appointment reminder delivery",
+      "iconAlt": "Scheduling",
+      "imageAlt": "Scheduling feature preview"
+    },
+    "f2": {
+      "label": "MEDICAL RECORD",
+      "title": "Medical Records",
+      "desc": "Store every consultation in one place for faster, more reliable lookup.",
+      "point1": "Chief complaint and diagnosis logs",
+      "point2": "Treatment plan management",
+      "point3": "Prescription and medication history",
+      "point4": "Quick historical visit lookup",
+      "iconAlt": "Medical Records",
+      "imageAlt": "Medical record feature preview"
+    },
+    "f3": {
+      "label": "PET PROFILE",
+      "title": "Pet Profiles",
+      "desc": "Centralize pet and owner profiles so care teams always have complete context.",
+      "point1": "Pet demographic records",
+      "point2": "Owner contact details",
+      "point3": "Microchip ID tracking",
+      "point4": "Vaccination and wellness history",
+      "iconAlt": "Pet Profiles",
+      "imageAlt": "Pet profile feature preview"
+    },
+    "f4": {
+      "label": "BILLING",
+      "title": "Billing",
+      "desc": "Speed up checkout while keeping billing records accurate and auditable.",
+      "point1": "Invoice detail management",
+      "point2": "Consultation and medication charges",
+      "point3": "Payment status tracking",
+      "point4": "Billing data lookup",
+      "iconAlt": "Billing",
+      "imageAlt": "Billing feature preview"
+    },
+    "f5": {
+      "label": "INVENTORY",
+      "title": "Inventory",
+      "desc": "Monitor medication stock in real time to reduce shortages and expiry risk.",
+      "point1": "Medication catalog management",
+      "point2": "Stock quantity tracking",
+      "point3": "Safety stock alerts",
+      "point4": "Expiration status monitoring",
+      "iconAlt": "Inventory",
+      "imageAlt": "Inventory feature preview"
+    },
+    "f6": {
+      "label": "ANALYTICS",
+      "title": "Analytics",
+      "desc": "Turn operational data into actionable insights with clear visual reporting.",
+      "point1": "Monthly revenue summaries",
+      "point2": "Visit volume analysis",
+      "point3": "Average ticket value",
+      "point4": "Revenue mix charts",
+      "iconAlt": "Analytics",
+      "imageAlt": "Analytics feature preview"
+    },
+    "workflowAria": "Clinical workflow integration",
+    "workflowEyebrow": "WORKFLOW",
+    "workflowTitleLine1": "Connect pre-visit, in-visit, and post-visit,",
+    "workflowTitleLine2": "for a complete care workflow",
+    "workflowDesc": "The platform is more than a single tool. It links routine clinic processes to reduce admin load and elevate service quality.",
+    "workflow1Title": "Before Visit",
+    "workflow1Desc": "Scheduling, arrival reminders, and owner/pet profile setup.",
+    "workflow2Title": "During Visit",
+    "workflow2Desc": "Clinical notes, treatment actions, medication records, and billing item setup.",
+    "workflow3Title": "After Visit",
+    "workflow3Desc": "Follow-up reminders, revisit planning, data lookup, and operational reporting.",
+    "securityAria": "Access control and data security",
+    "securityEyebrow": "SECURITY",
+    "securityTitle": "Clear permissions, safer data",
+    "securityDesc": "Set role-based permissions so veterinarians, front desk staff, and managers each access the right level of functionality.",
+    "securityCard1Title": "Staff account management",
+    "securityCard1Desc": "Support internal role distribution with account limits based on your selected plan.",
+    "securityCard2Title": "Role-based access control",
+    "securityCard2Desc": "Define permissions by job function to reduce mistakes and data exposure risk.",
+    "securityCard3Title": "Cloud data storage",
+    "securityCard3Desc": "Keep records centralized to avoid paper loss and improve searchability.",
+    "ctaEyebrow": "START NOW",
+    "ctaTitle": "Choose the right plan for your clinic",
+    "ctaDesc": "From baseline management to advanced analytics, pick the edition that best matches your clinic scale.",
+    "ctaButton": "View pricing plans"
+  },
+  "pricePage": {
+    "hero": {
+      "eyebrow": "PRICING",
+      "title": "Pricing Plans",
+      "desc": "Pick the plan that fits your clinic size today and upgrade anytime as your operation grows."
+    },
+    "listAria": "Pricing plan list",
+    "loading": "Loading plans...",
+    "error": "Unable to load plan data. Please try again later.",
+    "currency": "NT$",
+    "saveAmount": "Save NT$ {amount}",
+    "period": "/{months} mo",
+    "convertedNow": "Live FX estimate: {amount}",
+    "fxRateNote": "Live rate: 1 TWD ≈ {rate} {currency} (updated: {updatedAt})",
+    "suitableAria": "Best for",
+    "selectPlan": "Choose Plan",
+    "loginHint": "Log in required to choose a plan",
+    "comingSoonAria": "Coming soon",
+    "comingSoon": "Coming Soon",
+    "note": "All plans are billed on a six-month subscription cycle, with flexible adjustments based on each clinic's needs before rollout.",
+    "planCatalogByCode": {
+      "BASIC": {
+        "PlanName": "Starter Launch Plan",
+        "Tagline": "Entry-level operations plan for small veterinary clinics",
+        "Description": "Designed for single-location small clinics, this plan covers core clinic profile setup, pet owner records, pet profiles, appointment scheduling, and basic consultation notes to help teams digitize quickly.",
+        "Period": "/6 months",
+        "Features": [
+          "Brand and clinic profile management",
+          "Pet owner management",
+          "Pet profile management",
+          "Basic appointment scheduling",
+          "Basic consultation records",
+          "Basic dashboard metrics"
+        ],
+        "SuitableTags": [
+          "Small clinics",
+          "Single location",
+          "Essential care operations"
+        ],
+        "Badge": null,
+        "SaveText": "Save NT$ 10,000"
+      },
+      "STANDARD": {
+        "PlanName": "Team Plan",
+        "Tagline": "Adds HR and access control for general veterinary hospitals",
+        "Description": "Ideal for clinics with multiple staff members. Includes all Basic capabilities plus HR tools, staff accounts, role permissions, shift scheduling, and basic billing records for more complete operations.",
+        "Period": "/6 months",
+        "Features": [
+          "Everything in Basic",
+          "Billing record management",
+          "HR module",
+          "Staff account management",
+          "Role and permission control",
+          "Staff shift scheduling",
+          "Basic operations reports"
+        ],
+        "SuitableTags": [
+          "General veterinary hospitals",
+          "Multi-user teams",
+          "Needs HR management"
+        ],
+        "Badge": "Recommended",
+        "SaveText": "Save NT$ 20,000"
+      },
+      "PROFESSIONAL": {
+        "PlanName": "Business Operations Plan",
+        "Tagline": "Full operations suite with inpatient, procurement, and inventory support",
+        "Description": "Built for mid-to-large veterinary hospitals. Includes all Standard features plus inpatient care, procurement workflows, general inventory management, and advanced reporting for broader clinical and operational coverage.",
+        "Period": "/6 months",
+        "Features": [
+          "Everything in Standard",
+          "Inpatient care management",
+          "Inpatient record management",
+          "Procurement management",
+          "General inventory management",
+          "Examination record management",
+          "Client follow-up reminders",
+          "Advanced reporting"
+        ],
+        "SuitableTags": [
+          "Mid-to-large hospitals",
+          "Needs inpatient management",
+          "Needs procurement and inventory"
+        ],
+        "Badge": null,
+        "SaveText": "Save NT$ 38,200"
+      },
+      "ENTERPRISE": {
+        "PlanName": "Scale Chain Plan",
+        "Tagline": "Enterprise-grade operations for multi-branch veterinary groups",
+        "Description": "Best for veterinary chains, healthcare groups, or brands requiring advanced controls. Includes all Professional features plus multi-branch management, cross-branch data workflows, pharmacy inventory, lot-expiry tracking, and cross-branch stock lookup.",
+        "Period": "/6 months",
+        "Features": [
+          "Everything in Professional",
+          "Multi-branch management",
+          "Cross-branch data management",
+          "Pharmacy inventory management",
+          "Pharmacy operations management",
+          "Lot and expiry-date tracking",
+          "Cross-branch stock lookup",
+          "Advanced permission control",
+          "Operational management reports"
+        ],
+        "SuitableTags": [
+          "Veterinary chains",
+          "Multi-branch operations",
+          "Pharmacy inventory needs",
+          "Advanced operations management"
+        ],
+        "Badge": "Premium",
+        "SaveText": "Save NT$ 70,000"
+      }
+    },
+    "badges": {
+      "recommended": "Recommended",
+      "popular": "Popular",
+      "premium": "Premium"
+    },
+    "alert": {
+      "loginRequiredTitle": "Login required",
+      "loginRequiredText": "You need to log in before choosing a plan.",
+      "goLogin": "Go to Login",
+      "cancel": "Cancel"
+    }
+  },
+  "sidebar": {
+    "backend": "Admin Console",
+    "managerFallback": "PetCare Administrator",
+    "currentBrand": "Current Brand",
+    "backHome": "Back to website"
+  },
+  "modal": {
+    "login": {
+      "close": "Close login dialog",
+      "eyebrow": "WELCOME BACK",
+      "title": "Member Login",
+      "desc": "Log in to manage appointments, records, and clinic operations.",
+      "account": "Account",
+      "accountPlaceholder": "Enter account",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password",
+      "togglePassword": "Toggle password visibility",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password",
+      "submit": "Log in",
+      "noAccount": "Don't have an account?",
+      "registerNow": "Register now"
+    },
+    "register": {
+      "close": "Close register dialog",
+      "eyebrow": "CREATE ACCOUNT",
+      "title": "Create Account",
+      "desc": "Create an account to access appointments, records, and member services.",
+      "account": "Account",
+      "accountPlaceholder": "Enter account",
+      "name": "Name",
+      "namePlaceholder": "Enter your name",
+      "phone": "Phone",
+      "phonePlaceholder": "Enter phone number",
+      "email": "Email",
+      "emailPlaceholder": "Enter email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password",
+      "confirmPassword": "Confirm password",
+      "confirmPasswordPlaceholder": "Enter password again",
+      "submit": "Register",
+      "hasAccount": "Already have an account?",
+      "loginNow": "Log in now"
+    },
+    "forgot": {
+      "close": "Close password reset dialog",
+      "eyebrow": "Reset Password",
+      "title": "Forgot Password",
+      "desc": "Enter your registered email and we will send you a reset link.",
+      "email": "Email",
+      "emailPlaceholder": "Enter email",
+      "sending": "Sending...",
+      "submit": "Send reset link",
+      "backLogin": "Back to login",
+      "sentEyebrow": "Email Sent",
+      "sentTitle": "Email sent",
+      "sentDesc": "Reset link was sent to:",
+      "sentHintPrefix": "Please check your mailbox and complete reset within",
+      "sentHintTime": "30 minutes",
+      "sentHintSuffix": ".",
+      "sentSpamHint": "If you do not see the email, check your spam folder.",
+      "resend": "Resend"
+    },
+    "terms": {
+      "title": "Purchase and Service Terms",
+      "close": "Close terms dialog",
+      "version": "Version: May 14, 2026",
+      "section1": "1. Service Scope",
+      "planStarter": "(1) Starter Plan",
+      "planTeam": "(2) Team Plan",
+      "planBusiness": "(3) Business Plan",
+      "planScale": "(4) Scale Plan",
+      "section2": "2. Account and Access",
+      "section3": "3. Data Content and Usage Limits",
+      "section4": "4. Data Retention, Backup, and Security",
+      "section5": "5. Add-on Services",
+      "section6": "6. Purchase and Payment Terms",
+      "section7": "7. Refund and Termination",
+      "section8": "8. User Responsibilities",
+      "section9": "9. Medical Data and Professional Liability Notice",
+      "section10": "10. Service Interruptions and Maintenance",
+      "consent": "I have read, understood, and agree to these Purchase and Service Terms.",
+      "confirm": "Agree and continue purchase"
+    }
+  }
+}

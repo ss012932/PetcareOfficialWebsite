@@ -4,7 +4,7 @@
     <header class="bo-page-header">
       <div>
         <p class="bo-kicker">Overview</p>
-        <h1 class="bo-page-title">主控台</h1>
+        <h1 class="bo-page-title">{{ t('page.member.dashboard') }}</h1>
       </div>
       <time class="bo-date" :datetime="today">{{ todayDisplay }}</time>
     </header>
@@ -66,10 +66,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-useHead({ title: '主控台' })
+const { t, locale } = useI18n()
+
+useHead(() => ({ title: t('page.member.dashboard') }))
 
 const today = new Date().toISOString().slice(0, 10)
-const todayDisplay = new Date().toLocaleDateString('zh-TW', {
+const todayDisplay = new Date().toLocaleDateString(locale.value, {
   year: 'numeric', month: 'long', day: 'numeric', weekday: 'long',
 })
 

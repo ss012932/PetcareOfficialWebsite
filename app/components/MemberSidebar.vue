@@ -4,9 +4,9 @@
     <div class="bo-profile">
       <span class="bo-avatar" aria-hidden="true">{{ userInitial }}</span>
       <div class="bo-profile-info">
-        <p class="bo-profile-label">管理後台</p>
+        <p class="bo-profile-label">{{ t('sidebar.backend') }}</p>
         <strong class="bo-profile-name">{{
-          user.Name || "PetCare 管理者"
+          user.Name || t('sidebar.managerFallback')
         }}</strong>
         <span class="bo-profile-email">{{ user.Email }}</span>
       </div>
@@ -16,7 +16,7 @@
     <div v-if="permStore.brands.length > 0" class="bo-brand-selector">
       <label class="bo-brand-label">
         <Icon name="fa6-solid:tag" class="bo-brand-label-icon" aria-hidden="true" />
-        目前品牌
+        {{ t('sidebar.currentBrand') }}
       </label>
       <div class="bo-brand-select-wrap">
         <select
@@ -58,7 +58,7 @@
     <!-- ===== 底部操作 ===== -->
     <div class="bo-sidebar-footer">
       <NuxtLink to="/" class="bo-back-link">
-        <Icon name="fa6-solid:arrow-left" aria-hidden="true" /> 回官網
+        <Icon name="fa6-solid:arrow-left" aria-hidden="true" /> {{ t('sidebar.backHome') }}
       </NuxtLink>
     </div>
   </aside>
@@ -74,6 +74,7 @@ import {
 
 const authStore = useAuthStore();
 const permStore = usePermissionStore();
+const { t } = useI18n();
 
 onMounted(async () => {
   await authStore.loadUser();
@@ -98,31 +99,31 @@ async function onBrandChange(e: Event) {
 // 其他 key        → Features[key] 為 true 才顯示
 interface NavItem {
   to: string;
-  label: string;
+  labelKey: string;
   icon: string;
   requiredFeature?: BrandFeatureKey | "subscription";
 }
 
 const ALL_NAV_ITEMS: NavItem[] = [
-  { to: "/member/dashboard", label: "主控台",  icon: "fa6-solid:gauge-high"   },
-  { to: "/member/profile",   label: "會員設定", icon: "fa6-solid:circle-user"  },
-  { to: "/member/orders",    label: "訂單資訊", icon: "fa6-solid:receipt"      },
-  { to: "/member/brand",     label: "品牌設定", icon: "fa6-solid:tag"          },
+  { to: "/member/dashboard", labelKey: "page.member.dashboard", icon: "fa6-solid:gauge-high"   },
+  { to: "/member/profile",   labelKey: "page.member.profile", icon: "fa6-solid:circle-user"  },
+  { to: "/member/orders",    labelKey: "page.member.orders", icon: "fa6-solid:receipt"      },
+  { to: "/member/brand",     labelKey: "page.member.brand", icon: "fa6-solid:tag"          },
   {
     to: "/member/staff",
-    label: "員工管理",
+    labelKey: "page.member.staff",
     icon: "fa6-solid:users",
     requiredFeature: "subscription",        // 只要有訂閱就開放
   },
   {
     to: "/member/clinics",
-    label: "院所管理",
+    labelKey: "page.member.clinics",
     icon: "fa6-solid:house-medical",
     requiredFeature: "StoreManagement",
   },
   {
     to: "/member/stores",
-    label: "分店設定",
+    labelKey: "page.member.stores",
     icon: "fa6-solid:store",
     requiredFeature: "MultiStoreManagement",
   },
@@ -133,7 +134,10 @@ const navItems = computed(() =>
   ALL_NAV_ITEMS.filter((item) => {
     if (!item.requiredFeature) return true;
     return permStore.canAccess(item.requiredFeature);
-  }),
+  }).map((item) => ({
+    ...item,
+    label: t(item.labelKey as keyof typeof t),
+  })),
 );
 </script>
 

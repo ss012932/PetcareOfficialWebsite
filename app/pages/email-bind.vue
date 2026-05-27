@@ -12,8 +12,8 @@
         <div class="bind-icon-wrap bind-icon-loading">
           <div class="loading-spinner-large"></div>
         </div>
-        <h1 class="bind-title">正在驗證...</h1>
-        <p class="bind-desc">請稍候，正在為您完成 Email 綁定</p>
+        <h1 class="bind-title">{{ t('page.emailBind.loadingTitle') }}</h1>
+        <p class="bind-desc">{{ t('page.emailBind.loadingDesc') }}</p>
       </div>
 
       <!-- ===== 狀態二：綁定成功 ===== -->
@@ -23,12 +23,12 @@
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
-        <p class="bind-eyebrow">Email Verified</p>
-        <h1 class="bind-title">綁定成功！</h1>
+        <p class="bind-eyebrow">{{ t('page.emailBind.successEyebrow') }}</p>
+        <h1 class="bind-title">{{ t('page.emailBind.successTitle') }}</h1>
         <p class="bind-desc">{{ successMessage }}</p>
         <div class="bind-actions">
           <NuxtLink to="/" class="bind-btn-primary">
-            返回首頁
+            {{ t('page.emailBind.backHome') }}
           </NuxtLink>
         </div>
       </div>
@@ -41,12 +41,12 @@
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         </div>
-        <p class="bind-eyebrow">Verification Failed</p>
-        <h1 class="bind-title">綁定失敗</h1>
+        <p class="bind-eyebrow">{{ t('page.emailBind.errorEyebrow') }}</p>
+        <h1 class="bind-title">{{ t('page.emailBind.errorTitle') }}</h1>
         <p class="bind-desc">{{ errorMessage }}</p>
         <div class="bind-actions">
           <NuxtLink to="/" class="bind-btn-secondary">
-            返回首頁
+            {{ t('page.emailBind.backHome') }}
           </NuxtLink>
         </div>
       </div>
@@ -66,6 +66,12 @@ import { onMounted, ref } from 'vue'
 import { useRoute } from '#imports'
 import { authAPI } from '~/composables/utils/api'
 
+const { t } = useI18n()
+
+useHead(() => ({
+  title: t('page.emailBind.title'),
+}))
+
 /* ===== 路由功能：取得信箱連結帶過來的 token 參數 ===== */
 const route = useRoute()
 
@@ -73,17 +79,20 @@ const route = useRoute()
 const status = ref<'loading' | 'success' | 'error'>('loading')
 
 /* ===== 成功訊息 ===== */
-const successMessage = ref('您的 Email 已成功完成綁定，現在可以使用完整的會員功能。')
+const successMessage = ref('')
 
 /* ===== 錯誤訊息 ===== */
-const errorMessage = ref('連結已失效或已被使用，請重新申請 Email 綁定。')
+const errorMessage = ref('')
+
+successMessage.value = t('page.emailBind.successDefault')
+errorMessage.value = t('page.emailBind.errorDefault')
 
 /* ===== 頁面初始化：自動呼叫綁定 API ===== */
 onMounted(async () => {
   const token = String(route.query.token ?? '')
 
   if (!token) {
-    errorMessage.value = '缺少驗證資訊，請重新申請 Email 綁定。'
+    errorMessage.value = t('page.emailBind.errorMissingToken')
     status.value = 'error'
     return
   }
@@ -92,16 +101,16 @@ onMounted(async () => {
     const result = await authAPI.emailBind(token)
 
     if (result.success || result.isSuccess) {
-      successMessage.value = result.message || '您的 Email 已成功完成綁定，現在可以使用完整的會員功能。'
+      successMessage.value = result.message || t('page.emailBind.successDefault')
       status.value = 'success'
     } else {
-      errorMessage.value = result.message || '連結已失效或已被使用，請重新申請 Email 綁定。'
+      errorMessage.value = result.message || t('page.emailBind.errorDefault')
       status.value = 'error'
     }
   } catch (error: any) {
     const detail = error.response?.data?.detail || ''
     const message = error.response?.data?.message || ''
-    errorMessage.value = detail || message || '連結已失效或已被使用，請重新申請 Email 綁定。'
+    errorMessage.value = detail || message || t('page.emailBind.errorDefault')
     status.value = 'error'
   }
 })

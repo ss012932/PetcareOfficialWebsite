@@ -4,29 +4,33 @@
     <!-- ===== 頁面主視覺：控制價格方案標題與說明 ===== -->
     <section class="price-hero">
       <div class="container price-hero-container">
-        <p class="section-eyebrow">PRICING</p>
+        <p class="section-eyebrow">{{ t('pricePage.hero.eyebrow') }}</p>
 
-        <h1 class="price-title">價格方案</h1>
+        <h1 class="price-title">{{ t('pricePage.hero.title') }}</h1>
 
         <p class="price-desc">
-          可依照診所規模選擇適合的方案，未來也能彈性升級。
+          {{ t('pricePage.hero.desc') }}
+        </p>
+
+        <p v-if="hasFxConversion" class="price-fx-meta">
+          {{ t('pricePage.fxRateNote', { rate: fxRateText, currency: targetCurrency, updatedAt: fxUpdatedAtText }) }}
         </p>
       </div>
     </section>
 
     <!-- ===== 方案卡片區：控制四種價格方案排列 ===== -->
-    <section class="pricing-section" aria-label="價格方案列表">
+    <section class="pricing-section" :aria-label="t('pricePage.listAria')">
       <div class="container pricing-container">
 
         <!-- ===== 載入中狀態 ===== -->
         <div v-if="pending" class="pricing-loading" aria-live="polite">
           <span class="pricing-loading-spinner" aria-hidden="true"></span>
-          <p>載入方案中…</p>
+          <p>{{ t('pricePage.loading') }}</p>
         </div>
 
         <!-- ===== API 錯誤狀態 ===== -->
         <div v-else-if="error" class="pricing-error" role="alert">
-          <p>方案資料載入失敗，請稍後再試。</p>
+          <p>{{ t('pricePage.error') }}</p>
         </div>
 
         <!-- ===== 方案卡片網格 ===== -->
@@ -42,47 +46,53 @@
           >
             <!-- ===== Badge 標籤：推薦、最高階等 ===== -->
             <div v-if="plan.Badge" class="pricing-badge">
-              {{ plan.Badge }}
+              {{ getPlanBadge(plan) }}
             </div>
 
             <!-- ===== 卡片內容 ===== -->
             <div class="pricing-card-content">
               <!-- ===== 方案標題區 ===== -->
               <header class="pricing-header">
-                <h2 class="pricing-name">{{ plan.PlanName }}</h2>
-                <p class="pricing-subtitle">{{ plan.Tagline }}</p>
+                <h2 class="pricing-name">{{ getPlanName(plan) }}</h2>
+                <p class="pricing-subtitle">{{ getPlanTagline(plan) }}</p>
               </header>
 
               <!-- ===== 價格區：顯示原價、優惠價與節省金額 ===== -->
               <div class="pricing-price-block">
                 <div class="pricing-original-row">
                   <span class="pricing-original">
-                    NT$ {{ plan.OriginalPrice.toLocaleString() }}
+                    {{ t('pricePage.currency') }} {{ formatNumber(plan.OriginalPrice) }}
                   </span>
-                  <span class="pricing-save-badge">{{ plan.SaveText }}</span>
+                  <span class="pricing-save-badge">{{ getSaveText(plan) }}</span>
                 </div>
 
                 <div class="pricing-price">
-                  <span class="pricing-currency">NT$</span>
-                  <strong>{{ plan.Price.toLocaleString() }}</strong>
-                  <span class="pricing-period">{{ plan.Period }}</span>
+                  <template v-if="hasFxConversion">
+                    <strong>{{ getConvertedPrice(plan.Price) }}</strong>
+                  </template>
+                  <template v-else>
+                    <span class="pricing-currency">{{ t('pricePage.currency') }}</span>
+                    <strong>{{ formatNumber(plan.Price) }}</strong>
+                  </template>
+                  <span class="pricing-period">{{ getPeriodText(plan) }}</span>
                 </div>
+
               </div>
 
               <!-- ===== 方案描述 ===== -->
-              <p class="pricing-description">{{ plan.Description }}</p>
+              <p class="pricing-description">{{ getPlanDescription(plan) }}</p>
 
               <!-- ===== 功能列表 ===== -->
               <ul class="pricing-list" role="list">
-                <li v-for="feature in plan.Features" :key="feature">
+                <li v-for="feature in getPlanFeatures(plan)" :key="feature">
                   {{ feature }}
                 </li>
               </ul>
 
               <!-- ===== 適合對象標籤 ===== -->
-              <div class="pricing-tags" aria-label="適合對象">
+              <div class="pricing-tags" :aria-label="t('pricePage.suitableAria')">
                 <span
-                  v-for="tag in plan.SuitableTags"
+                  v-for="tag in getPlanSuitableTags(plan)"
                   :key="tag"
                   class="pricing-tag"
                 >
@@ -101,19 +111,19 @@
                 ]"
                 @click="openTermsModal(plan)"
               >
-                選擇方案
+                {{ t('pricePage.selectPlan') }}
               </button>
 
               <!-- ===== 登入提示：告知未登入才能選擇 ===== -->
               <p class="pricing-login-hint">
-                <span aria-hidden="true">🔐</span> 需登入後才能選擇方案
+                <span aria-hidden="true">🔐</span> {{ t('pricePage.loginHint') }}
               </p>
             </div>
 
             <!-- ===== 停售方案：顯示敬請期待 ===== -->
-            <div v-else class="pricing-coming-soon" aria-label="即將推出">
+            <div v-else class="pricing-coming-soon" :aria-label="t('pricePage.comingSoonAria')">
               <Icon name="fa6-solid:lock" class="pricing-coming-soon-icon" aria-hidden="true" />
-              敬請期待
+              {{ t('pricePage.comingSoon') }}
             </div>
           </article>
         </div>
@@ -126,7 +136,7 @@
         <div class="pricing-note">
           <Icon name="fa6-solid:paw" class="pricing-note-icon" aria-hidden="true" />
 
-          <p>所有方案皆為六個月訂閱制，可依院所需求彈性調整，正式導入前由專人協助評估。</p>
+          <p>{{ t('pricePage.note') }}</p>
         </div>
       </div>
     </section>
@@ -147,19 +157,21 @@ import Swal from "sweetalert2";
 import TermsModal from "~/components/TermsModal.vue";
 import api, { authAPI } from "~/composables/utils/api";
 
+const { t, locale, tm, rt } = useI18n();
+
 /* ===== 登入 Modal：共享狀態，可直接開啟 Header 的登入視窗 ===== */
 const { openLoginModal } = useLoginModal()
 
 /* ===== 頁面 SEO：控制瀏覽器標題與描述 ===== */
-useHead({
-  title: "價格方案｜PetCare System",
+useHead(() => ({
+  title: t("seo.price.title"),
   meta: [
     {
       name: "description",
-      content: "PetCare System 提供多種獸醫診所管理方案，依診所規模選擇最適合的訂閱方案。",
+      content: t("seo.price.description"),
     },
   ],
-});
+}));
 
 /* ===== 方案資料型別 ===== */
 interface Plan {
@@ -186,15 +198,165 @@ interface PlansResponse {
   data: Plan[]
 }
 
+interface FxResponse {
+  success?: boolean
+  updatedAt?: number | null
+  rates?: Record<string, number>
+}
+
+interface LocalizedPlanContent {
+  PlanName?: string
+  Tagline?: string
+  Description?: string
+  Features?: string[]
+  SuitableTags?: string[]
+  Badge?: string | null
+}
+
 /* ===== API 呼叫：取得所有方案 ===== */
 const { data, pending, error } = await useAsyncData<PlansResponse>(
   "price-plans",
-  () => api.get("/plans").then((res) => res.data),
+  () => api.get("/plans", {}, { timeout: 10000 }).then((res) => res.data),
   { server: false },
 )
 
 /* ===== 方案列表：從 API 回傳資料取得 ===== */
 const plans = computed<Plan[]>(() => data.value?.data ?? [])
+
+const FX_CURRENCY_BY_LOCALE: Record<string, string | null> = {
+  "zh-TW": null,
+  "zh-CN": "CNY",
+  "ja-JP": "JPY",
+  "ko-KR": "KRW",
+  "en-US": "USD",
+  "th-TH": "THB",
+  "vi-VN": "VND",
+  en: "USD",
+  ja: "JPY",
+  ko: "KRW",
+  th: "THB",
+  vi: "VND",
+  zh: null,
+}
+
+const { data: fxData } = await useAsyncData<FxResponse | null>(
+  "live-fx-rate-twd",
+  async () => {
+    try {
+      return await $fetch<FxResponse>("/api/fx/latest", {
+        timeout: 12000,
+      })
+    } catch {
+      return null
+    }
+  },
+  {
+    server: false,
+    default: () => null,
+  },
+)
+
+const targetCurrency = computed(() => {
+  const localeCode = locale.value
+  const normalized = localeCode.toLowerCase()
+  const languageOnly = normalized.split("-")[0] ?? ""
+
+  return (
+    FX_CURRENCY_BY_LOCALE[localeCode]
+    ?? FX_CURRENCY_BY_LOCALE[normalized]
+    ?? FX_CURRENCY_BY_LOCALE[languageOnly]
+    ?? null
+  )
+})
+
+const fxRate = computed<number | null>(() => {
+  const currency = targetCurrency.value
+  if (!currency) return null
+
+  const rate = fxData.value?.rates?.[currency]
+  return typeof rate === "number" && rate > 0 ? rate : null
+})
+
+const hasFxConversion = computed(() => Boolean(targetCurrency.value && fxRate.value))
+
+const fxRateText = computed(() => {
+  if (!fxRate.value) return "-"
+  return fxRate.value.toFixed(4)
+})
+
+const fxUpdatedAtText = computed(() => {
+  const unix = fxData.value?.updatedAt
+  if (!unix) return "-"
+  return new Date(unix * 1000).toLocaleString(locale.value)
+})
+
+const localizedPlanCatalog = computed<Record<string, LocalizedPlanContent>>(() => {
+  const catalog = (tm as (key: string) => unknown)("pricePage.planCatalogByCode")
+  return (catalog && typeof catalog === "object" ? catalog : {}) as Record<string, LocalizedPlanContent>
+})
+
+function getLocalizedPlanContent(planCode: string) {
+  return localizedPlanCatalog.value[planCode] ?? null
+}
+
+function resolveMessageText(value: unknown, fallback = "") {
+  if (typeof value === "string") return value
+
+  if (value == null) return fallback
+
+  try {
+    const resolved = rt(value as never)
+    return typeof resolved === "string" ? resolved : fallback
+  } catch {
+    return fallback
+  }
+}
+
+function getPlanName(plan: Plan) {
+  const candidate = getLocalizedPlanContent(plan.PlanCode)?.PlanName
+  return resolveMessageText(candidate, plan.PlanName)
+}
+
+function getPlanTagline(plan: Plan) {
+  const candidate = getLocalizedPlanContent(plan.PlanCode)?.Tagline
+  return resolveMessageText(candidate, plan.Tagline)
+}
+
+function getPlanDescription(plan: Plan) {
+  const candidate = getLocalizedPlanContent(plan.PlanCode)?.Description
+  return resolveMessageText(candidate, plan.Description)
+}
+
+function getPlanFeatures(plan: Plan) {
+  const features = getLocalizedPlanContent(plan.PlanCode)?.Features
+  if (!Array.isArray(features) || features.length === 0) {
+    return plan.Features
+  }
+
+  const resolved = features
+    .map((item) => resolveMessageText(item))
+    .filter((item) => item.length > 0)
+
+  return resolved.length > 0 ? resolved : plan.Features
+}
+
+function getPlanSuitableTags(plan: Plan) {
+  const tags = getLocalizedPlanContent(plan.PlanCode)?.SuitableTags
+  if (!Array.isArray(tags) || tags.length === 0) {
+    return plan.SuitableTags
+  }
+
+  const resolved = tags
+    .map((item) => resolveMessageText(item))
+    .filter((item) => item.length > 0)
+
+  return resolved.length > 0 ? resolved : plan.SuitableTags
+}
+
+function getPlanBadge(plan: Plan) {
+  const badge = getLocalizedPlanContent(plan.PlanCode)?.Badge
+  return resolveMessageText(badge, plan.Badge ?? "")
+}
 
 /* ===== 條款 Modal 狀態：控制服務條款視窗是否開啟 ===== */
 const isTermsModalOpen = ref(false)
@@ -205,6 +367,48 @@ const selectedPlan = ref<Plan | null>(null)
 /* ===== 路由功能：控制同意條款後導向訂單頁 ===== */
 const router = useRouter()
 
+function formatNumber(value: number) {
+  return value.toLocaleString(locale.value)
+}
+
+function getSaveText(plan: Plan) {
+  if (plan.SaveAmount > 0) {
+    return t("pricePage.saveAmount", { amount: formatNumber(plan.SaveAmount) })
+  }
+
+  return plan.SaveText
+}
+
+function getPeriodText(plan: Plan) {
+  if (plan.SubscriptionMonth > 0) {
+    return t("pricePage.period", { months: plan.SubscriptionMonth })
+  }
+
+  return plan.Period
+}
+
+function formatConvertedCurrency(amount: number) {
+  const currency = targetCurrency.value
+  const rate = fxRate.value
+
+  if (!currency || !rate) return null
+
+  // API 使用 TWD 當 base，rates[currency] 代表 1 TWD 可兌換的外幣數量。
+  const converted = amount * rate
+  const zeroDecimalCurrencies = ["VND", "JPY", "KRW"]
+  const maximumFractionDigits = zeroDecimalCurrencies.includes(currency) ? 0 : 2
+
+  return new Intl.NumberFormat(locale.value, {
+    style: "currency",
+    currency,
+    maximumFractionDigits,
+  }).format(converted)
+}
+
+function getConvertedPrice(amount: number) {
+  return formatConvertedCurrency(amount) ?? ""
+}
+
 /* ===== 開啟條款 Modal：點選方案前先確認登入狀態 ===== */
 async function openTermsModal(plan: Plan) {
   // ===== 檢查登入狀態：未登入則直接開啟登入視窗（不離開此頁）=====
@@ -213,12 +417,12 @@ async function openTermsModal(plan: Plan) {
   if (!result.isLogin) {
     await Swal.fire({
       icon: 'info',
-      title: '請先登入',
-      text: '選擇方案需要先登入會員，請登入後再繼續。',
-      confirmButtonText: '前往登入',
+      title: t('pricePage.alert.loginRequiredTitle'),
+      text: t('pricePage.alert.loginRequiredText'),
+      confirmButtonText: t('pricePage.alert.goLogin'),
       confirmButtonColor: '#2e4a62',
       showCancelButton: true,
-      cancelButtonText: '取消',
+      cancelButtonText: t('pricePage.alert.cancel'),
     }).then((res) => {
       if (res.isConfirmed) {
         // ===== 直接開啟 Header 的登入 Modal，不導頁 =====
@@ -334,6 +538,13 @@ async function handleConfirmTerms(planCode?: string) {
   color: var(--color-muted);
   font-size: 1rem;
   line-height: 1.8;
+}
+
+.price-fx-meta {
+  margin: 0.85rem auto 0;
+  color: var(--color-muted);
+  font-size: 0.86rem;
+  line-height: 1.5;
 }
 
 /* ===== 方案區塊：控制卡片區上下留白 ===== */
@@ -512,6 +723,13 @@ async function handleConfirmTerms(planCode?: string) {
   align-items: baseline;
   gap: 0.3rem;
   color: var(--color-primary);
+}
+
+.pricing-converted {
+  margin: 0.1rem 0 0;
+  color: var(--color-muted);
+  font-size: 0.84rem;
+  line-height: 1.45;
 }
 
 /* ===== 幣別：控制 NT$ 樣式 ===== */

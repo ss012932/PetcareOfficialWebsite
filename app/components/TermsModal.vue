@@ -14,12 +14,12 @@
           <div class="terms-decoration" aria-hidden="true"></div>
           <!-- ===== Modal 標題列：控制標題與關閉按鈕 ===== -->
           <header class="terms-header">
-            <h2 id="terms-title" class="terms-title">購買與服務條款</h2>
+            <h2 id="terms-title" class="terms-title">{{ t('modal.terms.title') }}</h2>
 
             <button
               type="button"
               class="terms-close"
-              aria-label="關閉服務條款視窗"
+              :aria-label="t('modal.terms.close')"
               @click="closeModal"
             >
               ×
@@ -28,7 +28,7 @@
 
           <!-- ===== 條款內容區：控制可滾動的服務條款文字 ===== -->
           <div class="terms-body">
-            <p class="terms-version">條款版本：2026 年 5 月 14 日</p>
+            <p class="terms-version">{{ t('modal.terms.version') }}</p>
             <p>
               歡迎您購買或使用本平台所提供之寵物醫療管理系統服務
               （以下簡稱「本服務」）。為保障您的權益，請於註冊、
@@ -44,7 +44,7 @@
             </p>
 
             <section class="terms-section">
-              <h3>一、服務內容說明</h3>
+              <h3>{{ t('modal.terms.section1') }}</h3>
 
               <p>
                 本服務為寵物醫療院所專用之數位管理平台，
@@ -53,7 +53,7 @@
                 以本平台購買頁面、報價單、訂單內容或雙方確認之方案資料為準。
               </p>
 
-              <h4>（一）Starter 開診版</h4>
+              <h4>{{ t('modal.terms.planStarter') }}</h4>
 
               <p>
                 適合單店、小型動物診所使用，協助診所建立基礎數位化管理流程。
@@ -68,7 +68,7 @@
                 <li>基本 Dashboard 統計</li>
               </ul>
 
-              <h4>（二）Team 團隊版</h4>
+              <h4>{{ t('modal.terms.planTeam') }}</h4>
 
               <p>
                 適合已有多位員工的一般動物醫院使用。
@@ -85,7 +85,7 @@
                 <li>基本營運報表</li>
               </ul>
 
-              <h4>（三）Business 營運版</h4>
+              <h4>{{ t('modal.terms.planBusiness') }}</h4>
 
               <p>
                 適合中大型動物醫院使用。 本方案包含 Team
@@ -103,7 +103,7 @@
                 <li>進階報表</li>
               </ul>
 
-              <h4>（四）Scale 連鎖版</h4>
+              <h4>{{ t('modal.terms.planScale') }}</h4>
 
               <p>
                 適合連鎖動物醫院、集團型院所或需要高階營運管理功能的品牌使用。
@@ -138,7 +138,7 @@
             </section>
 
             <section class="terms-section">
-              <h3>二、帳號與使用權限</h3>
+              <h3>{{ t('modal.terms.section2') }}</h3>
 
               <p>
                 使用者應依本平台要求提供正確、完整且合法之註冊資料。
@@ -158,7 +158,7 @@
             </section>
 
             <section class="terms-section">
-              <h3>三、資料內容與使用限制</h3>
+              <h3>{{ t('modal.terms.section3') }}</h3>
 
               <p>
                 本服務可能包含飼主資料、寵物資料、預約紀錄、看診紀錄、
@@ -186,7 +186,7 @@
             </section>
 
             <section class="terms-section">
-              <h3>四、資料保存、備份與安全</h3>
+              <h3>{{ t('modal.terms.section4') }}</h3>
 
               <p>
                 本平台將以合理之技術與管理措施維護系統安全，
@@ -207,7 +207,7 @@
             </section>
 
             <section class="terms-section">
-              <h3>五、加購服務說明</h3>
+              <h3>{{ t('modal.terms.section5') }}</h3>
 
               <p>
                 本平台得提供額外付費之加購服務，使用者可依院所需求另行選購。
@@ -242,7 +242,7 @@
             </section>
 
             <section class="terms-section">
-              <h3>六、購買與付款條款</h3>
+              <h3>{{ t('modal.terms.section6') }}</h3>
 
               <p>
                 本服務目前依方案採固定期間授權使用制，
@@ -273,7 +273,7 @@
             </section>
 
             <section class="terms-section">
-              <h3>七、退款與終止條款</h3>
+              <h3>{{ t('modal.terms.section7') }}</h3>
 
               <p>
                 本服務包含主方案及加購服務，均屬數位內容、線上服務或客製化服務。
@@ -302,7 +302,7 @@
             </section>
 
             <section class="terms-section">
-              <h3>八、使用者責任與義務</h3>
+              <h3>{{ t('modal.terms.section8') }}</h3>
 
               <p>
                 使用者應確保提供予本平台之資料正確、完整且合法。
@@ -327,7 +327,7 @@
             </section>
 
             <section class="terms-section">
-              <h3>九、醫療資料與專業責任聲明</h3>
+              <h3>{{ t('modal.terms.section9') }}</h3>
 
               <p>
                 本平台僅提供寵物醫療院所進行資料紀錄、流程管理、預約排程、
@@ -346,7 +346,7 @@
             </section>
 
             <section class="terms-section">
-              <h3>十、服務中斷與系統維護</h3>
+              <h3>{{ t('modal.terms.section10') }}</h3>
 
               <p>
                 本平台得因系統維護、版本更新、資安修補、設備調整、資料庫維護
@@ -561,7 +561,7 @@
           <footer class="terms-footer">
   <label class="terms-agree">
     <input v-model="isAgreed" type="checkbox" />
-    <span>我已詳細閱讀、理解並同意本購買與服務條款，
+    <span>{{ t('modal.terms.consent') }}
                 並確認已充分了解所選方案之服務內容、功能範圍、價格、
                 使用期間、開通方式、加購服務及退款限制。
                 我同意於完成購買、付款、開通或使用本服務後，
@@ -577,7 +577,7 @@
       :disabled="!isAgreed"
       @click="confirmTerms"
     >
-      同意條款並繼續購買
+      {{ t('modal.terms.confirm') }}
     </button>
   </div>
 </footer>
@@ -589,6 +589,8 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
+
+const { t } = useI18n();
 
 /* ===== Props：控制 Modal 是否開啟 ===== */
 const props = defineProps<{

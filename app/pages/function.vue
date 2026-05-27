@@ -6,7 +6,7 @@
       <!-- ===== Hero 背景圖片：控制功能介紹頁主視覺照片 ===== -->
       <img
         src="~/assets/image/Image2.png"
-        alt="寵物醫療管理系統功能介紹"
+        :alt="t('functionPage.hero.imageAlt')"
         class="function-hero-image"
       />
 
@@ -15,31 +15,31 @@
 
       <!-- ===== Hero 文字內容：控制標題與說明 ===== -->
       <div class="container function-hero-container">
-        <p class="section-eyebrow">FEATURES</p>
+        <p class="section-eyebrow">{{ t('functionPage.hero.eyebrow') }}</p>
 
-        <h1 class="function-title">功能介紹</h1>
+        <h1 class="function-title">{{ t('functionPage.hero.title') }}</h1>
 
         <p class="function-desc">
-           從預約門診、病歷照護、批價收費、庫存藥品到人事權限與多分店營運，協助動物醫院建立完整的數位化管理流程。
+          {{ t('functionPage.hero.desc') }}
         </p>
       </div>
     </section>
 
     <!-- ===== 功能快捷導覽：點擊後快速導到對應功能區塊 ===== -->
-    <section class="feature-anchor-section" aria-label="功能快捷導覽">
+    <section class="feature-anchor-section" :aria-label="t('functionPage.anchorSectionAria')">
       <div class="container">
-        <nav class="feature-anchor-panel" aria-label="功能分類導覽">
+        <nav class="feature-anchor-panel" :aria-label="t('functionPage.anchorNavAria')">
           <!-- ===== 快捷按鈕：導到預約排程管理 ===== -->
           <a href="#appointment" class="feature-anchor-item">
             <span class="feature-anchor-icon">
               <img
                 src="~/assets/image/icon6.png"
-                alt="預約排程"
+                :alt="t('functionPage.anchorAltAppointment')"
                 class="feature-anchor-icon-img"
               />
             </span>
 
-            <span class="feature-anchor-text"> 預約門診 </span>
+            <span class="feature-anchor-text"> {{ t('functionPage.anchorAppointment') }} </span>
           </a>
 
           <!-- ===== 快捷按鈕：導到電子病歷管理 ===== -->
@@ -47,12 +47,12 @@
             <span class="feature-anchor-icon">
               <img
                 src="~/assets/image/icon5.png"
-                alt="電子病歷"
+                :alt="t('functionPage.anchorAltMedicalRecord')"
                 class="feature-anchor-icon-img"
               />
             </span>
 
-            <span class="feature-anchor-text"> 病歷住院 </span>
+            <span class="feature-anchor-text"> {{ t('functionPage.anchorMedicalRecord') }} </span>
           </a>
 
           <!-- ===== 快捷按鈕：導到飼主與寵物資料 ===== -->
@@ -60,12 +60,12 @@
             <span class="feature-anchor-icon">
               <img
                 src="~/assets/image/icon9.png"
-                alt="寵物資料"
+                :alt="t('functionPage.anchorAltPetProfile')"
                 class="feature-anchor-icon-img"
               />
             </span>
 
-            <span class="feature-anchor-text"> 飼主寵物 </span>
+            <span class="feature-anchor-text"> {{ t('functionPage.anchorPetProfile') }} </span>
           </a>
 
           <!-- ===== 快捷按鈕：導到收費與帳務管理 ===== -->
@@ -73,12 +73,12 @@
             <span class="feature-anchor-icon">
               <img
                 src="~/assets/image/icon8.png"
-                alt="收費帳務"
+                :alt="t('functionPage.anchorAltBilling')"
                 class="feature-anchor-icon-img"
               />
             </span>
 
-            <span class="feature-anchor-text"> 批價收費 </span>
+            <span class="feature-anchor-text"> {{ t('functionPage.anchorBilling') }} </span>
           </a>
 
           <!-- ===== 快捷按鈕：導到藥品與庫存管理 ===== -->
@@ -86,12 +86,12 @@
             <span class="feature-anchor-icon">
               <img
                 src="~/assets/image/icon7.png"
-                alt="藥品庫存"
+                :alt="t('functionPage.anchorAltInventory')"
                 class="feature-anchor-icon-img"
               />
             </span>
 
-            <span class="feature-anchor-text"> 藥品庫存 </span>
+            <span class="feature-anchor-text"> {{ t('functionPage.anchorInventory') }} </span>
           </a>
 
           <!-- ===== 快捷按鈕：導到營運報表分析 ===== -->
@@ -99,44 +99,19 @@
             <span class="feature-anchor-icon">
               <img
                 src="~/assets/image/icon4.png"
-                alt="報表分析"
+                :alt="t('functionPage.anchorAltAnalytics')"
                 class="feature-anchor-icon-img"
               />
             </span>
 
-            <span class="feature-anchor-text"> 營運分析 </span>
-          </a>
-          <!-- ===== 快捷按鈕：導到人事、角色與權限管理 ===== -->
-          <a href="#staff-permission" class="feature-anchor-item">
-            <span class="feature-anchor-icon">
-              <img
-                src="~/assets/image/icon11.png"
-                alt="人事、角色與權限管理"
-                class="feature-anchor-icon-img"
-              />
-            </span>
-
-            <span class="feature-anchor-text"> 人事權限 </span>
-          </a>
-
-          <!-- ===== 快捷按鈕：導到多分店與品牌管理 ===== -->
-          <a href="#branch-brand" class="feature-anchor-item">
-            <span class="feature-anchor-icon">
-              <img
-                src="~/assets/image/icon10.png"
-                alt="多分店與品牌管理"
-                class="feature-anchor-icon-img"
-              />
-            </span>
-
-            <span class="feature-anchor-text"> 多分店品牌 </span>
+            <span class="feature-anchor-text"> {{ t('functionPage.anchorAnalytics') }} </span>
           </a>
         </nav>
       </div>
     </section>
 
     <!-- ===== 核心功能介紹區：滿版一區一功能 ===== -->
-    <section class="feature-overview-section" aria-label="核心功能介紹">
+    <section class="feature-overview-section" :aria-label="t('functionPage.overviewAria')">
       <!-- ===== 功能區塊標題：控制整段功能介紹開場 ===== -->
 
       <div class="feature-showcase-list">
@@ -150,34 +125,31 @@
                 <span class="feature-showcase-icon">
                   <img
                     src="~/assets/image/icon6.png"
-                    alt="預約與門診管理"
+                    :alt="t('functionPage.f1.iconAlt')"
                     class="feature-showcase-icon-img"
                   />
                 </span>
 
                 <div>
-                  <p class="feature-label">APPOINTMENT & CLINIC</p>
-                  <h3>預約與門診管理</h3>
+                  <p class="feature-label">{{ t('functionPage.f1.label') }}</p>
+                  <h3>{{ t('functionPage.f1.title') }}</h3>
                 </div>
               </div>
 
               <p class="feature-showcase-desc">
-                整合預約、排班與門診流程，讓櫃台與醫師作業更順暢。
+                {{ t('functionPage.f1.desc') }}
               </p>
 
               <ul class="feature-point-list">
-                <li>預約管理</li>
-                <li>門診管理</li>
-                <li>醫師排班</li>
-                <li>到診狀態追蹤</li>
+                <li>{{ t('functionPage.f1.point1') }}</li>
+                <li>{{ t('functionPage.f1.point2') }}</li>
+                <li>{{ t('functionPage.f1.point3') }}</li>
+                <li>{{ t('functionPage.f1.point4') }}</li>
               </ul>
             </div>
 
             <div class="feature-showcase-visual">
-              <img
-                src="~/assets/image/Image4.png"
-                alt="預約與門診管理功能示意圖"
-              />
+              <img src="~/assets/image/Image4.png" :alt="t('functionPage.f1.imageAlt')" />
             </div>
           </div>
         </article>
@@ -197,34 +169,31 @@
                 <span class="feature-showcase-icon">
                   <img
                     src="~/assets/image/icon5.png"
-                    alt="電子病歷與住院照護"
+                    :alt="t('functionPage.f2.iconAlt')"
                     class="feature-showcase-icon-img"
                   />
                 </span>
 
                 <div>
-                  <p class="feature-label">MEDICAL RECORD & CARE</p>
-                  <h3>電子病歷與住院照護</h3>
+                  <p class="feature-label">{{ t('functionPage.f2.label') }}</p>
+                  <h3>{{ t('functionPage.f2.title') }}</h3>
                 </div>
               </div>
 
               <p class="feature-showcase-desc">
-                完整保存看診與住院紀錄，協助醫療團隊掌握照護狀況。
+                {{ t('functionPage.f2.desc') }}
               </p>
 
               <ul class="feature-point-list">
-                <li>病歷管理</li>
-                <li>診療紀錄</li>
-                <li>住院管理</li>
-                <li>住院照護紀錄</li>
+                <li>{{ t('functionPage.f2.point1') }}</li>
+                <li>{{ t('functionPage.f2.point2') }}</li>
+                <li>{{ t('functionPage.f2.point3') }}</li>
+                <li>{{ t('functionPage.f2.point4') }}</li>
               </ul>
             </div>
 
             <div class="feature-showcase-visual">
-              <img
-                src="~/assets/image/Image5.png"
-                alt="電子病歷與住院照護功能示意圖"
-              />
+              <img src="~/assets/image/Image5.png" :alt="t('functionPage.f2.imageAlt')" />
             </div>
           </div>
         </article>
@@ -239,34 +208,31 @@
                 <span class="feature-showcase-icon">
                   <img
                     src="~/assets/image/icon9.png"
-                    alt="飼主與寵物資料"
+                    :alt="t('functionPage.f3.iconAlt')"
                     class="feature-showcase-icon-img"
                   />
                 </span>
 
                 <div>
-                  <p class="feature-label">OWNER & PET PROFILE</p>
-                  <h3>飼主與寵物資料</h3>
+                  <p class="feature-label">{{ t('functionPage.f3.label') }}</p>
+                  <h3>{{ t('functionPage.f3.title') }}</h3>
                 </div>
               </div>
 
               <p class="feature-showcase-desc">
-                集中管理飼主與毛孩資料，讓照護資訊更完整。
+                {{ t('functionPage.f3.desc') }}
               </p>
 
               <ul class="feature-point-list">
-                <li>飼主聯絡資訊</li>
-                <li>寵物基本資料</li>
-                <li>晶片與品種資料</li>
-                <li>健康與疫苗紀錄</li>
+                <li>{{ t('functionPage.f3.point1') }}</li>
+                <li>{{ t('functionPage.f3.point2') }}</li>
+                <li>{{ t('functionPage.f3.point3') }}</li>
+                <li>{{ t('functionPage.f3.point4') }}</li>
               </ul>
             </div>
 
             <div class="feature-showcase-visual">
-              <img
-                src="~/assets/image/Image6.png"
-                alt="飼主與寵物資料功能示意圖"
-              />
+              <img src="~/assets/image/Image6.png" :alt="t('functionPage.f3.imageAlt')" />
             </div>
           </div>
         </article>
@@ -286,34 +252,31 @@
                 <span class="feature-showcase-icon">
                   <img
                     src="~/assets/image/icon8.png"
-                    alt="批價收費管理"
+                    :alt="t('functionPage.f4.iconAlt')"
                     class="feature-showcase-icon-img"
                   />
                 </span>
 
                 <div>
-                  <p class="feature-label">BILLING & PAYMENT</p>
-                  <h3>批價收費管理</h3>
+                  <p class="feature-label">{{ t('functionPage.f4.label') }}</p>
+                  <h3>{{ t('functionPage.f4.title') }}</h3>
                 </div>
               </div>
 
               <p class="feature-showcase-desc">
-                快速完成批價、收費與付款紀錄，降低櫃台作業負擔。
+                {{ t('functionPage.f4.desc') }}
               </p>
 
               <ul class="feature-point-list">
-                <li>批價收費</li>
-                <li>帳單明細</li>
-                <li>付款狀態</li>
-                <li>收費紀錄查詢</li>
+                <li>{{ t('functionPage.f4.point1') }}</li>
+                <li>{{ t('functionPage.f4.point2') }}</li>
+                <li>{{ t('functionPage.f4.point3') }}</li>
+                <li>{{ t('functionPage.f4.point4') }}</li>
               </ul>
             </div>
 
             <div class="feature-showcase-visual">
-              <img
-                src="~/assets/image/Image3.png"
-                alt="批價收費管理功能示意圖"
-              />
+              <img src="~/assets/image/Image3.png" :alt="t('functionPage.f4.imageAlt')" />
             </div>
           </div>
         </article>
@@ -328,34 +291,31 @@
                 <span class="feature-showcase-icon">
                   <img
                     src="~/assets/image/icon7.png"
-                    alt="庫存與藥品管理"
+                    :alt="t('functionPage.f5.iconAlt')"
                     class="feature-showcase-icon-img"
                   />
                 </span>
 
                 <div>
-                  <p class="feature-label">INVENTORY & MEDICINE</p>
-                  <h3>庫存與藥品管理</h3>
+                  <p class="feature-label">{{ t('functionPage.f5.label') }}</p>
+                  <h3>{{ t('functionPage.f5.title') }}</h3>
                 </div>
               </div>
 
               <p class="feature-showcase-desc">
-                掌握藥品與一般耗材庫存，降低缺貨與過期風險。
+                {{ t('functionPage.f5.desc') }}
               </p>
 
               <ul class="feature-point-list">
-                <li>採購管理</li>
-                <li>一般庫存</li>
-                <li>藥品庫存</li>
-                <li>批號與效期管理</li>
+                <li>{{ t('functionPage.f5.point1') }}</li>
+                <li>{{ t('functionPage.f5.point2') }}</li>
+                <li>{{ t('functionPage.f5.point3') }}</li>
+                <li>{{ t('functionPage.f5.point4') }}</li>
               </ul>
             </div>
 
             <div class="feature-showcase-visual">
-              <img
-                src="~/assets/image/Image7.png"
-                alt="庫存與藥品管理功能示意圖"
-              />
+              <img src="~/assets/image/Image7.png" :alt="t('functionPage.f5.imageAlt')" />
             </div>
           </div>
         </article>
@@ -375,123 +335,31 @@
                 <span class="feature-showcase-icon">
                   <img
                     src="~/assets/image/icon4.png"
-                    alt="主控台與營運分析"
+                    :alt="t('functionPage.f6.iconAlt')"
                     class="feature-showcase-icon-img"
                   />
                 </span>
 
                 <div>
-                  <p class="feature-label">DASHBOARD & ANALYTICS</p>
-                  <h3>主控台與營運分析</h3>
+                  <p class="feature-label">{{ t('functionPage.f6.label') }}</p>
+                  <h3>{{ t('functionPage.f6.title') }}</h3>
                 </div>
               </div>
 
               <p class="feature-showcase-desc">
-                快速掌握院所營運狀況，讓每日管理更清楚。
+                {{ t('functionPage.f6.desc') }}
               </p>
 
               <ul class="feature-point-list">
-                <li>主控台總覽</li>
-                <li>基本報表</li>
-                <li>進階報表</li>
-                <li>營收與看診數據</li>
+                <li>{{ t('functionPage.f6.point1') }}</li>
+                <li>{{ t('functionPage.f6.point2') }}</li>
+                <li>{{ t('functionPage.f6.point3') }}</li>
+                <li>{{ t('functionPage.f6.point4') }}</li>
               </ul>
             </div>
 
             <div class="feature-showcase-visual">
-              <img
-                src="~/assets/image/Image8.png"
-                alt="主控台與營運分析功能示意圖"
-              />
-            </div>
-          </div>
-        </article>
-
-        <!-- ===== 功能 07：人事與權限管理 ===== -->
-        <article id="staff-permission" class="feature-showcase-item">
-          <div class="container feature-showcase-inner">
-            <div class="feature-showcase-content">
-              <span class="feature-number">07</span>
-
-              <div class="feature-heading-row">
-                <span class="feature-showcase-icon">
-                  <img
-                    src="~/assets/image/icon11.png"
-                    alt="人事與權限管理"
-                    class="feature-showcase-icon-img"
-                  />
-                </span>
-
-                <div>
-                  <p class="feature-label">STAFF & PERMISSION</p>
-                  <h3>人事與權限管理</h3>
-                </div>
-              </div>
-
-              <p class="feature-showcase-desc">
-                依照職務分配系統權限，讓院所管理更安全。
-              </p>
-
-              <ul class="feature-point-list">
-                <li>人事資料管理</li>
-                <li>角色權限設定</li>
-                <li>不同職務權限</li>
-                <li>操作安全控管</li>
-              </ul>
-            </div>
-
-            <div class="feature-showcase-visual">
-              <img
-                src="~/assets/image/Image9.png"
-                alt="人事與權限管理功能示意圖"
-              />
-            </div>
-          </div>
-        </article>
-
-        <!-- ===== 功能 08：多分店與品牌管理 ===== -->
-        <article
-          id="branch-brand"
-          class="feature-showcase-item feature-showcase-item-tint"
-        >
-          <div
-            class="container feature-showcase-inner feature-showcase-inner-reverse"
-          >
-            <div class="feature-showcase-content">
-              <span class="feature-number">08</span>
-
-              <div class="feature-heading-row">
-                <span class="feature-showcase-icon">
-                  <img
-                    src="~/assets/image/icon10.png"
-                    alt="多分店與品牌管理"
-                    class="feature-showcase-icon-img"
-                  />
-                </span>
-
-                <div>
-                  <p class="feature-label">BRANCH & BRAND</p>
-                  <h3>多分店與品牌管理</h3>
-                </div>
-              </div>
-
-              <p class="feature-showcase-desc">
-                支援多院所與品牌化管理，協助連鎖院所統一營運。
-              </p>
-
-              <ul class="feature-point-list">
-                <li>品牌管理</li>
-                <li>院所管理</li>
-                <li>多分店管理</li>
-                <li>跨店庫存管理</li>
-              </ul>
-            </div>
-
-            <div class="feature-showcase-visual">
-              <img
-                src="~/assets/image/Image10.png"
-                alt="多分店與品牌管理功能示意圖"
-              />
+              <img src="~/assets/image/Image8.png" :alt="t('functionPage.f6.imageAlt')" />
             </div>
           </div>
         </article>
@@ -499,19 +367,19 @@
     </section>
 
     <!-- ===== 流程整合區：控制看診前中後流程說明 ===== -->
-    <section class="workflow-section" aria-label="看診流程整合">
+    <section class="workflow-section" :aria-label="t('functionPage.workflowAria')">
       <div class="container workflow-panel">
         <div class="workflow-intro">
-          <p class="section-eyebrow">WORKFLOW</p>
+          <p class="section-eyebrow">{{ t('functionPage.workflowEyebrow') }}</p>
 
           <h2>
-            串聯看診前、中、後，
+            {{ t('functionPage.workflowTitleLine1') }}
             <br />
-            讓流程更完整
+            {{ t('functionPage.workflowTitleLine2') }}
           </h2>
 
           <p>
-            系統不只是單一功能工具，而是協助院所把日常流程串接起來，降低行政負擔並提升服務品質。
+            {{ t('functionPage.workflowDesc') }}
           </p>
         </div>
 
@@ -520,8 +388,8 @@
             <span>01</span>
 
             <div>
-              <h3>看診前</h3>
-              <p>預約排程、到診提醒、飼主與寵物資料建立。</p>
+              <h3>{{ t('functionPage.workflow1Title') }}</h3>
+              <p>{{ t('functionPage.workflow1Desc') }}</p>
             </div>
           </article>
 
@@ -529,8 +397,8 @@
             <span>02</span>
 
             <div>
-              <h3>看診中</h3>
-              <p>病歷紀錄、診療處置、用藥紀錄與收費項目建立。</p>
+              <h3>{{ t('functionPage.workflow2Title') }}</h3>
+              <p>{{ t('functionPage.workflow2Desc') }}</p>
             </div>
           </article>
 
@@ -538,8 +406,8 @@
             <span>03</span>
 
             <div>
-              <h3>看診後</h3>
-              <p>追蹤提醒、回診安排、資料查詢與營運報表分析。</p>
+              <h3>{{ t('functionPage.workflow3Title') }}</h3>
+              <p>{{ t('functionPage.workflow3Desc') }}</p>
             </div>
           </article>
         </div>
@@ -547,32 +415,32 @@
     </section>
 
     <!-- ===== 權限與安全區：控制系統安全特色 ===== -->
-    <section class="security-section" aria-label="權限與資料安全">
+    <section class="security-section" :aria-label="t('functionPage.securityAria')">
       <div class="container security-container">
         <div class="security-content">
-          <p class="section-eyebrow">SECURITY</p>
+          <p class="section-eyebrow">{{ t('functionPage.securityEyebrow') }}</p>
 
-          <h2>權限清楚，資料更安心</h2>
+          <h2>{{ t('functionPage.securityTitle') }}</h2>
 
           <p>
-            依照不同職務角色設定操作權限，讓醫師、櫃台、管理者都能使用適合自己的功能範圍。
+            {{ t('functionPage.securityDesc') }}
           </p>
         </div>
 
         <div class="security-card-grid">
           <article class="security-card">
-            <h3>員工帳號管理</h3>
-            <p>依方案提供不同帳號數量，方便院所內部人員分工使用。</p>
+            <h3>{{ t('functionPage.securityCard1Title') }}</h3>
+            <p>{{ t('functionPage.securityCard1Desc') }}</p>
           </article>
 
           <article class="security-card">
-            <h3>角色權限控管</h3>
-            <p>可依職務規劃不同權限，降低誤操作與資料外洩風險。</p>
+            <h3>{{ t('functionPage.securityCard2Title') }}</h3>
+            <p>{{ t('functionPage.securityCard2Desc') }}</p>
           </article>
 
           <article class="security-card">
-            <h3>雲端資料保存</h3>
-            <p>資料集中保存，降低紙本遺失與查找困難的問題。</p>
+            <h3>{{ t('functionPage.securityCard3Title') }}</h3>
+            <p>{{ t('functionPage.securityCard3Desc') }}</p>
           </article>
         </div>
       </div>
@@ -582,13 +450,13 @@
     <section class="function-cta-section">
       <div class="container">
         <div class="function-cta">
-          <p class="section-eyebrow">START NOW</p>
+          <p class="section-eyebrow">{{ t('functionPage.ctaEyebrow') }}</p>
 
-          <h2>選擇適合院所的方案</h2>
+          <h2>{{ t('functionPage.ctaTitle') }}</h2>
 
-          <p>從基本管理到進階營運分析，依照院所規模彈性選擇合適版本。</p>
+          <p>{{ t('functionPage.ctaDesc') }}</p>
 
-          <NuxtLink to="/price" class="cta-button"> 查看價格方案 </NuxtLink>
+          <NuxtLink to="/price" class="cta-button"> {{ t('functionPage.ctaButton') }} </NuxtLink>
         </div>
       </div>
     </section>
@@ -596,17 +464,18 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
+
 // ===== 頁面 SEO：控制瀏覽器標題與描述 =====
-useHead({
-  title: "功能介紹｜PetCare System",
+useHead(() => ({
+  title: t("seo.function.title"),
   meta: [
     {
       name: "description",
-      content:
-        "PetCare System 功能介紹，包含預約排程、電子病歷、飼主與寵物資料、收費管理、庫存管理、營運報表、人事權限與多分店品牌管理。",
+      content: t("seo.function.description"),
     },
   ],
-});
+}));
 </script>
 
 <style scoped>

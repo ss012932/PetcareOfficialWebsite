@@ -1,0 +1,474 @@
+{
+  "site": {
+    "brandFull": "PetCare｜宠你｜宠物医疗管理系统"
+  },
+  "header": {
+    "brand": {
+      "zh": "宠你｜宠物医疗管理系统",
+      "en": "PetCare"
+    },
+    "aria": {
+      "home": "宠你｜宠物医疗管理系统 PetCare 首页",
+      "toggleMenu": "切换导航菜单",
+      "userMenu": "会员菜单",
+      "mainNav": "主导航"
+    },
+    "nav": {
+      "home": "首页",
+      "features": "功能介绍",
+      "pricing": "价格方案",
+      "login": "登录"
+    },
+    "user": {
+      "member": "会员",
+      "center": "会员中心",
+      "logout": "退出登录"
+    },
+    "locale": {
+      "label": "语言"
+    }
+  },
+  "footer": {
+    "description": "专为动物医院打造的宠物医疗管理系统，帮助医院更轻松完成预约、病历、收费与运营管理。",
+    "cta": "查看价格方案",
+    "copyright": "All rights reserved.",
+    "terms": "服务条款",
+    "privacy": "隐私政策"
+  },
+  "seo": {
+    "index": {
+      "title": "PetCare｜宠你｜宠物医疗管理系统",
+      "description": "PetCare（宠你｜宠物医疗管理系统）是专为动物医院打造的宠物医疗管理系统，提供预约挂号、电子病历、收费结账、库存管理与运营报表分析。"
+    },
+    "function": {
+      "title": "功能介绍｜PetCare｜宠你｜宠物医疗管理系统",
+      "description": "PetCare（宠你｜宠物医疗管理系统）功能介绍，包含预约排程、电子病历、饲主与宠物信息、收费管理、库存管理与运营报表分析。"
+    },
+    "price": {
+      "title": "价格方案｜PetCare｜宠你｜宠物医疗管理系统",
+      "description": "PetCare（宠你｜宠物医疗管理系统）提供多种兽医诊所管理方案，可依诊所规模选择最适合的订阅方案。"
+    },
+    "order": {
+      "title": "订单信息｜PetCare｜宠你｜宠物医疗管理系统",
+      "description": "确认 PetCare（宠你｜宠物医疗管理系统）方案订单摘要与购买人信息。"
+    },
+    "payment": {
+      "title": "付款结果｜PetCare｜宠你｜宠物医疗管理系统",
+      "description": "PetCare（宠你｜宠物医疗管理系统）付款结果页面，显示订单付款成功或失败状态。"
+    },
+    "member": {
+      "titleTemplate": "%s｜PetCare｜宠你｜宠物医疗管理系统 后台"
+    }
+  },
+  "page": {
+    "emailBind": {
+      "title": "Email 绑定",
+      "loadingTitle": "正在验证...",
+      "loadingDesc": "请稍候，正在为您完成 Email 绑定",
+      "successEyebrow": "Email Verified",
+      "successTitle": "绑定成功！",
+      "errorEyebrow": "Verification Failed",
+      "errorTitle": "绑定失败",
+      "backHome": "返回首页",
+      "successDefault": "您的 Email 已成功完成绑定，现在可以使用完整会员功能。",
+      "errorDefault": "链接已失效或已被使用，请重新申请 Email 绑定。",
+      "errorMissingToken": "缺少验证信息，请重新申请 Email 绑定。"
+    },
+    "reset": {
+      "title": "重置密码",
+      "loading": "正在验证重置链接...",
+      "eyebrow": "Reset Password",
+      "desc": "请确认账号信息，并设置新的登录密码。",
+      "name": "姓名",
+      "email": "电子邮箱",
+      "newPassword": "新密码",
+      "confirmPassword": "再次输入密码",
+      "submit": "确认重置密码",
+      "submitting": "处理中...",
+      "backHome": "返回首页"
+    },
+    "member": {
+      "dashboard": "控制台",
+      "brand": "品牌管理",
+      "clinics": "医院管理",
+      "orders": "订单信息",
+      "profile": "会员设置",
+      "staff": "员工管理",
+      "stores": "分店设置"
+    }
+  },
+  "home": {
+    "heroEyebrow": "宠物医疗机构专用管理系统",
+    "heroTitle": "守护宠物健康・建立安心信任",
+    "heroDesc": "整合线上预约、看诊记录、贴心提醒与健康知识，让宠物的每一次就诊都更安心，照护更有依据。",
+    "viewFeatures": "查看功能",
+    "viewPlans": "查看方案",
+    "commonChallenges": "Common Challenges",
+    "painTitleLine1": "医院日常管理，",
+    "painTitleLine2": "是否也遇到这些状况？",
+    "painDesc": "从预约挂号、病历记录到收费与库存管理，如果流程分散在纸本、Excel 或不同工具中，容易造成重复作业、信息查询不便与行政负担增加。",
+    "learnSolution": "了解完整解决方案",
+    "pain1Title": "预约与挂号常常卡住？",
+    "pain1Item1": "预约信息分散，前台需要反复确认",
+    "pain1Item2": "回诊与疫苗提醒容易遗漏",
+    "pain2Title": "病历与检查记录找不到？",
+    "pain2Item1": "历史病历查询不方便",
+    "pain2Item2": "检验、照片与用药记录难整合",
+    "pain3Title": "收费、库存、报表整理很花时间？",
+    "pain3Item1": "月底营收与服务项目需要人工统计",
+    "pain3Item2": "药品与耗材库存不容易即时掌握",
+    "coreFeatures": "核心功能",
+    "workflowTitle": "一套系统整合看诊前、中、后流程",
+    "workflowDesc": "整合预约挂号、诊疗管理与追踪关怀，串联每一次就诊旅程，提升医疗品质与运营效率。",
+    "preVisit": "看诊前",
+    "preVisit1": "线上预约",
+    "preVisit2": "挂号排程",
+    "preVisit3": "到诊提醒",
+    "duringVisit": "看诊中",
+    "duringVisit1": "电子病历",
+    "duringVisit2": "看诊记录",
+    "duringVisit3": "收费结账",
+    "afterVisit": "看诊后",
+    "afterVisit1": "回诊追踪",
+    "afterVisit2": "健康提示",
+    "afterVisit3": "运营报表",
+    "whyChooseUs": "Why Choose Us",
+    "whyChooseTitle": "为什么选择 PetCare｜宠你｜宠物医疗管理系统？",
+    "whyChooseDesc": "我们不只是提供一套系统，而是帮助动物医院建立更稳定、更高效的运营流程。",
+    "why1": "降低前台行政作业时间",
+    "why2": "提升兽医看诊与病历查询效率",
+    "why3": "减少纸本记录与人工统计错误",
+    "why4": "帮助医院掌握营收与库存状况",
+    "statsAria": "系统成效",
+    "stat1Value": "50%",
+    "stat1Label": "行政时间降低",
+    "stat2Value": "3 秒",
+    "stat2Label": "快速查询病历",
+    "stat3Value": "24H",
+    "stat3Label": "云端数据存取"
+  },
+  "functionPage": {
+    "hero": {
+      "imageAlt": "宠物医疗管理系统功能介绍",
+      "eyebrow": "FEATURES",
+      "title": "功能介绍",
+      "desc": "从预约、接诊、病历、收费到经营分析，帮助动物医院建立更高效的数字化流程。"
+    },
+    "anchorSectionAria": "功能快捷导航",
+    "anchorNavAria": "功能分类导航",
+    "anchorAppointment": "预约排班",
+    "anchorMedicalRecord": "电子病历",
+    "anchorPetProfile": "宠物档案",
+    "anchorBilling": "收费账务",
+    "anchorInventory": "药品库存",
+    "anchorAnalytics": "报表分析",
+    "anchorAltAppointment": "预约排班",
+    "anchorAltMedicalRecord": "电子病历",
+    "anchorAltPetProfile": "宠物档案",
+    "anchorAltBilling": "收费账务",
+    "anchorAltInventory": "药品库存",
+    "anchorAltAnalytics": "报表分析",
+    "overviewAria": "核心功能介绍",
+    "f1": {
+      "label": "APPOINTMENT",
+      "title": "预约排班",
+      "desc": "帮助前台与医生快速掌握每日门诊安排。",
+      "point1": "线上预约管理",
+      "point2": "医生排班管理",
+      "point3": "到诊状态追踪",
+      "point4": "预约提醒通知",
+      "iconAlt": "预约排班",
+      "imageAlt": "预约排班功能示意图"
+    },
+    "f2": {
+      "label": "MEDICAL RECORD",
+      "title": "电子病历",
+      "desc": "完整保存每一次就诊记录，查询更高效。",
+      "point1": "主诉与诊断记录",
+      "point2": "治疗方案管理",
+      "point3": "处方与用药记录",
+      "point4": "历史就诊快速查询",
+      "iconAlt": "电子病历",
+      "imageAlt": "电子病历功能示意图"
+    },
+    "f3": {
+      "label": "PET PROFILE",
+      "title": "宠物档案",
+      "desc": "集中管理宠物与宠主信息，让照护更清晰。",
+      "point1": "宠物基础信息",
+      "point2": "宠主联系方式",
+      "point3": "芯片编号管理",
+      "point4": "疫苗与健康记录",
+      "iconAlt": "宠物档案",
+      "imageAlt": "宠物档案功能示意图"
+    },
+    "f4": {
+      "label": "BILLING",
+      "title": "收费账务",
+      "desc": "帮助前台快速完成收费、结算与账务留存。",
+      "point1": "账单明细管理",
+      "point2": "诊疗与药品费用",
+      "point3": "付款状态记录",
+      "point4": "账务数据查询",
+      "iconAlt": "收费账务",
+      "imageAlt": "收费账务功能示意图"
+    },
+    "f5": {
+      "label": "INVENTORY",
+      "title": "药品库存",
+      "desc": "实时掌握药品库存，降低缺货与过期风险。",
+      "point1": "药品资料管理",
+      "point2": "库存数量追踪",
+      "point3": "安全库存提醒",
+      "point4": "效期状态管理",
+      "iconAlt": "药品库存",
+      "imageAlt": "药品库存功能示意图"
+    },
+    "f6": {
+      "label": "ANALYTICS",
+      "title": "报表分析",
+      "desc": "将经营数据可视化，帮助医院快速掌握经营状况。",
+      "point1": "本月营收统计",
+      "point2": "就诊次数分析",
+      "point3": "平均客单价",
+      "point4": "收入结构图表",
+      "iconAlt": "报表分析",
+      "imageAlt": "报表分析功能示意图"
+    },
+    "workflowAria": "诊疗流程整合",
+    "workflowEyebrow": "WORKFLOW",
+    "workflowTitleLine1": "打通诊前、诊中、诊后，",
+    "workflowTitleLine2": "让流程更完整",
+    "workflowDesc": "系统不是单点工具，而是帮助医院把日常流程串联起来，减轻行政负担并提升服务品质。",
+    "workflow1Title": "诊前",
+    "workflow1Desc": "预约排班、到诊提醒、宠主与宠物资料建档。",
+    "workflow2Title": "诊中",
+    "workflow2Desc": "病历记录、诊疗处置、用药记录与收费项目建立。",
+    "workflow3Title": "诊后",
+    "workflow3Desc": "追踪提醒、复诊安排、资料查询与经营报表分析。",
+    "securityAria": "权限与数据安全",
+    "securityEyebrow": "SECURITY",
+    "securityTitle": "权限清晰，数据更安心",
+    "securityDesc": "按岗位角色设置操作权限，让医生、前台与管理者各自使用适合的功能范围。",
+    "securityCard1Title": "员工账号管理",
+    "securityCard1Desc": "按方案提供不同账号数量，便于院内人员分工协作。",
+    "securityCard2Title": "角色权限控制",
+    "securityCard2Desc": "可按岗位规划权限，降低误操作和数据泄露风险。",
+    "securityCard3Title": "云端数据保存",
+    "securityCard3Desc": "集中保存数据，减少纸本遗失与查询困难。",
+    "ctaEyebrow": "START NOW",
+    "ctaTitle": "选择适合医院的方案",
+    "ctaDesc": "从基础管理到进阶经营分析，可按院所规模灵活选择版本。",
+    "ctaButton": "查看价格方案"
+  },
+  "pricePage": {
+    "hero": {
+      "eyebrow": "PRICING",
+      "title": "价格方案",
+      "desc": "可按诊所规模选择合适方案，后续也能灵活升级。"
+    },
+    "listAria": "价格方案列表",
+    "loading": "正在加载方案...",
+    "error": "方案数据加载失败，请稍后重试。",
+    "currency": "NT$",
+    "saveAmount": "立省 NT$ {amount}",
+    "period": "/{months}个月",
+    "convertedNow": "按实时汇率约 {amount}",
+    "fxRateNote": "实时汇率：1 TWD ≈ {rate} {currency}（更新时间：{updatedAt}）",
+    "suitableAria": "适用对象",
+    "selectPlan": "选择方案",
+    "loginHint": "登录后才可选择方案",
+    "comingSoonAria": "即将上线",
+    "comingSoon": "敬请期待",
+    "note": "所有方案均为六个月订阅制，可根据院所需求灵活调整，正式上线前将由专人协助评估。",
+    "planCatalogByCode": {
+      "BASIC": {
+        "PlanName": "Starter开诊版",
+        "Tagline": "面向小型宠物诊所的入门管理方案",
+        "Description": "适用于单店小型宠物诊所，提供院所基础资料、宠主资料、宠物档案、预约管理与基础接诊记录，帮助诊所快速建立数字化管理流程。",
+        "Period": "/六个月",
+        "Features": [
+          "品牌与院所基础资料管理",
+          "宠主管理",
+          "宠物档案管理",
+          "基础预约管理",
+          "基础接诊记录",
+          "基础 Dashboard 统计"
+        ],
+        "SuitableTags": [
+          "小型诊所",
+          "单店使用",
+          "基础接诊管理"
+        ],
+        "Badge": null,
+        "SaveText": "立省 NT$ 10,000"
+      },
+      "STANDARD": {
+        "PlanName": "Team团队版",
+        "Tagline": "新增人事与权限管理，适合一般宠物医院",
+        "Description": "适用于有多名员工的一般宠物医院。除基础接诊管理外，增加人事系统、员工账号、角色权限、排班与基础收费记录，让院所管理更完整。",
+        "Period": "/六个月",
+        "Features": [
+          "包含基础版全部功能",
+          "收费记录管理",
+          "人事系统",
+          "员工账号管理",
+          "角色权限管理",
+          "员工排班管理",
+          "基础运营报表"
+        ],
+        "SuitableTags": [
+          "一般宠物医院",
+          "多人使用",
+          "需要人事管理"
+        ],
+        "Badge": "推荐",
+        "SaveText": "立省 NT$ 20,000"
+      },
+      "PROFESSIONAL": {
+        "PlanName": "Business运营版",
+        "Tagline": "完整运营管理，支持住院、采购与常规库存",
+        "Description": "适用于中大型宠物医院，提供标准版全部功能，并新增住院照护、采购管理、常规库存管理与进阶报表，帮助院所覆盖更完整的医疗与运营流程。",
+        "Period": "/六个月",
+        "Features": [
+          "包含标准版全部功能",
+          "住院照护管理",
+          "住院记录管理",
+          "采购管理",
+          "常规库存管理",
+          "检查记录管理",
+          "客户回访提醒",
+          "进阶报表"
+        ],
+        "SuitableTags": [
+          "中大型宠物医院",
+          "需要住院管理",
+          "需要采购与库存"
+        ],
+        "Badge": null,
+        "SaveText": "立省 NT$ 38,200"
+      },
+      "ENTERPRISE": {
+        "PlanName": "Scale连锁版",
+        "Tagline": "连锁宠物医院与高阶运营管理方案",
+        "Description": "适用于连锁宠物医院、集团型院所或需要高阶管理功能的品牌，提供专业版全部功能，并新增多分院管理、跨院资料管理、药品库存、药房管理、批号效期管理与跨院库存查询。",
+        "Period": "/六个月",
+        "Features": [
+          "包含专业版全部功能",
+          "多分院管理",
+          "跨院资料管理",
+          "药品库存管理",
+          "药房管理",
+          "批号与效期管理",
+          "跨院库存查询",
+          "进阶权限控制",
+          "运营管理报表"
+        ],
+        "SuitableTags": [
+          "连锁宠物医院",
+          "多分院管理",
+          "药品库存管理",
+          "高阶运营管理"
+        ],
+        "Badge": "旗舰",
+        "SaveText": "立省 NT$ 70,000"
+      }
+    },
+    "badges": {
+      "recommended": "推荐",
+      "popular": "热门",
+      "premium": "旗舰"
+    },
+    "alert": {
+      "loginRequiredTitle": "请先登录",
+      "loginRequiredText": "选择方案前需先登录会员，请登录后继续。",
+      "goLogin": "前往登录",
+      "cancel": "取消"
+    }
+  },
+  "sidebar": {
+    "backend": "管理后台",
+    "managerFallback": "宠你｜宠物医疗管理系统 管理员",
+    "currentBrand": "当前品牌",
+    "backHome": "回官网"
+  },
+  "modal": {
+    "login": {
+      "close": "关闭登录窗口",
+      "eyebrow": "WELCOME BACK",
+      "title": "会员登录",
+      "desc": "登录您的账号，开始管理预约、病历与医院运营。",
+      "account": "账号",
+      "accountPlaceholder": "请输入账号",
+      "password": "密码",
+      "passwordPlaceholder": "请输入密码",
+      "togglePassword": "切换密码显示",
+      "rememberMe": "记住我",
+      "forgotPassword": "忘记密码",
+      "submit": "登录",
+      "noAccount": "还没有账号？",
+      "registerNow": "立即注册"
+    },
+    "register": {
+      "close": "关闭注册窗口",
+      "eyebrow": "CREATE ACCOUNT",
+      "title": "注册账号",
+      "desc": "建立账号后即可使用预约、记录查询与会员服务。",
+      "account": "账号",
+      "accountPlaceholder": "请输入账号",
+      "name": "姓名",
+      "namePlaceholder": "请输入姓名",
+      "phone": "手机号码",
+      "phonePlaceholder": "请输入手机号码",
+      "email": "电子邮箱",
+      "emailPlaceholder": "请输入电子邮箱",
+      "password": "密码",
+      "passwordPlaceholder": "请输入密码",
+      "confirmPassword": "确认密码",
+      "confirmPasswordPlaceholder": "请再次输入密码",
+      "submit": "立即注册",
+      "hasAccount": "已经有账号了吗？",
+      "loginNow": "立即登录"
+    },
+    "forgot": {
+      "close": "关闭忘记密码窗口",
+      "eyebrow": "Reset Password",
+      "title": "忘记密码",
+      "desc": "请输入注册时使用的电子邮箱，我们会发送密码重置链接给您。",
+      "email": "电子邮箱",
+      "emailPlaceholder": "请输入电子邮箱",
+      "sending": "发送中...",
+      "submit": "发送重置链接",
+      "backLogin": "返回登录",
+      "sentEyebrow": "Email Sent",
+      "sentTitle": "邮件已发送",
+      "sentDesc": "重置链接已发送至：",
+      "sentHintPrefix": "请至邮箱查收，并于",
+      "sentHintTime": "30 分钟内",
+      "sentHintSuffix": "点击链接完成密码重置。",
+      "sentSpamHint": "若未收到邮件，请检查垃圾邮件文件夹。",
+      "resend": "重新发送"
+    },
+    "terms": {
+      "title": "购买与服务条款",
+      "close": "关闭服务条款窗口",
+      "version": "条款版本：2026 年 5 月 14 日",
+      "section1": "一、服务内容说明",
+      "planStarter": "（一）Starter 开诊版",
+      "planTeam": "（二）Team 团队版",
+      "planBusiness": "（三）Business 运营版",
+      "planScale": "（四）Scale 连锁版",
+      "section2": "二、账号与使用权限",
+      "section3": "三、信息内容与使用限制",
+      "section4": "四、信息保存、备份与安全",
+      "section5": "五、加购服务说明",
+      "section6": "六、购买与付款条款",
+      "section7": "七、退款与终止条款",
+      "section8": "八、使用者责任与义务",
+      "section9": "九、医疗信息与专业责任声明",
+      "section10": "十、服务中断与系统维护",
+      "consent": "我已详细阅读、理解并同意本购买与服务条款，",
+      "confirm": "同意条款并继续购买"
+    }
+  }
+}

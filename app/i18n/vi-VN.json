@@ -1,0 +1,474 @@
+{
+  "site": {
+    "brandFull": "PetCare | Hệ thống quản lý chăm sóc thú cưng"
+  },
+  "header": {
+    "brand": {
+      "zh": "Hệ thống quản lý chăm sóc thú cưng",
+      "en": "PetCare"
+    },
+    "aria": {
+      "home": "Trang chủ PetCare",
+      "toggleMenu": "Bật/tắt menu điều hướng",
+      "userMenu": "Menu thành viên",
+      "mainNav": "Điều hướng chính"
+    },
+    "nav": {
+      "home": "Trang chủ",
+      "features": "Tính năng",
+      "pricing": "Bảng giá",
+      "login": "Đăng nhập"
+    },
+    "user": {
+      "member": "Thành viên",
+      "center": "Trung tâm thành viên",
+      "logout": "Đăng xuất"
+    },
+    "locale": {
+      "label": "Ngôn ngữ"
+    }
+  },
+  "footer": {
+    "description": "Hệ thống quản lý chăm sóc thú cưng dành cho phòng khám thú y, giúp đơn giản hóa lịch hẹn, hồ sơ, thanh toán và vận hành.",
+    "cta": "Xem các gói giá",
+    "copyright": "All rights reserved.",
+    "terms": "Điều khoản dịch vụ",
+    "privacy": "Chính sách quyền riêng tư"
+  },
+  "seo": {
+    "index": {
+      "title": "PetCare | Hệ thống quản lý chăm sóc thú cưng | Quản lý y tế thú cưng",
+      "description": "PetCare là nền tảng quản lý chăm sóc thú cưng dành cho phòng khám thú y, hỗ trợ đặt lịch, hồ sơ bệnh án điện tử, thanh toán, quản lý kho và phân tích hoạt động kinh doanh."
+    },
+    "function": {
+      "title": "Tính năng | PetCare",
+      "description": "Khám phá các tính năng của PetCare, bao gồm đặt lịch, hồ sơ điện tử, hồ sơ khách hàng và thú cưng, thanh toán, quản lý kho và báo cáo vận hành."
+    },
+    "price": {
+      "title": "Bảng giá | PetCare",
+      "description": "Chọn gói đăng ký PetCare phù hợp với quy mô phòng khám và nhu cầu vận hành của bạn."
+    },
+    "order": {
+      "title": "Chi tiết đơn hàng | PetCare",
+      "description": "Kiểm tra tóm tắt đơn hàng gói PetCare và thông tin người mua."
+    },
+    "payment": {
+      "title": "Kết quả thanh toán | PetCare",
+      "description": "Trang trạng thái thanh toán cho đơn hàng PetCare, bao gồm kết quả thành công và thất bại."
+    },
+    "member": {
+      "titleTemplate": "%s | Quản trị PetCare"
+    }
+  },
+  "page": {
+    "emailBind": {
+      "title": "Xác minh email",
+      "loadingTitle": "Đang xác minh...",
+      "loadingDesc": "Vui lòng chờ trong khi chúng tôi xác minh email của bạn.",
+      "successEyebrow": "Email Verified",
+      "successTitle": "Xác minh thành công",
+      "errorEyebrow": "Verification Failed",
+      "errorTitle": "Xác minh thất bại",
+      "backHome": "Quay về trang chủ",
+      "successDefault": "Email của bạn đã được xác minh. Bạn hiện có thể sử dụng đầy đủ các tính năng thành viên.",
+      "errorDefault": "Liên kết này không hợp lệ hoặc đã được sử dụng. Vui lòng yêu cầu email xác minh mới.",
+      "errorMissingToken": "Thiếu thông tin xác minh. Vui lòng yêu cầu email xác minh mới."
+    },
+    "reset": {
+      "title": "Đặt lại mật khẩu",
+      "loading": "Đang xác minh liên kết đặt lại...",
+      "eyebrow": "Reset Password",
+      "desc": "Vui lòng xác nhận thông tin tài khoản và đặt mật khẩu mới.",
+      "name": "Họ tên",
+      "email": "Email",
+      "newPassword": "Mật khẩu mới",
+      "confirmPassword": "Xác nhận mật khẩu",
+      "submit": "Đặt lại mật khẩu",
+      "submitting": "Đang xử lý...",
+      "backHome": "Quay về trang chủ"
+    },
+    "member": {
+      "dashboard": "Bảng điều khiển",
+      "brand": "Cài đặt thương hiệu",
+      "clinics": "Quản lý phòng khám",
+      "orders": "Chi tiết đơn hàng",
+      "profile": "Cài đặt hồ sơ",
+      "staff": "Quản lý nhân viên",
+      "stores": "Cài đặt chi nhánh"
+    }
+  },
+  "home": {
+    "heroEyebrow": "Hệ thống quản lý dành cho phòng khám thú y",
+    "heroTitle": "Chăm sóc sức khỏe thú cưng một cách an tâm",
+    "heroDesc": "Kết nối lịch hẹn, hồ sơ bệnh án, nhắc nhở và thông tin sức khỏe để mỗi lần thăm khám trở nên thuận tiện hơn.",
+    "viewFeatures": "Xem tính năng",
+    "viewPlans": "Xem gói dịch vụ",
+    "commonChallenges": "Common Challenges",
+    "painTitleLine1": "Trong vận hành hằng ngày của phòng khám,",
+    "painTitleLine2": "bạn có gặp những vấn đề này không?",
+    "painDesc": "Khi lịch hẹn, hồ sơ, thanh toán và kho được quản lý rời rạc trên giấy, bảng tính hoặc nhiều công cụ khác nhau, đội ngũ sẽ mất nhiều thời gian đối chiếu hơn và có ít thời gian chăm sóc hơn.",
+    "learnSolution": "Xem giải pháp đầy đủ",
+    "pain1Title": "Lịch hẹn và check-in thường bị nghẽn?",
+    "pain1Item1": "Dữ liệu lịch hẹn phân tán, lễ tân phải xác nhận nhiều lần",
+    "pain1Item2": "Dễ bỏ sót nhắc nhở tái khám và tiêm phòng",
+    "pain2Title": "Khó tìm nhanh hồ sơ và kết quả xét nghiệm?",
+    "pain2Item1": "Tra cứu hồ sơ cũ không thuận tiện",
+    "pain2Item2": "Kết quả xét nghiệm, hình ảnh và lịch sử dùng thuốc khó tổng hợp",
+    "pain3Title": "Mất quá nhiều thời gian cho thanh toán, kho và báo cáo?",
+    "pain3Item1": "Doanh thu cuối tháng và báo cáo dịch vụ phải tổng hợp thủ công",
+    "pain3Item2": "Tồn kho thuốc và vật tư khó theo dõi theo thời gian thực",
+    "coreFeatures": "Tính năng cốt lõi",
+    "workflowTitle": "Một nền tảng cho quy trình trước, trong và sau thăm khám",
+    "workflowDesc": "Kết nối đặt lịch, chăm sóc và theo dõi sau khám để nâng cao chất lượng điều trị và hiệu quả vận hành.",
+    "preVisit": "Trước thăm khám",
+    "preVisit1": "Đặt lịch trực tuyến",
+    "preVisit2": "Sắp lịch check-in",
+    "preVisit3": "Nhắc lịch thăm khám",
+    "duringVisit": "Trong thăm khám",
+    "duringVisit1": "Hồ sơ điện tử",
+    "duringVisit2": "Ghi chú khám bệnh",
+    "duringVisit3": "Thanh toán",
+    "afterVisit": "Sau thăm khám",
+    "afterVisit1": "Theo dõi tái khám",
+    "afterVisit2": "Nhắc nhở sức khỏe",
+    "afterVisit3": "Báo cáo kinh doanh",
+    "whyChooseUs": "Why Choose Us",
+    "whyChooseTitle": "Vì sao chọn PetCare?",
+    "whyChooseDesc": "Không chỉ là phần mềm, PetCare giúp phòng khám xây dựng mô hình vận hành ổn định và hiệu quả hơn.",
+    "why1": "Giảm thời gian hành chính tại quầy lễ tân",
+    "why2": "Nâng cao hiệu quả chẩn đoán và tra cứu hồ sơ",
+    "why3": "Giảm lỗi từ hồ sơ giấy và báo cáo thủ công",
+    "why4": "Nắm rõ doanh thu và tình trạng tồn kho",
+    "statsAria": "Tác động của hệ thống",
+    "stat1Value": "50%",
+    "stat1Label": "Giảm thời gian hành chính",
+    "stat2Value": "3 giây",
+    "stat2Label": "Tra cứu hồ sơ bệnh án nhanh",
+    "stat3Value": "24 giờ",
+    "stat3Label": "Truy cập dữ liệu đám mây"
+  },
+  "functionPage": {
+    "hero": {
+      "imageAlt": "Tổng quan tính năng quản lý chăm sóc thú cưng",
+      "eyebrow": "TÍNH NĂNG",
+      "title": "Tổng quan tính năng",
+      "desc": "Từ đặt lịch, hồ sơ điều trị đến thanh toán và phân tích, mọi hoạt động hằng ngày của phòng khám được tinh gọn trong một quy trình."
+    },
+    "anchorSectionAria": "Điều hướng nhanh tính năng",
+    "anchorNavAria": "Điều hướng danh mục tính năng",
+    "anchorAppointment": "Đặt lịch",
+    "anchorMedicalRecord": "Hồ sơ bệnh án",
+    "anchorPetProfile": "Hồ sơ thú cưng",
+    "anchorBilling": "Thanh toán",
+    "anchorInventory": "Kho",
+    "anchorAnalytics": "Phân tích",
+    "anchorAltAppointment": "Đặt lịch",
+    "anchorAltMedicalRecord": "Hồ sơ bệnh án",
+    "anchorAltPetProfile": "Hồ sơ thú cưng",
+    "anchorAltBilling": "Thanh toán",
+    "anchorAltInventory": "Kho",
+    "anchorAltAnalytics": "Phân tích",
+    "overviewAria": "Tổng quan tính năng cốt lõi",
+    "f1": {
+      "label": "LỊCH HẸN",
+      "title": "Đặt lịch",
+      "desc": "Giúp lễ tân và bác sĩ thú y có cái nhìn rõ ràng về lịch hẹn trong ngày.",
+      "point1": "Quản lý đặt lịch trực tuyến",
+      "point2": "Quản lý lịch làm việc của bác sĩ thú y",
+      "point3": "Theo dõi trạng thái thăm khám",
+      "point4": "Gửi nhắc lịch hẹn",
+      "iconAlt": "Đặt lịch",
+      "imageAlt": "Xem trước tính năng đặt lịch"
+    },
+    "f2": {
+      "label": "HỒ SƠ BỆNH ÁN",
+      "title": "Hồ sơ bệnh án",
+      "desc": "Lưu trữ mọi lần khám ở một nơi để tra cứu nhanh và đáng tin cậy hơn.",
+      "point1": "Ghi nhận triệu chứng chính và chẩn đoán",
+      "point2": "Quản lý phác đồ điều trị",
+      "point3": "Lịch sử kê đơn và dùng thuốc",
+      "point4": "Tra cứu nhanh lịch sử thăm khám",
+      "iconAlt": "Hồ sơ bệnh án",
+      "imageAlt": "Xem trước tính năng hồ sơ bệnh án"
+    },
+    "f3": {
+      "label": "HỒ SƠ THÚ CƯNG",
+      "title": "Hồ sơ thú cưng",
+      "desc": "Tập trung hồ sơ thú cưng và chủ nuôi để đội ngũ chăm sóc luôn có đầy đủ ngữ cảnh.",
+      "point1": "Thông tin cơ bản của thú cưng",
+      "point2": "Thông tin liên hệ của chủ nuôi",
+      "point3": "Theo dõi mã microchip",
+      "point4": "Lịch sử tiêm phòng và chăm sóc sức khỏe",
+      "iconAlt": "Hồ sơ thú cưng",
+      "imageAlt": "Xem trước tính năng hồ sơ thú cưng"
+    },
+    "f4": {
+      "label": "THANH TOÁN",
+      "title": "Thanh toán",
+      "desc": "Tăng tốc quy trình thu phí, đồng thời giữ hồ sơ thanh toán chính xác và dễ kiểm tra.",
+      "point1": "Quản lý chi tiết hóa đơn",
+      "point2": "Phí khám và phí thuốc",
+      "point3": "Theo dõi trạng thái thanh toán",
+      "point4": "Tra cứu dữ liệu thanh toán",
+      "iconAlt": "Thanh toán",
+      "imageAlt": "Xem trước tính năng thanh toán"
+    },
+    "f5": {
+      "label": "KHO",
+      "title": "Quản lý kho",
+      "desc": "Theo dõi tồn kho thuốc theo thời gian thực để giảm thiếu hàng và rủi ro hết hạn.",
+      "point1": "Quản lý danh mục thuốc",
+      "point2": "Theo dõi số lượng tồn kho",
+      "point3": "Cảnh báo tồn kho an toàn",
+      "point4": "Theo dõi tình trạng hạn sử dụng",
+      "iconAlt": "Kho",
+      "imageAlt": "Xem trước tính năng kho"
+    },
+    "f6": {
+      "label": "PHÂN TÍCH",
+      "title": "Phân tích",
+      "desc": "Biến dữ liệu vận hành thành thông tin hữu ích thông qua báo cáo trực quan.",
+      "point1": "Tổng hợp doanh thu theo tháng",
+      "point2": "Phân tích số lượt thăm khám",
+      "point3": "Giá trị trung bình mỗi giao dịch",
+      "point4": "Biểu đồ cơ cấu doanh thu",
+      "iconAlt": "Phân tích",
+      "imageAlt": "Xem trước tính năng phân tích"
+    },
+    "workflowAria": "Tích hợp quy trình khám chữa bệnh",
+    "workflowEyebrow": "QUY TRÌNH",
+    "workflowTitleLine1": "Kết nối trước, trong và sau thăm khám,",
+    "workflowTitleLine2": "tạo nên quy trình chăm sóc hoàn chỉnh",
+    "workflowDesc": "Nền tảng này không chỉ là một công cụ đơn lẻ. Nó liên kết các quy trình thường ngày của phòng khám để giảm tải hành chính và nâng cao chất lượng dịch vụ.",
+    "workflow1Title": "Trước thăm khám",
+    "workflow1Desc": "Đặt lịch, nhắc lịch đến khám và thiết lập hồ sơ chủ nuôi/thú cưng.",
+    "workflow2Title": "Trong thăm khám",
+    "workflow2Desc": "Ghi chú khám bệnh, thao tác điều trị, hồ sơ dùng thuốc và thiết lập khoản thanh toán.",
+    "workflow3Title": "Sau thăm khám",
+    "workflow3Desc": "Nhắc tái khám, lên kế hoạch theo dõi, tra cứu dữ liệu và báo cáo vận hành.",
+    "securityAria": "Kiểm soát truy cập và bảo mật dữ liệu",
+    "securityEyebrow": "BẢO MẬT",
+    "securityTitle": "Phân quyền rõ ràng, dữ liệu an toàn hơn",
+    "securityDesc": "Thiết lập quyền theo vai trò để bác sĩ thú y, lễ tân và quản lý truy cập đúng phạm vi chức năng.",
+    "securityCard1Title": "Quản lý tài khoản nhân viên",
+    "securityCard1Desc": "Hỗ trợ phân bổ vai trò nội bộ với giới hạn tài khoản theo gói đã chọn.",
+    "securityCard2Title": "Kiểm soát truy cập theo vai trò",
+    "securityCard2Desc": "Xác định quyền theo vị trí công việc để giảm sai sót và rủi ro lộ dữ liệu.",
+    "securityCard3Title": "Lưu trữ dữ liệu trên đám mây",
+    "securityCard3Desc": "Tập trung hồ sơ để tránh thất lạc giấy tờ và cải thiện khả năng tìm kiếm.",
+    "ctaEyebrow": "BẮT ĐẦU NGAY",
+    "ctaTitle": "Chọn gói phù hợp cho phòng khám của bạn",
+    "ctaDesc": "Từ quản lý cơ bản đến phân tích nâng cao, hãy chọn phiên bản phù hợp nhất với quy mô phòng khám.",
+    "ctaButton": "Xem các gói giá"
+  },
+  "pricePage": {
+    "hero": {
+      "eyebrow": "BẢNG GIÁ",
+      "title": "Các gói giá",
+      "desc": "Chọn gói phù hợp với quy mô phòng khám hiện tại và nâng cấp bất cứ lúc nào khi hoạt động phát triển."
+    },
+    "listAria": "Danh sách gói giá",
+    "loading": "Đang tải gói dịch vụ...",
+    "error": "Không thể tải dữ liệu gói. Vui lòng thử lại sau.",
+    "currency": "NT$",
+    "saveAmount": "Tiết kiệm NT$ {amount}",
+    "period": "/{months} tháng",
+    "convertedNow": "Ước tính theo tỷ giá mới nhất: {amount}",
+    "fxRateNote": "Tỷ giá mới nhất: 1 TWD ≈ {rate} {currency} (cập nhật: {updatedAt})",
+    "suitableAria": "Phù hợp nhất cho",
+    "selectPlan": "Chọn gói",
+    "loginHint": "Cần đăng nhập để chọn gói",
+    "comingSoonAria": "Sắp ra mắt",
+    "comingSoon": "Sắp ra mắt",
+    "note": "Tất cả gói được tính phí theo chu kỳ đăng ký sáu tháng, có thể linh hoạt điều chỉnh theo nhu cầu từng phòng khám trước khi triển khai.",
+    "planCatalogByCode": {
+      "BASIC": {
+        "PlanName": "Gói khởi động Starter",
+        "Tagline": "Gói vận hành cơ bản cho phòng khám thú y nhỏ",
+        "Description": "Dành cho phòng khám nhỏ một chi nhánh, gói này bao gồm thiết lập hồ sơ phòng khám, hồ sơ chủ nuôi, hồ sơ thú cưng, đặt lịch hẹn và ghi chú khám bệnh cơ bản để đội ngũ nhanh chóng chuyển đổi số.",
+        "Period": "/6 tháng",
+        "Features": [
+          "Quản lý hồ sơ thương hiệu và phòng khám",
+          "Quản lý chủ nuôi",
+          "Quản lý hồ sơ thú cưng",
+          "Đặt lịch hẹn cơ bản",
+          "Hồ sơ khám bệnh cơ bản",
+          "Chỉ số bảng điều khiển cơ bản"
+        ],
+        "SuitableTags": [
+          "Phòng khám nhỏ",
+          "Một chi nhánh",
+          "Vận hành chăm sóc cơ bản"
+        ],
+        "Badge": null,
+        "SaveText": "Tiết kiệm NT$ 10,000"
+      },
+      "STANDARD": {
+        "PlanName": "Gói Team",
+        "Tagline": "Bổ sung nhân sự và phân quyền cho bệnh viện thú y thông thường",
+        "Description": "Phù hợp với phòng khám có nhiều nhân viên. Bao gồm toàn bộ tính năng Basic, cộng thêm công cụ nhân sự, tài khoản nhân viên, phân quyền theo vai trò, xếp ca và hồ sơ thanh toán cơ bản để vận hành hoàn chỉnh hơn.",
+        "Period": "/6 tháng",
+        "Features": [
+          "Bao gồm mọi tính năng trong Basic",
+          "Quản lý hồ sơ thanh toán",
+          "Mô-đun nhân sự",
+          "Quản lý tài khoản nhân viên",
+          "Kiểm soát vai trò và quyền",
+          "Xếp ca nhân viên",
+          "Báo cáo vận hành cơ bản"
+        ],
+        "SuitableTags": [
+          "Bệnh viện thú y thông thường",
+          "Đội ngũ nhiều người dùng",
+          "Cần quản lý nhân sự"
+        ],
+        "Badge": "Đề xuất",
+        "SaveText": "Tiết kiệm NT$ 20,000"
+      },
+      "PROFESSIONAL": {
+        "PlanName": "Gói vận hành Business",
+        "Tagline": "Bộ công cụ vận hành đầy đủ với nội trú, mua hàng và quản lý kho",
+        "Description": "Dành cho bệnh viện thú y vừa và lớn. Bao gồm toàn bộ tính năng Standard, cộng thêm quản lý nội trú, quy trình mua hàng, quản lý kho tổng quát và báo cáo nâng cao để bao phủ nhiều nghiệp vụ lâm sàng và vận hành hơn.",
+        "Period": "/6 tháng",
+        "Features": [
+          "Bao gồm mọi tính năng trong Standard",
+          "Quản lý chăm sóc nội trú",
+          "Quản lý hồ sơ nội trú",
+          "Quản lý mua hàng",
+          "Quản lý kho tổng quát",
+          "Quản lý hồ sơ kiểm tra",
+          "Nhắc nhở theo dõi khách hàng",
+          "Báo cáo nâng cao"
+        ],
+        "SuitableTags": [
+          "Bệnh viện vừa và lớn",
+          "Cần quản lý nội trú",
+          "Cần mua hàng và quản lý kho"
+        ],
+        "Badge": null,
+        "SaveText": "Tiết kiệm NT$ 38,200"
+      },
+      "ENTERPRISE": {
+        "PlanName": "Gói chuỗi Scale",
+        "Tagline": "Vận hành cấp doanh nghiệp cho hệ thống thú y nhiều chi nhánh",
+        "Description": "Phù hợp nhất cho chuỗi thú y, tập đoàn chăm sóc sức khỏe hoặc thương hiệu cần kiểm soát nâng cao. Bao gồm toàn bộ tính năng Professional, cộng thêm quản lý nhiều chi nhánh, quy trình dữ liệu liên chi nhánh, kho dược, theo dõi lô và hạn dùng, cùng tra cứu tồn kho liên chi nhánh.",
+        "Period": "/6 tháng",
+        "Features": [
+          "Bao gồm mọi tính năng trong Professional",
+          "Quản lý nhiều chi nhánh",
+          "Quản lý dữ liệu liên chi nhánh",
+          "Quản lý kho dược",
+          "Quản lý vận hành dược",
+          "Theo dõi lô và hạn sử dụng",
+          "Tra cứu tồn kho liên chi nhánh",
+          "Kiểm soát quyền nâng cao",
+          "Báo cáo quản lý vận hành"
+        ],
+        "SuitableTags": [
+          "Chuỗi thú y",
+          "Vận hành nhiều chi nhánh",
+          "Nhu cầu kho dược",
+          "Quản lý vận hành nâng cao"
+        ],
+        "Badge": "Cao cấp",
+        "SaveText": "Tiết kiệm NT$ 70,000"
+      }
+    },
+    "badges": {
+      "recommended": "Đề xuất",
+      "popular": "Phổ biến",
+      "premium": "Cao cấp"
+    },
+    "alert": {
+      "loginRequiredTitle": "Cần đăng nhập",
+      "loginRequiredText": "Bạn cần đăng nhập trước khi chọn gói.",
+      "goLogin": "Đến trang đăng nhập",
+      "cancel": "Hủy"
+    }
+  },
+  "sidebar": {
+    "backend": "Bảng quản trị",
+    "managerFallback": "Quản trị viên PetCare",
+    "currentBrand": "Thương hiệu hiện tại",
+    "backHome": "Quay về website"
+  },
+  "modal": {
+    "login": {
+      "close": "Đóng hộp thoại đăng nhập",
+      "eyebrow": "WELCOME BACK",
+      "title": "Đăng nhập thành viên",
+      "desc": "Đăng nhập để quản lý lịch hẹn, hồ sơ và vận hành phòng khám.",
+      "account": "Tài khoản",
+      "accountPlaceholder": "Nhập tài khoản",
+      "password": "Mật khẩu",
+      "passwordPlaceholder": "Nhập mật khẩu",
+      "togglePassword": "Bật/tắt hiển thị mật khẩu",
+      "rememberMe": "Ghi nhớ tôi",
+      "forgotPassword": "Quên mật khẩu",
+      "submit": "Đăng nhập",
+      "noAccount": "Chưa có tài khoản?",
+      "registerNow": "Đăng ký ngay"
+    },
+    "register": {
+      "close": "Đóng hộp thoại đăng ký",
+      "eyebrow": "CREATE ACCOUNT",
+      "title": "Tạo tài khoản",
+      "desc": "Tạo tài khoản để sử dụng lịch hẹn, tra cứu hồ sơ và dịch vụ thành viên.",
+      "account": "Tài khoản",
+      "accountPlaceholder": "Nhập tài khoản",
+      "name": "Họ tên",
+      "namePlaceholder": "Nhập họ tên",
+      "phone": "Số điện thoại",
+      "phonePlaceholder": "Nhập số điện thoại",
+      "email": "Email",
+      "emailPlaceholder": "Nhập email",
+      "password": "Mật khẩu",
+      "passwordPlaceholder": "Nhập mật khẩu",
+      "confirmPassword": "Xác nhận mật khẩu",
+      "confirmPasswordPlaceholder": "Nhập lại mật khẩu",
+      "submit": "Đăng ký",
+      "hasAccount": "Đã có tài khoản?",
+      "loginNow": "Đăng nhập ngay"
+    },
+    "forgot": {
+      "close": "Đóng hộp thoại đặt lại mật khẩu",
+      "eyebrow": "Reset Password",
+      "title": "Quên mật khẩu",
+      "desc": "Nhập email đã đăng ký, chúng tôi sẽ gửi liên kết đặt lại mật khẩu cho bạn.",
+      "email": "Email",
+      "emailPlaceholder": "Nhập email",
+      "sending": "Đang gửi...",
+      "submit": "Gửi liên kết đặt lại",
+      "backLogin": "Quay lại đăng nhập",
+      "sentEyebrow": "Email Sent",
+      "sentTitle": "Đã gửi email",
+      "sentDesc": "Liên kết đặt lại đã được gửi đến:",
+      "sentHintPrefix": "Vui lòng kiểm tra hộp thư và hoàn tất đặt lại trong",
+      "sentHintTime": "30 phút",
+      "sentHintSuffix": ".",
+      "sentSpamHint": "Nếu không thấy email, hãy kiểm tra thư mục spam.",
+      "resend": "Gửi lại"
+    },
+    "terms": {
+      "title": "Điều khoản mua hàng và dịch vụ",
+      "close": "Đóng hộp thoại điều khoản",
+      "version": "Phiên bản: 14 tháng 5, 2026",
+      "section1": "1. Phạm vi dịch vụ",
+      "planStarter": "(1) Gói Starter",
+      "planTeam": "(2) Gói Team",
+      "planBusiness": "(3) Gói Business",
+      "planScale": "(4) Gói Scale",
+      "section2": "2. Tài khoản và quyền truy cập",
+      "section3": "3. Nội dung dữ liệu và giới hạn sử dụng",
+      "section4": "4. Lưu giữ, sao lưu và bảo mật dữ liệu",
+      "section5": "5. Dịch vụ bổ sung",
+      "section6": "6. Điều khoản mua hàng và thanh toán",
+      "section7": "7. Hoàn tiền và chấm dứt",
+      "section8": "8. Trách nhiệm của người dùng",
+      "section9": "9. Dữ liệu y tế và thông báo trách nhiệm chuyên môn",
+      "section10": "10. Gián đoạn dịch vụ và bảo trì",
+      "consent": "Tôi đã đọc, hiểu và đồng ý với các Điều khoản mua hàng và dịch vụ này.",
+      "confirm": "Đồng ý và tiếp tục mua"
+    }
+  }
+}

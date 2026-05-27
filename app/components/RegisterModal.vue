@@ -17,7 +17,7 @@
           <button
             type="button"
             class="register-modal-close"
-            aria-label="關閉註冊視窗"
+            :aria-label="t('modal.register.close')"
             @click="closeModal"
           >
             ×
@@ -25,14 +25,14 @@
 
           <!-- ===== Modal 標題區：控制註冊標題與說明文字 ===== -->
           <header class="register-modal-header">
-            <p class="register-modal-eyebrow">Create Account</p>
+            <p class="register-modal-eyebrow">{{ t('modal.register.eyebrow') }}</p>
 
             <h2 id="register-modal-title" class="register-modal-title">
-              註冊帳號
+              {{ t('modal.register.title') }}
             </h2>
 
             <p class="register-modal-desc">
-              建立帳號後即可使用預約、紀錄查詢與會員服務。
+              {{ t('modal.register.desc') }}
             </p>
           </header>
 
@@ -40,14 +40,14 @@
           <form class="register-form" @submit.prevent="handleSubmit">
             <!-- ===== 帳號欄位：控制使用者輸入帳號 ===== -->
             <div class="form-group">
-              <label for="register-account" class="form-label"> 帳號 </label>
+              <label for="register-account" class="form-label"> {{ t('modal.register.account') }} </label>
 
               <input
                 id="register-account"
                 v-model.trim="form.account"
                 type="text"
                 class="form-control"
-                placeholder="請輸入帳號"
+                :placeholder="t('modal.register.accountPlaceholder')"
                 autocomplete="username"
                 required
               />
@@ -57,14 +57,14 @@
             <div class="form-row">
               <!-- ===== 姓名欄位：控制使用者輸入姓名 ===== -->
               <div class="form-group">
-                <label for="register-name" class="form-label"> 姓名 </label>
+                <label for="register-name" class="form-label"> {{ t('modal.register.name') }} </label>
 
                 <input
                   id="register-name"
                   v-model.trim="form.fullName"
                   type="text"
                   class="form-control"
-                  placeholder="請輸入姓名"
+                  :placeholder="t('modal.register.namePlaceholder')"
                   autocomplete="name"
                   required
                 />
@@ -73,7 +73,7 @@
               <!-- ===== 手機號碼欄位：控制使用者輸入手機號碼 ===== -->
               <div class="form-group">
                 <label for="register-phone" class="form-label">
-                  手機號碼
+                  {{ t('modal.register.phone') }}
                 </label>
 
                 <input
@@ -81,7 +81,7 @@
                   v-model.trim="form.phone"
                   type="tel"
                   class="form-control"
-                  placeholder="請輸入手機號碼"
+                  :placeholder="t('modal.register.phonePlaceholder')"
                   autocomplete="tel"
                   required
                 />
@@ -89,14 +89,14 @@
             </div>
             <!-- ===== 電子郵件欄位：控制使用者輸入 Email ===== -->
             <div class="form-group">
-              <label for="register-email" class="form-label"> 電子郵件 </label>
+              <label for="register-email" class="form-label"> {{ t('modal.register.email') }} </label>
 
               <input
                 id="register-email"
                 v-model.trim="form.email"
                 type="email"
                 class="form-control"
-                placeholder="請輸入電子郵件"
+                :placeholder="t('modal.register.emailPlaceholder')"
                 autocomplete="email"
                 required
               />
@@ -104,14 +104,14 @@
 
             <!-- ===== 密碼欄位：控制使用者輸入密碼 ===== -->
             <div class="form-group">
-              <label for="register-password" class="form-label"> 密碼 </label>
+              <label for="register-password" class="form-label"> {{ t('modal.register.password') }} </label>
 
               <input
                 id="register-password"
                 v-model="form.password"
                 type="password"
                 class="form-control"
-                placeholder="請輸入密碼"
+                :placeholder="t('modal.register.passwordPlaceholder')"
                 autocomplete="new-password"
                 required
               />
@@ -120,7 +120,7 @@
             <!-- ===== 確認密碼欄位：控制使用者再次輸入密碼 ===== -->
             <div class="form-group">
               <label for="register-confirm-password" class="form-label">
-                確認密碼
+                {{ t('modal.register.confirmPassword') }}
               </label>
 
               <input
@@ -128,22 +128,22 @@
                 v-model="confirmPassword"
                 type="password"
                 class="form-control"
-                placeholder="請再次輸入密碼"
+                :placeholder="t('modal.register.confirmPasswordPlaceholder')"
                 autocomplete="new-password"
                 required
               />
             </div>
 
             <!-- ===== 註冊按鈕：控制送出註冊表單 ===== -->
-            <button type="submit" class="register-submit">立即註冊</button>
+            <button type="submit" class="register-submit">{{ t('modal.register.submit') }}</button>
           </form>
 
           <!-- ===== Modal 底部連結：控制切換到登入流程 ===== -->
           <footer class="register-modal-footer">
-            <span class="footer-text">已經有帳號了嗎？</span>
+            <span class="footer-text">{{ t('modal.register.hasAccount') }}</span>
 
             <button type="button" class="text-link" @click="emitLogin">
-              立即登入
+              {{ t('modal.register.loginNow') }}
             </button>
           </footer>
         </section>
@@ -157,6 +157,8 @@ import { reactive, ref } from "vue";
 import Swal from "sweetalert2";
 import api from "~/composables/utils/api";
 import { showCustom } from "~/composables/utils/alert";
+
+const { t } = useI18n();
 
 /* ===== 註冊資料型別：控制父層收到的註冊資料格式 ===== */
 interface RegisterPayload {

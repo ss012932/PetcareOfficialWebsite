@@ -164,19 +164,21 @@
 import api from '~/composables/utils/api'
 import { useAuthStore } from '~/composables/auth'
 
+const { t } = useI18n()
+
 // ===== 路由資料：取得金流回傳的 merchantTradeNo =====
 const route = useRoute()
 
 // ===== 頁面 SEO =====
-useHead({
-  title: '付款結果｜PetCare System',
+useHead(() => ({
+  title: t('seo.payment.title'),
   meta: [
     {
       name: 'description',
-      content: 'PetCare System 付款結果頁面，顯示訂單付款成功或失敗狀態。',
+      content: t('seo.payment.description'),
     },
   ],
-})
+}))
 
 // ===== API 回傳型別 =====
 interface PaymentResultData {

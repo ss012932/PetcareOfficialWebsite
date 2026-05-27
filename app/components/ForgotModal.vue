@@ -17,7 +17,7 @@
           <button
             type="button"
             class="forgot-modal-close"
-            aria-label="關閉忘記密碼視窗"
+            :aria-label="t('modal.forgot.close')"
             @click="closeModal"
           >
             ×
@@ -27,14 +27,14 @@
           <template v-if="!isSent">
             <!-- ===== Modal 標題區：控制忘記密碼標題與說明文字 ===== -->
             <header class="forgot-modal-header">
-              <p class="forgot-modal-eyebrow">Reset Password</p>
+              <p class="forgot-modal-eyebrow">{{ t('modal.forgot.eyebrow') }}</p>
 
               <h2 id="forgot-modal-title" class="forgot-modal-title">
-                忘記密碼
+                {{ t('modal.forgot.title') }}
               </h2>
 
               <p class="forgot-modal-desc">
-                請輸入註冊時使用的電子郵件，我們會寄送密碼重置連結給你。
+                {{ t('modal.forgot.desc') }}
               </p>
             </header>
 
@@ -43,7 +43,7 @@
               <!-- ===== 電子郵件欄位：控制使用者輸入 Email ===== -->
               <div class="form-group">
                 <label for="forgot-email" class="form-label">
-                  電子郵件
+                  {{ t('modal.forgot.email') }}
                 </label>
 
                 <input
@@ -51,7 +51,7 @@
                   v-model.trim="form.email"
                   type="email"
                   class="form-control"
-                  placeholder="請輸入電子郵件"
+                  :placeholder="t('modal.forgot.emailPlaceholder')"
                   autocomplete="email"
                   required
                 />
@@ -64,7 +64,7 @@
                 :disabled="isLoading"
               >
                 <span v-if="isLoading" class="loading-spinner"></span>
-                <span>{{ isLoading ? '發送中...' : '寄送重置連結' }}</span>
+                <span>{{ isLoading ? t('modal.forgot.sending') : t('modal.forgot.submit') }}</span>
               </button>
             </form>
 
@@ -75,7 +75,7 @@
                 class="text-link"
                 @click="emitLogin"
               >
-                返回登入
+                {{ t('modal.forgot.backLogin') }}
               </button>
             </footer>
           </template>
@@ -89,14 +89,14 @@
 
             <!-- ===== 寄送成功內容：控制信件已寄送說明 ===== -->
             <header class="forgot-modal-header">
-              <p class="forgot-modal-eyebrow">Email Sent</p>
+              <p class="forgot-modal-eyebrow">{{ t('modal.forgot.sentEyebrow') }}</p>
 
               <h2 class="forgot-modal-title">
-                信件已寄送
+                {{ t('modal.forgot.sentTitle') }}
               </h2>
 
               <p class="forgot-modal-desc">
-                重置連結已發送至：
+                {{ t('modal.forgot.sentDesc') }}
               </p>
 
               <p class="sent-email">
@@ -105,13 +105,13 @@
 
               <div class="sent-message">
                 <p>
-                  請至信箱查收，並於
-                  <strong>30 分鐘內</strong>
-                  點擊連結完成密碼重置。
+                  {{ t('modal.forgot.sentHintPrefix') }}
+                  <strong>{{ t('modal.forgot.sentHintTime') }}</strong>
+                  {{ t('modal.forgot.sentHintSuffix') }}
                 </p>
 
                 <p>
-                  若未收到信件，請檢查垃圾郵件資料夾。
+                  {{ t('modal.forgot.sentSpamHint') }}
                 </p>
               </div>
             </header>
@@ -125,7 +125,7 @@
                 @click="handleResend"
               >
                 <span v-if="isLoading" class="loading-spinner"></span>
-                <span>{{ isLoading ? '發送中...' : '重新寄送' }}</span>
+                <span>{{ isLoading ? t('modal.forgot.sending') : t('modal.forgot.resend') }}</span>
               </button>
 
               <button
@@ -133,7 +133,7 @@
                 class="forgot-login-button"
                 @click="emitLogin"
               >
-                返回登入
+                {{ t('modal.forgot.backLogin') }}
               </button>
             </div>
           </template>
@@ -147,6 +147,8 @@
 import { reactive, ref, watch } from 'vue'
 import { authAPI } from '~/composables/utils/api'
 import { showCustom } from '~/composables/utils/alert'
+
+const { t } = useI18n()
 
 /* ===== 忘記密碼資料型別：控制父層收到的資料格式 ===== */
 interface ForgotPasswordPayload {

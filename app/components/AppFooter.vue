@@ -11,18 +11,18 @@
         <section class="footer-brand-section">
           <NuxtLink to="/" class="footer-brand">
             <span class="footer-brand-icon" aria-hidden="true">🐾</span>
-            <span>PetCare System</span>
+            <span>{{ t("site.brandFull") }}</span>
           </NuxtLink>
 
           <p class="footer-desc">
-            專為動物醫院打造的寵物醫療管理系統，協助院所更輕鬆完成預約、病歷、收費與營運管理。
+            {{ t("footer.description") }}
           </p>
         </section>
 
         <!-- ===== Footer 行動按鈕：控制導向價格方案 ===== -->
         <div class="footer-action">
           <NuxtLink to="/price" class="footer-cta">
-            查看價格方案
+            {{ t("footer.cta") }}
             <span aria-hidden="true">→</span>
           </NuxtLink>
         </div>
@@ -33,24 +33,28 @@
     <div class="footer-bottom">
       <div class="footer-bottom-inner">
         <p class="copyright">
-          &copy; 2026 PetCare System. All rights reserved.
+          &copy; 2026 {{ t("site.brandFull") }}. {{ t("footer.copyright") }}
         </p>
 
         <div class="footer-bottom-links">
           <NuxtLink to="/terms">
-            服務條款
+            {{ t("footer.terms") }}
           </NuxtLink>
 
           <span aria-hidden="true">・</span>
 
           <NuxtLink to="/privacy">
-            隱私權政策
+            {{ t("footer.privacy") }}
           </NuxtLink>
         </div>
       </div>
     </div>
   </footer>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n();
+</script>
 
 <style scoped>
 /* ===== 頁尾容器：控制 Footer 背景與主色系 ===== */

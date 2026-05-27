@@ -3,7 +3,7 @@
     <header class="bo-page-header">
       <div>
         <p class="bo-kicker">Human Resources</p>
-        <h1 class="bo-page-title">員工管理</h1>
+        <h1 class="bo-page-title">{{ t('page.member.staff') }}</h1>
       </div>
       <div class="bo-header-actions">
         <span class="bo-pill">
@@ -142,12 +142,14 @@ import { ref, reactive, computed } from "vue";
 import { showCustom } from "~/composables/utils/alert";
 import api from "~/composables/utils/api";
 
+const { t } = useI18n();
+
 definePageMeta({
   middleware: ["backoffice-auth", "brand-feature"],
   brandFeature: "subscription",
 });
 
-useHead({ title: "員工管理" });
+useHead(() => ({ title: t("page.member.staff") }));
 
 // ===== 型別 =====
 interface Staff {

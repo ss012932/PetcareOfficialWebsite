@@ -3,7 +3,7 @@
     <header class="bo-page-header">
       <div>
         <p class="bo-kicker">Billing</p>
-        <h1 class="bo-page-title">訂單資訊</h1>
+        <h1 class="bo-page-title">{{ t('page.member.orders') }}</h1>
       </div>
       <span class="bo-pill">{{ orders.length }} 筆訂單</span>
     </header>
@@ -186,7 +186,9 @@
 <script setup lang="ts">
 import api from "~/composables/utils/api";
 
-useHead({ title: "訂單資訊" });
+const { t } = useI18n();
+
+useHead(() => ({ title: t("page.member.orders") }));
 
 // ===== 訂單型別 =====
 interface RecurringBillingLog {
