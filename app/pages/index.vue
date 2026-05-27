@@ -358,12 +358,29 @@ useHead(() => ({
 
   color: var(--color-text);
   background-color: var(--color-bg);
+  overflow-x: hidden;
+}
+
+/* ===== 全站盒模型：控制 padding / border 不會把寬度撐爆 ===== */
+.home-page *,
+.home-page *::before,
+.home-page *::after {
+  box-sizing: border-box;
+}
+
+/* ===== 圖片自適應：控制 img、svg、video 不超出容器 ===== */
+.home-page img,
+.home-page svg,
+.home-page video {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* ===== 共用容器：手機優先，控制內容左右留白與最大寬度 ===== */
 .container {
   width: min(100% - 2rem, 1120px);
-  margin: 0 auto;
+  margin-inline: auto;
 }
 
 /* ===== HERO 外層：控制首頁主視覺外部區塊 ===== */
@@ -376,7 +393,7 @@ useHead(() => ({
 /* ===== HERO 主視覺外框：控制手機版背景圖與底部圓弧 ===== */
 .hero-shell {
   position: relative;
-  min-height: auto;
+  min-height: clamp(34rem, 86svh, 44rem);
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -427,20 +444,16 @@ useHead(() => ({
   grid-template-columns: 1fr;
   align-items: center;
   width: 100%;
-  min-height: auto;
-
-  /* ===== 手機版加左右內距，避免文字太貼邊 ===== */
-  padding: 3.5rem 1.25rem 4.5rem;
+  min-height: clamp(34rem, 86svh, 44rem);
+  padding: 4rem 1.25rem 5rem;
 }
 
 /* ===== HERO 文字內容：控制左側文字區塊 ===== */
 .hero-content {
-  max-width: 100%;
   position: relative;
   z-index: 2;
-
-  /* ===== 手機版限制文字寬度，讓排版更舒服 ===== */
   width: min(100%, 23rem);
+  max-width: 100%;
 }
 
 /* ===== HERO 小標：控制主標上方說明文字 ===== */
@@ -480,6 +493,7 @@ useHead(() => ({
   flex-direction: column;
   align-items: flex-start;
   gap: 0.85rem;
+  width: 100%;
 }
 
 /* ===== 共用按鈕：手機版控制所有按鈕基礎樣式 ===== */
@@ -511,6 +525,7 @@ useHead(() => ({
   border: 1.5px solid var(--color-accent);
   border-radius: 0.35rem;
   padding: 0.25rem;
+  flex-shrink: 0;
 }
 
 /* ===== 按鈕箭頭：控制按鈕右側箭頭 ===== */
@@ -607,11 +622,12 @@ useHead(() => ({
   border-bottom: 2px solid rgba(217, 178, 111, 0.58);
   border-radius: 0 0 50% 50%;
   pointer-events: none;
+  opacity: 0.55;
 }
 
 /* ===== 痛點區塊專用容器：手機版控制左右留白 ===== */
 .pain-points-section .container {
-  width: min(100% - 2rem, 100%);
+  width: min(100% - 2rem, 1120px);
 }
 
 /* ===== 痛點內容容器：手機版上下排列 ===== */
@@ -770,6 +786,7 @@ useHead(() => ({
   z-index: 2;
   list-style: none;
   display: grid;
+  grid-template-columns: 1fr;
   gap: 1rem;
   padding: 0;
   margin: 0;
@@ -779,12 +796,13 @@ useHead(() => ({
 .pain-point-item {
   position: relative;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
   grid-template-areas:
     "icon content"
     "icon content";
   align-items: flex-start;
   gap: 1rem;
+  min-width: 0;
   padding: 1.25rem;
   border-radius: 1.35rem;
   background-color: rgba(255, 255, 255, 0.92);
@@ -977,13 +995,14 @@ useHead(() => ({
   border-bottom: 1.5px solid rgba(217, 178, 111, 0.36);
   border-radius: 0 0 50% 50%;
   pointer-events: none;
+  opacity: 0.55;
 }
 
-/* ===== 方案總覽容器：手機版控制左右留白 ===== */
+/* ===== 方案總覽容器：手機版控制左右留白與最大寬度 ===== */
 .workflow-container {
   position: relative;
   z-index: 2;
-  width: min(100% - 2rem, 100%);
+  width: min(100% - 2rem, 1120px);
 }
 
 /* ===== 方案總覽標題區：手機版控制標題置中與間距 ===== */
@@ -1017,6 +1036,7 @@ useHead(() => ({
 .workflow-paw {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   width: 1.1rem;
   height: 1.1rem;
   color: var(--color-accent);
@@ -1060,7 +1080,7 @@ useHead(() => ({
 .workflow-step {
   position: relative;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: start;
   gap: 1rem;
   min-width: 0;
@@ -1078,6 +1098,7 @@ useHead(() => ({
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   border: 1.5px solid rgba(217, 178, 111, 0.58);
   border-radius: 999px;
   background-color: rgba(255, 255, 255, 0.72);
@@ -1256,6 +1277,7 @@ useHead(() => ({
 
 /* ===== 功能卡片：控制每個功能外觀 ===== */
 .feature-card {
+  min-width: 0;
   padding: 1.5rem;
   border-radius: 1.35rem;
   background-color: var(--color-card);
@@ -1338,6 +1360,7 @@ useHead(() => ({
 
 /* ===== 統計卡片：控制數據卡片外觀 ===== */
 .stat-card {
+  min-width: 0;
   padding: 1.5rem;
   border-radius: 1.35rem;
   background-color: var(--color-card);
@@ -1491,11 +1514,55 @@ useHead(() => ({
   line-height: 1.8;
 }
 
-/* ===== 平板版：768px 以上調整欄位與間距 ===== */
+/* ============================================================
+   平板版：768px 以上
+   重點：增加留白、部分區塊開始變成二欄或卡片排列
+   ============================================================ */
 @media (min-width: 48em) {
   /* ===== 平板版容器：控制左右留白 ===== */
   .container {
     width: min(100% - 3rem, 1120px);
+  }
+
+  /* ===== 平板版共用區塊間距：控制首頁每個大區塊的上下距離 ===== */
+  .pain-points-section,
+  .workflow-section,
+  .benefits-section,
+  .features-section,
+  .pricing-section {
+    padding-block: 5rem;
+  }
+
+  /* ===== 平板版 HERO：高度稍微放大，讓主視覺更完整 ===== */
+  .hero-shell {
+    min-height: clamp(38rem, 78svh, 48rem);
+    background-position: center right;
+  }
+
+  /* ===== 平板版 HERO 內容：控制文字區塊高度與內距 ===== */
+  .hero-grid {
+    min-height: clamp(38rem, 78svh, 48rem);
+    padding: 5rem 0 6rem;
+  }
+
+  /* ===== 平板版 HERO 文字寬度：控制標題與描述行長 ===== */
+  .hero-content {
+    width: min(100%, 32rem);
+  }
+
+  /* ===== 平板版 HERO 按鈕：由上下排列改成橫向排列 ===== */
+  .hero-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  /* ===== 平板版按鈕：不再強制滿版 ===== */
+  .btn {
+    width: auto;
+    max-width: none;
+    min-height: 3.45rem;
+    padding-inline: 1.35rem;
   }
 
   /* ===== 平板版痛點區塊：控制內容間距 ===== */
@@ -1503,35 +1570,75 @@ useHead(() => ({
     gap: 3rem;
   }
 
-  /* ===== 平板版方案總覽容器：控制左右留白 ===== */
-  .workflow-container {
-    width: min(100% - 3rem, 100%);
+  /* ===== 平板版痛點卡片列表：前兩張並排，第三張滿版 ===== */
+  .pain-points-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
   }
 
-  /* ===== 平板版流程時間軸：維持直向排列，避免太擠 ===== */
-  .workflow-timeline {
+  /* ===== 平板版第三張痛點卡片：讓三張卡片視覺更平衡 ===== */
+  .pain-point-item:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+  /* ===== 平板版痛點卡片：改成上 icon 下內容，避免二欄時過擠 ===== */
+  .pain-point-item {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    grid-template-areas:
+      "icon"
+      "content";
+    gap: 1rem;
+    padding: 1.5rem;
   }
 
-  /* ===== 平板版流程時間軸線：隱藏水平線 ===== */
-  .workflow-timeline::before {
+  /* ===== 平板版痛點 icon：回到上方，讓卡片視覺更像功能卡 ===== */
+  .pain-point-visual {
+    grid-area: icon;
+  }
+
+  /* ===== 平板版痛點內容：控制文字區塊 ===== */
+  .pain-point-content {
+    grid-area: content;
+  }
+
+  /* ===== 平板版方案總覽容器：修正原本最大寬度過寬問題 ===== */
+  .workflow-container {
+    width: min(100% - 3rem, 1120px);
+  }
+
+  /* ===== 平板版流程區：三個流程卡片並排，箭頭隱藏 ===== */
+  .workflow-timeline {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 1.25rem;
+  }
+
+  /* ===== 平板版流程箭頭：卡片並排後隱藏箭頭，避免破壞 grid ===== */
+  .workflow-arrow {
     display: none;
   }
 
-  /* ===== 平板版流程項目：保持卡片式直向閱讀 ===== */
+  /* ===== 平板版流程卡片：改成直向卡片，適合 iPad 寬度 ===== */
   .workflow-step {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr;
+    align-content: start;
+    gap: 1.25rem;
     padding: 1.5rem;
     border-radius: 1.5rem;
-    background-color: rgba(255, 255, 255, 0.72);
+    background-color: rgba(255, 255, 255, 0.78);
     border: 1px solid rgba(230, 216, 189, 0.72);
+    box-shadow: 0 14px 36px rgba(38, 50, 56, 0.06);
   }
 
-  /* ===== 平板版流程箭頭：控制向下箭頭 ===== */
-  .workflow-arrow {
-    margin: -0.25rem auto;
-    transform: rotate(90deg);
+  /* ===== 平板版流程 icon：控制卡片上方 icon 尺寸 ===== */
+  .workflow-icon-wrap {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  /* ===== 平板版流程標題：避免三欄時文字過大 ===== */
+  .workflow-step h3 {
+    font-size: clamp(1.45rem, 3vw, 1.85rem);
   }
 
   /* ===== 平板版功能卡片：控制兩欄排列 ===== */
@@ -1539,72 +1646,80 @@ useHead(() => ({
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  /* ===== 平板版優勢區塊：文字與統計左右排列 ===== */
+  .benefits-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.9fr);
+    gap: 2.5rem;
+  }
+
+  /* ===== 平板版統計卡片：右側維持單欄，避免太扁 ===== */
+  .benefits-stats {
+    grid-template-columns: 1fr;
+  }
+
   /* ===== 平板版價格方案：控制三欄排列 ===== */
   .pricing-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-
-  /* ===== 平板版統計卡片：控制三欄排列 ===== */
-  .benefits-stats {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
 }
 
-/* ===== 桌機版：1024px 以上調整成桌機排版 ===== */
+/* ============================================================
+   小桌機版：1024px 以上
+   重點：Hero 左文右圖感、痛點左右欄、流程水平排列
+   ============================================================ */
 @media (min-width: 64em) {
-  /* ===== 桌機版 HERO：控制背景圖與高度 ===== */
+  /* ===== 桌機版 HERO：控制整體高度與底部間距 ===== */
   .hero {
-    padding: 0 0 2rem;
+    padding-bottom: 2rem;
   }
 
-  /* ===== 桌機版 HERO 圖片區：控制桌機版背景遮罩 ===== */
+  /* ===== 桌機版 HERO 背景：改成左側文字清楚、右側圖片顯示 ===== */
   .hero-shell {
-    min-height: calc(100vh - 4.5rem);
+    min-height: calc(100svh - 4.5rem);
     border-bottom-left-radius: 50% 10%;
     border-bottom-right-radius: 50% 10%;
     background-image:
       linear-gradient(
         90deg,
         rgba(248, 247, 243, 0.98) 0%,
-        rgba(248, 247, 243, 0.92) 32%,
-        rgba(248, 247, 243, 0.5) 58%,
+        rgba(248, 247, 243, 0.92) 34%,
+        rgba(248, 247, 243, 0.52) 58%,
         rgba(248, 247, 243, 0.08) 100%
       ),
       url("/assets/image/Image1.png");
     background-position: center right;
   }
 
-  /* ===== 桌機版 HERO 排版：控制左側文字寬度 ===== */
+  /* ===== 桌機版 HERO 排版：左側文字固定寬度 ===== */
   .hero-grid {
     grid-template-columns: minmax(0, 42rem);
-    min-height: calc(100vh - 4.5rem);
+    min-height: calc(100svh - 4.5rem);
     padding: 6rem 0 7rem;
   }
 
-  /* ===== 桌機版 HERO 標題：控制文字不要過大 ===== */
+  /* ===== 桌機版 HERO 文字：增加寬度，讓標題更大器 ===== */
+  .hero-content {
+    width: min(100%, 42rem);
+  }
+
+  /* ===== 桌機版 HERO 標題：桌機字級加大但限制上限 ===== */
   .hero-title {
-    font-size: clamp(2.4rem, 3.5vw, 3.7rem);
+    font-size: clamp(2.7rem, 4vw, 3.8rem);
+    line-height: 1.18;
     letter-spacing: 0.05em;
   }
 
-  /* ===== 桌機版 HERO 描述：控制描述大小 ===== */
+  /* ===== 桌機版 HERO 描述：提升閱讀性 ===== */
   .hero-desc {
     font-size: 1.08rem;
     line-height: 1.9;
+    max-width: 38rem;
   }
 
-  /* ===== 桌機版 HERO 按鈕：恢復橫向排列 ===== */
-  .hero-actions {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  /* ===== 桌機版按鈕：控制不滿版 ===== */
+  /* ===== 桌機版按鈕：尺寸略放大 ===== */
   .btn {
-    width: auto;
-    max-width: none;
     min-height: 3.65rem;
-    padding: 0 1.45rem;
+    padding-inline: 1.45rem;
     font-size: 1rem;
   }
 
@@ -1620,19 +1735,20 @@ useHead(() => ({
     font-size: 1.7rem;
   }
 
-  /* ===== 桌機版痛點區塊：控制整體間距 ===== */
+  /* ===== 桌機版痛點區塊：拉開上下距離 ===== */
   .pain-points-section {
-    padding: 5rem 0;
+    padding-block: 6rem;
   }
 
-  /* ===== 桌機版痛點容器：控制內容不要太窄 ===== */
+  /* ===== 桌機版痛點容器：控制最大寬度，不要滿到太寬 ===== */
   .pain-points-section .container {
-    width: min(1400px, calc(100% - 4rem));
+    width: min(100% - 4rem, 1280px);
   }
 
-  /* ===== 桌機版痛點排版：控制左說明右卡片 ===== */
+  /* ===== 桌機版痛點排版：左說明、右卡片 ===== */
   .pain-points-panel {
-    grid-template-columns: 0.8fr 1.2fr;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
     gap: 3.5rem;
   }
 
@@ -1650,12 +1766,23 @@ useHead(() => ({
     max-width: 34rem;
   }
 
-  /* ===== 桌機版痛點卡片：控制卡片尺寸 ===== */
+  /* ===== 桌機版痛點卡片列表：恢復單欄，像清單式重點呈現 ===== */
+  .pain-points-list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* ===== 桌機版第三張痛點：取消平板滿版設定 ===== */
+  .pain-point-item:nth-child(3) {
+    grid-column: auto;
+  }
+
+  /* ===== 桌機版痛點卡片：icon、內容、箭頭橫向排列 ===== */
   .pain-point-item {
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     grid-template-areas: none;
     align-items: center;
-    padding: 1.25rem 1.35rem;
+    padding: 1.35rem 1.5rem;
     gap: 1.15rem;
   }
 
@@ -1673,7 +1800,7 @@ useHead(() => ({
     font-size: 1.15rem;
   }
 
-  /* ===== 桌機版痛點內容：重置 grid-area ===== */
+  /* ===== 桌機版痛點內容：取消 grid-area ===== */
   .pain-point-content {
     grid-area: auto;
   }
@@ -1690,12 +1817,6 @@ useHead(() => ({
     font-size: 1.22rem;
   }
 
-  /* ===== 桌機版痛點描述：控制字級 ===== */
-  .pain-point-content > p {
-    font-size: 0.95rem;
-    line-height: 1.75;
-  }
-
   /* ===== 桌機版痛點清單：控制間距 ===== */
   .pain-point-checks {
     padding-top: 0.65rem;
@@ -1708,7 +1829,7 @@ useHead(() => ({
     line-height: 1.55;
   }
 
-  /* ===== 桌機版痛點箭頭：顯示右側箭頭 ===== */
+  /* ===== 桌機版痛點箭頭：桌機顯示右側箭頭 ===== */
   .pain-point-arrow {
     display: inline-flex;
     align-items: center;
@@ -1725,20 +1846,20 @@ useHead(() => ({
     line-height: 1;
   }
 
-  /* ===== 桌機版方案總覽區塊：控制上下間距 ===== */
+  /* ===== 桌機版流程區塊：放大上下距離 ===== */
   .workflow-section {
-    padding: 5rem 0;
+    padding-block: 6rem;
   }
 
-  /* ===== 桌機版方案總覽容器：控制內容寬度 ===== */
+  /* ===== 桌機版流程容器：控制最大寬度 ===== */
   .workflow-container {
-    width: min(1400px, calc(100% - 4rem));
+    width: min(100% - 4rem, 1280px);
   }
 
-  /* ===== 桌機版方案總覽標題區：控制標題不要太大 ===== */
+  /* ===== 桌機版流程標題區：控制文字最大寬度 ===== */
   .workflow-header {
     max-width: 58rem;
-    margin: 0 auto 3.5rem;
+    margin-bottom: 3.75rem;
   }
 
   /* ===== 桌機版方案總覽標題：控制桌機字體不要過大 ===== */
@@ -1754,24 +1875,32 @@ useHead(() => ({
     line-height: 1.85;
   }
 
-  /* ===== 桌機版流程時間軸：控制看診前、中、後左中右排列 ===== */
+  /* ===== 桌機版流程時間軸：三階段與箭頭水平排列 ===== */
   .workflow-timeline {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr auto 1fr;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
     gap: 1.25rem;
   }
 
-  /* ===== 桌機版流程項目：取消手機卡片感，改成開放式排列 ===== */
+  /* ===== 桌機版流程箭頭：恢復顯示水平箭頭 ===== */
+  .workflow-arrow {
+    display: inline-flex;
+    width: 3rem;
+    height: 3rem;
+    margin: 0;
+    transform: none;
+    font-size: 1.5rem;
+  }
+
+  /* ===== 桌機版流程卡片：取消平板卡片感，改成開放式流程 ===== */
   .workflow-step {
-    display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto minmax(0, 1fr);
     align-items: start;
     gap: 1.15rem;
     padding: 0;
-    background-color: transparent;
+    background: transparent;
     border: none;
-    border-radius: 0;
+    box-shadow: none;
   }
 
   /* ===== 桌機版流程 icon 外圈：控制尺寸不要太大 ===== */
@@ -1794,23 +1923,15 @@ useHead(() => ({
     box-shadow: -4.8rem 0.12rem 0 rgba(217, 178, 111, 0.65);
   }
 
-  /* ===== 桌機版流程 icon：控制尺寸 ===== */
-  .workflow-icon {
-    width: 3.55rem;
-    height: 3.55rem;
-    border-radius: 0.85rem;
-    font-size: 1.35rem;
-  }
-
   /* ===== 桌機版流程編號：控制字級 ===== */
   .workflow-number {
     font-size: 1.35rem;
     margin-bottom: 0.25rem;
   }
 
-  /* ===== 桌機版流程標題：控制不要過大 ===== */
+  /* ===== 桌機版流程標題：桌機加大但限制上限 ===== */
   .workflow-step h3 {
-    font-size: clamp(1.8rem, 2.4vw, 2.4rem);
+    font-size: clamp(1.8rem, 2.4vw, 2.35rem);
     line-height: 1.2;
     letter-spacing: 0.045em;
     margin-bottom: 0.9rem;
@@ -1832,15 +1953,6 @@ useHead(() => ({
     line-height: 1.55;
   }
 
-  /* ===== 桌機版流程箭頭：恢復水平箭頭 ===== */
-  .workflow-arrow {
-    width: 3rem;
-    height: 3rem;
-    margin: 0;
-    transform: none;
-    font-size: 1.6rem;
-  }
-
   /* ===== 桌機版功能卡片：控制三欄排列 ===== */
   .features-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1853,7 +1965,8 @@ useHead(() => ({
 
   /* ===== 桌機版優勢區塊：控制左右欄位 ===== */
   .benefits-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.8fr);
+    gap: 4rem;
   }
 
   /* ===== 桌機版優勢統計：控制右側統計改回單欄 ===== */
@@ -1867,37 +1980,144 @@ useHead(() => ({
   }
 }
 
-/* ===== 大螢幕版：1280px 以上控制寬版內容 ===== */
+/* ============================================================
+   大桌機版：1280px 以上
+   重點：限制超寬螢幕，不讓內容過度拉開
+   ============================================================ */
 @media (min-width: 80em) {
-  /* ===== 大螢幕痛點區塊：控制寬版內容 ===== */
-  .pain-points-section .container {
-    width: min(1500px, calc(100% - 5rem));
+  /* ===== 大桌機容器：首頁主要內容最大寬度 ===== */
+  .container {
+    width: min(100% - 5rem, 1200px);
   }
 
-  /* ===== 大螢幕痛點區塊：控制左右比例 ===== */
+  /* ===== 大桌機痛點容器：痛點區塊可稍微寬一點 ===== */
+  .pain-points-section .container {
+    width: min(100% - 5rem, 1360px);
+  }
+
+  /* ===== 大桌機流程容器：流程區塊可稍微寬一點 ===== */
+  .workflow-container {
+    width: min(100% - 5rem, 1360px);
+  }
+
+  /* ===== 大桌機痛點排版：控制左右比例 ===== */
   .pain-points-panel {
-    grid-template-columns: 0.78fr 1.22fr;
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
     gap: 4rem;
   }
 
-  /* ===== 大螢幕方案總覽：控制內容寬度 ===== */
-  .workflow-container {
-    width: min(1500px, calc(100% - 5rem));
-  }
-
-  /* ===== 大螢幕方案總覽：控制流程間距 ===== */
+  /* ===== 大桌機流程時間軸：拉開流程間距 ===== */
   .workflow-timeline {
     gap: 1.75rem;
   }
 
-  /* ===== 大螢幕方案總覽主標題：控制不要過大 ===== */
-  .workflow-title {
-    font-size: clamp(2.5rem, 3vw, 3.7rem);
+  /* ===== 大桌機 HERO 標題：限制最大尺寸，避免 1440 以上過大 ===== */
+  .hero-title {
+    font-size: clamp(3rem, 3.6vw, 4rem);
   }
 
-  /* ===== 大螢幕流程標題：控制不要過大 ===== */
+  /* ===== 大桌機流程標題：限制最大尺寸 ===== */
   .workflow-step h3 {
-    font-size: clamp(1.9rem, 2.2vw, 2.5rem);
+    font-size: clamp(1.9rem, 2vw, 2.45rem);
+  }
+}
+
+/* ============================================================
+   動畫偏好：使用者若設定減少動畫，關閉 hover 位移
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .pain-point-item,
+  .feature-card,
+  .btn-primary:hover,
+  .btn-outline:hover,
+  .btn-secondary:hover,
+  .btn-plan:hover,
+  .pain-point-item:hover,
+  .feature-card:hover,
+  .pain-points-link:hover {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* ============================================================
+   平板 / 小筆電 Hero 修正
+   解決背景圖在平板尺寸下被白色遮罩蓋住太多的問題
+   ============================================================ */
+
+/* ===== 平板版 Hero：768px ~ 1023px，讓背景圖清楚露出 ===== */
+@media (min-width: 48em) and (max-width: 63.99em) {
+  /* ===== Hero 外框：控制平板版背景圖位置與遮罩濃度 ===== */
+  .hero-shell {
+    min-height: 42rem;
+
+    background-image:
+      linear-gradient(
+        90deg,
+        rgba(248, 247, 243, 0.98) 0%,
+        rgba(248, 247, 243, 0.9) 38%,
+        rgba(248, 247, 243, 0.58) 62%,
+        rgba(248, 247, 243, 0.22) 100%
+      ),
+      url("/assets/image/Image1.png");
+
+    background-size: auto 100%;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+  }
+
+  /* ===== Hero 內容：控制文字不要壓到圖片中央 ===== */
+  .hero-grid {
+    min-height: 42rem;
+    padding: 5rem 0 6rem;
+  }
+
+  /* ===== Hero 文字：限制寬度，避免文字吃掉太多畫面 ===== */
+  .hero-content {
+    width: min(100%, 30rem);
+  }
+
+  /* ===== Hero 標題：平板版稍微縮小，避免佔太多橫向空間 ===== */
+  .hero-title {
+    font-size: clamp(2.4rem, 5vw, 3.2rem);
+    line-height: 1.18;
+  }
+
+  /* ===== Hero 描述：限制寬度，讓右側圖片有空間顯示 ===== */
+  .hero-desc {
+    max-width: 30rem;
+  }
+}
+
+
+/* ===== 小桌機版 Hero：1024px ~ 1279px，避免圖片仍然太淡 ===== */
+@media (min-width: 64em) and (max-width: 79.99em) {
+  /* ===== Hero 外框：小桌機版降低右側遮罩，讓寵物圖更明顯 ===== */
+  .hero-shell {
+    background-image:
+      linear-gradient(
+        90deg,
+        rgba(248, 247, 243, 0.98) 0%,
+        rgba(248, 247, 243, 0.9) 32%,
+        rgba(248, 247, 243, 0.48) 55%,
+        rgba(248, 247, 243, 0.12) 100%
+      ),
+      url("/assets/image/Image1.png");
+
+    background-size: auto 100%;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+  }
+
+  /* ===== Hero 文字：小桌機不要太寬，避免壓到圖片主體 ===== */
+  .hero-content {
+    width: min(100%, 38rem);
+  }
+
+  /* ===== Hero 描述：限制行寬，讓背景圖右側保留空間 ===== */
+  .hero-desc {
+    max-width: 34rem;
   }
 }
 </style>

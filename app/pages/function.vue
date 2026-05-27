@@ -483,7 +483,8 @@ useHead(() => ({
 html {
   scroll-behavior: smooth;
 }
-/* ===== 共用容器：控制內容最大寬度 ===== */
+
+/* ===== 共用容器：手機優先，控制內容最大寬度與左右留白 ===== */
 .container {
   width: min(100% - 2rem, 80rem);
   margin-inline: auto;
@@ -501,6 +502,7 @@ html {
 
   min-height: 100vh;
   color: var(--color-text);
+  overflow-x: hidden;
   background:
     radial-gradient(
       circle at top left,
@@ -519,7 +521,28 @@ html {
     );
 }
 
-/* ===== 頁面主視覺：控制功能介紹 Hero 區塊 ===== */
+/* ===== 全頁盒模型：避免 padding / border 把版面撐爆 ===== */
+.function-page *,
+.function-page *::before,
+.function-page *::after {
+  box-sizing: border-box;
+}
+
+/* ===== 圖片自適應：避免一般圖片在手機或平板爆版，但排除 Hero 絕對定位背景圖 ===== */
+.function-page img:not(.function-hero-image),
+.function-page svg,
+.function-page video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ============================================================
+   Hero 主視覺區
+   重點：背景圖固定貼齊底部，縮小螢幕時不會被往上拉
+   ============================================================ */
+
+/* ===== 頁面主視覺：手機版控制功能介紹 Hero 區塊 ===== */
 .function-hero {
   position: relative;
   min-height: 34rem;
@@ -531,28 +554,32 @@ html {
   isolation: isolate;
 }
 
-/* ===== Hero 背景圖片：控制 Image2.png 覆蓋整個 Hero ===== */
-.function-hero-image {
+/* ===== Hero 背景圖片：控制 Image2.png 確實覆蓋整個 Hero ===== */
+.function-page .function-hero-image {
   position: absolute;
   inset: 0;
   z-index: -3;
   width: 100%;
   height: 100%;
+  max-width: none;
+  display: block;
   object-fit: cover;
-  object-position: center;
+
+  /* ===== 手機版：保留右側主體，同時讓圖片吃滿 Hero 高度 ===== */
+  object-position: 58% center;
 }
 
-/* ===== Hero 遮罩：控制圖片上方漸層，讓左側文字清楚 ===== */
+/* ===== Hero 遮罩：手機版控制圖片上方漸層，讓左側文字清楚 ===== */
 .function-hero-overlay {
   position: absolute;
   inset: 0;
   z-index: -2;
   background: linear-gradient(
     90deg,
-    rgba(248, 247, 243, 0.96) 0%,
-    rgba(248, 247, 243, 0.86) 34%,
-    rgba(248, 247, 243, 0.38) 62%,
-    rgba(248, 247, 243, 0.08) 100%
+    rgba(248, 247, 243, 0.98) 0%,
+    rgba(248, 247, 243, 0.92) 46%,
+    rgba(248, 247, 243, 0.58) 72%,
+    rgba(248, 247, 243, 0.22) 100%
   );
 }
 
@@ -600,7 +627,7 @@ html {
 /* ===== 功能頁標題：控制功能介紹文字 ===== */
 .function-title {
   color: var(--color-primary);
-  font-size: clamp(2.6rem, 7vw, 4.8rem);
+  font-size: clamp(2.4rem, 10vw, 3.4rem);
   font-weight: 900;
   line-height: 1.12;
   letter-spacing: 0.08em;
@@ -610,27 +637,28 @@ html {
 /* ===== 功能頁描述：控制標題下方說明 ===== */
 .function-desc {
   color: var(--color-muted);
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1.85;
   margin: 0;
 }
+
+/* ============================================================
+   功能快捷導覽區
+   ============================================================ */
 
 /* ===== 功能快捷導覽區：控制 Hero 下方快捷按鈕位置 ===== */
 .feature-anchor-section {
   position: relative;
   z-index: 5;
   margin-top: 2rem;
-
-  /* ===== 縮短按鈕到第一個功能區塊的距離 ===== */
   padding-bottom: 0;
 }
 
-/* ===== 功能快捷導覽外框：控制圓角白色膠囊卡片 ===== */
+/* ===== 功能快捷導覽外框：手機版 3 欄排列 ===== */
 .feature-anchor-panel {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   overflow: hidden;
-
   border-radius: 2rem;
   background: linear-gradient(
     135deg,
@@ -643,13 +671,14 @@ html {
   backdrop-filter: blur(0.6rem);
 }
 
-/* ===== 功能快捷按鈕：控制單一按鈕排列 ===== */
+/* ===== 功能快捷按鈕：預設每個按鈕都有右線與底線 ===== */
 .feature-anchor-item {
   position: relative;
-  min-height: 7rem;
+  min-height: 6.75rem;
   display: grid;
   place-items: center;
-  padding: 1.05rem 0.7rem;
+  gap: 0.35rem;
+  padding: 0.95rem 0.6rem;
   color: var(--color-primary);
   text-align: center;
   text-decoration: none;
@@ -676,29 +705,26 @@ html {
   transition: transform 0.25s ease;
 }
 
-/* ===== 快捷導覽分隔線：手機版兩欄排列 ===== */
-.feature-anchor-item:nth-child(2n) {
+/* ===== 手機版 3 欄排列：每排第 3 個不要右線 ===== */
+.feature-anchor-item:nth-child(3n) {
   border-right: none;
 }
 
-/* ===== 快捷導覽分隔線：手機版最後一排不要底線 ===== */
-.feature-anchor-item:nth-last-child(-n + 2) {
+/* ===== 手機版 3 欄排列：最後一排 3 個不要底線 ===== */
+.feature-anchor-item:nth-last-child(-n + 3) {
   border-bottom: none;
 }
 
 /* ===== 功能快捷 icon：控制圖片顯示，移除圓形外框 ===== */
 .feature-anchor-icon {
-  width: 4.8rem;
-  height: 4.8rem;
+  width: clamp(3.5rem, 14vw, 4.8rem);
+  height: clamp(3.5rem, 14vw, 4.8rem);
   display: grid;
   place-items: center;
-
-  /* ===== 移除圓形外框與底色 ===== */
   border: none;
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-
   transition:
     transform 0.25s ease,
     opacity 0.25s ease;
@@ -706,16 +732,8 @@ html {
 
 /* ===== 快捷導覽圖片 icon：控制按鈕內圖片大小 ===== */
 .feature-anchor-icon-img {
-  width: 4.4rem;
-  height: 4.4rem;
-  display: block;
-  object-fit: contain;
-}
-
-/* ===== 功能標題圖片 icon：控制每區標題旁邊的圖片 icon ===== */
-.feature-showcase-icon-img {
-  width: 2.8rem;
-  height: 2.8rem;
+  width: clamp(3.2rem, 13vw, 4.4rem);
+  height: clamp(3.2rem, 13vw, 4.4rem);
   display: block;
   object-fit: contain;
 }
@@ -723,9 +741,9 @@ html {
 /* ===== 功能快捷文字：控制按鈕文字樣式 ===== */
 .feature-anchor-text {
   color: var(--color-primary);
-  font-size: 0.92rem;
+  font-size: clamp(0.8rem, 3.2vw, 0.92rem);
   font-weight: 900;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   line-height: 1.4;
   transition: color 0.25s ease;
 }
@@ -757,11 +775,13 @@ html {
   transform: scaleX(1);
 }
 
+/* ============================================================
+   核心功能介紹區
+   ============================================================ */
+
 /* ===== 功能總覽區：控制核心功能滿版區塊 ===== */
 .feature-overview-section {
   position: relative;
-
-  /* ===== 原本 3rem 太大，拿掉上方空白 ===== */
   padding: 0;
   overflow: hidden;
 }
@@ -789,10 +809,10 @@ html {
   display: grid;
 }
 
-/* ===== 單一功能滿版區塊：控制每一區大面積排版 ===== */
+/* ===== 單一功能滿版區塊：手機版控制每一區大面積排版 ===== */
 .feature-showcase-item {
   position: relative;
-  padding: 1.75rem 0;
+  padding: 2.75rem 0;
   scroll-margin-top: 7rem;
   overflow: hidden;
 }
@@ -837,14 +857,16 @@ html {
   position: relative;
   z-index: 2;
   display: grid;
+  grid-template-columns: 1fr;
   gap: 2rem;
 }
 
 /* ===== 功能文字內容：控制說明區排版 ===== */
 .feature-showcase-content {
   display: grid;
-  gap: 1.1rem;
+  gap: 1.05rem;
   align-content: center;
+  min-width: 0;
 }
 
 /* ===== 功能編號：控制 01 02 03 樣式 ===== */
@@ -853,35 +875,36 @@ html {
   color: var(--color-accent);
   font-size: 1rem;
   font-weight: 900;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
 }
 
 /* ===== 功能標題列：控制 icon 與標題同列 ===== */
 .feature-heading-row {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.9rem;
+  min-width: 0;
 }
 
-/* ===== 功能展示 icon：控制圓形圖示 ===== */
+/* ===== 功能標題 icon：改成只顯示圖片，移除圓形外框 ===== */
 .feature-showcase-icon {
-  width: 4.2rem;
-  height: 4.2rem;
+  width: clamp(3.8rem, 15vw, 5.2rem);
+  height: clamp(3.8rem, 15vw, 5.2rem);
   flex: 0 0 auto;
   display: grid;
   place-items: center;
-  border: 1px solid rgba(217, 178, 111, 0.72);
-  border-radius: 999px;
-  color: var(--color-primary);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 250, 240, 0.98) 0%,
-    rgba(248, 247, 243, 0.98) 100%
-  );
-  font-size: 1.55rem;
-  box-shadow:
-    0 12px 28px rgba(15, 37, 56, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* ===== 功能標題圖片 icon：控制每區標題旁邊的圖片 icon ===== */
+.feature-showcase-icon-img {
+  width: clamp(3.6rem, 14vw, 5rem);
+  height: clamp(3.6rem, 14vw, 5rem);
+  display: block;
+  object-fit: contain;
 }
 
 /* ===== 功能英文標籤：控制 Appointment 等文字 ===== */
@@ -897,9 +920,10 @@ html {
 /* ===== 功能標題：控制功能名稱 ===== */
 .feature-heading-row h3 {
   color: var(--color-primary);
-  font-size: clamp(1.8rem, 6vw, 3rem);
+  font-size: clamp(1.55rem, 6vw, 2.4rem);
   font-weight: 900;
-  line-height: 1.2;
+  line-height: 1.25;
+  margin: 0;
 }
 
 /* ===== 功能描述：控制每區說明文字 ===== */
@@ -907,129 +931,11 @@ html {
   max-width: 34rem;
   color: var(--color-muted);
   font-size: 1rem;
-  line-height: 1.9;
-  margin: 0;
-}
-
-/* ===== 功能重點列表：控制三個重點 ===== */
-.feature-point-list {
-  display: grid;
-  gap: 0.75rem;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-/* ===== 功能重點項目：控制勾勾文字 ===== */
-.feature-point-list li {
-  position: relative;
-  padding-left: 1.45rem;
-  color: var(--color-text);
-  font-size: 0.98rem;
-  line-height: 1.7;
-}
-
-/* ===== 功能重點勾勾：控制項目前方符號 ===== */
-.feature-point-list li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  color: var(--color-primary);
-  font-weight: 900;
-}
-
-/* ===== 功能圖片區：取消卡片感，改成滿版展示感 ===== */
-.feature-showcase-visual {
-  position: relative;
-}
-
-/* ===== 功能圖片外層裝飾：控制淡金色大底框 ===== */
-.feature-showcase-visual::before {
-  content: "";
-  position: absolute;
-  inset: 1.2rem -1rem -1rem 1rem;
-  z-index: -1;
-  border-radius: 2rem;
-  background: linear-gradient(
-    135deg,
-    rgba(217, 178, 111, 0.12) 0%,
-    rgba(255, 250, 240, 0.72) 100%
-  );
-}
-
-/* ===== 功能圖片：控制示意圖顯示 ===== */
-.feature-showcase-visual img {
-  width: 100%;
-  display: block;
-  border-radius: 1.4rem;
-  object-fit: cover;
-  box-shadow: 0 24px 70px rgba(15, 37, 56, 0.13);
-}
-
-/* ===== 功能編號：控制 01 02 03 樣式 ===== */
-.feature-number {
-  width: fit-content;
-  color: var(--color-accent);
-  font-size: 1rem;
-  font-weight: 900;
-  letter-spacing: 0.18em;
-}
-
-/* ===== 功能標題列：控制 icon 與標題同列 ===== */
-.feature-heading-row {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-/* ===== 功能展示 icon：控制圓形圖示 ===== */
-.feature-showcase-icon {
-  width: 4.2rem;
-  height: 4.2rem;
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(217, 178, 111, 0.72);
-  border-radius: 999px;
-  color: var(--color-primary);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 250, 240, 0.98) 0%,
-    rgba(248, 247, 243, 0.98) 100%
-  );
-  font-size: 1.55rem;
-  box-shadow:
-    0 12px 28px rgba(15, 37, 56, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95);
-}
-
-/* ===== 功能英文標籤：控制 Appointment 等文字 ===== */
-.feature-label {
-  color: var(--color-accent);
-  font-size: 0.75rem;
-  font-weight: 900;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin-bottom: 0.25rem;
-}
-
-/* ===== 功能標題：控制預約排程等文字 ===== */
-.feature-heading-row h3 {
-  color: var(--color-primary);
-  font-size: clamp(1.55rem, 6vw, 2.4rem);
-  font-weight: 900;
-  line-height: 1.25;
-}
-
-/* ===== 功能描述：控制每區說明文字 ===== */
-.feature-showcase-desc {
-  color: var(--color-muted);
-  font-size: 1rem;
   line-height: 1.85;
   margin: 0;
 }
 
-/* ===== 功能重點列表：控制三個重點 ===== */
+/* ===== 功能重點列表：控制四個重點 ===== */
 .feature-point-list {
   display: grid;
   gap: 0.65rem;
@@ -1060,11 +966,25 @@ html {
 .feature-showcase-visual {
   position: relative;
   z-index: 2;
+  min-width: 0;
   padding: 0.6rem;
-
   border-radius: 1.35rem;
   background-color: rgba(255, 255, 255, 0.72);
   box-shadow: 0 16px 40px rgba(15, 37, 56, 0.08);
+}
+
+/* ===== 功能圖片外層裝飾：控制淡金色大底框 ===== */
+.feature-showcase-visual::before {
+  content: "";
+  position: absolute;
+  inset: 1.2rem -1rem -1rem 1rem;
+  z-index: -1;
+  border-radius: 2rem;
+  background: linear-gradient(
+    135deg,
+    rgba(217, 178, 111, 0.12) 0%,
+    rgba(255, 250, 240, 0.72) 100%
+  );
 }
 
 /* ===== 功能圖片：控制 Image3-8 顯示 ===== */
@@ -1073,86 +993,12 @@ html {
   display: block;
   border-radius: 1rem;
   object-fit: cover;
+  box-shadow: 0 18px 48px rgba(15, 37, 56, 0.1);
 }
 
-/* ===== 平板以上：控制功能區塊留白 ===== */
-@media (min-width: 48em) {
-  .feature-overview-section {
-    padding-top: 0rem;
-  }
-
-  .feature-showcase-item {
-    padding: 5rem 0;
-  }
-  .feature-anchor-panel {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .feature-anchor-item:nth-child(2n) {
-    border-right: 1px solid rgba(230, 216, 189, 0.78);
-  }
-
-  .feature-anchor-item:nth-child(4n) {
-    border-right: none;
-  }
-
-  .feature-anchor-item:nth-last-child(-n + 4) {
-    border-bottom: none;
-  }
-}
-
-/* ===== 桌機以上：縮短一區一功能的上下高度 ===== */
-@media (min-width: 64em) {
-  .feature-showcase-item {
-    min-height: 28rem;
-    display: flex;
-    align-items: center;
-    padding: 1.5rem 0;
-  }
-
-  .feature-showcase-item:first-child {
-    padding-top: 0.75rem;
-  }
-
-  .feature-showcase-inner {
-    grid-template-columns: 0.72fr 1.28fr;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  .feature-showcase-inner-reverse {
-    grid-template-columns: 1.28fr 0.72fr;
-  }
-
-  .feature-showcase-inner-reverse .feature-showcase-content {
-    order: 2;
-  }
-
-  .feature-showcase-inner-reverse .feature-showcase-visual {
-    order: 1;
-  }
-
-  .feature-showcase-visual img {
-    border-radius: 1.65rem;
-  }
-}
-
-/* ===== 大螢幕：縮短每個功能區塊的上下間距 ===== */
-@media (min-width: 80em) {
-  .feature-showcase-item {
-    min-height: 32rem;
-    padding: 2.75rem 0;
-  }
-
-  .feature-showcase-inner {
-    width: min(100% - 2rem, 88rem);
-    gap: 2.2rem;
-  }
-
-  .feature-showcase-desc {
-    font-size: 1rem;
-  }
-}
+/* ============================================================
+   流程整合區
+   ============================================================ */
 
 /* ===== 流程整合區：控制區塊上下留白 ===== */
 .workflow-section {
@@ -1163,7 +1009,7 @@ html {
 .workflow-panel {
   display: grid;
   gap: 2rem;
-  padding: 2rem;
+  padding: 1.5rem;
   border: 1px solid rgba(230, 216, 189, 0.92);
   border-radius: 1.65rem;
   background-color: rgba(255, 255, 255, 0.66);
@@ -1196,9 +1042,9 @@ html {
 /* ===== 流程項目：控制單一流程卡片 ===== */
 .workflow-item {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 1rem;
-  padding: 1.25rem;
+  padding: 1.2rem;
   border: 1px solid rgba(230, 216, 189, 0.9);
   border-radius: 1.15rem;
   background-color: rgba(255, 250, 240, 0.55);
@@ -1232,6 +1078,10 @@ html {
   line-height: 1.7;
   margin: 0;
 }
+
+/* ============================================================
+   權限安全區
+   ============================================================ */
 
 /* ===== 權限安全區：控制區塊上下距離 ===== */
 .security-section {
@@ -1291,6 +1141,10 @@ html {
   margin: 0;
 }
 
+/* ============================================================
+   CTA 區塊
+   ============================================================ */
+
 /* ===== CTA 區塊：控制底部導購區 ===== */
 .function-cta-section {
   padding: 2rem 0 4rem;
@@ -1298,7 +1152,7 @@ html {
 
 /* ===== CTA 卡片：控制底部大卡片 ===== */
 .function-cta {
-  padding: 2rem;
+  padding: 2rem 1.5rem;
   border: 1px solid rgba(217, 178, 111, 0.85);
   border-radius: 1.65rem;
   text-align: center;
@@ -1351,120 +1205,288 @@ html {
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
 }
 
-/* ===== 功能標題 icon：改成只顯示圖片，移除圓形外框 ===== */
-.feature-showcase-icon {
-  width: 5.2rem;
-  height: 5.2rem;
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-
-  /* ===== 移除圓圈外框、背景與陰影 ===== */
-  border: none;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-/* ===== 功能標題圖片 icon：控制每區標題旁圖片大小 ===== */
-.feature-showcase-icon-img {
-  width: 5rem;
-  height: 5rem;
-  display: block;
-  object-fit: contain;
-}
-
-/* ===== 平板以上：控制卡片雙欄與留白 ===== */
+/* ============================================================
+   平板版：768px 以上
+   ============================================================ */
 @media (min-width: 48em) {
+  /* ===== 平板版容器：控制左右留白 ===== */
+  .container {
+    width: min(100% - 3rem, 80rem);
+  }
+
+  /* ===== 平板版 Hero：保留原本高度，不使用 svh 避免縮放時圖片被拉動 ===== */
   .function-hero {
     min-height: 38rem;
     padding: 8rem 0 6rem;
   }
 
+  /* ===== 平板版 Hero 圖片：貼齊右下角，避免底部和深藍弧線出現空白感 ===== */
+  .function-hero-image {
+    object-position: right bottom;
+  }
+
+  /* ===== 平板版 Hero 遮罩：左側文字清楚，右側圖片露出 ===== */
+  .function-hero-overlay {
+    background: linear-gradient(
+      90deg,
+      rgba(248, 247, 243, 0.98) 0%,
+      rgba(248, 247, 243, 0.9) 34%,
+      rgba(248, 247, 243, 0.42) 62%,
+      rgba(248, 247, 243, 0.08) 100%
+    );
+  }
+
+  /* ===== 平板版標題：控制標題不要過大 ===== */
+  .function-title {
+    font-size: clamp(3rem, 7vw, 4.3rem);
+  }
+
+  /* ===== 平板以上功能區塊留白 ===== */
+  .feature-overview-section {
+    padding-top: 0;
+  }
+
+  /* ===== 平板以上功能展示區：加大上下留白 ===== */
+  .feature-showcase-item {
+    padding: 5rem 0;
+  }
+
+  /* ===== 平板以上快捷導覽：6 個按鈕平均一排 ===== */
+  .feature-anchor-panel {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  /* ===== 平板以上：全部按鈕先恢復右線，並拿掉底線 ===== */
+  .feature-anchor-item,
+  .feature-anchor-item:nth-child(3n),
+  .feature-anchor-item:nth-last-child(-n + 3) {
+    min-height: 6.25rem;
+    border-right: 1px solid rgba(230, 216, 189, 0.78);
+    border-bottom: none;
+  }
+
+  /* ===== 平板以上：只有最後一個不要右線 ===== */
+  .feature-anchor-item:last-child {
+    border-right: none;
+  }
+
+  /* ===== 平板版功能展示圖：維持完整圖片，不裁切上方內容 ===== */
+  .feature-showcase-visual img {
+    max-height: none;
+    object-fit: contain;
+    object-position: center top;
+  }
+
+  /* ===== 平板版流程面板：控制內距 ===== */
   .workflow-panel {
     padding: 2.5rem;
   }
 
+  /* ===== 平板版流程清單：三個流程並排 ===== */
+  .workflow-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  /* ===== 平板版流程項目：三欄時改成直向卡片 ===== */
+  .workflow-item {
+    grid-template-columns: 1fr;
+    align-content: start;
+  }
+
+  /* ===== 平板版安全卡片：三張卡片並排 ===== */
+  .security-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* ===== 平板版 CTA：控制內距 ===== */
   .function-cta {
     padding: 3rem;
   }
 }
 
-/* ===== 桌機以上：控制三欄卡片與左右區塊 ===== */
+/* ============================================================
+   桌機版：1024px 以上
+   ============================================================ */
 @media (min-width: 64em) {
+  /* ===== 桌機版 Hero：控制高度與內距 ===== */
   .function-hero {
     min-height: 42rem;
     padding: 9rem 0 7rem;
   }
 
+  /* ===== 桌機版 Hero 圖片：仍貼齊底部，縮放時不會被往上拉 ===== */
   .function-hero-image {
-    object-position: center;
+    object-position: center bottom;
   }
 
-  .feature-card {
-    min-height: 25rem;
+  /* ===== 桌機版 Hero 遮罩：恢復接近原本的左文字右圖片效果 ===== */
+  .function-hero-overlay {
+    background: linear-gradient(
+      90deg,
+      rgba(248, 247, 243, 0.96) 0%,
+      rgba(248, 247, 243, 0.86) 34%,
+      rgba(248, 247, 243, 0.38) 62%,
+      rgba(248, 247, 243, 0.08) 100%
+    );
   }
 
-  .workflow-panel {
-    grid-template-columns: 0.9fr 1.1fr;
-    align-items: center;
+  /* ===== 桌機版標題：控制功能介紹主標題大小 ===== */
+  .function-title {
+    font-size: clamp(3.5rem, 5.5vw, 4.8rem);
   }
 
-  .security-container {
-    grid-template-columns: 0.8fr 1.2fr;
-    align-items: center;
-  }
-
-  .security-card-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .feature-anchor-section {
-    padding-bottom: 0rem;
-  }
-
+  /* ===== 桌機版快捷導覽：6 個按鈕平均分配 ===== */
   .feature-anchor-panel {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
+  /* ===== 桌機版快捷按鈕：每個按鈕同高，橫向排列 ===== */
   .feature-anchor-item {
     min-height: 6.25rem;
     border-bottom: none;
     border-right: 1px solid rgba(230, 216, 189, 0.78);
   }
 
-  .feature-anchor-item:nth-child(4n) {
-    border-right: 1px solid rgba(230, 216, 189, 0.78);
-  }
-
+  /* ===== 桌機版快捷按鈕分隔線：最後一個不要右邊線 ===== */
   .feature-anchor-item:last-child {
     border-right: none;
   }
 
-  /* ===== 桌機版快捷 icon：控制圖片 icon 大小 ===== */
+  /* ===== 桌機版快捷 icon：控制圖片大小 ===== */
   .feature-anchor-icon {
     width: 5.2rem;
     height: 5.2rem;
   }
 
+  /* ===== 桌機版快捷圖片 icon：控制圖片大小 ===== */
   .feature-anchor-icon-img {
     width: 4.9rem;
     height: 4.9rem;
   }
 
+  /* ===== 桌機版快捷文字：控制字級 ===== */
   .feature-anchor-text {
     font-size: 0.9rem;
   }
-}
 
-/* ===== 大螢幕：控制整體比例更寬鬆 ===== */
-@media (min-width: 80em) {
-  .feature-card {
-    padding: 2rem;
+  /* ===== 桌機以上：縮短一區一功能的上下高度 ===== */
+  .feature-showcase-item {
+    min-height: 28rem;
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 0;
   }
 
+  /* ===== 桌機第一個功能區：縮短與快捷導覽距離 ===== */
+  .feature-showcase-item:first-child {
+    padding-top: 0.75rem;
+  }
+
+  /* ===== 桌機功能展示內層：左文字右圖片 ===== */
+  .feature-showcase-inner {
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    align-items: center;
+    gap: 2rem;
+  }
+
+  /* ===== 桌機反轉區塊：左圖片右文字 ===== */
+  .feature-showcase-inner-reverse {
+    grid-template-columns: minmax(0, 1.28fr) minmax(0, 0.72fr);
+  }
+
+  /* ===== 桌機反轉區塊文字：放到右邊 ===== */
+  .feature-showcase-inner-reverse .feature-showcase-content {
+    order: 2;
+  }
+
+  /* ===== 桌機反轉區塊圖片：放到左邊 ===== */
+  .feature-showcase-inner-reverse .feature-showcase-visual {
+    order: 1;
+  }
+
+  /* ===== 桌機功能圖片：控制圓角，維持完整圖片不裁切 ===== */
+  .feature-showcase-visual img {
+    border-radius: 1.65rem;
+    max-height: none;
+    object-fit: contain;
+    object-position: center top;
+  }
+
+  /* ===== 桌機流程面板：左介紹右流程 ===== */
+  .workflow-panel {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+  }
+
+  /* ===== 桌機流程清單：右側改回直向閱讀 ===== */
+  .workflow-list {
+    grid-template-columns: 1fr;
+  }
+
+  /* ===== 桌機流程項目：恢復左右排列 ===== */
+  .workflow-item {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  /* ===== 桌機安全容器：左文字右卡片 ===== */
+  .security-container {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+  }
+
+  /* ===== 桌機安全卡片：三欄排列 ===== */
+  .security-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ============================================================
+   大螢幕：1280px 以上
+   ============================================================ */
+@media (min-width: 80em) {
+  /* ===== 大螢幕功能區塊：控制整體比例更寬鬆 ===== */
+  .feature-showcase-item {
+    min-height: 32rem;
+    padding: 2.75rem 0;
+  }
+
+  /* ===== 大螢幕功能內層：控制寬度與間距 ===== */
+  .feature-showcase-inner {
+    width: min(100% - 2rem, 88rem);
+    gap: 2.2rem;
+  }
+
+  /* ===== 大螢幕功能描述：控制字級 ===== */
+  .feature-showcase-desc {
+    font-size: 1rem;
+  }
+
+  /* ===== 大螢幕流程面板：控制內距 ===== */
   .workflow-panel {
     padding: 3rem;
   }
 }
+
+/* ============================================================
+   減少動畫偏好：尊重使用者系統設定
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .feature-anchor-item,
+  .feature-anchor-icon,
+  .feature-anchor-item::after,
+  .cta-button {
+    transition: none;
+  }
+
+  .feature-anchor-item:hover .feature-anchor-icon,
+  .cta-button:hover {
+    transform: none;
+  }
+}
+
 </style>
