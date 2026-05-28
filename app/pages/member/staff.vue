@@ -9,13 +9,15 @@
         <span class="bo-pill">
           {{ activeCount }} / {{ staffs.length }} 位在職
         </span>
+        <NuxtLink to="/member/roles" class="bo-btn is-ghost">
+          <Icon name="fa6-solid:shield-halved" aria-hidden="true" /> 角色權限管理
+        </NuxtLink>
         <button class="bo-btn is-primary" @click="openAdd">
           <Icon name="fa6-solid:plus" aria-hidden="true" /> 新增員工
         </button>
       </div>
     </header>
 
-    <!-- ===== 員工列表 ===== -->
     <section class="bo-panel">
       <div v-if="pending" class="bo-empty">載入中…</div>
 
@@ -31,23 +33,17 @@
           class="staff-row"
           :class="{ 'is-disabled': !staff.IsActive }"
         >
-          <!-- 頭像縮寫 -->
           <span class="staff-avatar" aria-hidden="true">
             {{ (staff.Name || staff.Email).slice(0, 1).toUpperCase() }}
           </span>
 
-          <!-- 基本資訊 -->
           <div class="staff-meta">
             <strong>{{ staff.Name }}</strong>
             <span>{{ staff.JobTitle }} · {{ staff.Email }}</span>
           </div>
 
-          <!-- 狀態 + 操作 -->
           <div class="staff-actions">
-            <span
-              class="bo-pill"
-              :class="staff.IsActive ? 'is-success' : 'is-muted'"
-            >
+            <span class="bo-pill" :class="staff.IsActive ? 'is-success' : 'is-muted'">
               {{ staff.IsActive ? "在職" : "停用" }}
             </span>
             <button
@@ -61,11 +57,7 @@
               />
               {{ staff.IsActive ? "停用" : "啟用" }}
             </button>
-            <button
-              class="bo-btn is-danger is-sm"
-              title="移除員工"
-              @click="confirmRemove(staff)"
-            >
+            <button class="bo-btn is-danger is-sm" title="移除員工" @click="confirmRemove(staff)">
               <Icon name="fa6-solid:trash" aria-hidden="true" /> 移除
             </button>
           </div>
@@ -73,59 +65,68 @@
       </ul>
     </section>
 
-    <!-- ===== 新增員工 Modal ===== -->
     <Teleport to="body">
-      <div v-if="showModal" class="bo-modal-overlay" @click.self="closeModal">
+      <div v-if="showModal" class="bo-modal-overlay">
         <div class="bo-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
           <header class="bo-modal-header">
             <h2 id="modal-title">新增員工</h2>
-            <button class="bo-modal-close" aria-label="關閉" @click="closeModal">
-              <Icon name="fa6-solid:xmark" aria-hidden="true" />
-            </button>
+            <button class="bo-modal-close" aria-label="關閉" @click="closeModal">x</button>
           </header>
 
           <form class="bo-form" @submit.prevent="handleAdd">
             <label class="bo-field">
               <span>姓名 <em>*</em></span>
+              <input v-model="form.fullName" type="text" placeholder="請輸入姓名" required />
+            </label>
+            <label class="bo-field">
+              <span>手機 <em>*</em></span>
               <input
-                v-model="form.Name"
-                type="text"
-                placeholder="請輸入姓名"
+                v-model="form.phone"
+                type="tel"
+                placeholder="0912345678"
+                inputmode="numeric"
+                pattern="09[0-9]{8}"
+                maxlength="10"
                 required
               />
             </label>
             <label class="bo-field">
               <span>Email <em>*</em></span>
               <input
-                v-model="form.Email"
+                v-model="form.email"
                 type="email"
                 placeholder="staff@example.com"
                 required
               />
             </label>
             <label class="bo-field">
+              <span>帳號 <em>*</em></span>
+              <input
+                v-model="form.account"
+                type="text"
+                placeholder="請輸入登入帳號"
+                required
+              />
+            </label>
+            <label class="bo-field">
               <span>職稱</span>
               <input
-                v-model="form.JobTitle"
+                v-model="form.jobTitle"
                 type="text"
                 placeholder="例：獸醫師、護理師"
               />
             </label>
             <label class="bo-field">
-              <span>初始密碼 <em>*</em></span>
-              <input
-                v-model="form.Password"
-                type="password"
-                placeholder="至少 8 碼"
-                minlength="8"
-                required
-              />
+              <span>角色 <em>*</em></span>
+              <select v-model.number="form.roleId" required>
+                <option v-for="role in roleOptions" :key="role.id" :value="role.id">
+                  {{ role.name }}
+                </option>
+              </select>
             </label>
 
             <div class="bo-form-actions">
-              <button type="button" class="bo-btn is-ghost" @click="closeModal">
-                取消
-              </button>
+              <button type="button" class="bo-btn is-ghost" @click="closeModal">取消</button>
               <button type="submit" class="bo-btn is-primary" :disabled="saving">
                 {{ saving ? "建立中…" : "建立員工" }}
               </button>
@@ -138,9 +139,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed } from "vue";
+import { computed, reactive, ref } from "vue";
 import { showCustom } from "~/composables/utils/alert";
 import api from "~/composables/utils/api";
+import { useMockStaffRoles } from "~/composables/useMockStaffRoles";
 
 const { t } = useI18n();
 
@@ -151,7 +153,6 @@ definePageMeta({
 
 useHead(() => ({ title: t("page.member.staff") }));
 
-// ===== 型別 =====
 interface Staff {
   StaffId: number;
   Name: string;
@@ -160,7 +161,8 @@ interface Staff {
   IsActive: boolean;
 }
 
-// ===== 資料載入 =====
+const { roleOptions } = useMockStaffRoles();
+
 const { data: staffData, pending, refresh } = await useAsyncData(
   "member-staffs",
   async () => {
@@ -173,16 +175,24 @@ const { data: staffData, pending, refresh } = await useAsyncData(
 const staffs = computed<Staff[]>(() => staffData.value ?? []);
 const activeCount = computed(() => staffs.value.filter((s) => s.IsActive).length);
 
-// ===== 新增 Modal =====
 const showModal = ref(false);
 const saving = ref(false);
-const form = reactive({ Name: "", Email: "", JobTitle: "", Password: "" });
+const form = reactive({
+  fullName: "",
+  phone: "",
+  email: "",
+  account: "",
+  jobTitle: "",
+  roleId: roleOptions.value[0]?.id ?? 0,
+});
 
 function openAdd() {
-  form.Name = "";
-  form.Email = "";
-  form.JobTitle = "";
-  form.Password = "";
+  form.fullName = "";
+  form.phone = "";
+  form.email = "";
+  form.account = "";
+  form.jobTitle = "";
+  form.roleId = roleOptions.value[0]?.id ?? 0;
   showModal.value = true;
 }
 
@@ -193,15 +203,32 @@ function closeModal() {
 async function handleAdd() {
   saving.value = true;
   try {
-    await api.post("/member/staffs", {
-      name: form.Name,
-      email: form.Email,
-      jobTitle: form.JobTitle,
-      password: form.Password,
+    const phonePattern = /^09\d{8}$/;
+    if (!phonePattern.test(form.phone)) {
+      await showCustom("建立失敗", "手機格式需為 09 開頭且共 10 碼。", "error");
+      return;
+    }
+
+    const response = await api.post("/staff", {
+      fullName: form.fullName,
+      phone: form.phone,
+      email: form.email,
+      account: form.account,
+      jobTitle: form.jobTitle,
+      staffRoleId: form.roleId,
     });
+
+    if (!response.data?.success) {
+      throw new Error(response.data?.message || "新增員工失敗");
+    }
+
     closeModal();
     await refresh();
-    await showCustom("建立成功", `${form.Name} 已加入員工名單。`, "success");
+    await showCustom(
+      "建立成功",
+      response.data?.message || `${form.fullName} 已加入員工名單。`,
+      "success",
+    );
   } catch {
     await showCustom("建立失敗", "請確認資料後再試一次。", "error");
   } finally {
@@ -209,7 +236,6 @@ async function handleAdd() {
   }
 }
 
-// ===== 停用 / 啟用 =====
 async function toggleActive(staff: Staff) {
   const action = staff.IsActive ? "停用" : "啟用";
   try {
@@ -223,7 +249,6 @@ async function toggleActive(staff: Staff) {
   }
 }
 
-// ===== 移除 =====
 async function confirmRemove(staff: Staff) {
   const { default: Swal } = await import("sweetalert2");
   const result = await Swal.fire({
@@ -280,7 +305,6 @@ async function confirmRemove(staff: Staff) {
   flex-wrap: wrap;
 }
 
-/* ===== Panel ===== */
 .bo-panel {
   padding: 1.25rem;
   border: 1px solid var(--bo-border, #dfe7ec);
@@ -288,7 +312,6 @@ async function confirmRemove(staff: Staff) {
   background: #fff;
 }
 
-/* ===== Empty ===== */
 .bo-empty {
   display: flex;
   flex-direction: column;
@@ -301,7 +324,6 @@ async function confirmRemove(staff: Staff) {
 
 .bo-empty-icon { font-size: 2.5rem; opacity: 0.3; }
 
-/* ===== Staff list ===== */
 .staff-list {
   display: grid;
   gap: 0.6rem;
@@ -349,7 +371,6 @@ async function confirmRemove(staff: Staff) {
   flex-wrap: wrap;
 }
 
-/* ===== Pills ===== */
 .bo-pill {
   display: inline-flex;
   align-items: center;
@@ -365,7 +386,6 @@ async function confirmRemove(staff: Staff) {
 .bo-pill.is-success { color: #14633f; background: #e7f6ee; }
 .bo-pill.is-muted   { color: var(--bo-muted, #6b7882); background: #f0f0f0; }
 
-/* ===== Buttons ===== */
 .bo-btn {
   display: inline-flex;
   align-items: center;
@@ -380,6 +400,7 @@ async function confirmRemove(staff: Staff) {
   cursor: pointer;
   transition: opacity 0.15s, background 0.15s;
   white-space: nowrap;
+  text-decoration: none;
 }
 
 .bo-btn:disabled { opacity: 0.55; cursor: not-allowed; }
@@ -395,7 +416,6 @@ async function confirmRemove(staff: Staff) {
 
 .bo-btn.is-sm { min-height: 2rem; padding: 0 0.75rem; font-size: 0.82rem; }
 
-/* ===== Modal ===== */
 .bo-modal-overlay {
   position: fixed;
   inset: 0;
@@ -442,13 +462,13 @@ async function confirmRemove(staff: Staff) {
 
 .bo-modal-close:hover { background: var(--bo-primary-soft, #edf4f8); }
 
-/* ===== Form ===== */
 .bo-form { display: grid; gap: 1rem; padding: 1.4rem; }
 
 .bo-field { display: grid; gap: 0.4rem; font-weight: 800; color: var(--bo-primary, #17334a); font-size: 0.92rem; }
 .bo-field em { color: #c0392b; font-style: normal; }
 
-.bo-field input {
+.bo-field input,
+.bo-field select {
   width: 100%;
   min-height: 2.75rem;
   padding: 0 0.8rem;
@@ -459,7 +479,8 @@ async function confirmRemove(staff: Staff) {
   font: inherit;
 }
 
-.bo-field input:focus {
+.bo-field input:focus,
+.bo-field select:focus {
   border-color: var(--bo-accent, #d9b26f);
   outline: 3px solid rgba(217, 178, 111, 0.18);
 }

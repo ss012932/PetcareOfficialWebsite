@@ -37,8 +37,8 @@ apiClient.interceptors.response.use(
     const requestUrl = config?.url || "";
 
     const skipAuth401APIs = [
-      "/Login",          // ⭐ 登入失敗不應該調用登出
-      "/Register",       // ⭐ 註冊失敗不應該調用登出
+      "/Login", // ⭐ 登入失敗不應該調用登出
+      "/Register", // ⭐ 註冊失敗不應該調用登出
       "/reset-password",
       "/cart",
       "/AuthMe",

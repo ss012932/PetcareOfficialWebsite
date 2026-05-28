@@ -91,10 +91,12 @@ export const usePermissionStore = defineStore("permission", {
         if (rawBrands.length === 0) return;
 
         // 儲存品牌列表供下拉選單使用
-        this.brands = rawBrands.map((b) => ({
-          id: (b.Id ?? b.id) as number,
-          name: b.BrandName ?? b.brandName ?? String(b.Id ?? b.id),
-        }));
+        this.brands = rawBrands
+          .map((b) => ({
+            id: (b.Id ?? b.id) as number,
+            name: b.BrandName ?? b.brandName ?? String(b.Id ?? b.id),
+          }))
+          .sort((a, b) => a.id - b.id);
 
         const brandId = rawBrands[0]?.Id ?? rawBrands[0]?.id;
 
@@ -156,10 +158,12 @@ export const usePermissionStore = defineStore("permission", {
           brandsRes.data?.data?.Brands ??
           brandsRes.data?.data?.brands ??
           [];
-        this.brands = rawBrands.map((b) => ({
-          id: (b.Id ?? b.id) as number,
-          name: b.BrandName ?? b.brandName ?? String(b.Id ?? b.id),
-        }));
+        this.brands = rawBrands
+          .map((b) => ({
+            id: (b.Id ?? b.id) as number,
+            name: b.BrandName ?? b.brandName ?? String(b.Id ?? b.id),
+          }))
+          .sort((a, b) => a.id - b.id);
       } catch {
         // 失敗時保留舊清單，不中斷頁面
       }
