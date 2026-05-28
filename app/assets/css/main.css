@@ -46,6 +46,46 @@
   --transition-slow: 0.3s ease;
 }
 
+/* ===== 語系字體切換：依 html lang 自動套用 ===== */
+html:lang(zh-TW),
+html:lang(zh-Hant),
+html:lang(zh) {
+  --font-sans: 'Noto Sans TC', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Noto Serif TC', 'Noto Sans TC', serif;
+}
+
+html:lang(zh-CN),
+html:lang(zh-Hans) {
+  --font-sans: 'Noto Sans SC', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Noto Sans SC', 'Noto Sans TC', sans-serif;
+}
+
+html:lang(ja),
+html:lang(ja-JP) {
+  --font-sans: 'Noto Sans JP', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Noto Sans JP', 'Noto Sans TC', sans-serif;
+}
+
+html:lang(ko),
+html:lang(ko-KR) {
+  --font-sans: 'Noto Sans KR', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Noto Sans KR', 'Noto Sans TC', sans-serif;
+}
+
+html:lang(th),
+html:lang(th-TH) {
+  --font-sans: 'Noto Sans Thai', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Noto Sans Thai', 'Noto Sans TC', sans-serif;
+}
+
+html:lang(vi),
+html:lang(vi-VN),
+html:lang(en),
+html:lang(en-US) {
+  --font-sans: 'Inter', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Inter', 'Montserrat', sans-serif;
+}
+
 /* ===== 通用工具類 ===== */
 
 /* 容器 */

@@ -1,15 +1,15 @@
 {
   "site": {
-    "brandFull": "PetCare｜宠你｜ペットケアシステム"
+    "brandFull": "PetCare｜ペットケアシステム"
   },
   "header": {
     "brand": {
-      "zh": "宠你｜ペットケアシステム",
+      "zh": "ペットケアシステム",
       "en": "PetCare"
     },
     "aria": {
-      "home": "PetCare 主页",
-      "toggleMenu": "ナビゲーションメニューを切り替え",
+      "home": "PetCare ホーム",
+      "toggleMenu": "ナビゲーションメニューを開閉",
       "userMenu": "会員メニュー",
       "mainNav": "メインナビ"
     },
@@ -25,7 +25,7 @@
       "logout": "ログアウト"
     },
     "locale": {
-      "label": "言語"
+      "label": "表示言語"
     }
   },
   "footer": {
@@ -37,7 +37,7 @@
   },
   "seo": {
     "index": {
-      "title": "PetCare｜宠你｜ペット医療管理システム",
+      "title": "PetCare｜ペット医療管理システム",
       "description": "PetCare は動物病院向けのクラウド管理システムです。予約、電子カルテ、会計、在庫、レポートを一元管理できます。"
     },
     "function": {
@@ -65,9 +65,9 @@
       "title": "メール連携",
       "loadingTitle": "認証中...",
       "loadingDesc": "メール連携を確認しています",
-      "successEyebrow": "Email Verified",
+      "successEyebrow": "メール認証完了",
       "successTitle": "連携成功",
-      "errorEyebrow": "Verification Failed",
+      "errorEyebrow": "認証失敗",
       "errorTitle": "連携失敗",
       "backHome": "ホームへ戻る",
       "successDefault": "メール連携が完了しました。",
@@ -77,7 +77,7 @@
     "reset": {
       "title": "パスワード再設定",
       "loading": "再設定リンクを確認中...",
-      "eyebrow": "Reset Password",
+      "eyebrow": "パスワード再設定",
       "desc": "アカウント情報を確認し、新しいパスワードを設定してください。",
       "name": "氏名",
       "email": "メール",
@@ -103,7 +103,7 @@
     "heroDesc": "オンライン予約、診療記録、リマインド、健康知識を一元化し、毎回の受診をより安心で確かなケアにします。",
     "viewFeatures": "機能を見る",
     "viewPlans": "プランを見る",
-    "commonChallenges": "Common Challenges",
+    "commonChallenges": "よくある課題",
     "painTitleLine1": "日常業務で、",
     "painTitleLine2": "こんなお困りごとはありませんか？",
     "painDesc": "予約、カルテ、会計、在庫管理が紙やExcel、別々のツールに分散していると、二重作業や確認漏れ、事務負担が増えます。",
@@ -132,8 +132,8 @@
     "afterVisit1": "再診フォロー",
     "afterVisit2": "健康リマインド",
     "afterVisit3": "運営レポート",
-    "whyChooseUs": "Why Choose Us",
-    "whyChooseTitle": "なぜ PetCare｜宠你｜毛孩照護系統を選ぶのか？",
+    "whyChooseUs": "選ばれる理由",
+    "whyChooseTitle": "なぜ PetCare｜ペットケアシステムを選ぶのか？",
     "whyChooseDesc": "単なるシステムではなく、動物病院の安定した効率的な運営を支援します。",
     "why1": "受付業務の時間を削減",
     "why2": "診療とカルテ検索の効率を向上",
@@ -150,7 +150,7 @@
   "functionPage": {
     "hero": {
       "imageAlt": "動物病院向け管理システムの機能紹介",
-      "eyebrow": "FEATURES",
+      "eyebrow": "機能",
       "title": "機能紹介",
       "desc": "予約、診療、カルテ、会計、経営分析まで、院内業務を一つの流れで効率化します。"
     },
@@ -170,7 +170,7 @@
     "anchorAltAnalytics": "レポート分析",
     "overviewAria": "主要機能紹介",
     "f1": {
-      "label": "APPOINTMENT",
+      "label": "予約管理",
       "title": "予約管理",
       "desc": "受付と獣医師が当日の診療予定をすぐ把握できます。",
       "point1": "オンライン予約管理",
@@ -181,7 +181,7 @@
       "imageAlt": "予約管理機能イメージ"
     },
     "f2": {
-      "label": "MEDICAL RECORD",
+      "label": "電子カルテ",
       "title": "電子カルテ",
       "desc": "診療ごとの記録を一元保存し、検索を素早く行えます。",
       "point1": "主訴・診断記録",
@@ -192,7 +192,7 @@
       "imageAlt": "電子カルテ機能イメージ"
     },
     "f3": {
-      "label": "PET PROFILE",
+      "label": "ペット情報",
       "title": "ペット情報",
       "desc": "ペットと飼い主情報をまとめて管理し、ケア精度を高めます。",
       "point1": "ペット基本情報",
@@ -203,7 +203,7 @@
       "imageAlt": "ペット情報機能イメージ"
     },
     "f4": {
-      "label": "BILLING",
+      "label": "会計管理",
       "title": "会計管理",
       "desc": "受付会計をスムーズにし、請求情報を正確に残せます。",
       "point1": "請求明細管理",
@@ -214,7 +214,7 @@
       "imageAlt": "会計管理機能イメージ"
     },
     "f5": {
-      "label": "INVENTORY",
+      "label": "医薬品在庫",
       "title": "医薬品在庫",
       "desc": "在庫状況をリアルタイム把握し、欠品や期限切れを防ぎます。",
       "point1": "医薬品マスタ管理",
@@ -225,7 +225,7 @@
       "imageAlt": "医薬品在庫機能イメージ"
     },
     "f6": {
-      "label": "ANALYTICS",
+      "label": "レポート分析",
       "title": "レポート分析",
       "desc": "運営データを見える化し、現場の意思決定を支援します。",
       "point1": "月次売上集計",
@@ -236,7 +236,7 @@
       "imageAlt": "レポート分析機能イメージ"
     },
     "workflowAria": "診療フロー連携",
-    "workflowEyebrow": "WORKFLOW",
+    "workflowEyebrow": "診療フロー",
     "workflowTitleLine1": "診療前・診療中・診療後をつなぎ、",
     "workflowTitleLine2": "業務を途切れなく",
     "workflowDesc": "単機能ツールではなく、院内の一連業務をつなぐことで、事務負担を減らしサービス品質を高めます。",
@@ -247,7 +247,7 @@
     "workflow3Title": "診療後",
     "workflow3Desc": "フォロー通知、再診調整、データ参照、運営レポート分析。",
     "securityAria": "権限とデータセキュリティ",
-    "securityEyebrow": "SECURITY",
+    "securityEyebrow": "セキュリティ",
     "securityTitle": "権限を明確に、データを安全に",
     "securityDesc": "役割ごとに操作権限を設定し、獣医師・受付・管理者それぞれが必要な機能だけを利用できます。",
     "securityCard1Title": "スタッフアカウント管理",
@@ -256,14 +256,14 @@
     "securityCard2Desc": "職務に応じた権限設計で、誤操作や情報漏えいリスクを抑えます。",
     "securityCard3Title": "クラウドデータ保管",
     "securityCard3Desc": "情報を集中保管し、紙運用の紛失や検索負荷を軽減します。",
-    "ctaEyebrow": "START NOW",
+    "ctaEyebrow": "今すぐ開始",
     "ctaTitle": "院内に合うプランを選択",
     "ctaDesc": "基本運用から高度な経営分析まで、院規模に合わせて最適なプランを選べます。",
     "ctaButton": "料金プランを見る"
   },
   "pricePage": {
     "hero": {
-      "eyebrow": "PRICING",
+      "eyebrow": "料金",
       "title": "料金プラン",
       "desc": "クリニック規模に合わせて最適なプランを選べます。運用に合わせたアップグレードにも柔軟に対応します。"
     },
@@ -283,8 +283,8 @@
     "note": "すべてのプランは6か月単位のサブスクリプションです。導入前に、運用状況に応じた最適な構成を担当者がご案内します。",
     "planCatalogByCode": {
       "BASIC": {
-        "PlanName": "Starter開業プラン",
-        "Tagline": "小規模動物病院向けの導入管理プラン",
+        "PlanName": "スターター開業プラン",
+        "Tagline": "小規模動物病院向けの導入プラン",
         "Description": "単院の小規模動物病院向け。院内基本情報、飼い主情報、ペット情報、予約管理、基本的な診療記録を提供し、業務のデジタル化をスムーズに開始できます。",
         "Period": "/6か月",
         "Features": [
@@ -304,12 +304,12 @@
         "SaveText": "NT$ 10,000 お得"
       },
       "STANDARD": {
-        "PlanName": "Teamチームプラン",
+        "PlanName": "チーム運営プラン",
         "Tagline": "人事と権限管理を追加、一般的な動物病院に最適",
-        "Description": "複数スタッフが在籍する一般的な動物病院向け。Basic機能に加え、人事システム、スタッフアカウント、ロール権限、シフト管理、基本会計記録を備え、運営管理を強化します。",
+        "Description": "複数スタッフが在籍する一般的な動物病院向け。スターター機能に加え、人事システム、スタッフアカウント、ロール権限、シフト管理、基本会計記録を備え、運営管理を強化します。",
         "Period": "/6か月",
         "Features": [
-          "Basicの全機能",
+          "スターター開業プランの全機能",
           "会計記録管理",
           "人事システム",
           "スタッフアカウント管理",
@@ -326,15 +326,15 @@
         "SaveText": "NT$ 20,000 お得"
       },
       "PROFESSIONAL": {
-        "PlanName": "Business運営プラン",
-        "Tagline": "入院・購買・一般在庫まで対応する本格運営プラン",
-        "Description": "中〜大規模動物病院向け。Standardの全機能に加え、入院ケア、購買管理、一般在庫管理、詳細レポートを提供し、診療と運営を一体で管理できます。",
+        "PlanName": "ビジネス運営プラン",
+        "Tagline": "入院・仕入れ・一般在庫まで対応する本格運営プラン",
+        "Description": "中〜大規模動物病院向け。チーム運営プランの全機能に加え、入院ケア、仕入れ管理、一般在庫管理、詳細レポートを提供し、診療と運営を一体で管理できます。",
         "Period": "/6か月",
         "Features": [
-          "Standardの全機能",
+          "チーム運営プランの全機能",
           "入院ケア管理",
           "入院記録管理",
-          "購買管理",
+          "仕入れ管理",
           "一般在庫管理",
           "検査記録管理",
           "顧客フォロー通知",
@@ -343,18 +343,18 @@
         "SuitableTags": [
           "中〜大規模病院",
           "入院管理が必要",
-          "購買・在庫管理が必要"
+          "仕入れ・在庫管理が必要"
         ],
         "Badge": null,
         "SaveText": "NT$ 38,200 お得"
       },
       "ENTERPRISE": {
-        "PlanName": "Scaleチェーンプラン",
-        "Tagline": "チェーン病院向けの高度運営管理プラン",
-        "Description": "チェーン展開する動物病院や医療グループ、高度な運営管理が必要なブランド向け。運営版の全機能に加え、複数拠点管理、拠点間データ連携、医薬品在庫管理、院内薬局管理、ロット・有効期限管理、拠点間在庫照会に対応します。",
+        "PlanName": "スケールチェーンプラン",
+        "Tagline": "チェーン病院向けの高度な運営管理プラン",
+        "Description": "チェーン展開する動物病院や医療グループ、高度な運営管理が必要なブランド向け。ビジネス運営プランの全機能に加え、複数拠点管理、拠点間データ連携、医薬品在庫管理、院内薬局管理、ロット・有効期限管理、拠点間在庫照会に対応します。",
         "Period": "/6か月",
         "Features": [
-          "運営版の全機能",
+          "ビジネス運営プランの全機能",
           "複数拠点管理",
           "拠点横断データ管理",
           "医薬品在庫管理",
@@ -388,16 +388,16 @@
   },
   "sidebar": {
     "backend": "管理画面",
-    "managerFallback": "ペットケア｜毛孩照護システム 管理者",
+    "managerFallback": "ペットケアシステム 管理者",
     "currentBrand": "現在のブランド",
     "backHome": "公式サイトへ戻る"
   },
   "modal": {
     "login": {
       "close": "ログイン画面を閉じる",
-      "eyebrow": "WELCOME BACK",
+      "eyebrow": "おかえりなさい",
       "title": "会員ログイン",
-      "desc": "アカウントにログインして、予約・診療記録・院所運営を管理します。",
+      "desc": "アカウントにログインして、予約・診療記録・病院運営を管理します。",
       "account": "アカウント",
       "accountPlaceholder": "アカウントを入力してください",
       "password": "パスワード",
@@ -411,7 +411,7 @@
     },
     "register": {
       "close": "登録画面を閉じる",
-      "eyebrow": "CREATE ACCOUNT",
+      "eyebrow": "アカウント作成",
       "title": "アカウント登録",
       "desc": "アカウント作成後、予約・記録検索・会員サービスをご利用いただけます。",
       "account": "アカウント",
@@ -432,7 +432,7 @@
     },
     "forgot": {
       "close": "パスワード再設定画面を閉じる",
-      "eyebrow": "Reset Password",
+      "eyebrow": "パスワード再設定",
       "title": "パスワードを忘れた方",
       "desc": "登録時のメールアドレスを入力すると、パスワード再設定リンクを送信します。",
       "email": "メールアドレス",
@@ -440,7 +440,7 @@
       "sending": "送信中...",
       "submit": "再設定リンクを送信",
       "backLogin": "ログインへ戻る",
-      "sentEyebrow": "Email Sent",
+      "sentEyebrow": "メール送信完了",
       "sentTitle": "メールを送信しました",
       "sentDesc": "再設定リンクの送信先：",
       "sentHintPrefix": "メールをご確認のうえ、",
@@ -453,20 +453,20 @@
       "title": "購入・サービス利用規約",
       "close": "利用規約画面を閉じる",
       "version": "規約バージョン：2026 年 5 月 14 日",
-      "section1": "一、サービス内容の説明",
-      "planStarter": "（一）Starter 開診版",
-      "planTeam": "（二）Team チーム版",
-      "planBusiness": "（三）Business 運営版",
-      "planScale": "（四）Scale 連鎖版",
-      "section2": "二、アカウントと利用権限",
-      "section3": "三、データ内容と利用制限",
-      "section4": "四、データ保存、バックアップと安全",
-      "section5": "五、追加購入サービスの説明",
-      "section6": "六、購入と支払い条件",
-      "section7": "七、返金と終了条件",
-      "section8": "八、利用者の責任と義務",
-      "section9": "九、医療データと専門責任の声明",
-      "section10": "十、サービス中断とシステム保守",
+      "section1": "1. サービス内容の説明",
+      "planStarter": "（1）スターター開業プラン",
+      "planTeam": "（2）チーム運営プラン",
+      "planBusiness": "（3）ビジネス運営プラン",
+      "planScale": "（4）スケールチェーンプラン",
+      "section2": "2. アカウントと利用権限",
+      "section3": "3. データ内容と利用制限",
+      "section4": "4. データ保存、バックアップと安全管理",
+      "section5": "5. 追加購入サービスの説明",
+      "section6": "6. 購入と支払い条件",
+      "section7": "7. 返金と利用終了条件",
+      "section8": "8. 利用者の責任と義務",
+      "section9": "9. 医療データと専門責任に関する声明",
+      "section10": "10. サービス中断とシステム保守",
       "consent": "私は本購入・サービス利用規約を十分に読み、理解し、同意します。",
       "confirm": "規約に同意して購入を続ける"
     }
