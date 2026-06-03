@@ -34,18 +34,21 @@
           :class="{ 'is-disabled': !staff.IsActive }"
         >
           <span class="staff-avatar" aria-hidden="true">
-            {{ (staff.Name || staff.Email).slice(0, 1).toUpperCase() }}
+            {{ (staff.FullName || staff.Email).slice(0, 1).toUpperCase() }}
           </span>
 
           <div class="staff-meta">
-            <strong>{{ staff.Name }}</strong>
-            <span>{{ staff.JobTitle }} · {{ staff.Email }}</span>
+            <strong>{{ staff.FullName }}</strong>
+            <span>職稱: {{ staff.JobTitle }} · 權限: {{ staff.RoleName }} · 店家: {{ staff.StoreName }}</span>
           </div>
 
           <div class="staff-actions">
             <span class="bo-pill" :class="staff.IsActive ? 'is-success' : 'is-muted'">
               {{ staff.IsActive ? "在職" : "停用" }}
             </span>
+            <button class="bo-btn is-ghost is-sm" title="編輯員工" @click="openEdit(staff)">
+              <Icon name="fa6-solid:pen" aria-hidden="true" /> 編輯
+            </button>
             <button
               class="bo-btn is-ghost is-sm"
               :title="staff.IsActive ? '停用帳號' : '啟用帳號'"
@@ -69,11 +72,11 @@
       <div v-if="showModal" class="bo-modal-overlay">
         <div class="bo-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
           <header class="bo-modal-header">
-            <h2 id="modal-title">新增員工</h2>
+            <h2 id="modal-title">{{ isEditMode ? "編輯員工" : "新增員工" }}</h2>
             <button class="bo-modal-close" aria-label="關閉" @click="closeModal">x</button>
           </header>
 
-          <form class="bo-form" @submit.prevent="handleAdd">
+          <form class="bo-form" @submit.prevent="handleSave">
             <label class="bo-field">
               <span>姓名 <em>*</em></span>
               <input v-model="form.fullName" type="text" placeholder="請輸入姓名" required />
@@ -117,18 +120,43 @@
               />
             </label>
             <label class="bo-field">
-              <span>角色 <em>*</em></span>
-              <select v-model.number="form.roleId" required>
-                <option v-for="role in roleOptions" :key="role.id" :value="role.id">
+              <span>權限 <em>*</em></span>
+              <select v-model.number="form.roleId" :disabled="rolePending" required>
+                <option v-if="roleOptions.length === 0" :value="0">
+                  {{ rolePending ? "權限載入中…" : "目前無可用權限" }}
+                </option>
+                <option v-for="role in roleOptions" v-else :key="role.id" :value="role.id">
                   {{ role.name }}
                 </option>
               </select>
             </label>
 
+            <label class="bo-field">
+              <span>店家 <em>*</em></span>
+              <select v-model.number="form.storeId" :disabled="storePending" required>
+                <option v-if="storeOptions.length === 0" :value="0">
+                  {{ storePending ? "店家載入中…" : "目前無可用店家" }}
+                </option>
+                <option v-for="store in storeOptions" v-else :key="store.id" :value="store.id">
+                  {{ store.name }}
+                </option>
+              </select>
+            </label>
+
+            <label class="bo-field bo-field-inline">
+              <input v-model="form.isPrimary" type="checkbox" />
+              <span>主要店家</span>
+            </label>
+
+            <label class="bo-field bo-field-inline">
+              <input v-model="form.isAdmin" type="checkbox" />
+              <span>管理員權限</span>
+            </label>
+
             <div class="bo-form-actions">
               <button type="button" class="bo-btn is-ghost" @click="closeModal">取消</button>
               <button type="submit" class="bo-btn is-primary" :disabled="saving">
-                {{ saving ? "建立中…" : "建立員工" }}
+                {{ saving ? (isEditMode ? "儲存中…" : "建立中…") : (isEditMode ? "儲存變更" : "建立員工") }}
               </button>
             </div>
           </form>
@@ -139,10 +167,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 import { showCustom } from "~/composables/utils/alert";
 import api from "~/composables/utils/api";
-import { useMockStaffRoles } from "~/composables/useMockStaffRoles";
+import { usePermissionStore } from "~/composables/usePermissionStore";
 
 const { t } = useI18n();
 
@@ -155,21 +183,93 @@ useHead(() => ({ title: t("page.member.staff") }));
 
 interface Staff {
   StaffId: number;
-  Name: string;
+  FullName: string;
+  Phone: string;
   Email: string;
+  Account: string;
   JobTitle: string;
+  StoreId: number;
+  StoreName: string;
+  StaffsRoleId: number;
+  RoleName: string;
+  IsPrimary: boolean;
   IsActive: boolean;
+  IsAdmin: boolean;
+  CreateDate: string;
 }
 
-const { roleOptions } = useMockStaffRoles();
+interface StaffRoleApiItem {
+  Id: number;
+  RoleName: string;
+}
+
+interface StoreApiItem {
+  Id: number;
+  Name: string;
+}
+
+const permStore = usePermissionStore();
+await permStore.load();
+
+const activeBrandId = computed(() => permStore.brandId);
+
+const { data: roleData, pending: rolePending } = await useAsyncData(
+  "member-staff-role-options",
+  async () => {
+    const brandId = activeBrandId.value;
+    if (!brandId) return [] as StaffRoleApiItem[];
+
+    const res = await api.get(`/staff/roles/${brandId}`);
+    return (res.data?.data as StaffRoleApiItem[]) ?? [];
+  },
+  {
+    server: false,
+    watch: [activeBrandId],
+  },
+);
+
+const roleOptions = computed(() =>
+  (roleData.value ?? []).map((role) => ({
+    id: role.Id,
+    name: role.RoleName,
+  })),
+);
+
+const { data: storeData, pending: storePending } = await useAsyncData(
+  "member-staff-store-options",
+  async () => {
+    const brandId = activeBrandId.value;
+    if (!brandId) return [] as StoreApiItem[];
+
+    const res = await api.get(`/stores/my/brand/${brandId}`);
+    return (res.data?.stores as StoreApiItem[]) ?? [];
+  },
+  {
+    server: false,
+    watch: [activeBrandId],
+  },
+);
+
+const storeOptions = computed(() =>
+  (storeData.value ?? []).map((store) => ({
+    id: store.Id,
+    name: store.Name,
+  })),
+);
 
 const { data: staffData, pending, refresh } = await useAsyncData(
   "member-staffs",
   async () => {
-    const res = await api.get("/member/staffs");
+    const brandId = activeBrandId.value;
+    if (!brandId) return [] as Staff[];
+
+    const res = await api.get(`/staff/brand/${brandId}`);
     return (res.data?.data as Staff[]) ?? [];
   },
-  { server: false },
+  {
+    server: false,
+    watch: [activeBrandId],
+  },
 );
 
 const staffs = computed<Staff[]>(() => staffData.value ?? []);
@@ -177,6 +277,8 @@ const activeCount = computed(() => staffs.value.filter((s) => s.IsActive).length
 
 const showModal = ref(false);
 const saving = ref(false);
+const editTarget = ref<Staff | null>(null);
+const isEditMode = computed(() => Boolean(editTarget.value));
 const form = reactive({
   fullName: "",
   phone: "",
@@ -184,53 +286,133 @@ const form = reactive({
   account: "",
   jobTitle: "",
   roleId: roleOptions.value[0]?.id ?? 0,
+  storeId: storeOptions.value[0]?.id ?? 0,
+  isPrimary: true,
+  isAdmin: false,
 });
 
+watch(
+  roleOptions,
+  (nextOptions) => {
+    if (!nextOptions.some((role) => role.id === form.roleId)) {
+      form.roleId = nextOptions[0]?.id ?? 0;
+    }
+  },
+  { immediate: true },
+);
+
+watch(
+  storeOptions,
+  (nextOptions) => {
+    if (!nextOptions.some((store) => store.id === form.storeId)) {
+      form.storeId = nextOptions[0]?.id ?? 0;
+    }
+  },
+  { immediate: true },
+);
+
 function openAdd() {
+  editTarget.value = null;
   form.fullName = "";
   form.phone = "";
   form.email = "";
   form.account = "";
   form.jobTitle = "";
   form.roleId = roleOptions.value[0]?.id ?? 0;
+  form.storeId = storeOptions.value[0]?.id ?? 0;
+  form.isPrimary = true;
+  form.isAdmin = false;
+  showModal.value = true;
+}
+
+function openEdit(staff: Staff) {
+  editTarget.value = staff;
+  form.fullName = staff.FullName;
+  form.phone = staff.Phone;
+  form.email = staff.Email;
+  form.account = staff.Account;
+  form.jobTitle = staff.JobTitle;
+  form.roleId = staff.StaffsRoleId;
+  form.storeId = staff.StoreId;
+  form.isPrimary = staff.IsPrimary;
+  form.isAdmin = staff.IsAdmin;
   showModal.value = true;
 }
 
 function closeModal() {
   showModal.value = false;
+  editTarget.value = null;
 }
 
-async function handleAdd() {
+async function handleSave() {
   saving.value = true;
   try {
+    const isEditing = isEditMode.value;
+    const brandId = activeBrandId.value;
+    if (!brandId) {
+      await showCustom("建立失敗", "目前尚未選擇品牌。", "error");
+      return;
+    }
+
     const phonePattern = /^09\d{8}$/;
     if (!phonePattern.test(form.phone)) {
       await showCustom("建立失敗", "手機格式需為 09 開頭且共 10 碼。", "error");
       return;
     }
 
-    const response = await api.post("/staff", {
-      fullName: form.fullName,
-      phone: form.phone,
-      email: form.email,
-      account: form.account,
-      jobTitle: form.jobTitle,
-      staffRoleId: form.roleId,
-    });
+    if (!form.roleId) {
+      await showCustom("建立失敗", "請先選擇角色。", "error");
+      return;
+    }
+
+    if (!form.storeId) {
+      await showCustom("建立失敗", "目前品牌尚未設定可用院所。", "error");
+      return;
+    }
+
+    const response = isEditing && editTarget.value
+      ? await api.put(`/staff/${editTarget.value.StaffId}`, {
+          fullName: form.fullName,
+          phone: form.phone,
+          email: form.email,
+          account: form.account,
+          jobTitle: form.jobTitle,
+          brandId,
+          storeId: form.storeId,
+          staffsRoleId: form.roleId,
+          isPrimary: form.isPrimary,
+          isAdmin: form.isAdmin,
+          isActive: editTarget.value.IsActive,
+        })
+      : await api.post("/staff", {
+          fullName: form.fullName,
+          phone: form.phone,
+          email: form.email,
+          account: form.account,
+          jobTitle: form.jobTitle,
+          brandId,
+          storeId: form.storeId,
+          staffsRoleId: form.roleId,
+          isPrimary: form.isPrimary,
+          isAdmin: form.isAdmin,
+        });
 
     if (!response.data?.success) {
-      throw new Error(response.data?.message || "新增員工失敗");
+      throw new Error(response.data?.message || (isEditing ? "編輯員工失敗" : "新增員工失敗"));
     }
 
     closeModal();
     await refresh();
     await showCustom(
-      "建立成功",
-      response.data?.message || `${form.fullName} 已加入員工名單。`,
+      isEditing ? "儲存成功" : "建立成功",
+      response.data?.message || (isEditing ? `${form.fullName} 資料已更新。` : `${form.fullName} 已加入員工名單。`),
       "success",
     );
-  } catch {
-    await showCustom("建立失敗", "請確認資料後再試一次。", "error");
+  } catch (err: unknown) {
+    const detail =
+      (err as { response?: { data?: { detail?: string } } })?.response?.data?.detail ??
+      "請確認資料後再試一次。";
+    await showCustom(isEditMode.value ? "儲存失敗" : "建立失敗", detail, "error");
   } finally {
     saving.value = false;
   }
@@ -239,11 +421,17 @@ async function handleAdd() {
 async function toggleActive(staff: Staff) {
   const action = staff.IsActive ? "停用" : "啟用";
   try {
-    await api.patch(`/member/staffs/${staff.StaffId}/active`, {
+    const brandId = activeBrandId.value;
+    if (!brandId) {
+      await showCustom(`${action}失敗`, "目前尚未選擇品牌。", "error");
+      return;
+    }
+
+    await api.patch(`/staff/${staff.StaffId}/active?brandId=${brandId}`, {
       isActive: !staff.IsActive,
     });
     await refresh();
-    await showCustom(`${action}成功`, `${staff.Name} 帳號已${action}。`, "success");
+    await showCustom(`${action}成功`, `${staff.FullName} 帳號已${action}。`, "success");
   } catch {
     await showCustom(`${action}失敗`, "操作失敗，請稍後再試。", "error");
   }
@@ -252,7 +440,7 @@ async function toggleActive(staff: Staff) {
 async function confirmRemove(staff: Staff) {
   const { default: Swal } = await import("sweetalert2");
   const result = await Swal.fire({
-    title: `移除 ${staff.Name}？`,
+    title: `移除 ${staff.FullName}？`,
     text: "此操作無法復原，員工帳號將被永久刪除。",
     icon: "warning",
     showCancelButton: true,
@@ -263,9 +451,15 @@ async function confirmRemove(staff: Staff) {
   if (!result.isConfirmed) return;
 
   try {
-    await api.delete(`/member/staffs/${staff.StaffId}`);
+    const brandId = activeBrandId.value;
+    if (!brandId) {
+      await showCustom("移除失敗", "目前尚未選擇品牌。", "error");
+      return;
+    }
+
+    await api.delete(`/staff/${staff.StaffId}?brandId=${brandId}`);
     await refresh();
-    await showCustom("移除成功", `${staff.Name} 已從員工名單移除。`, "success");
+    await showCustom("移除成功", `${staff.FullName} 已從員工名單移除。`, "success");
   } catch {
     await showCustom("移除失敗", "操作失敗，請稍後再試。", "error");
   }
@@ -483,6 +677,19 @@ async function confirmRemove(staff: Staff) {
 .bo-field select:focus {
   border-color: var(--bo-accent, #d9b26f);
   outline: 3px solid rgba(217, 178, 111, 0.18);
+}
+
+.bo-field-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.bo-field-inline input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  min-height: auto;
+  accent-color: var(--bo-primary, #17334a);
 }
 
 .bo-form-actions { display: flex; justify-content: flex-end; gap: 0.6rem; padding-top: 0.25rem; }

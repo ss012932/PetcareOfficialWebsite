@@ -27,12 +27,14 @@
       <section class="bo-panel">
         <header class="bo-panel-header">
           <h2>訂閱狀態</h2>
-          <span class="bo-pill is-success">使用中</span>
+          <span class="bo-pill" :class="subscriptionPillClass(subscriptionStatusText)">
+            {{ subscriptionStatusText }}
+          </span>
         </header>
         <dl class="bo-data-list">
-          <div><dt>目前方案</dt><dd>專業版 / 月繳</dd></div>
-          <div><dt>下次扣款日</dt><dd>2026-06-14</dd></div>
-          <div><dt>自動續約</dt><dd>已啟用</dd></div>
+          <div><dt>目前方案</dt><dd>{{ currentPlanText }}</dd></div>
+          <div><dt>下次扣款日</dt><dd>{{ nextBillingText }}</dd></div>
+          <div><dt>自動續約</dt><dd>{{ autoRenewText }}</dd></div>
         </dl>
         <NuxtLink to="/member/orders" class="bo-panel-link">查看訂單 <Icon name="fa6-solid:arrow-right" class="link-icon" /></NuxtLink>
       </section>
@@ -42,9 +44,14 @@
         <header class="bo-panel-header">
           <h2>已開啟功能</h2>
         </header>
-        <ul class="bo-feature-list" role="list">
-          <li v-for="f in features" :key="f">{{ f }}</li>
+        <ul v-if="enabledFeatures.length > 0" class="bo-feature-list" role="list">
+          <li v-for="feature in enabledFeatures" :key="feature.key">
+            {{ feature.label }}
+          </li>
         </ul>
+        <div v-else class="bo-empty is-inline">
+          <p>目前沒有已開啟功能</p>
+        </div>
       </section>
 
       <!-- 快速入口 -->
@@ -65,8 +72,17 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import api from '~/composables/utils/api'
+import {
+  usePermissionStore,
+  type BrandFeatureKey,
+} from '~/composables/usePermissionStore'
 
 const { t, locale } = useI18n()
+const permStore = usePermissionStore()
+const activeBrandId = computed(() => permStore.brandId)
+
+await permStore.load()
 
 useHead(() => ({ title: t('page.member.dashboard') }))
 
@@ -75,22 +91,228 @@ const todayDisplay = new Date().toLocaleDateString(locale.value, {
   year: 'numeric', month: 'long', day: 'numeric', weekday: 'long',
 })
 
-const metrics = [
-  { icon: 'fa6-solid:receipt',    label: '本月訂單', value: '2 筆',  note: '已付款' },
-  { icon: 'fa6-solid:users',      label: '啟用員工', value: '2 人',  note: '在職中' },
-  { icon: 'fa6-solid:store',      label: '分店數',   value: '2 間',  note: '正常營運' },
-  { icon: 'fa6-solid:tag',        label: '品牌狀態', value: '啟用',  note: 'IsActive = 1' },
+interface CurrentSubscription {
+  BrandId: number
+  PlanName: string
+  Period: string
+  Status: string
+  AutoRenew: boolean
+  NextBillingDate: string | null
+}
+
+interface OrderSummary {
+  BrandId: number
+  Status: string
+  PayTime: string | null
+  CreateDate: string | null
+}
+
+interface StoreSummary {
+  Id: number
+  IsActive: boolean
+}
+
+const FEATURE_LABELS: Record<BrandFeatureKey, string> = {
+  Dashboard: '主控台',
+  BrandManagement: '品牌管理',
+  StoreManagement: '院所管理',
+  CustomerManagement: '飼主管理',
+  PetManagement: '寵物管理',
+  AppointmentManagement: '預約管理',
+  VisitManagement: '門診管理',
+  MedicalRecordManagement: '病歷管理',
+  BillingManagement: '批價收費管理',
+  StaffManagement: '人事管理',
+  RolePermissionManagement: '角色權限管理',
+  ShiftManagement: '排班管理',
+  HospitalizationManagement: '住院管理',
+  InpatientCareManagement: '住院照護管理',
+  PurchaseManagement: '採購管理',
+  GeneralInventoryManagement: '一般庫存管理',
+  DrugInventoryManagement: '藥品庫存管理',
+  PharmacyManagement: '藥局管理',
+  BatchExpireManagement: '批號效期管理',
+  MultiStoreManagement: '多分店管理',
+  CrossStoreInventory: '跨店庫存管理',
+  BasicReport: '基本報表',
+  AdvancedReport: '進階報表',
+}
+
+const { data: ordersData } = await useAsyncData(
+  'member-dashboard-orders-summary',
+  async () => {
+    const res = await api.get('/member/myorders')
+    return res.data?.data ?? null
+  },
+  { server: false },
+)
+
+const { data: storesData } = await useAsyncData(
+  'member-dashboard-stores-summary',
+  async () => {
+    const brandId = activeBrandId.value
+    if (!brandId) return [] as StoreSummary[]
+
+    const res = await api.get(`/stores/my/brand/${brandId}`)
+    return (res.data?.stores as StoreSummary[]) ?? []
+  },
+  {
+    server: false,
+    watch: [activeBrandId],
+  },
+)
+
+const currentSubscriptions = computed<CurrentSubscription[]>(
+  () => ordersData.value?.CurrentSubscriptions ?? [],
+)
+
+const orders = computed<OrderSummary[]>(() => ordersData.value?.Orders ?? [])
+
+const monthOrderStats = computed(() => {
+  const now = new Date()
+  const currentYear = now.getFullYear()
+  const currentMonth = now.getMonth()
+  const brandId = permStore.brandId
+
+  const brandOrders = brandId
+    ? orders.value.filter((order) => order.BrandId === brandId)
+    : orders.value
+
+  const monthlyOrders = brandOrders.filter((order) => {
+    const timeSource = order.PayTime || order.CreateDate
+    if (!timeSource) return false
+    const date = new Date(timeSource)
+    return date.getFullYear() === currentYear && date.getMonth() === currentMonth
+  })
+
+  const paidCount = monthlyOrders.filter((order) => order.Status === '已付款').length
+
+  return {
+    monthlyCount: monthlyOrders.length,
+    paidCount,
+  }
+})
+
+const storeStats = computed(() => {
+  const stores = storesData.value ?? []
+  const activeCount = stores.filter((store) => store.IsActive).length
+
+  return {
+    totalCount: stores.length,
+    activeCount,
+  }
+})
+
+const enabledFeatures = computed(() =>
+  (Object.entries(permStore.features) as Array<[BrandFeatureKey, boolean]>)
+    .filter(([, enabled]) => enabled)
+    .map(([key]) => ({
+      key,
+      label: FEATURE_LABELS[key],
+    }))
+    .filter((feature) => Boolean(feature.label)),
+)
+
+const currentSubscription = computed<CurrentSubscription | null>(() => {
+  const brandId = permStore.brandId
+  if (!brandId) return currentSubscriptions.value[0] ?? null
+  return (
+    currentSubscriptions.value.find((sub) => sub.BrandId === brandId) ??
+    currentSubscriptions.value[0] ??
+    null
+  )
+})
+
+const currentPlanText = computed(() => {
+  const sub = currentSubscription.value
+  if (!sub) return '尚無有效方案'
+  return `${sub.PlanName}${sub.Period}`
+})
+
+const nextBillingText = computed(() => {
+  const sub = currentSubscription.value
+  if (!sub) return '—'
+  if (!sub.AutoRenew) return '已關閉自動續訂'
+  return formatDate(sub.NextBillingDate)
+})
+
+const autoRenewText = computed(() => {
+  const sub = currentSubscription.value
+  if (!sub) return '未設定'
+  return sub.AutoRenew ? '已啟用' : '已關閉'
+})
+
+const subscriptionStatusText = computed(() => {
+  const sub = currentSubscription.value
+  if (!sub) return '未訂閱'
+  return sub.Status || '未訂閱'
+})
+
+function formatDate(iso: string | null) {
+  if (!iso) return '—'
+  return new Date(iso).toLocaleDateString('zh-TW')
+}
+
+function subscriptionPillClass(status: string) {
+  if (status === '使用中') return 'is-success'
+  if (status === '已到期' || status === '未訂閱') return 'is-danger'
+  return 'is-warn'
+}
+
+const metrics = computed(() => [
+  {
+    icon: 'fa6-solid:receipt',
+    label: '本月訂單',
+    value: `${monthOrderStats.value.monthlyCount} 筆`,
+    note: `已付款 ${monthOrderStats.value.paidCount} 筆`,
+  },
+  { icon: 'fa6-solid:users', label: '啟用員工', value: '2 人', note: '在職中' },
+  {
+    icon: 'fa6-solid:store',
+    label: '分店數',
+    value: `${storeStats.value.totalCount} 間`,
+    note: `正常營運 ${storeStats.value.activeCount} 間`,
+  },
+  { icon: 'fa6-solid:tag', label: '品牌狀態', value: '啟用', note: 'IsActive = 1' },
+])
+
+interface ShortcutItem {
+  to: string
+  icon: string
+  label: string
+  requiredFeature?: BrandFeatureKey | 'subscription'
+}
+
+const ALL_SHORTCUTS: ShortcutItem[] = [
+  { to: '/member/profile', icon: 'fa6-solid:circle-user', label: '會員設定' },
+  { to: '/member/orders', icon: 'fa6-solid:receipt', label: '訂單資訊' },
+  { to: '/member/brand', icon: 'fa6-solid:tag', label: '品牌設定' },
+  {
+    to: '/member/staff',
+    icon: 'fa6-solid:users',
+    label: '人事系統',
+    requiredFeature: 'subscription',
+  },
+  {
+    to: '/member/clinics',
+    icon: 'fa6-solid:house-medical',
+    label: '院所設定',
+    requiredFeature: 'StoreManagement',
+  },
+  {
+    to: '/member/stores',
+    icon: 'fa6-solid:store',
+    label: '分店設定',
+    requiredFeature: 'MultiStoreManagement',
+  },
 ]
 
-const features = ['主控台', '品牌管理', '分店管理', '員工管理', '班別管理', '訂單與訂閱管理']
-
-const shortcuts = [
-  { to: '/member/profile',   icon: 'fa6-solid:circle-user', label: '會員設定' },
-  { to: '/member/orders',    icon: 'fa6-solid:receipt',     label: '訂單資訊' },
-  { to: '/member/brand',     icon: 'fa6-solid:tag',         label: '品牌設定' },
-  { to: '/member/staff',     icon: 'fa6-solid:users',       label: '人事系統' },
-  { to: '/member/stores',    icon: 'fa6-solid:store',       label: '分店設定' },
-]
+const shortcuts = computed(() =>
+  ALL_SHORTCUTS.filter((item) => {
+    if (!item.requiredFeature) return true
+    return permStore.canAccess(item.requiredFeature)
+  }),
+)
 </script>
 
 <style scoped>
@@ -216,11 +438,17 @@ const shortcuts = [
 }
 
 .bo-pill.is-success { color: #14633f; background: #e7f6ee; }
+.bo-pill.is-danger { color: #a51d2d; background: #fdecef; }
+.bo-pill.is-warn { color: #8a5b00; background: #fff5dd; }
 
 .bo-data-list { display: grid; gap: 0.7rem; }
 .bo-data-list div { display: flex; justify-content: space-between; gap: 1rem; }
 .bo-data-list dt { color: var(--bo-muted, #6b7882); font-size: 0.9rem; }
 .bo-data-list dd { color: var(--bo-text, #20303c); font-weight: 800; margin: 0; }
+
+.bo-empty.is-inline {
+  padding: 1rem 0;
+}
 
 .bo-panel-link {
   display: inline-block;
