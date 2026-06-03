@@ -49,12 +49,31 @@
       <div v-else-if="selectedRole" class="role-detail">
         <div v-if="permissionUpdating" class="permission-loading" role="status" aria-live="polite">
           <span class="permission-loading-spinner" aria-hidden="true" />
-          <p>權限更新中，請稍候…</p>
+          <p>權限儲存中，請稍候…</p>
         </div>
 
         <div class="role-detail-head">
-          <strong>{{ selectedRole.RoleName }}</strong>
-          <small>{{ selectedRole.Description || "尚未設定描述" }}</small>
+          <div>
+            <strong>{{ selectedRole.RoleName }}</strong>
+            <small>{{ selectedRole.Description || "尚未設定描述" }}</small>
+          </div>
+          <div class="role-detail-actions">
+            <span v-if="selectedRoleDirty" class="role-dirty-tip">尚未儲存變更</span>
+            <button
+              class="bo-btn is-primary is-sm"
+              :disabled="permissionUpdating || !selectedRoleDirty"
+              @click="saveSelectedPermissions"
+            >
+              <Icon name="fa6-solid:floppy-disk" aria-hidden="true" /> 儲存權限
+            </button>
+            <button
+              class="bo-btn is-danger is-sm"
+              :disabled="permissionUpdating || roleDeleting"
+              @click="deleteSelectedRole"
+            >
+              <Icon name="fa6-solid:trash" aria-hidden="true" /> 刪除角色
+            </button>
+          </div>
         </div>
 
         <div class="permission-groups">
@@ -134,8 +153,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from "vue";
-import { showCustom } from "~/composables/utils/alert";
+import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from "vue";
+import Swal from "sweetalert2";
 import api from "~/composables/utils/api";
 import { usePermissionStore } from "~/composables/usePermissionStore";
 
@@ -389,6 +408,33 @@ const selectedRole = computed(() =>
 );
 
 const permissionUpdating = ref(false);
+const roleDeleting = ref(false);
+const originalPermissionSignatures = ref<Record<number, string>>({});
+const dirtyRoleMap = ref<Record<number, boolean>>({});
+const hasUnsavedChanges = computed(() => Object.keys(dirtyRoleMap.value).length > 0);
+
+function getPermissionSignature(role: StaffRole) {
+  return JSON.stringify(buildPermissionPayload(role));
+}
+
+const selectedRoleDirty = computed(() => {
+  const role = selectedRole.value;
+  if (!role) return false;
+  return Boolean(dirtyRoleMap.value[role.Id]);
+});
+
+function updateRoleDirtyFlag(role: StaffRole) {
+  const isDirty =
+    getPermissionSignature(role) !== originalPermissionSignatures.value[role.Id];
+
+  const nextMap = { ...dirtyRoleMap.value };
+  if (isDirty) {
+    nextMap[role.Id] = true;
+  } else {
+    delete nextMap[role.Id];
+  }
+  dirtyRoleMap.value = nextMap;
+}
 
 function buildPermissionPayload(role: StaffRole) {
   return {
@@ -418,38 +464,105 @@ function buildPermissionPayload(role: StaffRole) {
   };
 }
 
-async function onPermissionChange(key: PermissionKey, event: Event) {
+function onPermissionChange(key: PermissionKey, event: Event) {
   const checked = (event.target as HTMLInputElement | null)?.checked ?? false;
   if (permissionUpdating.value || !selectedRole.value || !data.value) return;
 
+  const targetRole = data.value.roles.find((role) => role.Id === selectedRole.value?.Id);
+  if (!targetRole) return;
+  targetRole[key] = checked;
+  updateRoleDirtyFlag(targetRole);
+}
+
+async function saveSelectedPermissions() {
   const brandId = activeBrandId.value;
-  if (!brandId) {
-    await showCustom("更新失敗", "目前尚未選擇品牌。", "error");
+  const role = selectedRole.value;
+  if (!brandId || !role) {
+    await Swal.fire({
+      title: "更新失敗",
+      text: "目前尚未選擇品牌或角色。",
+      icon: "error",
+      confirmButtonText: "確認",
+    });
     return;
   }
 
-  const targetRole = data.value.roles.find((role) => role.Id === selectedRole.value?.Id);
-  if (!targetRole) return;
-
-  const previousValue = targetRole[key];
-  targetRole[key] = checked;
+  if (!selectedRoleDirty.value) return;
 
   permissionUpdating.value = true;
   try {
     const response = await api.put(
-      `/staff/roles/${brandId}/${targetRole.Id}/permissions`,
-      buildPermissionPayload(targetRole),
+      `/staff/roles/${brandId}/${role.Id}/permissions`,
+      buildPermissionPayload(role),
     );
 
     if (!response.data?.success) {
       throw new Error(response.data?.message || "更新角色權限失敗");
     }
+
+    originalPermissionSignatures.value[role.Id] = getPermissionSignature(role);
+    updateRoleDirtyFlag(role);
+    await Swal.fire({
+      title: "儲存成功",
+      text: response.data?.message || "更新角色權限成功",
+      icon: "success",
+      confirmButtonText: "確認",
+    });
   } catch (error) {
-    targetRole[key] = previousValue;
     const message = error instanceof Error ? error.message : "更新角色權限失敗";
-    await showCustom("更新失敗", message, "error");
+    await Swal.fire({
+      title: "更新失敗",
+      text: message,
+      icon: "error",
+      confirmButtonText: "確認",
+    });
   } finally {
     permissionUpdating.value = false;
+  }
+}
+
+async function deleteSelectedRole() {
+  const brandId = activeBrandId.value;
+  const role = selectedRole.value;
+  if (!brandId || !role) return;
+
+  const result = await Swal.fire({
+    title: `刪除角色 ${role.RoleName}？`,
+    text: "此操作無法復原。",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "確認刪除",
+    cancelButtonText: "取消",
+    confirmButtonColor: "#c0392b",
+  });
+  if (!result.isConfirmed) return;
+
+  roleDeleting.value = true;
+  try {
+    const response = await api.delete(`/staff/roles/${brandId}/${role.Id}`);
+    if (!response.data?.success) {
+      throw new Error(response.data?.message || "刪除角色失敗");
+    }
+
+    await refresh();
+    syncPermissionSignatures();
+    selectedRoleId.value = roles.value[0]?.Id ?? 0;
+    await Swal.fire({
+      title: "刪除成功",
+      text: response.data?.message || "刪除角色成功",
+      icon: "success",
+      confirmButtonText: "確認",
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "刪除角色失敗";
+    await Swal.fire({
+      title: "刪除失敗",
+      text: message,
+      icon: "error",
+      confirmButtonText: "確認",
+    });
+  } finally {
+    roleDeleting.value = false;
   }
 }
 
@@ -473,6 +586,50 @@ function closeRoleModal() {
 
 watch(activeBrandId, () => {
   selectedRoleId.value = roles.value[0]?.Id ?? 0;
+});
+
+function syncPermissionSignatures() {
+  const map: Record<number, string> = {};
+  for (const role of roles.value) {
+    map[role.Id] = getPermissionSignature(role);
+  }
+  originalPermissionSignatures.value = map;
+  dirtyRoleMap.value = {};
+}
+
+watch(
+  () => data.value?.roles,
+  () => {
+    syncPermissionSignatures();
+  },
+  { immediate: true },
+);
+
+function beforeUnloadHandler(event: BeforeUnloadEvent) {
+  if (!hasUnsavedChanges.value) return;
+  event.preventDefault();
+  event.returnValue = "";
+}
+
+onMounted(() => {
+  window.addEventListener("beforeunload", beforeUnloadHandler);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("beforeunload", beforeUnloadHandler);
+});
+
+onBeforeRouteLeave(() => {
+  if (!hasUnsavedChanges.value) return;
+  return Swal.fire({
+    title: "尚未儲存變更",
+    text: "目前有尚未儲存的權限變更，離開後將遺失，是否仍要離開？",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "仍要離開",
+    cancelButtonText: "留在此頁",
+    confirmButtonColor: "#c0392b",
+  }).then((result) => result.isConfirmed);
 });
 
 async function handleAddRole() {
@@ -506,14 +663,20 @@ async function handleAddRole() {
       .find((role) => role.RoleName === roleName && role.Description === description);
     selectedRoleId.value = createdRole?.Id ?? roles.value[0]?.Id ?? 0;
     closeRoleModal();
-    await showCustom(
-      "建立成功",
-      response.data?.message || `角色「${roleName}」已建立。`,
-      "success",
-    );
+    await Swal.fire({
+      title: "建立成功",
+      text: response.data?.message || `角色「${roleName}」已建立。`,
+      icon: "success",
+      confirmButtonText: "確認",
+    });
   } catch (error) {
     const message = error instanceof Error ? error.message : "新增角色失敗。";
-    await showCustom("建立失敗", message, "error");
+    await Swal.fire({
+      title: "建立失敗",
+      text: message,
+      icon: "error",
+      confirmButtonText: "確認",
+    });
   } finally {
     roleSaving.value = false;
   }
@@ -655,6 +818,32 @@ async function handleAddRole() {
 .role-detail-head strong { color: var(--bo-primary, #17334a); font-size: 1rem; }
 .role-detail-head small { color: var(--bo-muted, #6b7882); font-size: 0.82rem; }
 
+.role-detail-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.role-detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.role-dirty-tip {
+  color: #a46907;
+  background: #fff7e6;
+  border: 1px solid #f2d4a6;
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
 .permission-groups {
   display: grid;
   gap: 0.8rem;
@@ -724,6 +913,9 @@ async function handleAddRole() {
 
 .bo-btn.is-ghost { color: var(--bo-primary, #17334a); background: transparent; border-color: var(--bo-border, #dfe7ec); }
 .bo-btn.is-ghost:hover:not(:disabled) { background: var(--bo-primary-soft, #edf4f8); }
+
+.bo-btn.is-danger { color: #c0392b; background: transparent; border-color: #f5c6c3; }
+.bo-btn.is-danger:hover:not(:disabled) { background: #fdf0ef; }
 
 .bo-btn.is-sm { min-height: 2rem; padding: 0 0.75rem; font-size: 0.82rem; }
 

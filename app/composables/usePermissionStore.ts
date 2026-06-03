@@ -98,7 +98,7 @@ export const usePermissionStore = defineStore("permission", {
           }))
           .sort((a, b) => a.id - b.id);
 
-        const brandId = rawBrands[0]?.Id ?? rawBrands[0]?.id;
+        const brandId = this.brands[0]?.id;
 
         if (!brandId) return;
 
