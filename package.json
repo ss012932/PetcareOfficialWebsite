@@ -19,5 +19,8 @@
     "sweetalert2": "^11.26.24",
     "vue": "^3.5.33",
     "vue-router": "^5.0.6"
+  },
+  "devDependencies": {
+    "@iconify-json/fa6-regular": "^1.2.4"
   }
 }
