@@ -249,6 +249,24 @@ function mapBrand(b: ApiBrand): Brand {
   }
 }
 
+function getApiErrorText(error: unknown, fallback: string) {
+  if (!error || typeof error !== 'object') return fallback
+
+  const data = (error as { response?: { data?: Record<string, unknown> | string } }).response?.data
+
+  if (!data) return fallback
+  if (typeof data === 'string' && data.trim()) return data
+
+  const payload = data as Record<string, unknown>
+  const detail = payload.detail ?? payload.Detail
+  const message = payload.message ?? payload.Message
+  const text = detail ?? message
+
+  if (typeof text === 'string' && text.trim()) return text
+
+  return fallback
+}
+
 // ── Brand List ──────────────────────────────────────────────────────────
 const brands = ref<Brand[]>([])
 const listLoading = ref(false)
@@ -600,8 +618,8 @@ async function handleSave() {
       await showCustom('建立成功', '品牌已成功建立。', 'success')
     }
     closeModal()
-  } catch {
-    await showCustom('儲存失敗', '請確認資料後再試。', 'error')
+  } catch (error) {
+    await showCustom('儲存失敗', getApiErrorText(error, '請確認資料後再試。'), 'error')
   } finally {
     saving.value = false
   }
