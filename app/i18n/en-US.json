@@ -470,5 +470,153 @@
       "consent": "I have read, understood, and agree to these Purchase and Service Terms.",
       "confirm": "Agree and continue purchase"
     }
+  },
+  "termsPage": {
+    "seo": {
+      "title": "Terms of Service | PetCare | Pet Companion Care System",
+      "description": "PetCare Terms of Service covering service scope, account use, payments, refunds, and data protection."
+    },
+    "hero": {
+      "eyebrow": "Legal",
+      "title": "Terms of Service",
+      "subtitle": "Please read these terms carefully before purchasing or using this service.",
+      "version": "Version: June 5, 2026"
+    },
+    "intro": {
+      "p1": "Welcome to PetCare, a veterinary healthcare management platform (the \"Service\"). To protect your rights, please read the following terms carefully before registering, purchasing, or using the Service. By completing registration, purchase, payment, activation, or actual use, you are deemed to have read, understood, and agreed to all of these terms.",
+      "p2": "This Service is designed for use by veterinary hospitals, pet clinics, and related pet healthcare organizations to support digital management of appointment scheduling, electronic records, clinical workflows, billing, inventory, reporting, and client care."
+    },
+    "s1": {
+      "title": "1. Service Description",
+      "p1": "The Service is a digital management platform exclusively for veterinary organizations. The scope of features depends on the plan purchased. Plan names, pricing, duration, features, and applicable targets are as stated on the purchase page, quotation, order, or mutually confirmed plan documents.",
+      "starterTitle": "(1) Starter Plan",
+      "starterDesc": "Designed for single-location small clinics to establish a basic digital management workflow.",
+      "starterItems": ["Brand and clinic profile management", "Pet owner management", "Pet profile management", "Basic appointment scheduling", "Basic consultation records", "Basic dashboard metrics"],
+      "teamTitle": "(2) Team Plan",
+      "teamDesc": "Designed for general veterinary hospitals with multiple staff. Includes core features plus HR, accounts, permissions, and shift scheduling.",
+      "teamItems": ["Everything in Starter", "Billing record management", "HR module", "Staff account management", "Role and permission control", "Staff shift scheduling", "Basic operations reports"],
+      "businessTitle": "(3) Business Plan",
+      "businessDesc": "Designed for mid-to-large veterinary hospitals. Includes Team Plan features plus inpatient care, procurement, general inventory, and advanced reporting.",
+      "businessItems": ["Everything in Team Plan", "Inpatient care management", "Inpatient record management", "Procurement management", "General inventory management", "Examination record management", "Client follow-up reminders", "Advanced reporting"],
+      "scaleTitle": "(4) Scale Plan",
+      "scaleDesc": "Designed for veterinary chains or brands needing advanced operations. Includes Business Plan features plus multi-branch, cross-branch data, pharmacy inventory, and advanced controls.",
+      "scaleItems": ["Everything in Business Plan", "Multi-branch management", "Cross-branch data management", "Pharmacy inventory management", "Pharmacy operations management", "Lot and expiry-date tracking", "Cross-branch stock lookup", "Advanced permission control", "Operational management reports"],
+      "highlight": "You acknowledge that actual features, pricing, promotions, duration, add-ons, and activation scope are governed by the platform display content at time of purchase, order records, quotation, or mutually confirmed written content.",
+      "p2": "The platform may modify, add, remove, or rename plan features based on operational planning, system versioning, technical constraints, or service adjustments. Plans for which payment is completed and the subscription is still active will continue as confirmed at time of purchase, unless otherwise agreed."
+    },
+    "s2": {
+      "title": "2. Accounts and Access",
+      "p1": "Users must provide accurate, complete, and lawful registration information. Users are responsible for safeguarding account credentials and must not share, lend, transfer, or assign their account to any third party.",
+      "p2": "If credentials are not properly protected and result in data breaches, unauthorized access, abnormal operations, or other damages, the user shall bear sole responsibility.",
+      "p3": "The platform may provide different numbers of staff accounts, roles, and feature scopes based on the plan. Additional accounts, branches, permissions, or features must be purchased or upgraded as specified by the platform."
+    },
+    "s3": {
+      "title": "3. Data Content and Usage Restrictions",
+      "p1": "The Service may involve pet owner data, pet profiles, appointment records, consultation records, examination records, medication records, billing records, inventory records, and other clinic operational data.",
+      "p2": "Users must ensure all data has a lawful source and proper authorization, and must comply with the Personal Data Protection Act, healthcare regulations, and other applicable laws.",
+      "p3": "Users must not input, upload, or store the following content in the Service:",
+      "items": ["Content that violates laws or public order and morals", "Content that infringes copyrights, trademarks, trade secrets, or other intellectual property rights", "Personally identifiable information obtained or used without authorization", "Malicious programs, viruses, trojans, phishing links, or other content that may compromise system security", "Data unrelated to the Service purpose that may burden the system or harm third parties"]
+    },
+    "s4": {
+      "title": "4. Data Retention, Backup, and Security",
+      "p1": "The platform will maintain system security with reasonable technical and administrative measures, including access control, data backup, system monitoring, and necessary security protections.",
+      "p2": "However, users should independently preserve important data and regularly back up or export critical records. The platform does not guarantee permanent retention, uninterrupted availability, or that data will never be lost.",
+      "p3": "During the active service period, users may export or back up data using the platform's provided functions. After service termination, expiry, or account deactivation, the platform may retain data for a reasonable period; upon expiry of that period, the platform may delete or anonymize such data, unless required by law or otherwise agreed."
+    },
+    "s5": {
+      "title": "5. Add-on Services",
+      "p1": "The platform may offer additional paid add-on services that users may optionally purchase based on clinic needs.",
+      "items": ["Additional staff accounts", "Additional branch management features", "Advanced report analytics", "Custom field configuration", "Custom report design", "Dedicated onboarding training", "Data import and migration services", "Custom workflow configuration", "SMS, Email, or LINE notification expansion", "Cloud storage expansion", "Dedicated technical support services", "API integration or third-party system integration"],
+      "p2": "Add-on services must be used with the purchased main plan. Not all add-on items are available for all plans.",
+      "p3": "Once an add-on service is purchased, activated, configured, produced, or delivered, the service is deemed to have begun. Cancellations or refunds are generally not accepted except as required by law, mutually agreed in writing, due to duplicate payment, erroneous charge, or if the platform is responsible for being unable to provide the add-on."
+    },
+    "s6": {
+      "title": "6. Purchase and Payment Terms",
+      "p1": "The Service uses a fixed-term license model per plan. Plan pricing, original price, promotional pricing, duration, and payment methods are as stated on the purchase page, order, quotation, or mutually agreed terms.",
+      "p2": "The Service is a digital platform with no physical goods delivery. Upon payment completion, users may obtain access to plan features through the platform's activation process.",
+      "p3": "Certain features, custom content, data imports, branch settings, report configurations, or system integrations require configuration or production to be completed before activation.",
+      "p4": "The platform reserves the right to adjust pricing, plan content, features, and promotions. Existing plans for which payment is completed and active will not be affected by price adjustments, unless otherwise agreed.",
+      "p5": "After the subscription period expires without renewal or upgrade payment, the platform may suspend or terminate that plan's access. Users wishing to continue should renew in accordance with the plan content and pricing announced at that time."
+    },
+    "s7": {
+      "title": "7. Refunds and Termination",
+      "p1": "Both main plans and add-on services constitute digital content, online services, or customized services.",
+      "p2": "By agreeing to these terms and completing purchase or payment, you acknowledge that the Service is digital content, online service, or customized service not provided via tangible media, and agree that the platform will begin providing, activating, configuring, or authorizing the relevant service upon payment completion.",
+      "p3": "Pursuant to Article 19 of the Consumer Protection Act and related regulations, if the Service has begun, activation or customization has been completed, or the user has actually used the Service, the seven-day cooling-off period does not apply, except as otherwise required by mandatory legal provisions.",
+      "highlight": "Once the Service has been purchased, paid for, activated, or enabled, cancellations, refunds, partial refunds, or pro-rated refunds are generally not accepted, except as required by mandatory legal provisions, mutually agreed in writing, due to duplicate payment, erroneous charge, or where the platform is responsible for being unable to provide the core service."
+    },
+    "s8": {
+      "title": "8. User Responsibilities and Obligations",
+      "p1": "Users must ensure information provided to the platform is accurate, complete, and lawful. Users are solely responsible for internal data management, staff permission settings, and the accuracy of data entered.",
+      "items": ["Must not use the Service for illegal purposes", "Must not infringe on others' rights or violate laws", "Must not interfere with, damage, or attempt to intrude into the platform's systems", "Must not reproduce, modify, reverse-engineer, or distribute platform code without authorization", "Must not send mass spam, malicious requests, or cause abnormal system load", "Must not provide accounts to unauthorized third parties", "Must independently verify accuracy of medical, pharmaceutical, billing, and inventory data entered"],
+      "p2": "The Service is a management support tool and is not a substitute for medical diagnosis, treatment decisions, or professional medical advice. All veterinary diagnoses, treatments, medications, and care decisions must be made and carried out by licensed veterinarians or qualified professionals."
+    },
+    "s9": {
+      "title": "9. Medical Data and Professional Liability Disclaimer",
+      "p1": "The platform provides only system tools for veterinary organizations to conduct data recording, workflow management, appointment scheduling, inventory management, reporting, and client care.",
+      "p2": "The platform does not participate in, interfere with, or bear responsibility for any medical diagnosis, treatment procedures, medication advice, medical disputes, or disputes between clinics and pet owners.",
+      "p3": "If medical disputes, damage claims, administrative liability, or third-party claims arise due to user input errors, judgment errors, operational errors, incomplete data, or internal management issues, the platform shall not bear any related liability."
+    },
+    "s10": {
+      "title": "10. Service Interruptions and System Maintenance",
+      "p1": "The platform may suspend all or part of its services due to system maintenance, version updates, security patches, equipment adjustments, database maintenance, or other necessary operations.",
+      "p2": "For planned maintenance, the platform will endeavor to announce or notify users in advance. However, in emergency security incidents, system anomalies, third-party service failures, or force majeure events, the platform may take necessary action without prior notice.",
+      "p3": "The platform will provide customer service or technical support within reasonable scope. Actual support methods, service hours, response times, support scope, and dedicated support availability are subject to the user's purchased plan, add-on services, or mutual agreement."
+    },
+    "s11": {
+      "title": "11. Third-Party Services",
+      "p1": "The Service may integrate with or use third-party services, including but not limited to:",
+      "items": ["Cloud hosting services", "Payment gateway services", "Email delivery services", "SMS services", "LINE or other notification services", "Map services", "Domain, DNS, or SSL certificate services", "Third-party API or external system integration services"],
+      "p2": "The stability, pricing, policies, and availability of third-party services are subject to change by third-party providers. If platform features are affected due to third-party service anomalies, policy changes, or service discontinuation not attributable to the platform, the platform will make reasonable efforts to assist but shall not be liable for indirect damages, business losses, or anticipated profit losses."
+    },
+    "s12": {
+      "title": "12. Service Modifications and Termination",
+      "p1": "The platform reserves the right to modify, adjust, add, suspend, or terminate certain features, plan content, or system interfaces.",
+      "p2": "If a user violates these terms, infringes on third-party rights, violates legal provisions, fails to pay as agreed, or engages in improper use, the platform may suspend or terminate their access. Service interruptions resulting from reasons attributable to the user shall not entitle the user to demand compensation, refunds, or other remedies, unless otherwise required by mandatory legal provisions or mutually agreed in writing."
+    },
+    "s13": {
+      "title": "13. Intellectual Property",
+      "p1": "The platform's system architecture, interface design, code, database design, documentation, trademarks, images, visual design, process planning, and other related content are protected under intellectual property laws.",
+      "p2": "Without prior written consent from the platform, users must not reproduce, modify, distribute, lease, sell, reverse-engineer, sublicense, or use any platform content for purposes outside the scope of the Service."
+    },
+    "s14": {
+      "title": "14. Personal Data Protection",
+      "p1": "The platform will collect, process, and use information provided by users within the necessary scope of service provision, in accordance with the Personal Data Protection Act and relevant regulations.",
+      "p2": "Users must ensure that when collecting, inputting, or using personal data of pet owners, staff, or other third parties, they have obtained a lawful basis or necessary authorization.",
+      "p3": "If personal data disputes, administrative penalties, or third-party claims arise due to unauthorized data collection, unlawful processing, input errors, improper account management, or employee misconduct, the user shall bear sole responsibility."
+    },
+    "s15": {
+      "title": "15. Limitation of Liability",
+      "p1": "To the maximum extent permitted by law, the platform shall not be liable for indirect damages, business losses, data loss, loss of anticipated profits, reputational damage, third-party claims, or other consequential damages arising from the use of or inability to use the Service.",
+      "p2": "If the platform is nonetheless required by law to bear liability, the total liability shall be capped at the service fee most recently paid by the user. This limitation does not apply to damages caused by the platform's intentional misconduct or gross negligence."
+    },
+    "s16": {
+      "title": "16. Amendments to These Terms",
+      "p1": "The platform may amend these terms at any time based on changes to service content, regulations, operational needs, or system adjustments.",
+      "p2": "After amendments, the platform may notify users via website announcement, system notifications, email, or other reasonable means. Continued use of the Service after amendments constitutes acceptance of the amended terms."
+    },
+    "s17": {
+      "title": "17. Governing Law and Jurisdiction",
+      "p1": "These terms shall be interpreted and applied in accordance with the laws of the Republic of China (Taiwan).",
+      "p2": "In the event of any dispute arising from these terms or the Service, both parties shall negotiate in good faith. If unresolved, both parties agree to submit to the jurisdiction of the Taiwan Taipei District Court as the court of first instance, unless otherwise required by law."
+    },
+    "s18": {
+      "title": "18. Severability",
+      "p1": "If any provision of these terms is found to be invalid, void, or unenforceable under applicable law or court judgment, the remaining provisions shall remain in full force and effect.",
+      "p2": "Both parties shall reinterpret or adjust the affected provision within a lawful, valid scope most closely aligned to the original intent."
+    },
+    "s19": {
+      "title": "19. Platform Information and Contact",
+      "p1": "The Service is operated by the platform operator. If you have any questions about the Service, payments, billing, personal data, or these terms, please contact us through the official support email, contact form, or other official channels announced on the platform.",
+      "p2": "The platform may update contact information as needed. The most current contact details are as published on the platform's website.",
+      "contactLabel": "Platform Operator",
+      "contactName": "Rainbow Pony Studio",
+      "contactTaxId": "Tax ID: 93205176",
+      "contactEmailLabel": "Support Email:"
+    },
+    "nav": {
+      "toPrivacy": "View Privacy Policy",
+      "backHome": "Back to Home"
+    }
   }
 }
