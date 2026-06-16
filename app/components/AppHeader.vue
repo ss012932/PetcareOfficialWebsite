@@ -368,23 +368,27 @@ async function handleLoginSuccess() {
   --color-primary: #10283a;
   --color-primary-light: #17334a;
   --color-accent: #d9b26f;
-  --color-text: #ffffff;
-  --color-muted: rgba(255, 255, 255, 0.78);
-  --color-border: rgba(217, 178, 111, 0.2);
+  --color-header-bg: rgba(255, 250, 240, 0.92);
+  --color-header-bg-scroll: rgba(255, 250, 240, 0.78);
+  --color-text: #10283a;
+  --color-muted: rgba(16, 40, 58, 0.72);
+  --color-border: rgba(217, 178, 111, 0.22);
 
   position: sticky;
   top: 0;
   z-index: 100;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(16, 40, 58, 0.98) 0%,
-      rgba(23, 51, 74, 0.98) 55%,
-      rgba(15, 37, 56, 0.98) 100%
-    );
-  border-bottom: 1px solid var(--color-border);
-  box-shadow: 0 0.75rem 2rem rgba(15, 37, 56, 0.14);
-  backdrop-filter: blur(0.75rem);
+  background-color: var(--color-header-bg);
+  border-bottom: 1px solid rgba(217, 178, 111, 0.16);
+  box-shadow: 0 0.75rem 2rem rgba(15, 37, 56, 0.06);
+  backdrop-filter: blur(0.9rem);
+  -webkit-backdrop-filter: blur(0.9rem);
+}
+
+/* ===== Header 霧面效果：瀏覽器支援時讓導覽列有透明霧面感 ===== */
+@supports (backdrop-filter: blur(1rem)) {
+  .app-header {
+    background-color: var(--color-header-bg-scroll);
+  }
 }
 
 /* ===== Navbar 外層：控制導覽列高度 ===== */
@@ -392,19 +396,22 @@ async function handleLoginSuccess() {
   padding: 0;
 }
 
-/* ===== Navbar 內容：控制 Logo、選單左右排列 ===== */
+/* ===== Navbar 內容：桌機版使用三欄，Logo 左、選單中、登入右 ===== */
 .navbar-inner {
-  width: min(100% - 2rem, 78rem);
-  min-height: 4.5rem;
-  display: flex;
+  position: relative;
+  width: min(100% - 3rem, 78rem);
+  min-height: 4.75rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
+  gap: 1.5rem;
   margin-inline: auto;
 }
 
 /* ===== Logo：控制品牌連結排列 ===== */
 .logo {
+  grid-column: 1;
+  justify-self: start;
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
@@ -421,27 +428,23 @@ async function handleLoginSuccess() {
   transform: translateY(-1px);
 }
 
-/* ===== Logo 外框：預留品牌 Logo 放置區 ===== */
+/* ===== Logo 外框：控制品牌 Logo 放置區 ===== */
 .logo-mark {
   width: 2.15rem;
   height: 2.15rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(217, 178, 111, 0.45);
+  border: 1px solid rgba(217, 178, 111, 0.5);
   border-radius: 0.72rem;
-  background: linear-gradient(
-    135deg,
-    rgba(217, 178, 111, 0.24) 0%,
-    rgba(217, 178, 111, 0.08) 100%
-  );
+  background-color: rgba(255, 250, 240, 0.9);
 }
 
 /* ===== Logo 圖示：控制 logo 區內 icon ===== */
 .logo-icon {
   width: 1rem;
   height: 1rem;
-  color: var(--color-text);
+  color: var(--color-primary);
 }
 
 /* ===== Logo 文字群：控制中英文上下排列 ===== */
@@ -453,34 +456,34 @@ async function handleLoginSuccess() {
 
 /* ===== Logo 文字：控制品牌字體 ===== */
 .logo-text {
-  color: var(--color-text);
+  color: var(--color-primary);
   display: block;
   white-space: nowrap;
 }
 
 .logo-text--zh {
   font-size: 0.94rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.04em;
 }
 
 .logo-text--en {
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.2em;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(16, 40, 58, 0.72);
 }
 
-/* ===== 手機選單按鈕：控制漢堡按鈕外觀 ===== */
+/* ===== 手機選單按鈕：桌機版隱藏 ===== */
 .menu-toggle {
   display: none;
   width: 2.5rem;
   height: 2.5rem;
   place-items: center;
-  border: 1px solid rgba(217, 178, 111, 0.28);
+  border: 1px solid rgba(16, 40, 58, 0.16);
   border-radius: 999px;
-  color: var(--color-text);
-  background-color: rgba(255, 255, 255, 0.06);
+  color: var(--color-primary);
+  background-color: rgba(255, 255, 255, 0.55);
   cursor: pointer;
   transition:
     color 0.22s ease,
@@ -490,9 +493,9 @@ async function handleLoginSuccess() {
 
 /* ===== 手機選單按鈕 hover：控制互動效果 ===== */
 .menu-toggle:hover {
-  color: var(--color-accent);
-  border-color: rgba(217, 178, 111, 0.5);
-  background-color: rgba(255, 255, 255, 0.09);
+  color: var(--color-primary);
+  border-color: rgba(217, 178, 111, 0.55);
+  background-color: rgba(255, 250, 240, 0.95);
 }
 
 /* ===== 手機選單按鈕聚焦：控制鍵盤操作外框 ===== */
@@ -507,44 +510,66 @@ async function handleLoginSuccess() {
   height: 1rem;
 }
 
-/* ===== 導覽選單：控制桌機版選單排列 ===== */
+/* ===== 導覽選單：桌機版讓一般選單保持在正中間 ===== */
 .nav-menu {
+  grid-column: 2;
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  justify-content: center;
+  gap: 0.85rem;
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
+/* ===== 桌機版：把語言與登入 / 會員選單推到右側 ===== */
+@media (min-width: 48em) {
+  .locale-switcher {
+    position: absolute;
+    right: 7.1rem;
+  }
+
+  .nav-menu > li:has(.nav-link--login),
+  .nav-menu > li.user-menu-wrapper {
+    position: absolute;
+    right: 0;
+  }
+}
+
+/* ===== 語言切換容器 ===== */
 .locale-switcher {
   display: inline-flex;
   align-items: center;
 }
 
+/* ===== 語言選單：允許有底框，樣式維持淺色系 ===== */
 .locale-select {
   min-height: 2.45rem;
-  padding: 0 0.75rem;
-  border: 1px solid rgba(217, 178, 111, 0.35);
-  border-radius: 999px;
+  padding: 0 0.85rem;
+  border: 1px solid rgba(217, 178, 111, 0.38);
+  border-radius: 0.65rem;
   color: var(--color-muted);
-  background-color: rgba(255, 255, 255, 0.03);
+  background-color: rgba(255, 255, 255, 0.58);
   font-size: 0.86rem;
   font-family: inherit;
   cursor: pointer;
   transition:
     color 0.22s ease,
     border-color 0.22s ease,
-    background-color 0.22s ease;
+    background-color 0.22s ease,
+    box-shadow 0.22s ease;
 }
 
+/* ===== 語言選單 hover / focus：控制互動效果 ===== */
 .locale-select:hover,
 .locale-select:focus-visible {
-  color: var(--color-accent);
-  border-color: rgba(217, 178, 111, 0.62);
-  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--color-primary);
+  border-color: rgba(217, 178, 111, 0.75);
+  background-color: rgba(255, 250, 240, 0.95);
+  box-shadow: 0 0.45rem 1.25rem rgba(15, 37, 56, 0.08);
 }
 
+/* ===== 無障礙隱藏文字 ===== */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -564,13 +589,13 @@ async function handleLoginSuccess() {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0 0.95rem;
+  padding: 0 0.55rem;
   border: 1px solid transparent;
   border-radius: 999px;
-  color: var(--color-muted);
+  color: rgba(16, 40, 58, 0.72);
   background-color: transparent;
   font-size: 0.92rem;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 0.04em;
   line-height: 1;
   text-decoration: none;
@@ -588,22 +613,22 @@ button.nav-link {
   font-family: inherit;
 }
 
-/* ===== 導覽連結 hover：控制滑鼠移入效果 ===== */
+/* ===== 一般導覽連結 hover：只有文字變深，不加外框 ===== */
 .nav-link:hover,
 .nav-link:focus-visible {
-  color: var(--color-accent);
-  background-color: rgba(255, 255, 255, 0.06);
-  border-color: rgba(217, 178, 111, 0.22);
+  color: var(--color-primary);
+  background-color: transparent;
+  border-color: transparent;
   transform: translateY(-1px);
 }
 
-/* ===== 目前所在頁面：控制 active 樣式 ===== */
+/* ===== 目前所在頁面：不要出現金色膠囊，只保留深色文字 ===== */
 .nav-link.router-link-active,
 .nav-link.router-link-exact-active {
   color: var(--color-primary);
-  background-color: var(--color-accent);
-  border-color: rgba(217, 178, 111, 0.75);
-  font-weight: 600;
+  background-color: transparent;
+  border-color: transparent;
+  font-weight: 800;
 }
 
 /* ===== 移除舊版底線：避免 hover 出現底線 ===== */
@@ -611,20 +636,26 @@ button.nav-link {
   display: none;
 }
 
-/* ===== 登入按鈕：控制未登入時右側按鈕 ===== */
+/* ===== 登入按鈕：唯一藍色圓角按鈕，文字仍維持登入 ===== */
 .nav-link--login {
-  color: var(--color-accent);
-  border-color: rgba(217, 178, 111, 0.42);
-  background-color: transparent;
-  font-weight: 600;
+  min-height: 2.6rem;
+  padding: 0 1.25rem;
+  color: #ffffff;
+  border-color: rgba(16, 40, 58, 0.9);
+  background-color: var(--color-primary);
+  font-weight: 800;
+  box-shadow:
+    0 0.75rem 1.6rem rgba(16, 40, 58, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
-/* ===== 登入按鈕 hover：控制登入互動效果 ===== */
+/* ===== 登入按鈕 hover：維持藍色按鈕感 ===== */
 .nav-link--login:hover,
 .nav-link--login:focus-visible {
-  color: var(--color-primary);
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
+  color: #ffffff;
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary-light);
+  transform: translateY(-1px);
 }
 
 /* ===== 會員選單容器：控制下拉選單定位 ===== */
@@ -632,23 +663,26 @@ button.nav-link {
   position: relative;
 }
 
-/* ===== 會員選單按鈕：控制會員名稱按鈕 ===== */
+/* ===== 會員選單按鈕：登入後同樣維持右側藍色圓角按鈕感 ===== */
 .user-menu-toggle {
-  min-height: 2.45rem;
+  min-height: 2.6rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.45rem;
-  padding: 0 0.95rem;
-  border: 1px solid rgba(217, 178, 111, 0.42);
+  padding: 0 1.15rem;
+  border: 1px solid rgba(16, 40, 58, 0.9);
   border-radius: 999px;
-  color: var(--color-accent);
-  background-color: transparent;
+  color: #ffffff;
+  background-color: var(--color-primary);
   font-family: inherit;
   font-size: 0.92rem;
-  font-weight: 600;
+  font-weight: 800;
   letter-spacing: 0.04em;
   cursor: pointer;
+  box-shadow:
+    0 0.75rem 1.6rem rgba(16, 40, 58, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   transition:
     color 0.22s ease,
     background-color 0.22s ease,
@@ -659,9 +693,9 @@ button.nav-link {
 /* ===== 會員選單按鈕 hover：控制互動效果 ===== */
 .user-menu-toggle:hover,
 .user-menu-toggle:focus-visible {
-  color: var(--color-primary);
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
+  color: #ffffff;
+  background-color: var(--color-primary-light);
+  border-color: var(--color-primary-light);
   transform: translateY(-1px);
 }
 
@@ -700,10 +734,12 @@ button.nav-link {
   right: 0;
   min-width: 10.5rem;
   padding: 0.45rem;
-  border: 1px solid rgba(217, 178, 111, 0.2);
+  border: 1px solid rgba(217, 178, 111, 0.22);
   border-radius: 1rem;
-  background-color: rgba(16, 40, 58, 0.98);
-  box-shadow: 0 1.25rem 3rem rgba(15, 37, 56, 0.28);
+  background-color: rgba(255, 250, 240, 0.96);
+  backdrop-filter: blur(0.8rem);
+  -webkit-backdrop-filter: blur(0.8rem);
+  box-shadow: 0 1.25rem 3rem rgba(15, 37, 56, 0.16);
   z-index: 1000;
 }
 
@@ -721,7 +757,7 @@ button.nav-link {
   background-color: transparent;
   font-family: inherit;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
   text-align: left;
   text-decoration: none;
   cursor: pointer;
@@ -733,8 +769,8 @@ button.nav-link {
 /* ===== 下拉選單 hover：控制滑過效果 ===== */
 .dropdown-item:hover,
 .dropdown-item:focus-visible {
-  color: var(--color-accent);
-  background-color: rgba(255, 255, 255, 0.06);
+  color: var(--color-primary);
+  background-color: rgba(217, 178, 111, 0.12);
 }
 
 /* ===== 下拉選單圖示：控制 icon 尺寸 ===== */
@@ -744,22 +780,31 @@ button.nav-link {
   flex-shrink: 0;
 }
 
-/* ===== 桌機版：控制導覽列更穩定 ===== */
+/* ===== 桌機版：控制導覽列更接近參考圖比例 ===== */
 @media (min-width: 64em) {
   .navbar-inner {
-    min-height: 4.65rem;
+    width: min(100% - 4rem, 82rem);
+    min-height: 4.85rem;
   }
 
   .nav-menu {
-    gap: 0.75rem;
+    gap: 1.05rem;
   }
 }
 
 /* ===== 手機版：控制導覽列收合樣式 ===== */
 @media (max-width: 47.9em) {
+  .app-header {
+    background-color: rgba(255, 250, 240, 0.92);
+    border-bottom: 1px solid rgba(217, 178, 111, 0.18);
+  }
+
   .navbar-inner {
     width: min(100% - 1.5rem, 78rem);
     min-height: 4.15rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 1rem;
   }
 
@@ -794,10 +839,12 @@ button.nav-link {
     display: grid;
     gap: 0.35rem;
     padding: 0.75rem;
-    border: 1px solid rgba(217, 178, 111, 0.2);
+    border: 1px solid rgba(217, 178, 111, 0.22);
     border-radius: 1.1rem;
-    background-color: rgba(16, 40, 58, 0.98);
-    box-shadow: 0 1.25rem 3rem rgba(15, 37, 56, 0.26);
+    background-color: rgba(255, 250, 240, 0.96);
+    backdrop-filter: blur(0.9rem);
+    -webkit-backdrop-filter: blur(0.9rem);
+    box-shadow: 0 1.25rem 3rem rgba(15, 37, 56, 0.16);
     opacity: 0;
     transform: translateY(-0.4rem);
     pointer-events: none;
@@ -816,6 +863,16 @@ button.nav-link {
     width: 100%;
   }
 
+  .locale-switcher {
+    position: static;
+    width: 100%;
+  }
+
+  .nav-menu > li:has(.nav-link--login),
+  .nav-menu > li.user-menu-wrapper {
+    position: static;
+  }
+
   .nav-link,
   .user-menu-toggle,
   .locale-select {
@@ -827,19 +884,30 @@ button.nav-link {
     font-size: 0.94rem;
   }
 
-  .locale-switcher {
-    width: 100%;
-  }
-
+  .nav-link:hover,
+  .nav-link:focus-visible,
   .nav-link.router-link-active,
   .nav-link.router-link-exact-active {
     color: var(--color-primary);
-    background-color: var(--color-accent);
+    background-color: rgba(217, 178, 111, 0.12);
+    border-color: transparent;
   }
 
   .nav-link--login,
   .user-menu-toggle {
     justify-content: center;
+    color: #ffffff;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  .nav-link--login:hover,
+  .nav-link--login:focus-visible,
+  .user-menu-toggle:hover,
+  .user-menu-toggle:focus-visible {
+    color: #ffffff;
+    background-color: var(--color-primary-light);
+    border-color: var(--color-primary-light);
   }
 
   .user-menu-wrapper {
