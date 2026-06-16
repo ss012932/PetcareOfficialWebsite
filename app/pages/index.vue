@@ -1,46 +1,79 @@
 <template>
   <!-- ===== 頁面主容器：控制整個寵物醫療系統介紹網站 ===== -->
   <div class="home-page">
-    <!-- ===== HERO 首頁區塊：控制首頁主視覺與背景圖片 ===== -->
-    <section class="hero" id="home">
-      <div class="hero-shell">
-        <div class="container hero-grid">
-          <article class="hero-content">
-            <p class="hero-eyebrow">{{ t('home.heroEyebrow') }}</p>
+    <!-- ===== HERO 首頁區塊：控制首頁主視覺與右側系統示意圖 ===== -->
+<section class="hero" id="home">
+  <div class="hero-shell">
+    <div class="container hero-grid">
+      <!-- ===== HERO 左側內容：控制主標題、描述、賣點與 CTA 按鈕 ===== -->
+      <article class="hero-content">
+        <p class="hero-eyebrow">{{ t('home.heroEyebrow') }}</p>
 
-            <h1 class="hero-title">{{ t('home.heroTitle') }}</h1>
+        <h1 class="hero-title">{{ t('home.heroTitle') }}</h1>
 
-            <p class="hero-desc">
-              {{ t('home.heroDesc') }}
-            </p>
+        <p class="hero-desc">
+          {{ t('home.heroDesc') }}
+        </p>
 
-            <div class="hero-actions">
-              <!-- ===== 查看功能按鈕：導向功能介紹頁 function.vue ===== -->
-              <NuxtLink to="/function" class="btn btn-primary">
-                <Icon
-                  name="fa6-solid:table-cells-large"
-                  class="btn-icon"
-                  aria-hidden="true"
-                />
-                <span>{{ t('home.viewFeatures') }}</span>
-                <span class="btn-arrow" aria-hidden="true">›</span>
-              </NuxtLink>
+        <!-- ===== HERO 賣點標籤：控制主標下方四個重點小膠囊 ===== -->
+        <ul class="hero-badges" role="list">
+          <li>
+            <Icon name="fa6-solid:calendar-check" class="hero-badge-icon" aria-hidden="true" />
+            <span>線上預約</span>
+          </li>
 
-              <!-- ===== 查看方案按鈕：導向價格方案頁 price.vue ===== -->
-              <NuxtLink to="/price" class="btn btn-outline">
-                <Icon
-                  name="fa6-solid:tag"
-                  class="btn-icon"
-                  aria-hidden="true"
-                />
-                <span>{{ t('home.viewPlans') }}</span>
-                <span class="btn-arrow" aria-hidden="true">›</span>
-              </NuxtLink>
-            </div>
-          </article>
+          <li>
+            <Icon name="fa6-solid:file-medical" class="hero-badge-icon" aria-hidden="true" />
+            <span>電子病歷</span>
+          </li>
+
+          <li>
+            <Icon name="fa6-solid:bell" class="hero-badge-icon" aria-hidden="true" />
+            <span>健康提醒</span>
+          </li>
+
+          <li>
+            <Icon name="fa6-solid:paw" class="hero-badge-icon" aria-hidden="true" />
+            <span>收費結算</span>
+          </li>
+        </ul>
+
+        <div class="hero-actions">
+          <!-- ===== 查看功能按鈕：導向功能介紹頁 function.vue ===== -->
+          <NuxtLink to="/function" class="btn btn-primary">
+            <Icon
+              name="fa6-solid:table-cells-large"
+              class="btn-icon"
+              aria-hidden="true"
+            />
+            <span>{{ t('home.viewFeatures') }}</span>
+            <span class="btn-arrow" aria-hidden="true">›</span>
+          </NuxtLink>
+
+          <!-- ===== 查看方案按鈕：導向價格方案頁 price.vue ===== -->
+          <NuxtLink to="/price" class="btn btn-outline">
+            <Icon
+              name="fa6-solid:tag"
+              class="btn-icon"
+              aria-hidden="true"
+            />
+            <span>{{ t('home.viewPlans') }}</span>
+            <span class="btn-arrow" aria-hidden="true">›</span>
+          </NuxtLink>
         </div>
-      </div>
-    </section>
+      </article>
+
+      <!-- ===== HERO 右側圖片：控制系統儀表板與寵物示意圖 ===== -->
+      <aside class="hero-visual" aria-hidden="true">
+        <img
+          src="/assets/image/Image11.png"
+          alt=""
+          class="hero-visual-img"
+        />
+      </aside>
+    </div>
+  </div>
+</section>
 
     <!-- ===== 客戶痛點區塊：控制動物醫院常見管理問題 ===== -->
     <section class="pain-points-section" aria-label="動物醫院常見管理痛點">
@@ -345,16 +378,16 @@ useHead(() => ({
 <style scoped>
 /* ===== 色系設定：控制整個首頁的主題顏色，精品深藍 × 鼠尾草綠 × 金色 ===== */
 .home-page {
-  --color-primary: #2e4a62; /* 主色：深藍色，控制主要區塊、標題、重點按鈕 */
-  --color-primary-dark: #1f3548; /* 深主色：控制 hover、深色狀態 */
-  --color-secondary: #9cbfa7; /* 輔助色：鼠尾草綠，控制自然安心感 */
-  --color-accent: #d9b26f; /* 強調色：精品金，控制 CTA、線條、徽章 */
-  --color-bg: #f8f7f3; /* 背景色：乾淨米白，控制整體背景 */
-  --color-card: #ffffff; /* 卡片色：控制功能卡片、價格卡片背景 */
-  --color-text: #263238; /* 主要文字色：控制標題與正文 */
-  --color-muted: #6f7a80; /* 次要文字色：控制描述文字 */
-  --color-border: #e6d8bd; /* 邊框色：控制卡片與區塊邊線 */
-  --color-soft: #f3efe6; /* 柔和色：控制淡色區塊背景 */
+  --color-primary: #2e4a62;
+  --color-primary-dark: #1f3548;
+  --color-secondary: #9cbfa7;
+  --color-accent: #d9b26f;
+  --color-bg: #f8f7f3;
+  --color-card: #ffffff;
+  --color-text: #263238;
+  --color-muted: #6f7a80;
+  --color-border: #e6d8bd;
+  --color-soft: #f3efe6;
 
   color: var(--color-text);
   background-color: var(--color-bg);
@@ -383,108 +416,165 @@ useHead(() => ({
   margin-inline: auto;
 }
 
+/* ============================================================
+   HERO 區塊：改成左文案、右側 Image11.png 示意圖
+   ============================================================ */
+
 /* ===== HERO 外層：控制首頁主視覺外部區塊 ===== */
 .hero {
   position: relative;
-  padding: 0 0 1.5rem;
-  background-color: var(--color-bg);
+  padding: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(217, 178, 111, 0.18),
+      transparent 30rem
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba(155, 180, 215, 0.18),
+      transparent 28rem
+    ),
+    linear-gradient(
+      135deg,
+      #fffaf3 0%,
+      #f8f7f3 48%,
+      #fff3df 100%
+    );
 }
 
-/* ===== HERO 主視覺外框：控制手機版背景圖與底部圓弧 ===== */
+/* ===== HERO 主視覺外框：取消原本背景圖，改成左右排版 ===== */
 .hero-shell {
   position: relative;
-  min-height: clamp(34rem, 86svh, 44rem);
+  min-height: auto;
   display: flex;
   align-items: center;
   overflow: hidden;
-  border-bottom-left-radius: 50% 5%;
-  border-bottom-right-radius: 50% 5%;
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(248, 247, 243, 0.98) 0%,
-      rgba(248, 247, 243, 0.94) 58%,
-      rgba(248, 247, 243, 0.72) 100%
-    ),
-    url("/assets/image/Image1.png");
-  background-size: cover;
-  background-position: center right;
-  background-repeat: no-repeat;
+  background: transparent;
+  border-radius: 0;
 }
 
-/* ===== HERO 底部金色弧線：控制圓弧裝飾線 ===== */
+/* ===== HERO 柔和背景光暈：控制右上角淡金色氛圍 ===== */
+.hero-shell::before {
+  content: "";
+  position: absolute;
+  top: 3rem;
+  right: -8rem;
+  width: 28rem;
+  height: 28rem;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    rgba(217, 178, 111, 0.2) 0%,
+    rgba(217, 178, 111, 0.08) 38%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ===== HERO 底部淡色過渡：控制底部微光 ===== */
 .hero-shell::after {
   content: "";
   position: absolute;
-  left: -3%;
-  right: -3%;
-  bottom: 0.65rem;
-  height: 4rem;
-  border-bottom: 2px solid rgba(217, 178, 111, 0.75);
-  border-radius: 0 0 50% 50%;
+  left: -10%;
+  right: -10%;
+  bottom: -4rem;
+  height: 8rem;
+  border-radius: 50% 50% 0 0;
+  background: rgba(255, 255, 255, 0.52);
   pointer-events: none;
 }
 
-/* ===== HERO 中央小爪印：控制底部中央裝飾 ===== */
-.hero-shell::before {
-  content: "🐾";
-  position: absolute;
-  left: 50%;
-  bottom: 0.1rem;
-  transform: translateX(-50%);
-  color: var(--color-accent);
-  font-size: 1.1rem;
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* ===== HERO 排版：手機版控制文字區塊內距 ===== */
+/* ===== HERO 排版：手機優先，文字在上、圖片在下 ===== */
 .hero-grid {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
-  width: 100%;
-  min-height: clamp(34rem, 86svh, 44rem);
-  padding: 4rem 1.25rem 5rem;
+  gap: 2.25rem;
+  width: min(100% - 2rem, 1200px);
+  min-height: auto;
+  padding: 5.5rem 0 3rem;
+  margin-inline: auto;
 }
 
 /* ===== HERO 文字內容：控制左側文字區塊 ===== */
 .hero-content {
   position: relative;
   z-index: 2;
-  width: min(100%, 23rem);
+  width: min(100%, 36rem);
   max-width: 100%;
 }
 
 /* ===== HERO 小標：控制主標上方說明文字 ===== */
 .hero-eyebrow {
   color: var(--color-accent);
-  font-size: 0.9rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  margin-bottom: 0.85rem;
+  font-size: 0.86rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.95rem;
 }
 
 /* ===== HERO 標題：手機版控制首頁主標題大小 ===== */
 .hero-title {
-  color: var(--color-primary);
-  font-size: clamp(2rem, 9vw, 2.75rem);
-  line-height: 1.25;
+  color: var(--color-primary-dark);
+  font-size: clamp(2.25rem, 9vw, 3.2rem);
+  line-height: 1.18;
   font-weight: 900;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.035em;
   margin-bottom: 1.25rem;
-  text-shadow: 0 3px 10px rgba(46, 74, 98, 0.12);
+  text-shadow: 0 3px 10px rgba(46, 74, 98, 0.1);
 }
 
 /* ===== HERO 描述：控制首頁說明文字 ===== */
 .hero-desc {
-  color: rgba(38, 50, 56, 0.78);
-  font-size: 0.98rem;
+  color: rgba(38, 50, 56, 0.62);
+  font-size: 1rem;
   line-height: 1.9;
   letter-spacing: 0.03em;
-  max-width: 42rem;
-  margin-bottom: 1.75rem;
-  font-weight: 600;
+  max-width: 36rem;
+  margin-bottom: 1.4rem;
+  font-weight: 700;
+}
+
+/* ===== HERO 賣點標籤：手機版兩欄排列 ===== */
+.hero-badges {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  max-width: 32rem;
+  padding: 0;
+  margin: 0 0 1.75rem;
+}
+
+/* ===== HERO 單一賣點：控制膠囊樣式 ===== */
+.hero-badges li {
+  min-width: 0;
+  min-height: 2.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0 0.85rem;
+  border-radius: 999px;
+  color: rgba(46, 74, 98, 0.82);
+  background-color: rgba(255, 255, 255, 0.68);
+  box-shadow: 0 0.65rem 1.5rem rgba(38, 50, 56, 0.06);
+  font-size: 0.88rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* ===== HERO 賣點 icon：控制膠囊左側圖示 ===== */
+.hero-badge-icon {
+  width: 0.95rem;
+  height: 0.95rem;
+  color: var(--color-accent);
+  flex-shrink: 0;
 }
 
 /* ===== HERO 按鈕區：手機版控制按鈕上下排列 ===== */
@@ -504,8 +594,8 @@ useHead(() => ({
   gap: 0.55rem;
   width: 100%;
   max-width: 18rem;
-  min-height: 3.25rem;
-  padding: 0 1.15rem;
+  min-height: 3.35rem;
+  padding: 0 1.25rem;
   border-radius: 999px;
   font-weight: 900;
   font-size: 0.98rem;
@@ -514,64 +604,64 @@ useHead(() => ({
   transition: 0.2s ease;
 }
 
-/* ===== 按鈕 icon：手機版控制按鈕左側圖示樣式 ===== */
+/* ===== 按鈕 icon：控制按鈕左側圖示樣式 ===== */
 .btn-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.65rem;
-  height: 1.65rem;
-  color: var(--color-accent);
-  border: 1.5px solid var(--color-accent);
-  border-radius: 0.35rem;
-  padding: 0.25rem;
+  width: 1.55rem;
+  height: 1.55rem;
+  color: currentColor;
+  border: none;
+  border-radius: 0;
+  padding: 0;
   flex-shrink: 0;
 }
 
 /* ===== 按鈕箭頭：控制按鈕右側箭頭 ===== */
 .btn-arrow {
-  color: var(--color-accent);
-  font-size: 1.55rem;
+  font-size: 1.45rem;
   line-height: 1;
   margin-left: 0.1rem;
 }
 
-/* ===== 主要按鈕：控制深藍金框按鈕 ===== */
+/* ===== 主要按鈕：控制深藍實心按鈕 ===== */
 .btn-primary {
   color: #ffffff;
-  background: linear-gradient(
-    135deg,
-    var(--color-primary) 0%,
-    var(--color-primary-dark) 100%
-  );
-  border: 2px solid var(--color-accent);
-  box-shadow:
-    0 14px 32px rgba(31, 53, 72, 0.24),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-}
-
-/* ===== 主要按鈕滑過：控制深藍金框按鈕互動效果 ===== */
-.btn-primary:hover {
   background: linear-gradient(
     135deg,
     var(--color-primary-dark) 0%,
     #0f2538 100%
   );
+  border: 1px solid rgba(31, 53, 72, 0.92);
+  box-shadow:
+    0 16px 34px rgba(31, 53, 72, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* ===== 主要按鈕滑過：控制深藍按鈕互動效果 ===== */
+.btn-primary:hover {
+  background: linear-gradient(
+    135deg,
+    #0f2538 0%,
+    var(--color-primary-dark) 100%
+  );
   transform: translateY(-2px);
 }
 
-/* ===== 外框按鈕：控制白底金框按鈕 ===== */
+/* ===== 外框按鈕：控制白底深藍外框按鈕 ===== */
 .btn-outline {
-  color: var(--color-primary);
-  background-color: rgba(255, 255, 255, 0.78);
-  border: 2px solid var(--color-accent);
-  box-shadow: 0 12px 28px rgba(38, 50, 56, 0.1);
+  color: var(--color-primary-dark);
+  background-color: rgba(255, 255, 255, 0.64);
+  border: 1.5px solid rgba(31, 53, 72, 0.42);
+  box-shadow: 0 12px 28px rgba(38, 50, 56, 0.08);
 }
 
-/* ===== 外框按鈕滑過：控制白底金框按鈕互動效果 ===== */
+/* ===== 外框按鈕滑過：控制白底深藍外框互動效果 ===== */
 .btn-outline:hover {
   color: var(--color-primary-dark);
-  background-color: var(--color-soft);
+  background-color: rgba(255, 255, 255, 0.92);
+  border-color: rgba(31, 53, 72, 0.72);
   transform: translateY(-2px);
 }
 
@@ -585,6 +675,23 @@ useHead(() => ({
 /* ===== 次要按鈕滑過：控制 CTA 按鈕互動 ===== */
 .btn-secondary:hover {
   transform: translateY(-2px);
+}
+
+/* ===== HERO 右側圖片區：手機版顯示在文字下方 ===== */
+.hero-visual {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 38rem);
+  margin-inline: auto;
+}
+
+/* ===== HERO 右側圖片：控制 Image11.png 完整顯示，不裁切 ===== */
+.hero-visual-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 2rem 3.5rem rgba(15, 37, 56, 0.08));
 }
 
 /* ===== 客戶痛點區塊：手機版控制痛點區塊背景與間距 ===== */
@@ -1516,7 +1623,6 @@ useHead(() => ({
 
 /* ============================================================
    平板版：768px 以上
-   重點：增加留白、部分區塊開始變成二欄或卡片排列
    ============================================================ */
 @media (min-width: 48em) {
   /* ===== 平板版容器：控制左右留白 ===== */
@@ -1533,21 +1639,17 @@ useHead(() => ({
     padding-block: 5rem;
   }
 
-  /* ===== 平板版 HERO：高度稍微放大，讓主視覺更完整 ===== */
-  .hero-shell {
-    min-height: clamp(38rem, 78svh, 48rem);
-    background-position: center right;
-  }
-
-  /* ===== 平板版 HERO 內容：控制文字區塊高度與內距 ===== */
+  /* ===== 平板版 HERO：左右排版開始成形 ===== */
   .hero-grid {
-    min-height: clamp(38rem, 78svh, 48rem);
-    padding: 5rem 0 6rem;
+    width: min(100% - 3rem, 1200px);
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 2rem;
+    padding: 6.25rem 0 4rem;
   }
 
-  /* ===== 平板版 HERO 文字寬度：控制標題與描述行長 ===== */
+  /* ===== 平板版 HERO 左側內容：控制文字寬度 ===== */
   .hero-content {
-    width: min(100%, 32rem);
+    width: min(100%, 34rem);
   }
 
   /* ===== 平板版 HERO 按鈕：由上下排列改成橫向排列 ===== */
@@ -1563,6 +1665,19 @@ useHead(() => ({
     max-width: none;
     min-height: 3.45rem;
     padding-inline: 1.35rem;
+  }
+
+  /* ===== 平板版 HERO 賣點：改成四個一排 ===== */
+  .hero-badges {
+    grid-template-columns: repeat(4, auto);
+    justify-content: start;
+    gap: 0.75rem;
+  }
+
+  /* ===== 平板版右側圖片：放大儀表板示意圖 ===== */
+  .hero-visual {
+    width: min(100%, 43rem);
+    justify-self: end;
   }
 
   /* ===== 平板版痛點區塊：控制內容間距 ===== */
@@ -1661,78 +1776,144 @@ useHead(() => ({
   .pricing-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
+  .hero-visual {
+    position: relative;
+    isolation: isolate;
+    padding: 0;
+    overflow: visible;
+  }
+
+  /* ===== Hero 圖片底層柔光：淡化圖片外框邊界 ===== */
+  .hero-visual::before {
+    content: "";
+    position: absolute;
+    inset: 8% 4% 2%;
+    z-index: -1;
+    border-radius: 3rem;
+    background:
+      radial-gradient(
+        circle at 70% 45%,
+        rgba(217, 178, 111, 0.22),
+        transparent 58%
+      ),
+      radial-gradient(
+        circle at 35% 65%,
+        rgba(255, 255, 255, 0.8),
+        transparent 62%
+      );
+    filter: blur(2.25rem);
+    opacity: 0.9;
+    pointer-events: none;
+  }
+
+  /* ===== Hero 右側圖片：用遮罩淡出圖片邊緣，避免方形邊框太生硬 ===== */
+  .hero-visual-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    border-radius: 1.5rem;
+    filter:
+      drop-shadow(0 2rem 3.5rem rgba(15, 37, 56, 0.08))
+      saturate(1.02);
+
+    /* Safari / Chrome 用這段 */
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 8%, #000 92%, transparent 100%);
+
+    -webkit-mask-composite: source-in;
+
+    /* Firefox / 標準語法備援 */
+    mask-image:
+      linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 8%, #000 92%, transparent 100%);
+    mask-composite: intersect;
+  }
 }
 
 /* ============================================================
-   小桌機版：1024px 以上
-   重點：Hero 左文右圖感、痛點左右欄、流程水平排列
+   桌機版：1024px 以上
    ============================================================ */
 @media (min-width: 64em) {
-  /* ===== 桌機版 HERO：控制整體高度與底部間距 ===== */
+   .hero-visual {
+    width: min(100%, 50rem);
+    justify-self: end;
+    transform: translate(1.25rem, 0.25rem);
+  }
+
+  .hero-visual-img {
+    opacity: 0.98;
+  }
+  /* ===== 桌機版 HERO：控制整體高度與留白 ===== */
   .hero {
-    padding-bottom: 2rem;
+    padding-bottom: 0;
   }
 
-  /* ===== 桌機版 HERO 背景：改成左側文字清楚、右側圖片顯示 ===== */
+  /* ===== 桌機版 HERO 外框：接近參考圖的寬版 Hero ===== */
   .hero-shell {
-    min-height: calc(100svh - 4.5rem);
-    border-bottom-left-radius: 50% 10%;
-    border-bottom-right-radius: 50% 10%;
-    background-image:
-      linear-gradient(
-        90deg,
-        rgba(248, 247, 243, 0.98) 0%,
-        rgba(248, 247, 243, 0.92) 34%,
-        rgba(248, 247, 243, 0.52) 58%,
-        rgba(248, 247, 243, 0.08) 100%
-      ),
-      url("/assets/image/Image1.png");
-    background-position: center right;
+    min-height: 42rem;
   }
 
-  /* ===== 桌機版 HERO 排版：左側文字固定寬度 ===== */
+  /* ===== 桌機版 HERO 排版：左文字、右示意圖 ===== */
   .hero-grid {
-    grid-template-columns: minmax(0, 42rem);
-    min-height: calc(100svh - 4.5rem);
-    padding: 6rem 0 7rem;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: 3rem;
+    min-height: 42rem;
+    padding: 6.75rem 0 4.25rem;
   }
 
-  /* ===== 桌機版 HERO 文字：增加寬度，讓標題更大器 ===== */
+  /* ===== 桌機版 HERO 文字：控制左側文案區寬度 ===== */
   .hero-content {
-    width: min(100%, 42rem);
+    width: min(100%, 38rem);
+  }
+
+  /* ===== 桌機版 HERO 小標：接近參考圖金色小標 ===== */
+  .hero-eyebrow {
+    font-size: 0.92rem;
+    letter-spacing: 0.12em;
+    margin-bottom: 1rem;
   }
 
   /* ===== 桌機版 HERO 標題：桌機字級加大但限制上限 ===== */
   .hero-title {
-    font-size: clamp(2.7rem, 4vw, 3.8rem);
-    line-height: 1.18;
-    letter-spacing: 0.05em;
+    font-size: clamp(2.9rem, 3.6vw, 4rem);
+    line-height: 1.2;
+    letter-spacing: 0.04em;
   }
 
   /* ===== 桌機版 HERO 描述：提升閱讀性 ===== */
   .hero-desc {
-    font-size: 1.08rem;
+    font-size: 1.05rem;
     line-height: 1.9;
-    max-width: 38rem;
+    max-width: 36rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ===== 桌機版右側圖片：控制 Image11.png 大小與位置 ===== */
+  .hero-visual {
+    width: min(100%, 48rem);
+    justify-self: end;
+    transform: translateY(0.5rem);
   }
 
   /* ===== 桌機版按鈕：尺寸略放大 ===== */
   .btn {
-    min-height: 3.65rem;
-    padding-inline: 1.45rem;
+    min-height: 3.55rem;
+    padding-inline: 1.55rem;
     font-size: 1rem;
   }
 
   /* ===== 桌機版按鈕 icon：控制尺寸 ===== */
   .btn-icon {
-    width: 1.85rem;
-    height: 1.85rem;
-    font-size: 0.95rem;
+    width: 1.1rem;
+    height: 1.1rem;
   }
 
   /* ===== 桌機版按鈕箭頭：控制尺寸 ===== */
   .btn-arrow {
-    font-size: 1.7rem;
+    font-size: 1.55rem;
   }
 
   /* ===== 桌機版痛點區塊：拉開上下距離 ===== */
@@ -1982,9 +2163,12 @@ useHead(() => ({
 
 /* ============================================================
    大桌機版：1280px 以上
-   重點：限制超寬螢幕，不讓內容過度拉開
    ============================================================ */
 @media (min-width: 80em) {
+   .hero-visual {
+    width: min(100%, 53rem);
+    transform: translate(1.75rem, 0.25rem);
+  }
   /* ===== 大桌機容器：首頁主要內容最大寬度 ===== */
   .container {
     width: min(100% - 5rem, 1200px);
@@ -2013,12 +2197,41 @@ useHead(() => ({
 
   /* ===== 大桌機 HERO 標題：限制最大尺寸，避免 1440 以上過大 ===== */
   .hero-title {
-    font-size: clamp(3rem, 3.6vw, 4rem);
+    font-size: clamp(3.2rem, 3.4vw, 4.15rem);
+  }
+
+  /* ===== 大桌機 HERO 右側圖片：放大但不超出畫面 ===== */
+  .hero-visual {
+    width: min(100%, 52rem);
   }
 
   /* ===== 大桌機流程標題：限制最大尺寸 ===== */
   .workflow-step h3 {
     font-size: clamp(1.9rem, 2vw, 2.45rem);
+  }
+}
+
+/* ============================================================
+   Hero 右側圖片修正
+   1. 手機版隱藏圖片
+   2. 桌機版讓 Image11.png 邊緣與背景融合
+   ============================================================ */
+
+/* ===== 手機版 Hero：隱藏右側示意圖，只保留文字與按鈕 ===== */
+@media (max-width: 47.99em) {
+  .hero-visual {
+    display: none;
+  }
+
+  /* ===== 手機版 Hero 排版：圖片隱藏後，縮短下方空白 ===== */
+  .hero-grid {
+    gap: 0;
+    padding: 5.5rem 0 4rem;
+  }
+
+  /* ===== 手機版 Hero 內容：避免文字區太窄 ===== */
+  .hero-content {
+    width: min(100%, 34rem);
   }
 }
 
@@ -2038,86 +2251,6 @@ useHead(() => ({
   .pain-points-link:hover {
     transition: none;
     transform: none;
-  }
-}
-
-/* ============================================================
-   平板 / 小筆電 Hero 修正
-   解決背景圖在平板尺寸下被白色遮罩蓋住太多的問題
-   ============================================================ */
-
-/* ===== 平板版 Hero：768px ~ 1023px，讓背景圖清楚露出 ===== */
-@media (min-width: 48em) and (max-width: 63.99em) {
-  /* ===== Hero 外框：控制平板版背景圖位置與遮罩濃度 ===== */
-  .hero-shell {
-    min-height: 42rem;
-
-    background-image:
-      linear-gradient(
-        90deg,
-        rgba(248, 247, 243, 0.98) 0%,
-        rgba(248, 247, 243, 0.9) 38%,
-        rgba(248, 247, 243, 0.58) 62%,
-        rgba(248, 247, 243, 0.22) 100%
-      ),
-      url("/assets/image/Image1.png");
-
-    background-size: auto 100%;
-    background-position: right bottom;
-    background-repeat: no-repeat;
-  }
-
-  /* ===== Hero 內容：控制文字不要壓到圖片中央 ===== */
-  .hero-grid {
-    min-height: 42rem;
-    padding: 5rem 0 6rem;
-  }
-
-  /* ===== Hero 文字：限制寬度，避免文字吃掉太多畫面 ===== */
-  .hero-content {
-    width: min(100%, 30rem);
-  }
-
-  /* ===== Hero 標題：平板版稍微縮小，避免佔太多橫向空間 ===== */
-  .hero-title {
-    font-size: clamp(2.4rem, 5vw, 3.2rem);
-    line-height: 1.18;
-  }
-
-  /* ===== Hero 描述：限制寬度，讓右側圖片有空間顯示 ===== */
-  .hero-desc {
-    max-width: 30rem;
-  }
-}
-
-
-/* ===== 小桌機版 Hero：1024px ~ 1279px，避免圖片仍然太淡 ===== */
-@media (min-width: 64em) and (max-width: 79.99em) {
-  /* ===== Hero 外框：小桌機版降低右側遮罩，讓寵物圖更明顯 ===== */
-  .hero-shell {
-    background-image:
-      linear-gradient(
-        90deg,
-        rgba(248, 247, 243, 0.98) 0%,
-        rgba(248, 247, 243, 0.9) 32%,
-        rgba(248, 247, 243, 0.48) 55%,
-        rgba(248, 247, 243, 0.12) 100%
-      ),
-      url("/assets/image/Image1.png");
-
-    background-size: auto 100%;
-    background-position: right bottom;
-    background-repeat: no-repeat;
-  }
-
-  /* ===== Hero 文字：小桌機不要太寬，避免壓到圖片主體 ===== */
-  .hero-content {
-    width: min(100%, 38rem);
-  }
-
-  /* ===== Hero 描述：限制行寬，讓背景圖右側保留空間 ===== */
-  .hero-desc {
-    max-width: 34rem;
   }
 }
 </style>
