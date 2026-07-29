@@ -94,7 +94,9 @@
       "orders": "Order Details",
       "profile": "Profile Settings",
       "staff": "Staff Management",
-      "stores": "Branch Settings"
+      "stores": "Branch Settings",
+      "shifts": "Shift Scheduling",
+      "attendance": "Attendance Management"
     }
   },
   "home": {
@@ -491,16 +493,50 @@
       "p1": "The Service is a digital management platform exclusively for veterinary organizations. The scope of features depends on the plan purchased. Plan names, pricing, duration, features, and applicable targets are as stated on the purchase page, quotation, order, or mutually confirmed plan documents.",
       "starterTitle": "(1) Starter Plan",
       "starterDesc": "Designed for single-location small clinics to establish a basic digital management workflow.",
-      "starterItems": ["Brand and clinic profile management", "Pet owner management", "Pet profile management", "Basic appointment scheduling", "Basic consultation records", "Basic dashboard metrics"],
+      "starterItems": [
+        "Brand and clinic profile management",
+        "Pet owner management",
+        "Pet profile management",
+        "Basic appointment scheduling",
+        "Basic consultation records",
+        "Basic dashboard metrics"
+      ],
       "teamTitle": "(2) Team Plan",
       "teamDesc": "Designed for general veterinary hospitals with multiple staff. Includes core features plus HR, accounts, permissions, and shift scheduling.",
-      "teamItems": ["Everything in Starter", "Billing record management", "HR module", "Staff account management", "Role and permission control", "Staff shift scheduling", "Basic operations reports"],
+      "teamItems": [
+        "Everything in Starter",
+        "Billing record management",
+        "HR module",
+        "Staff account management",
+        "Role and permission control",
+        "Staff shift scheduling",
+        "Basic operations reports"
+      ],
       "businessTitle": "(3) Business Plan",
       "businessDesc": "Designed for mid-to-large veterinary hospitals. Includes Team Plan features plus inpatient care, procurement, general inventory, and advanced reporting.",
-      "businessItems": ["Everything in Team Plan", "Inpatient care management", "Inpatient record management", "Procurement management", "General inventory management", "Examination record management", "Client follow-up reminders", "Advanced reporting"],
+      "businessItems": [
+        "Everything in Team Plan",
+        "Inpatient care management",
+        "Inpatient record management",
+        "Procurement management",
+        "General inventory management",
+        "Examination record management",
+        "Client follow-up reminders",
+        "Advanced reporting"
+      ],
       "scaleTitle": "(4) Scale Plan",
       "scaleDesc": "Designed for veterinary chains or brands needing advanced operations. Includes Business Plan features plus multi-branch, cross-branch data, pharmacy inventory, and advanced controls.",
-      "scaleItems": ["Everything in Business Plan", "Multi-branch management", "Cross-branch data management", "Pharmacy inventory management", "Pharmacy operations management", "Lot and expiry-date tracking", "Cross-branch stock lookup", "Advanced permission control", "Operational management reports"],
+      "scaleItems": [
+        "Everything in Business Plan",
+        "Multi-branch management",
+        "Cross-branch data management",
+        "Pharmacy inventory management",
+        "Pharmacy operations management",
+        "Lot and expiry-date tracking",
+        "Cross-branch stock lookup",
+        "Advanced permission control",
+        "Operational management reports"
+      ],
       "highlight": "You acknowledge that actual features, pricing, promotions, duration, add-ons, and activation scope are governed by the platform display content at time of purchase, order records, quotation, or mutually confirmed written content.",
       "p2": "The platform may modify, add, remove, or rename plan features based on operational planning, system versioning, technical constraints, or service adjustments. Plans for which payment is completed and the subscription is still active will continue as confirmed at time of purchase, unless otherwise agreed."
     },
@@ -515,7 +551,13 @@
       "p1": "The Service may involve pet owner data, pet profiles, appointment records, consultation records, examination records, medication records, billing records, inventory records, and other clinic operational data.",
       "p2": "Users must ensure all data has a lawful source and proper authorization, and must comply with the Personal Data Protection Act, healthcare regulations, and other applicable laws.",
       "p3": "Users must not input, upload, or store the following content in the Service:",
-      "items": ["Content that violates laws or public order and morals", "Content that infringes copyrights, trademarks, trade secrets, or other intellectual property rights", "Personally identifiable information obtained or used without authorization", "Malicious programs, viruses, trojans, phishing links, or other content that may compromise system security", "Data unrelated to the Service purpose that may burden the system or harm third parties"]
+      "items": [
+        "Content that violates laws or public order and morals",
+        "Content that infringes copyrights, trademarks, trade secrets, or other intellectual property rights",
+        "Personally identifiable information obtained or used without authorization",
+        "Malicious programs, viruses, trojans, phishing links, or other content that may compromise system security",
+        "Data unrelated to the Service purpose that may burden the system or harm third parties"
+      ]
     },
     "s4": {
       "title": "4. Data Retention, Backup, and Security",
@@ -526,7 +568,20 @@
     "s5": {
       "title": "5. Add-on Services",
       "p1": "The platform may offer additional paid add-on services that users may optionally purchase based on clinic needs.",
-      "items": ["Additional staff accounts", "Additional branch management features", "Advanced report analytics", "Custom field configuration", "Custom report design", "Dedicated onboarding training", "Data import and migration services", "Custom workflow configuration", "SMS, Email, or LINE notification expansion", "Cloud storage expansion", "Dedicated technical support services", "API integration or third-party system integration"],
+      "items": [
+        "Additional staff accounts",
+        "Additional branch management features",
+        "Advanced report analytics",
+        "Custom field configuration",
+        "Custom report design",
+        "Dedicated onboarding training",
+        "Data import and migration services",
+        "Custom workflow configuration",
+        "SMS, Email, or LINE notification expansion",
+        "Cloud storage expansion",
+        "Dedicated technical support services",
+        "API integration or third-party system integration"
+      ],
       "p2": "Add-on services must be used with the purchased main plan. Not all add-on items are available for all plans.",
       "p3": "Once an add-on service is purchased, activated, configured, produced, or delivered, the service is deemed to have begun. Cancellations or refunds are generally not accepted except as required by law, mutually agreed in writing, due to duplicate payment, erroneous charge, or if the platform is responsible for being unable to provide the add-on."
     },
@@ -548,7 +603,15 @@
     "s8": {
       "title": "8. User Responsibilities and Obligations",
       "p1": "Users must ensure information provided to the platform is accurate, complete, and lawful. Users are solely responsible for internal data management, staff permission settings, and the accuracy of data entered.",
-      "items": ["Must not use the Service for illegal purposes", "Must not infringe on others' rights or violate laws", "Must not interfere with, damage, or attempt to intrude into the platform's systems", "Must not reproduce, modify, reverse-engineer, or distribute platform code without authorization", "Must not send mass spam, malicious requests, or cause abnormal system load", "Must not provide accounts to unauthorized third parties", "Must independently verify accuracy of medical, pharmaceutical, billing, and inventory data entered"],
+      "items": [
+        "Must not use the Service for illegal purposes",
+        "Must not infringe on others' rights or violate laws",
+        "Must not interfere with, damage, or attempt to intrude into the platform's systems",
+        "Must not reproduce, modify, reverse-engineer, or distribute platform code without authorization",
+        "Must not send mass spam, malicious requests, or cause abnormal system load",
+        "Must not provide accounts to unauthorized third parties",
+        "Must independently verify accuracy of medical, pharmaceutical, billing, and inventory data entered"
+      ],
       "p2": "The Service is a management support tool and is not a substitute for medical diagnosis, treatment decisions, or professional medical advice. All veterinary diagnoses, treatments, medications, and care decisions must be made and carried out by licensed veterinarians or qualified professionals."
     },
     "s9": {
@@ -566,7 +629,16 @@
     "s11": {
       "title": "11. Third-Party Services",
       "p1": "The Service may integrate with or use third-party services, including but not limited to:",
-      "items": ["Cloud hosting services", "Payment gateway services", "Email delivery services", "SMS services", "LINE or other notification services", "Map services", "Domain, DNS, or SSL certificate services", "Third-party API or external system integration services"],
+      "items": [
+        "Cloud hosting services",
+        "Payment gateway services",
+        "Email delivery services",
+        "SMS services",
+        "LINE or other notification services",
+        "Map services",
+        "Domain, DNS, or SSL certificate services",
+        "Third-party API or external system integration services"
+      ],
       "p2": "The stability, pricing, policies, and availability of third-party services are subject to change by third-party providers. If platform features are affected due to third-party service anomalies, policy changes, or service discontinuation not attributable to the platform, the platform will make reasonable efforts to assist but shall not be liable for indirect damages, business losses, or anticipated profit losses."
     },
     "s12": {

@@ -21,6 +21,10 @@ const { t } = useI18n();
 
 useHead(() => ({
   titleTemplate: t("seo.member.titleTemplate"),
+  // 控制整個管理後台（包含 Teleport 彈窗與 SweetAlert2）使用一致字體。
+  bodyAttrs: {
+    class: "bo-active",
+  },
 }));
 </script>
 
@@ -42,11 +46,36 @@ useHead(() => ({
   --bo-bg: #f5f7f8;
   --bo-sidebar-w: 15rem;
 
+  /*
+   * 控制後台所有標題改用無襯線字體。
+   * 官網全域 h1～h6 原本使用襯線字體，會造成中文與數字混用時字形不一致。
+   */
+  --font-heading: var(--font-sans);
+
   display: grid;
   grid-template-columns: var(--bo-sidebar-w) minmax(0, 1fr);
   min-height: 100vh;
   color: var(--bo-text);
   background: var(--bo-bg);
+}
+
+/*
+ * ===== 管理後台全域字體 =====
+ * body class 讓 Teleport 彈窗、SweetAlert2 及未來新增元件也能套用，
+ * 不需要再針對日期、金額或數字逐一增加專用 class。
+ */
+body.bo-active {
+  --font-heading: var(--font-sans);
+  font-family: var(--font-sans);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1;
+}
+
+body.bo-active :where(h1, h2, h3, h4, h5, h6),
+body.bo-active :where(button, input, select, textarea, table, time, output) {
+  font-family: var(--font-sans);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1;
 }
 
 /* ===== 側欄 ===== */

@@ -116,6 +116,18 @@ const ALL_NAV_ITEMS: NavItem[] = [
     requiredFeature: "subscription",        // 只要有訂閱就開放
   },
   {
+    to: "/member/shifts",
+    labelKey: "page.member.shifts",
+    icon: "fa6-solid:calendar-days",
+    requiredFeature: "ShiftManagement",
+  },
+  {
+    to: "/member/attendance",
+    labelKey: "page.member.attendance",
+    icon: "fa6-solid:clipboard-user",
+    requiredFeature: "ShiftManagement",
+  },
+  {
     to: "/member/clinics",
     labelKey: "page.member.clinics",
     icon: "fa6-solid:house-medical",

@@ -94,7 +94,9 @@
       "orders": "Chi tiết đơn hàng",
       "profile": "Cài đặt hồ sơ",
       "staff": "Quản lý nhân viên",
-      "stores": "Cài đặt chi nhánh"
+      "stores": "Cài đặt chi nhánh",
+      "shifts": "Xếp lịch làm việc",
+      "attendance": "Quản lý chấm công"
     }
   },
   "home": {

@@ -273,7 +273,7 @@ const metrics = computed(() => [
     value: `${storeStats.value.totalCount} 間`,
     note: `正常營運 ${storeStats.value.activeCount} 間`,
   },
-  { icon: 'fa6-solid:tag', label: '品牌狀態', value: '啟用', note: 'IsActive = 1' },
+  { icon: 'fa6-solid:tag', label: '品牌狀態', value: '啟用', note: '目前可正常使用' },
 ])
 
 interface ShortcutItem {

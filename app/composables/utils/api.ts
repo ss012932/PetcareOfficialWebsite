@@ -37,11 +37,16 @@ apiClient.interceptors.response.use(
     const requestUrl = config?.url || "";
 
     const skipAuth401APIs = [
-      "/Login", // ⭐ 登入失敗不應該調用登出
-      "/Register", // ⭐ 註冊失敗不應該調用登出
+      "/Login", // 登入失敗不應該調用登出
+      "/Register", // 註冊失敗不應該調用登出
       "/reset-password",
       "/cart",
       "/AuthMe",
+
+      // ===== 員工公開啟用 API =====
+      // 這兩支 API 不需要會員登入；Token 無效時也不能觸發會員登出流程。
+      "/staff-auth/invite/",
+      "/staff-auth/setup-password",
     ];
 
     const shouldSkip401 = skipAuth401APIs.some((api) =>
@@ -56,7 +61,7 @@ apiClient.interceptors.response.use(
     const message = data?.message || "";
 
     // ===============================
-    // ❗ 核心：401 一律處理
+    // 401 統一處理
     // ===============================
     if (status === 401 && !isShowing401) {
       isShowing401 = true;
@@ -74,16 +79,13 @@ apiClient.interceptors.response.use(
             "warning",
           );
 
-          // ===============================
-          // 🔥 清狀態（你缺這個）
-          // ===============================
+          // ===== 清除會員端登入狀態 =====
           document.cookie =
             "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
           localStorage.removeItem("token");
           localStorage.removeItem("user");
           localStorage.removeItem("currentWeddingId");
 
-          // ⭐ 強制刷新（關鍵）
           window.location.href = "/";
         }
       } finally {
@@ -184,5 +186,30 @@ export const authAPI = {
   async emailBind(token: string) {
     const response = await apiClient.post("/email-bind", { token });
     return response.data;
+  },
+};
+
+// ===== 員工首次啟用 API =====
+// 與官網會員 reset.vue 使用的 authAPI 分開，避免混用兩種身分流程。
+export const staffInviteAPI = {
+  /**
+   * 驗證員工啟用 Token，取得員工姓名與 Email。
+   */
+  validateInvite(token: string) {
+    return apiClient.get(
+      `/staff-auth/invite/${encodeURIComponent(token)}`,
+    );
+  },
+
+  /**
+   * 員工自行設定登入帳號與密碼。
+   * 密碼會由後端 PasswordHelper 雜湊，前端不做可逆加密。
+   */
+  setupCredentials(token: string, account: string, newPassword: string) {
+    return apiClient.post("/staff-auth/setup-password", {
+      token,
+      account,
+      newPassword,
+    });
   },
 };
